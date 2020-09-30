@@ -1,0 +1,6 @@
+framework module Pods_PMS_PMSUITests {
+  umbrella header "Pods-PMS-PMSUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
