@@ -10,6 +10,13 @@
 		1F63D8BABA93A1523EC4C314 /* Pods_PMS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B6AAB3D0AD182A86A1BEE71 /* Pods_PMS.framework */; };
 		1F755EA654D6A485FF3ADC9F /* Pods_PMSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4F000409D57E4766AFCB378 /* Pods_PMSTests.framework */; };
 		8A57DC68105B5E5852C2A770 /* Pods_PMS_PMSUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C2848348D6B285E8DBE54EC /* Pods_PMS_PMSUITests.framework */; };
+		D903E5B3252A990A004F09D6 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D903E5B2252A990A004F09D6 /* LoginView.swift */; };
+		D903E5B5252A9916004F09D6 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D903E5B4252A9916004F09D6 /* LoginViewModel.swift */; };
+		D903E5B7252A9B8D004F09D6 /* PMSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D903E5B6252A9B8D004F09D6 /* PMSView.swift */; };
+		D903E5B9252A9BBF004F09D6 /* UIFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = D903E5B8252A9BBF004F09D6 /* UIFrame.swift */; };
+		D903E5CB252AA31A004F09D6 /* ExViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = D903E5CA252AA31A004F09D6 /* ExViews.swift */; };
+		D928A7D8252AAF4800FD6CB2 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D928A7D7252AAF4700FD6CB2 /* SignUpViewModel.swift */; };
+		D928A7DA252AAFB900FD6CB2 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D928A7D9252AAFB900FD6CB2 /* Validation.swift */; };
 		D94AC77C2524D2D0002CCB3A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94AC77B2524D2D0002CCB3A /* AppDelegate.swift */; };
 		D94AC77E2524D2D0002CCB3A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94AC77D2524D2D0002CCB3A /* SceneDelegate.swift */; };
 		D94AC7802524D2D0002CCB3A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94AC77F2524D2D0002CCB3A /* ContentView.swift */; };
@@ -45,6 +52,13 @@
 		7F79DC1AAD2D755376E03DE6 /* Pods-PMS-PMSUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PMS-PMSUITests.release.xcconfig"; path = "Target Support Files/Pods-PMS-PMSUITests/Pods-PMS-PMSUITests.release.xcconfig"; sourceTree = "<group>"; };
 		D4F000409D57E4766AFCB378 /* Pods_PMSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PMSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D897394764333B2329DD2A97 /* Pods-PMSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PMSTests.release.xcconfig"; path = "Target Support Files/Pods-PMSTests/Pods-PMSTests.release.xcconfig"; sourceTree = "<group>"; };
+		D903E5B2252A990A004F09D6 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		D903E5B4252A9916004F09D6 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		D903E5B6252A9B8D004F09D6 /* PMSView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PMSView.swift; sourceTree = "<group>"; };
+		D903E5B8252A9BBF004F09D6 /* UIFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFrame.swift; sourceTree = "<group>"; };
+		D903E5CA252AA31A004F09D6 /* ExViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExViews.swift; sourceTree = "<group>"; };
+		D928A7D7252AAF4700FD6CB2 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
+		D928A7D9252AAFB900FD6CB2 /* Validation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
 		D94AC7782524D2D0002CCB3A /* PMS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PMS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D94AC77B2524D2D0002CCB3A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D94AC77D2524D2D0002CCB3A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -114,6 +128,76 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		D903E5AE252A9678004F09D6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D903E5B0252A968D004F09D6 /* Mypage */,
+				D903E5C4252AA2AA004F09D6 /* Calendar */,
+				D903E5C5252AA2AE004F09D6 /* Meal */,
+				D903E5C8252AA2C4004F09D6 /* Introduce */,
+				D903E5C6252AA2B5004F09D6 /* Notice */,
+				D903E5B1252A98FF004F09D6 /* Login */,
+				D94AC77F2524D2D0002CCB3A /* ContentView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		D903E5AF252A967C004F09D6 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				D903E5B8252A9BBF004F09D6 /* UIFrame.swift */,
+				D903E5CA252AA31A004F09D6 /* ExViews.swift */,
+				D928A7D9252AAFB900FD6CB2 /* Validation.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		D903E5B0252A968D004F09D6 /* Mypage */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Mypage;
+			sourceTree = "<group>";
+		};
+		D903E5B1252A98FF004F09D6 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				D903E5B2252A990A004F09D6 /* LoginView.swift */,
+				D903E5B4252A9916004F09D6 /* LoginViewModel.swift */,
+				D903E5B6252A9B8D004F09D6 /* PMSView.swift */,
+				D928A7D7252AAF4700FD6CB2 /* SignUpViewModel.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		D903E5C4252AA2AA004F09D6 /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Calendar;
+			sourceTree = "<group>";
+		};
+		D903E5C5252AA2AE004F09D6 /* Meal */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Meal;
+			sourceTree = "<group>";
+		};
+		D903E5C6252AA2B5004F09D6 /* Notice */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Notice;
+			sourceTree = "<group>";
+		};
+		D903E5C8252AA2C4004F09D6 /* Introduce */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Introduce;
+			sourceTree = "<group>";
+		};
 		D94AC76F2524D2D0002CCB3A = {
 			isa = PBXGroup;
 			children = (
@@ -139,9 +223,10 @@
 		D94AC77A2524D2D0002CCB3A /* PMS */ = {
 			isa = PBXGroup;
 			children = (
+				D903E5AF252A967C004F09D6 /* Extensions */,
+				D903E5AE252A9678004F09D6 /* View */,
 				D94AC77B2524D2D0002CCB3A /* AppDelegate.swift */,
 				D94AC77D2524D2D0002CCB3A /* SceneDelegate.swift */,
-				D94AC77F2524D2D0002CCB3A /* ContentView.swift */,
 				D94AC7812524D2D3002CCB3A /* Assets.xcassets */,
 				D94AC7862524D2D3002CCB3A /* LaunchScreen.storyboard */,
 				D94AC7892524D2D3002CCB3A /* Info.plist */,
@@ -399,6 +484,13 @@
 			files = (
 				D94AC77C2524D2D0002CCB3A /* AppDelegate.swift in Sources */,
 				D94AC77E2524D2D0002CCB3A /* SceneDelegate.swift in Sources */,
+				D903E5B3252A990A004F09D6 /* LoginView.swift in Sources */,
+				D903E5CB252AA31A004F09D6 /* ExViews.swift in Sources */,
+				D928A7D8252AAF4800FD6CB2 /* SignUpViewModel.swift in Sources */,
+				D903E5B7252A9B8D004F09D6 /* PMSView.swift in Sources */,
+				D903E5B5252A9916004F09D6 /* LoginViewModel.swift in Sources */,
+				D903E5B9252A9BBF004F09D6 /* UIFrame.swift in Sources */,
+				D928A7DA252AAFB900FD6CB2 /* Validation.swift in Sources */,
 				D94AC7802524D2D0002CCB3A /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
