@@ -24,21 +24,23 @@ class SignupViewModel: ObservableObject {
 
     private var cancellableBag = Set<AnyCancellable>()
 
-    @Published var email: String = ""
+    @Published var id: String = ""
     @Published var password: String = ""
+    @Published var nickname: String = ""
     @Published var confirmPassword: String = ""
     @Published var inputImage: UIImage?
 
     @Published var statusViewModel: StatusViewModel = StatusViewModel(title: "")
 
-    @Published var emailError: String? = ""
+    @Published var idError: Bool = false
+    @Published var idErrorMsg: String? = ""
     @Published var passwordError: String? = ""
     @Published var confirmPasswordError: String? = ""
     @Published var enableSignUp: Bool = false
 
     private var emailValidPublisher: AnyPublisher<EmailValidation, Never> {
 
-        $email
+        $id
             .removeDuplicates()
             .debounce(for: 0.5, scheduler: RunLoop.main)
             .map { email in
@@ -102,8 +104,8 @@ class SignupViewModel: ObservableObject {
         emailValidPublisher
             .receive(on: RunLoop.main)
             .dropFirst()
-            .sink { (_emailError) in
-                self.emailError = _emailError.errorMessage
+            .sink { (_idErrorMsg) in
+                self.idErrorMsg = _idErrorMsg.errorMessage
         }
         .store(in: &cancellableBag)
 

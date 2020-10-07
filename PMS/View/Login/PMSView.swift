@@ -10,14 +10,20 @@ import SwiftUI
 
 struct PMSView: View {
     var body: some View {
-        VStack(spacing: UIFrame.UIWidth / 3) {
-            Image("PMS")
-            VStack(spacing: 30) {
-                ButtonView(text: "로그인", color: "Blue")
-                ButtonView(text: "회원가입", color: "Red")
+        NavigationView {
+            VStack(spacing: UIFrame.UIWidth / 3) {
+                Image("PMS")
+                VStack(spacing: 30) {
+                    NavigationLink(destination: LoginView()) {
+                        ButtonView(text: "로그인", color: "Blue")
+                    }
+                    NavigationLink(destination: SignupView()) {
+                        ButtonView(text: "회원가입", color: "Red")
+                    }
+                }
             }
-            
-        }
+            .navigationBarTitle("PMS", displayMode: .inline)
+        }.accentColor(.black)
     }
 }
 

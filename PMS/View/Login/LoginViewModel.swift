@@ -12,4 +12,7 @@ class LoginViewModel: ObservableObject {
     @Published var id = ""
     @Published var password = ""
     @Published var isAuto = false
+    @Published var isHidden = true
+    @Published var errorMsg = ""
+    @Published var isAlert = false
 }

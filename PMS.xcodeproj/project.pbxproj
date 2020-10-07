@@ -17,6 +17,7 @@
 		D903E5CB252AA31A004F09D6 /* ExViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = D903E5CA252AA31A004F09D6 /* ExViews.swift */; };
 		D928A7D8252AAF4800FD6CB2 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D928A7D7252AAF4700FD6CB2 /* SignUpViewModel.swift */; };
 		D928A7DA252AAFB900FD6CB2 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D928A7D9252AAFB900FD6CB2 /* Validation.swift */; };
+		D92A5CA5252DD98000872B4C /* SFSymbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92A5CA4252DD98000872B4C /* SFSymbols.swift */; };
 		D94AC77C2524D2D0002CCB3A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94AC77B2524D2D0002CCB3A /* AppDelegate.swift */; };
 		D94AC77E2524D2D0002CCB3A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94AC77D2524D2D0002CCB3A /* SceneDelegate.swift */; };
 		D94AC7802524D2D0002CCB3A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94AC77F2524D2D0002CCB3A /* ContentView.swift */; };
@@ -37,6 +38,7 @@
 		D9A15011252AC63900AD501A /* StoryboardtoUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A15010252AC63800AD501A /* StoryboardtoUI.swift */; };
 		D9A15013252AC63B00AD501A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A15012252AC63B00AD501A /* ViewController.swift */; };
 		D9A15015252AC69200AD501A /* UIColorRgb.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A15014252AC69200AD501A /* UIColorRgb.swift */; };
+		D9A1501B252B29B800AD501A /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A1501A252B29B800AD501A /* CalendarView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +73,7 @@
 		D903E5CA252AA31A004F09D6 /* ExViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExViews.swift; sourceTree = "<group>"; };
 		D928A7D7252AAF4700FD6CB2 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		D928A7D9252AAFB900FD6CB2 /* Validation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
+		D92A5CA4252DD98000872B4C /* SFSymbols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFSymbols.swift; sourceTree = "<group>"; };
 		D94AC7782524D2D0002CCB3A /* PMS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PMS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D94AC77B2524D2D0002CCB3A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D94AC77D2524D2D0002CCB3A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -97,6 +100,7 @@
 		D9A15010252AC63800AD501A /* StoryboardtoUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardtoUI.swift; sourceTree = "<group>"; };
 		D9A15012252AC63B00AD501A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		D9A15014252AC69200AD501A /* UIColorRgb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorRgb.swift; sourceTree = "<group>"; };
+		D9A1501A252B29B800AD501A /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		F1725CD0E5983DECD875E0AD /* Pods-PMS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PMS.release.xcconfig"; path = "Target Support Files/Pods-PMS/Pods-PMS.release.xcconfig"; sourceTree = "<group>"; };
 		FF4EF3541F2F70DDA89482A6 /* Pods-PMS-PMSUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PMS-PMSUITests.debug.xcconfig"; path = "Target Support Files/Pods-PMS-PMSUITests/Pods-PMS-PMSUITests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -172,6 +176,7 @@
 			children = (
 				D903E5B8252A9BBF004F09D6 /* UIFrame.swift */,
 				D928A7D9252AAFB900FD6CB2 /* Validation.swift */,
+				D92A5CA4252DD98000872B4C /* SFSymbols.swift */,
 				D9A15014252AC69200AD501A /* UIColorRgb.swift */,
 			);
 			path = Extensions;
@@ -201,6 +206,7 @@
 		D903E5C4252AA2AA004F09D6 /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
+				D9A1501A252B29B800AD501A /* CalendarView.swift */,
 				D9A1500D252AC62F00AD501A /* Calendar */,
 			);
 			path = Calendar;
@@ -563,12 +569,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D92A5CA5252DD98000872B4C /* SFSymbols.swift in Sources */,
 				D9A14FFE252AC15000AD501A /* NoticeView.swift in Sources */,
 				D9A15008252AC5DC00AD501A /* MypageView.swift in Sources */,
 				D94AC77C2524D2D0002CCB3A /* AppDelegate.swift in Sources */,
 				D94AC77E2524D2D0002CCB3A /* SceneDelegate.swift in Sources */,
 				D903E5B3252A990A004F09D6 /* LoginView.swift in Sources */,
 				D9A15000252AC15900AD501A /* NoticeViewModel.swift in Sources */,
+				D9A1501B252B29B800AD501A /* CalendarView.swift in Sources */,
 				D903E5CB252AA31A004F09D6 /* ExViews.swift in Sources */,
 				D928A7D8252AAF4800FD6CB2 /* SignUpViewModel.swift in Sources */,
 				D903E5B7252A9B8D004F09D6 /* PMSView.swift in Sources */,

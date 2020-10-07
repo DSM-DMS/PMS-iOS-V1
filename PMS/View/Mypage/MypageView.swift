@@ -10,12 +10,83 @@ import SwiftUI
 
 struct MypageView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        GeometryReader { _ in
+            ZStack {
+                VStack {
+                    Color("Blue").frame(height: UIFrame.UIHeight / 4)
+                }.edgesIgnoringSafeArea(.top)
+                VStack(spacing: 20) {
+                    MypageTopView()
+                    
+                    TwoScoreView()
+                    
+                    RoundedRectangle(cornerRadius: 30).foregroundColor(Color("Blue")).frame(height: 30)
+                }.padding([.leading, .trailing])
+            }
+            VStack {
+                Text("")
+            }
+        }
     }
 }
 
 struct MypageView_Previews: PreviewProvider {
     static var previews: some View {
-        MypageView()
+        Group {
+            MypageView()
+                .previewDevice(PreviewDevice(rawValue: "iPhone XS Max"))
+                .previewDisplayName("iPhone XS Max")
+            MypageView()
+                .previewDevice(PreviewDevice(rawValue: "iPhone 8"))
+                .previewDisplayName("iPhone 8")
+        }
+    }
+}
+
+struct ScoreView: View {
+    var body: some View {
+        RoundedRectangle(cornerRadius: 10).foregroundColor(Color("LightGray")).shadow(radius: 10).frame(width: UIFrame.UIWidth / 2 - 50, height: UIFrame.UIHeight / 10)
+    }
+}
+
+struct TwoScoreView: View {
+    var body: some View {
+        HStack(spacing: 30) {
+            ZStack {
+                ScoreView()
+                VStack {
+                    Text("00")
+                        .font(.title)
+                    Text("상점")
+                        .foregroundColor(.red)
+                }
+            }
+            ZStack {
+                ScoreView()
+                VStack {
+                    Text("00")
+                        .font(.title)
+                    Text("벌점")
+                        .foregroundColor(.red)
+                }
+            }
+        }
+    }
+}
+
+struct MypageTopView: View {
+    var body: some View {
+        HStack {
+            Text("도현맘")
+                .font(.title)
+                .foregroundColor(.white)
+            Image("Pencil")
+            Spacer()
+            Text("학생추가")
+                .font(.headline)
+                .foregroundColor(.white)
+            Image("BottomArrow")
+        }.padding(.bottom, 20)
+            .padding([.leading, .trailing], 30)
     }
 }

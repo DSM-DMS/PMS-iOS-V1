@@ -16,6 +16,13 @@ struct MealView: View {
 
 struct MealView_Previews: PreviewProvider {
     static var previews: some View {
-        MealView()
+        Group {
+            MealView()
+                .previewDevice(PreviewDevice(rawValue: "iPhone XS Max"))
+                .previewDisplayName("iPhone XS Max")
+            MealView()
+                .previewDevice(PreviewDevice(rawValue: "iPhone 8"))
+                .previewDisplayName("iPhone 8")
+        }
     }
 }

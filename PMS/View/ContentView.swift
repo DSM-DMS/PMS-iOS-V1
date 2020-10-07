@@ -14,15 +14,8 @@ struct ContentView: View {
         TabView(selection: $selection) {
             StoryboardtoUI()
                 .tabItem {
-                    VStack {
-                        if selection == 0 {
-                            Image("Calendar.fill")
-                        } else {
-                            Image("Calendar")
-                        }
-                        Text("일정")
-                        .foregroundColor(Color("Blue"))
-                    }
+                    Image(systemName: "calendar")
+                    Text("일정")
             }.tag(0)
             MealView()
                 .tabItem {
@@ -55,20 +48,20 @@ struct ContentView_Previews: PreviewProvider {
 }
 
 extension UIImage {
-class func colorForNavBar(color: UIColor) -> UIImage {
-    //let rect = CGRectMake(0.0, 0.0, 1.0, 1.0)
-
-    let rect = CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: 1.0, height: 1.0))
-
-    UIGraphicsBeginImageContext(rect.size)
-    let context = UIGraphicsGetCurrentContext()
-
-    context!.setFillColor(color.cgColor)
-    context!.fill(rect)
-
-    let image = UIGraphicsGetImageFromCurrentImageContext()
-    UIGraphicsEndImageContext()
-
-     return image!
+    class func colorForNavBar(color: UIColor) -> UIImage {
+        //let rect = CGRectMake(0.0, 0.0, 1.0, 1.0)
+        
+        let rect = CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: 1.0, height: 1.0))
+        
+        UIGraphicsBeginImageContext(rect.size)
+        let context = UIGraphicsGetCurrentContext()
+        
+        context!.setFillColor(color.cgColor)
+        context!.fill(rect)
+        
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return image!
     }
 }

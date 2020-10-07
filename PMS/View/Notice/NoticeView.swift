@@ -16,6 +16,13 @@ struct NoticeView: View {
 
 struct NoticeView_Previews: PreviewProvider {
     static var previews: some View {
-        NoticeView()
+        Group {
+            NoticeView()
+                .previewDevice(PreviewDevice(rawValue: "iPhone XS Max"))
+                .previewDisplayName("iPhone XS Max")
+            NoticeView()
+                .previewDevice(PreviewDevice(rawValue: "iPhone 8"))
+                .previewDisplayName("iPhone 8")
+        }
     }
 }
