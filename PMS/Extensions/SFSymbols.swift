@@ -18,4 +18,7 @@ enum SFSymbolKey: String, Hashable {
     case check = "checkmark"
     case circleCheck = "checkmark.circle"
     
+    // Images
+    case circle
+    case fillCircle = "circle.fill"
 }

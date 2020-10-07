@@ -9,18 +9,25 @@
 import SwiftUI
 
 struct MypageView: View {
+    @ObservedObject var mypageVM = MypageViewModel()
     var body: some View {
         GeometryReader { _ in
             ZStack {
                 VStack {
                     Color("Blue").frame(height: UIFrame.UIHeight / 4)
                 }.edgesIgnoringSafeArea(.top)
+                
                 VStack(spacing: 20) {
-                    MypageTopView()
+                    MypageTopView(nickname: self.mypageVM.nicknamMypageVMe)
                     
-                    TwoScoreView()
+                    TwoScoreView(plus: self.$mypageVM.plusScore, minus: self.$mypageVM.minusScore)
                     
-                    RoundedRectangle(cornerRadius: 30).foregroundColor(Color("Blue")).frame(height: 30)
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 30).foregroundColor(Color("Blue")).frame(height: UIFrame.UIWidth / 10)
+                        Text(self.mypageVM.status)
+                            .foregroundColor(.white)
+                    }
+                    
                 }.padding([.leading, .trailing])
             }
             VStack {
@@ -50,12 +57,14 @@ struct ScoreView: View {
 }
 
 struct TwoScoreView: View {
+    @Binding var plus: String
+    @Binding var minus: String
     var body: some View {
         HStack(spacing: 30) {
             ZStack {
                 ScoreView()
                 VStack {
-                    Text("00")
+                    Text(plus)
                         .font(.title)
                     Text("상점")
                         .foregroundColor(.red)
@@ -64,7 +73,7 @@ struct TwoScoreView: View {
             ZStack {
                 ScoreView()
                 VStack {
-                    Text("00")
+                    Text(minus)
                         .font(.title)
                     Text("벌점")
                         .foregroundColor(.red)
@@ -75,9 +84,10 @@ struct TwoScoreView: View {
 }
 
 struct MypageTopView: View {
+    var nickname: String
     var body: some View {
         HStack {
-            Text("도현맘")
+            Text(nickname)
                 .font(.title)
                 .foregroundColor(.white)
             Image("Pencil")

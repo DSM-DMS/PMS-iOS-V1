@@ -18,6 +18,10 @@
 		D928A7D8252AAF4800FD6CB2 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D928A7D7252AAF4700FD6CB2 /* SignUpViewModel.swift */; };
 		D928A7DA252AAFB900FD6CB2 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D928A7D9252AAFB900FD6CB2 /* Validation.swift */; };
 		D92A5CA5252DD98000872B4C /* SFSymbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92A5CA4252DD98000872B4C /* SFSymbols.swift */; };
+		D92A5CA7252E000100872B4C /* ClubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92A5CA6252E000100872B4C /* ClubView.swift */; };
+		D92A5CA9252E000B00872B4C /* DeveloperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92A5CA8252E000B00872B4C /* DeveloperView.swift */; };
+		D92A5CAB252E001800872B4C /* CompanyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92A5CAA252E001800872B4C /* CompanyView.swift */; };
+		D92A5CAD252E002400872B4C /* IntroduceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92A5CAC252E002400872B4C /* IntroduceViewModel.swift */; };
 		D94AC77C2524D2D0002CCB3A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94AC77B2524D2D0002CCB3A /* AppDelegate.swift */; };
 		D94AC77E2524D2D0002CCB3A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94AC77D2524D2D0002CCB3A /* SceneDelegate.swift */; };
 		D94AC7802524D2D0002CCB3A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94AC77F2524D2D0002CCB3A /* ContentView.swift */; };
@@ -74,6 +78,10 @@
 		D928A7D7252AAF4700FD6CB2 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		D928A7D9252AAFB900FD6CB2 /* Validation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
 		D92A5CA4252DD98000872B4C /* SFSymbols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFSymbols.swift; sourceTree = "<group>"; };
+		D92A5CA6252E000100872B4C /* ClubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubView.swift; sourceTree = "<group>"; };
+		D92A5CA8252E000B00872B4C /* DeveloperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeveloperView.swift; sourceTree = "<group>"; };
+		D92A5CAA252E001800872B4C /* CompanyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyView.swift; sourceTree = "<group>"; };
+		D92A5CAC252E002400872B4C /* IntroduceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroduceViewModel.swift; sourceTree = "<group>"; };
 		D94AC7782524D2D0002CCB3A /* PMS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PMS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D94AC77B2524D2D0002CCB3A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D94AC77D2524D2D0002CCB3A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -234,6 +242,10 @@
 			isa = PBXGroup;
 			children = (
 				D9A15001252AC16100AD501A /* IntroduceView.swift */,
+				D92A5CA6252E000100872B4C /* ClubView.swift */,
+				D92A5CA8252E000B00872B4C /* DeveloperView.swift */,
+				D92A5CAA252E001800872B4C /* CompanyView.swift */,
+				D92A5CAC252E002400872B4C /* IntroduceViewModel.swift */,
 			);
 			path = Introduce;
 			sourceTree = "<group>";
@@ -576,8 +588,11 @@
 				D94AC77E2524D2D0002CCB3A /* SceneDelegate.swift in Sources */,
 				D903E5B3252A990A004F09D6 /* LoginView.swift in Sources */,
 				D9A15000252AC15900AD501A /* NoticeViewModel.swift in Sources */,
+				D92A5CA9252E000B00872B4C /* DeveloperView.swift in Sources */,
 				D9A1501B252B29B800AD501A /* CalendarView.swift in Sources */,
 				D903E5CB252AA31A004F09D6 /* ExViews.swift in Sources */,
+				D92A5CAD252E002400872B4C /* IntroduceViewModel.swift in Sources */,
+				D92A5CAB252E001800872B4C /* CompanyView.swift in Sources */,
 				D928A7D8252AAF4800FD6CB2 /* SignUpViewModel.swift in Sources */,
 				D903E5B7252A9B8D004F09D6 /* PMSView.swift in Sources */,
 				D9A1500A252AC5E400AD501A /* MypageViewModel.swift in Sources */,
@@ -587,6 +602,7 @@
 				D903E5B9252A9BBF004F09D6 /* UIFrame.swift in Sources */,
 				D928A7DA252AAFB900FD6CB2 /* Validation.swift in Sources */,
 				D9A14FFC252AC13A00AD501A /* SignupView.swift in Sources */,
+				D92A5CA7252E000100872B4C /* ClubView.swift in Sources */,
 				D9A15002252AC16100AD501A /* IntroduceView.swift in Sources */,
 				D94AC7802524D2D0002CCB3A /* ContentView.swift in Sources */,
 				D9A15011252AC63900AD501A /* StoryboardtoUI.swift in Sources */,
