@@ -14,5 +14,5 @@ class LoginViewModel: ObservableObject {
     @Published var isAuto = false
     @Published var isHidden = true
     @Published var errorMsg = ""
-    @Published var isAlert = false
+    @Published var isAlert = true
 }

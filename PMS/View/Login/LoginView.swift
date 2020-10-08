@@ -22,8 +22,8 @@ struct LoginView: View {
                     
                     VStack(alignment: .leading) {
                         VStack(spacing: 30) {
-                            CustomTextField(isLogin: true, text: self.$loginVM.id, placeholder: "아이디를 입력해주세요", image: SFSymbolKey.person.rawValue, errorMsg: .constant(""))
-                            PasswordTextField(isLogin: true, text: self.$loginVM.password)
+                            CustomTextField(isLogin: true, text: self.$loginVM.id, placeholder: "아이디를 입력해주세요", image: SFSymbolKey.person.rawValue)
+                            PasswordTextField(isLogin: true, text: self.$loginVM.password, isHidden: self.$loginVM.isHidden)
                         }
                         AutoLoginView(isAuto: self.$loginVM.isAuto)
                         
@@ -32,18 +32,18 @@ struct LoginView: View {
                     
                     ButtonView(text: "로그인", color: "Blue")
                 }.padding([.leading, .trailing], 30)
-                .navigationBarBackButtonHidden(true)
-                .navigationBarItems(leading: Button(action: {
-                    self.mode.wrappedValue.dismiss()
-                }) {
-                    Image("NavArrow")
-                })
+                    .navigationBarBackButtonHidden(true)
+                    .navigationBarItems(leading: Button(action: {
+                        self.mode.wrappedValue.dismiss()
+                    }) {
+                        Image("NavArrow")
+                    })
             }
             VStack {
                 Text("")
             }
             if self.loginVM.isAlert == true {
-                LoginErrorView(isAlert: self.$loginVM.isAlert)
+                checkErrorView(text: "아이디 또는 비밀번호가 일치하지 않습니다", isAlert: self.$loginVM.isAlert)
             }
         }.gesture(
             DragGesture()
@@ -52,14 +52,14 @@ struct LoginView: View {
                     if abs(self.offset.width) > 0 {
                         self.mode.wrappedValue.dismiss()
                     }
+            }
+            .onEnded { _ in
+                if abs(self.offset.width) > 0 {
+                    self.mode.wrappedValue.dismiss()
+                } else {
+                    self.offset = .zero
                 }
-                .onEnded { _ in
-                    if abs(self.offset.width) > 0 {
-                        self.mode.wrappedValue.dismiss()
-                    } else {
-                        self.offset = .zero
-                    }
-                }
+            }
         )
     }
 }
@@ -69,7 +69,6 @@ struct CustomTextField: View {
     @Binding var text: String
     var placeholder: String
     var image: String
-    @Binding var errorMsg: String
     
     var body: some View {
         VStack(spacing: 10) {
@@ -95,11 +94,6 @@ struct CustomTextField: View {
             } else {
                 Color.gray.frame(height: CGFloat(4) / UIScreen.main.scale)
             }
-            HStack {
-                Spacer()
-                Text(errorMsg)
-                    .foregroundColor(.red)
-            }
         }
     }
 }
@@ -107,22 +101,23 @@ struct CustomTextField: View {
 struct PasswordTextField: View {
     var isLogin: Bool
     @Binding var text: String
-    @ObservedObject var loginVM = LoginViewModel()
+    @Binding var isHidden: Bool
+    
     var body: some View {
         VStack(spacing: 10) {
             HStack(spacing: 20) {
                 if text != "" {
                     Image(systemName: SFSymbolKey.lock.rawValue)
-                    .resizable()
-                    .frame(width: 15, height: 20)
+                        .resizable()
+                        .frame(width: 15, height: 20)
                         .foregroundColor(Color(isLogin ? "Blue" : "Red"))
                 } else {
                     Image(systemName: SFSymbolKey.lock.rawValue)
-                    .resizable()
-                    .frame(width: 15, height: 20)
+                        .resizable()
+                        .frame(width: 15, height: 20)
                 }
                 
-                if self.loginVM.isHidden {
+                if self.isHidden {
                     SecureField("비밀번호를 입력해주세요", text: $text)
                 } else {
                     TextField("비밀번호를 입력해주세요", text: $text)
@@ -130,7 +125,7 @@ struct PasswordTextField: View {
                 
                 if text != "" {
                     Button(action: {
-                        self.loginVM.isHidden.toggle()
+                        self.isHidden.toggle()
                     }) {
                         Image(systemName: SFSymbolKey.eye.rawValue)
                             .resizable()
@@ -148,12 +143,6 @@ struct PasswordTextField: View {
                 VStack {
                     Color.gray.frame(height: CGFloat(4) / UIScreen.main.scale)
                 }
-            }
-            
-            HStack {
-                Spacer()
-                Text(self.loginVM.errorMsg)
-                    .foregroundColor(.red)
             }
         }
     }
@@ -191,24 +180,27 @@ struct OAuthView: View {
     }
 }
 
-struct LoginErrorView: View {
+struct checkErrorView: View {
+    var text: String
     @Binding var isAlert: Bool
+    
     var body: some View {
         ZStack {
             Color(.black).opacity(0.3)
             VStack(spacing: 20) {
-                Text("아이디 또는 비밀번호가 일치하지 않습니다")
+                Text(text)
                     .multilineTextAlignment(.center)
                     .frame(width: UIFrame.UIWidth / 2.5)
                     .padding(.top, 20)
                 Color.gray.frame(height: CGFloat(4) / UIScreen.main.scale)
                 Text("확인")
+                    .onTapGesture {
+                        self.isAlert = false
+                }
             }
             .padding()
             .frame(width: UIFrame.UIWidth - 80)
             .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.white).shadow(radius: 3))
-        }.onTapGesture {
-            self.isAlert = false
         }.edgesIgnoringSafeArea(.bottom)
     }
 }

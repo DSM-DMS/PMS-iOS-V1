@@ -16,6 +16,13 @@ struct CompanyView: View {
 
 struct CompanyView_Previews: PreviewProvider {
     static var previews: some View {
-        CompanyView()
+        Group {
+            CompanyView()
+                .previewDevice(PreviewDevice(rawValue: "iPhone XS Max"))
+                .previewDisplayName("iPhone XS Max")
+            CompanyView()
+                .previewDevice(PreviewDevice(rawValue: "iPhone 8"))
+                .previewDisplayName("iPhone 8")
+        }
     }
 }

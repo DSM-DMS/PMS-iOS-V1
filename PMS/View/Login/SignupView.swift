@@ -19,11 +19,11 @@ struct SignupView: View {
             VStack {
                 TitleTextView(text: "회원가입")
                     .padding(.bottom, self.edges!.bottom == 0 ? 15 : 50)
-                VStack(spacing: 20) {
-                    CustomTextField(isLogin: false, text: self.$signupVM.nickname, placeholder: "닉네임을 입력해주세요", image: SFSymbolKey.pencil.rawValue, errorMsg: .constant(""))
-                    CustomTextField(isLogin: false, text: self.$signupVM.nickname, placeholder: "아이디를 입력해주세요", image: SFSymbolKey.person.rawValue, errorMsg: .constant(""))
-                    PasswordTextField(isLogin: false, text: self.$signupVM.password)
-                    CheckTextField(text: self.$signupVM.id, isError: self.$signupVM.idError, placeholder: "비밀번호를 한번 더 입력해주세요", image: SFSymbolKey.circleCheck.rawValue, errorMsg: .constant(""))
+                VStack(spacing: 30) {
+                    CustomTextField(isLogin: false, text: self.$signupVM.nickname, placeholder: "닉네임을 입력해주세요", image: SFSymbolKey.pencil.rawValue)
+                    CustomTextField(isLogin: false, text: self.$signupVM.nickname, placeholder: "아이디를 입력해주세요", image: SFSymbolKey.person.rawValue)
+                    PasswordTextField(isLogin: false, text: self.$signupVM.password, isHidden: self.$signupVM.isHidden)
+                    CheckTextField(text: self.$signupVM.id, isError: self.$signupVM.idError, placeholder: "비밀번호를 한번 더 입력해주세요", isChange: false, errorMsg: .constant(""))
                 }
                 OAuthView()
                 ButtonView(text: "회원가입", color: "Red")
@@ -74,23 +74,25 @@ struct CheckTextField: View {
     @Binding var text: String
     @Binding var isError: Bool
     var placeholder: String
-    var image: String
+    var isChange: Bool
     @Binding var errorMsg: String
     
     var body: some View {
         VStack(spacing: 10) {
             HStack(spacing: 20) {
-                if text != "" {
-                    Image(systemName: image)
-                        .resizable()
-                        .frame(width: 20, height: 20)
-                        .foregroundColor(Color("Red"))
-                        .padding(.leading, 10)
-                } else {
-                    Image(systemName: image)
-                        .resizable()
-                        .frame(width: 20, height: 20)
-                        .padding(.leading, 10)
+                if !isChange {
+                    if text != "" {
+                        Image(systemName: SFSymbolKey.circleCheck.rawValue)
+                            .resizable()
+                            .frame(width: 20, height: 20)
+                            .foregroundColor(Color(isChange ? "Blue" : "Red"))
+                            .padding(.leading, 10)
+                    } else {
+                        Image(systemName: SFSymbolKey.circleCheck.rawValue)
+                            .resizable()
+                            .frame(width: 20, height: 20)
+                            .padding(.leading, 10)
+                    }
                 }
                 TextField(placeholder, text: $text)
                 Spacer()

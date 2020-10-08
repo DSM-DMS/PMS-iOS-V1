@@ -16,6 +16,13 @@ struct DeveloperView: View {
 
 struct DeveloperView_Previews: PreviewProvider {
     static var previews: some View {
-        DeveloperView()
+        Group {
+            DeveloperView()
+                .previewDevice(PreviewDevice(rawValue: "iPhone XS Max"))
+                .previewDisplayName("iPhone XS Max")
+            DeveloperView()
+                .previewDevice(PreviewDevice(rawValue: "iPhone 8"))
+                .previewDisplayName("iPhone 8")
+        }
     }
 }

@@ -28,6 +28,7 @@ class SignupViewModel: ObservableObject {
     @Published var password: String = ""
     @Published var nickname: String = ""
     @Published var confirmPassword: String = ""
+    @Published var isHidden = false
     @Published var inputImage: UIImage?
 
     @Published var statusViewModel: StatusViewModel = StatusViewModel(title: "")

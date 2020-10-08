@@ -16,6 +16,13 @@ struct ClubView: View {
 
 struct ClubView_Previews: PreviewProvider {
     static var previews: some View {
-        ClubView()
+        Group {
+            ClubView()
+                .previewDevice(PreviewDevice(rawValue: "iPhone XS Max"))
+                .previewDisplayName("iPhone XS Max")
+            ClubView()
+                .previewDevice(PreviewDevice(rawValue: "iPhone 8"))
+                .previewDisplayName("iPhone 8")
+        }
     }
 }
