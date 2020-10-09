@@ -9,6 +9,10 @@
 import SwiftUI
 
 struct DeveloperView: View {
+    @ObservedObject var introduceVM = IntroduceViewModel()
+    @ObservedObject var NoticeDetailVM = NoticeDetailViewModel()
+    @Environment(\.presentationMode) var mode
+    
     var body: some View {
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
     }

@@ -21,4 +21,7 @@ enum SFSymbolKey: String, Hashable {
     // Images
     case circle
     case fillCircle = "circle.fill"
+    
+    // Search
+    case search = "magnifyingglass"
 }

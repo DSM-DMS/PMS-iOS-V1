@@ -7,3 +7,8 @@
 //
 
 import Foundation
+
+class NoticeViewModel: ObservableObject {
+    @Published var search: String = ""
+    @Published var selectedIndex = 0
+}

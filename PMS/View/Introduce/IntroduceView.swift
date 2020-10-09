@@ -10,25 +10,33 @@ import SwiftUI
 
 struct IntroduceView: View {
     var body: some View {
-        GeometryReader { _ in
-            VStack(alignment: .leading) {
+        NavigationView {
+            GeometryReader { _ in
                 VStack(alignment: .leading) {
-                    TitleTextView(text: "소개")
-                    Text("대마고의 자랑거리를 소개합니다")
-                        .foregroundColor(Color("Blue"))
-                }.padding(.bottom, UIFrame.UIHeight / 15)
-                
-                VStack(spacing: UIFrame.UIHeight / 15) {
-                    RectangleView(title: "동아리 소개", sub: "대마고의 동아리를 소개합니다")
-                    RectangleView(title: "취업처 소개", sub: "대마고의 학생들이 취업한 회사를 소개합니다")
-                    RectangleView(title: "개발자 소개", sub: "PMS의 개발자를 소개합니다")
+                    VStack(alignment: .leading) {
+                        TitleTextView(text: "소개")
+                        Text("대마고의 자랑거리를 소개합니다")
+                            .foregroundColor(Color("Blue"))
+                    }.padding(.bottom, UIFrame.UIHeight / 15)
+                    
+                    VStack(spacing: UIFrame.UIHeight / 15) {
+                        NavigationLink(destination: ClubView()) {
+                            RectangleView(title: "동아리 소개", sub: "대마고의 동아리를 소개합니다")
+                        }
+                        NavigationLink(destination: CompanyView()) {
+                            RectangleView(title: "취업처 소개", sub: "대마고의 학생들이 취업한 회사를 소개합니다")
+                        }
+                        NavigationLink(destination: DeveloperView()) {
+                            RectangleView(title: "개발자 소개", sub: "PMS의 개발자를 소개합니다")
+                        }
+                    }
+                }.padding(.leading, 30)
+                .padding(.trailing, 30)
+                VStack {
+                    Text("")
                 }
-                
-            }.padding(.leading, 30)
-            .padding(.trailing, 30)
-            VStack {
-                Text("")
-            }
+            }.navigationBarTitle("", displayMode: .inline)
+            .navigationBarHidden(true)
         }
     }
 }
@@ -59,6 +67,7 @@ struct RectangleView: View {
                     HStack {
                         Color("Blue").frame(width: 3, height: 18)
                         Text(title)
+                            .foregroundColor(.black)
                     }
                     Text(sub)
                         .font(.callout)

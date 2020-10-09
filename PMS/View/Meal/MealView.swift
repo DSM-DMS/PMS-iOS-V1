@@ -12,39 +12,56 @@ struct MealView: View {
     @ObservedObject var mealVM = MealViewModel()
     var body: some View {
         GeometryReader { _ in
-            VStack(spacing: 20) {
+            VStack {
                 TitleTextView(text: "급식")
-                MealDateView(date: self.$mealVM.today)
-                VStack(alignment: .center) {
-                    ZStack(alignment: .top) {
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 10).foregroundColor(Color("Gray"))
-                                .frame(height: UIFrame.UIHeight / 2)
-                            Text(self.mealVM.meal)
-                                .fontWeight(.medium)
-                                .foregroundColor(.gray)
+                VStack(spacing: UIFrame.UIHeight / 20) {
+                    MealDateView(date: self.$mealVM.today)
+                    VStack {
+                        ZStack(alignment: .top) {
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 10).foregroundColor(Color("Gray"))
+                                    .frame(height: UIFrame.UIHeight / 2)
+                                VStack {
+                                    if self.mealVM.isPicture {
+                                        RoundedRectangle(cornerRadius: 10).foregroundColor(.gray)
+                                            .frame(height: UIFrame.UIHeight / 4.5).padding([.leading, .trailing], 30)
+                                    } else {
+                                        Text(self.mealVM.meal)
+                                        .fontWeight(.medium)
+                                            .foregroundColor(.gray)
+                                            .multilineTextAlignment(.center)
+                                    }
+                                }
+                                VStack {
+                                    Spacer()
+                                    Image("Flip")
+                                        .onTapGesture {
+                                            self.mealVM.isPicture.toggle()
+                                    }
+                                }.frame(height: UIFrame.UIHeight / 2.4)
+                            }
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 10).foregroundColor(Color("Blue"))
+                                .frame(height: UIFrame.UIHeight / 13)
+                                Text(self.mealVM.now)
+                                    .foregroundColor(.white)
+                                    .font(.title)
+                            }
+                            
                         }
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 10).foregroundColor(Color("Blue"))
-                            .frame(height: UIFrame.UIHeight / 13)
-                            Text(self.mealVM.now)
-                                .foregroundColor(.white)
-                                .font(.title)
-                        }
-                        
                     }
-                }
-                HStack(spacing: 20) {
-                    Image(systemName: SFSymbolKey.circle.rawValue)
-                        .resizable()
-                        .frame(width: 12, height: 12)
-                    Image(systemName: SFSymbolKey.circle.rawValue)
-                        .resizable()
-                        .frame(width: 12, height: 12)
-                    Image(systemName: SFSymbolKey.circle.rawValue)
-                        .resizable()
-                        .frame(width: 12, height: 12)
-                }
+                    HStack(spacing: 20) {
+                        Image(systemName: SFSymbolKey.circle.rawValue)
+                            .resizable()
+                            .frame(width: 12, height: 12)
+                        Image(systemName: SFSymbolKey.circle.rawValue)
+                            .resizable()
+                            .frame(width: 12, height: 12)
+                        Image(systemName: SFSymbolKey.circle.rawValue)
+                            .resizable()
+                            .frame(width: 12, height: 12)
+                    }
+                }.padding([.leading, .trailing], 10)
             }.padding([.leading, .trailing], 30)
             VStack {
                 Text("")

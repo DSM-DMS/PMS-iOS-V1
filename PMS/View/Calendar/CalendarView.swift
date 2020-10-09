@@ -16,7 +16,7 @@ struct CalendarView: View {
                     StoryboardtoUI()
                     
                     TitleTextView(text: "학사일정")
-                                       .padding([.leading, .trailing], 30)
+                        .padding([.leading, .trailing], 30)
                 }
             }
             VStack {

@@ -22,4 +22,5 @@ class MealViewModel: ObservableObject {
     배추김치
     오렌지
     """
+    @Published var isPicture = false
 }
