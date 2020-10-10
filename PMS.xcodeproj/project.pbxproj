@@ -337,9 +337,9 @@
 				D9A15001252AC16100AD501A /* IntroduceView.swift */,
 				D92A5CA6252E000100872B4C /* ClubView.swift */,
 				D98DD19F25314EA5001EFFA9 /* ClubDetailView.swift */,
-				D92A5CA8252E000B00872B4C /* DeveloperView.swift */,
 				D92A5CAA252E001800872B4C /* CompanyView.swift */,
 				D98DD1A52531547F001EFFA9 /* CompanyDetailView.swift */,
+				D92A5CA8252E000B00872B4C /* DeveloperView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";

@@ -21,11 +21,12 @@ class MypageViewModel: ObservableObject {
     @Published var nowPassword = ""
     @Published var newPassword = ""
     @Published var confirmPassword = ""
-    @Published var nowisHidden = false
-    @Published var newisHidden = false
+    @Published var nowisHidden = true
+    @Published var newisHidden = true
     @Published var confirmError = false
     @Published var errorMsg = ""
-    @Published var passwordAlert = true
+    @Published var passwordAlert = false
+    @Published var confirmAlert = false
     
     // Logout
     @Published var logoutAlert = false

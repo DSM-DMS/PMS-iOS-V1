@@ -36,7 +36,7 @@ struct IntroduceView: View {
                     Text("")
                 }
             }.edgesIgnoringSafeArea(.top)
-        }
+        }.accentColor(.black)
     }
 }
 

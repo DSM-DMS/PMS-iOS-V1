@@ -46,7 +46,7 @@ struct NoticeView: View {
                     Text("")
                 }
             }.edgesIgnoringSafeArea(.top)
-        }
+        }.accentColor(.black)
     }
 }
 
@@ -79,15 +79,18 @@ struct NoticeRectangle: View {
     var body: some View {
         ZStack(alignment: .leading) {
             RoundedRectangle(cornerRadius: 10).foregroundColor(Color("Gray")).shadow(radius: 5)
-            VStack {
+            VStack(spacing: 0) {
                 HStack {
-                    Color("Blue").frame(width: 3, height: 13)
+                    BlueTabView()
                     Text("공지 제목")
                         .foregroundColor(.black)
                 }
                 Text("2020/09/10")
-                    .foregroundColor(.black)
-            }.padding([.leading, .trailing], 20)
+                    .font(.callout)
+                    .foregroundColor(.gray)
+                    .padding(.leading, 10)
+            }.padding([.leading, .trailing], 10)
+                .padding([.top, .bottom], 10)
         }.padding([.top, .leading, .trailing], 10)
     }
 }

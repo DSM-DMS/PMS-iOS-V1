@@ -17,8 +17,12 @@ struct CompanyView: View {
         ScrollView {            
             ForEach(1...10, id: \.self) { _ in
                 HStack(spacing: 20) {
-                    IntroduceRectangle(isPerson: false, image: "DMS", text: "마이다스아이티")
-                    IntroduceRectangle(isPerson: false, image: "DMS", text: "마이다스아이티")
+                    NavigationLink(destination: CompanyDetailView()) {
+                        IntroduceRectangle(image: "DMS", text: "마이다스아이티")
+                    }
+                    NavigationLink(destination: CompanyDetailView()) {
+                        IntroduceRectangle(image: "DMS", text: "마이다스아이티")
+                    }
                 }.padding(.bottom)
             }.padding([.leading, .trailing], 30)
             .padding([.top, .bottom], 10)

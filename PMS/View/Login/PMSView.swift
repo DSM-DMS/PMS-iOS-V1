@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct PMSView: View {
+    @EnvironmentObject var settings: LoginSettings
     var body: some View {
         NavigationView {
             VStack(spacing: UIFrame.UIWidth / 3) {

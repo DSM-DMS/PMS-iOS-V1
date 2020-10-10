@@ -20,7 +20,7 @@ struct OutsideDetailView: View {
                         .shadow(radius: 4)
                     VStack(alignment: .leading, spacing: 20) {
                         HStack {
-                            Color("Blue").frame(width: 3, height: 20)
+                            BlueTabView()
                             Text("사유")
                         }
                         Text("사유 : 그냥")

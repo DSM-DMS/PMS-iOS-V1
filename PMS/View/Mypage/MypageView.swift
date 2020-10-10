@@ -39,7 +39,7 @@ struct MypageView: View {
                                         HStack {
                                             Text("주말급식 신청 여부")
                                             Spacer()
-                                            Image(self.mypageVM.isMeal ? "O" : "X")
+                                            Image(self.mypageVM.isMeal ? "O" : "X").padding(.trailing, 5)
                                         }
                                     }.padding()
                                 }
@@ -65,7 +65,7 @@ struct MypageView: View {
                                 Text("로그아웃 하시겠습니까?")
                                     .multilineTextAlignment(.center)
                                     .padding(.top, 20)
-                                Color.gray.frame(height: CGFloat(4) / UIScreen.main.scale)
+                                CustomDivider()
                                 HStack {
                                     Spacer()
                                     Text("취소")
@@ -86,11 +86,11 @@ struct MypageView: View {
                             .padding()
                             .frame(width: UIFrame.UIWidth - 80)
                             .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.white).shadow(radius: 3))
-                        }.edgesIgnoringSafeArea(.bottom)
+                        }.edgesIgnoringSafeArea([.top, .bottom])
                     }
                 }
             }.edgesIgnoringSafeArea(.top)
-        }
+        }.accentColor(.black)
     }
 }
 
