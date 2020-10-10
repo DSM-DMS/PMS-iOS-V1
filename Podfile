@@ -7,6 +7,7 @@ target 'PMS' do
 
   # Pods for PMS
 pod 'SwiftLint'
+pod 'FSCalendar'
 
   target 'PMSTests' do
     inherit! :search_paths
