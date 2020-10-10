@@ -33,28 +33,11 @@ class SignupViewModel: ObservableObject {
 
     @Published var statusViewModel: StatusViewModel = StatusViewModel(title: "")
 
-    @Published var idError: Bool = false
-    @Published var idErrorMsg: String? = ""
+    @Published var isAlert: Bool = true
     @Published var passwordError: String? = ""
-    @Published var confirmPasswordError: String? = ""
+    @Published var confirmIsError: Bool = false
+    @Published var confirmErrorMsg: String? = ""
     @Published var enableSignUp: Bool = false
-
-    private var emailValidPublisher: AnyPublisher<EmailValidation, Never> {
-
-        $id
-            .removeDuplicates()
-            .debounce(for: 0.5, scheduler: RunLoop.main)
-            .map { email in
-                if email.isEmpty {
-                    return .emptyEmail
-                } else if !email.isValidEmail() {
-                    return .inValidEmail
-                } else {
-                    return .validEmail
-                }
-        }
-        .eraseToAnyPublisher()
-    }
 
     private var passwordValidPublisher: AnyPublisher<PasswordValidation, Never> {
 
@@ -90,23 +73,14 @@ class SignupViewModel: ObservableObject {
 
 //        self.webService = WebService()
 
-        Publishers.CombineLatest3(self.emailValidPublisher,
-                                  self.passwordValidPublisher,
+        Publishers.CombineLatest(self.passwordValidPublisher,
                                   self.confirmPasswordValidPublisher)
             .dropFirst()
-            .sink {_emailError, _passwordValidator, _confirmPasswordValidator in
+            .sink {_passwordValidator, _confirmPasswordValidator in
 
-                self.enableSignUp = _emailError.errorMessage == nil &&
+                self.enableSignUp =
                     _passwordValidator.errorMessage == nil &&
                     _confirmPasswordValidator.confirmPasswordErrorMessage == nil
-        }
-        .store(in: &cancellableBag)
-
-        emailValidPublisher
-            .receive(on: RunLoop.main)
-            .dropFirst()
-            .sink { (_idErrorMsg) in
-                self.idErrorMsg = _idErrorMsg.errorMessage
         }
         .store(in: &cancellableBag)
 
@@ -120,7 +94,7 @@ class SignupViewModel: ObservableObject {
         confirmPasswordValidPublisher
             .dropFirst()
             .sink { (_confirmPasswordValidator) in
-                self.confirmPasswordError = _confirmPasswordValidator.confirmPasswordErrorMessage
+                self.confirmErrorMsg = _confirmPasswordValidator.confirmPasswordErrorMessage
         }
         .store(in: &cancellableBag)
     }
@@ -153,14 +127,6 @@ extension SignupViewModel {
 }
 
 extension String {
-    // Evaluates what the user entered to ensure it's a valid email address
-    func isValidEmail() -> Bool {
-        let emailRegEx = "[A-Z0-9a-z._%+_]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
-        let emailPred = NSPredicate(format: "SELF MATCHES %@", emailRegEx)
-
-        return emailPred.evaluate(with: self)
-    }
-
     func isValidPassword(pattern: String = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$") -> Bool {
         let passwordRegex = pattern
         return NSPredicate(format: "SELF MATCHES %@", passwordRegex).evaluate(with: self)

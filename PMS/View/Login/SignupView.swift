@@ -16,27 +16,32 @@ struct SignupView: View {
     
     var body: some View {
         GeometryReader { _ in
-            VStack {
-                TitleTextView(text: "회원가입")
-                    .padding(.bottom, self.edges!.bottom == 0 ? 15 : 50)
-                VStack(spacing: 30) {
-                    CustomTextField(isLogin: false, text: self.$signupVM.nickname, placeholder: "닉네임을 입력해주세요", image: SFSymbolKey.pencil.rawValue)
-                    CustomTextField(isLogin: false, text: self.$signupVM.nickname, placeholder: "아이디를 입력해주세요", image: SFSymbolKey.person.rawValue)
-                    PasswordTextField(isLogin: false, text: self.$signupVM.password, isHidden: self.$signupVM.isHidden)
-                    CheckTextField(text: self.$signupVM.id, isError: self.$signupVM.idError, placeholder: "비밀번호를 한번 더 입력해주세요", isChange: false, errorMsg: .constant(""))
+            ZStack {
+                VStack {
+                    TitleTextView(text: "회원가입")
+                        .padding(.bottom, self.edges!.bottom == 0 ? 15 : 50)
+                    VStack(spacing: 30) {
+                        CustomTextField(isLogin: false, text: self.$signupVM.nickname, placeholder: "닉네임을 입력해주세요", image: SFSymbolKey.pencil.rawValue)
+                        CustomTextField(isLogin: false, text: self.$signupVM.id, placeholder: "아이디를 입력해주세요", image: SFSymbolKey.person.rawValue)
+                        PasswordTextField(isLogin: false, text: self.$signupVM.password, isHidden: self.$signupVM.isHidden)
+//                        CheckTextField(text: self.$signupVM.confirmPassword, isError: self.$signupVM.confirmIsError, placeholder: "비밀번호를 한번 더 입력해주세요", isChange: false, errorMsg: self.$signupVM.confirmErrorMsg)
+                    }
+                    OAuthView()
+                    ButtonView(text: "회원가입", color: "Red")
+                    .navigationBarBackButtonHidden(true)
+                    .navigationBarItems(leading: Button(action: {
+                        self.mode.wrappedValue.dismiss()
+                    }) {
+                        Image("NavArrow")
+                    })
                 }
-                OAuthView()
-                ButtonView(text: "회원가입", color: "Red")
-                .navigationBarBackButtonHidden(true)
-                .navigationBarItems(leading: Button(action: {
-                    self.mode.wrappedValue.dismiss()
-                }) {
-                    Image("NavArrow")
-                })
+                .padding([.leading, .trailing], 30)
             }
-            .padding([.leading, .trailing], 30)
             VStack {
                 Text("")
+            }
+            if self.signupVM.isAlert == true {
+                checkErrorView(text: "아이디 또는 비밀번호가 일치하지 않습니다", isAlert: self.$signupVM.isAlert)
             }
         }.gesture(
             DragGesture()

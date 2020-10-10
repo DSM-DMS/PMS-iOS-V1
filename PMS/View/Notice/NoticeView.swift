@@ -29,7 +29,9 @@ struct NoticeView: View {
                     VStack(spacing: UIFrame.UIWidth / 15) {
                         ScrollView {
                             ForEach(1...10, id: \.self) { _ in
-                                NoticeRectangle()
+                                NavigationLink(destination: NoticeDetailView()) {
+                                    NoticeRectangle()
+                                }
                             }
                         }.frame(height: UIFrame.UIHeight / 2)
                         HStack {
@@ -43,8 +45,7 @@ struct NoticeView: View {
                 VStack {
                     Text("")
                 }
-            }.navigationBarTitle("", displayMode: .inline)
-            .navigationBarHidden(true)
+            }.edgesIgnoringSafeArea(.top)
         }
     }
 }
@@ -80,10 +81,12 @@ struct NoticeRectangle: View {
             RoundedRectangle(cornerRadius: 10).foregroundColor(Color("Gray")).shadow(radius: 5)
             VStack {
                 HStack {
-                    Color("Blue").frame(width: 3, height: 10)
+                    Color("Blue").frame(width: 3, height: 13)
                     Text("공지 제목")
+                        .foregroundColor(.black)
                 }
                 Text("2020/09/10")
+                    .foregroundColor(.black)
             }.padding([.leading, .trailing], 20)
         }.padding([.top, .leading, .trailing], 10)
     }

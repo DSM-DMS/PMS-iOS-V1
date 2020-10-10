@@ -194,6 +194,7 @@ struct checkErrorView: View {
                     .padding(.top, 20)
                 Color.gray.frame(height: CGFloat(4) / UIScreen.main.scale)
                 Text("확인")
+                    .foregroundColor(Color("Blue"))
                     .onTapGesture {
                         self.isAlert = false
                 }

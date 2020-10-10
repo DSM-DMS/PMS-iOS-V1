@@ -14,7 +14,7 @@ struct TitleTextView: View {
         HStack {
             Text(text)
                 .font(.largeTitle)
-                .padding(.top, 50)
+                .padding(.top, UIFrame.UIHeight / 13)
             Spacer()
         }
         

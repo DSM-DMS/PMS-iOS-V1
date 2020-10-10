@@ -31,12 +31,11 @@ struct IntroduceView: View {
                         }
                     }
                 }.padding(.leading, 30)
-                .padding(.trailing, 30)
+                    .padding(.trailing, 30)
                 VStack {
                     Text("")
                 }
-            }.navigationBarTitle("", displayMode: .inline)
-            .navigationBarHidden(true)
+            }.edgesIgnoringSafeArea(.top)
         }
     }
 }

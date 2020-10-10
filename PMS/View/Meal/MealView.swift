@@ -51,22 +51,16 @@ struct MealView: View {
                         }
                     }
                     HStack(spacing: 20) {
-                        Image(systemName: SFSymbolKey.circle.rawValue)
-                            .resizable()
-                            .frame(width: 12, height: 12)
-                        Image(systemName: SFSymbolKey.circle.rawValue)
-                            .resizable()
-                            .frame(width: 12, height: 12)
-                        Image(systemName: SFSymbolKey.circle.rawValue)
-                            .resizable()
-                            .frame(width: 12, height: 12)
+                        ImageCircle()
+                        ImageCircle()
+                        ImageCircle()
                     }
                 }.padding([.leading, .trailing], 10)
             }.padding([.leading, .trailing], 30)
             VStack {
                 Text("")
             }
-        }
+        }.edgesIgnoringSafeArea(.top)
         
     }
 }
@@ -94,5 +88,13 @@ struct MealDateView: View {
             Spacer()
             Image("rightArrow-1")
         }
+    }
+}
+
+struct ImageCircle: View {
+    var body: some View {
+        Image(systemName: SFSymbolKey.circle.rawValue)
+            .resizable()
+            .frame(width: 10, height: 10)
     }
 }
