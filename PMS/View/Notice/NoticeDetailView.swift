@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct NoticeDetailView: View {
+    @EnvironmentObject var settings: NavSettings
     @ObservedObject var NoticeDetailVM = NoticeDetailViewModel()
     @Environment(\.presentationMode) var mode
     @State var offset = CGSize.zero
@@ -36,6 +37,7 @@ struct NoticeDetailView: View {
                 .navigationBarBackButtonHidden(true)
                 .navigationBarItems(leading: Button(action: {
                     self.mode.wrappedValue.dismiss()
+                    self.settings.isNav = false
                 }) {
                     Image("NavArrow")
                 })
@@ -45,11 +47,13 @@ struct NoticeDetailView: View {
                             self.offset = gesture.translation
                             if abs(self.offset.width) > 0 {
                                 self.mode.wrappedValue.dismiss()
+                                self.settings.isNav = false
                             }
                     }
                     .onEnded { _ in
                         if abs(self.offset.width) > 0 {
                             self.mode.wrappedValue.dismiss()
+                            self.settings.isNav = false
                         } else {
                             self.offset = .zero
                         }
@@ -59,6 +63,8 @@ struct NoticeDetailView: View {
                 Spacer()
                 CustomCommentView(text: self.$NoticeDetailVM.comment)
             }.edgesIgnoringSafeArea(.bottom)
+        }.onAppear {
+                self.settings.isNav = true
         }
     }
 }
@@ -121,15 +127,19 @@ struct CustomCommentView: View {
     var body: some View {
         ZStack {
             ZStack(alignment: .bottom) {
-                RoundedRectangle(cornerRadius: 10).foregroundColor(Color.white).frame(height: UIFrame.UIHeight / 11).shadow(radius: 5)
+                RoundedRectangle(cornerRadius: 20).foregroundColor(Color.white).frame(height: UIFrame.UIHeight / 11).shadow(radius: 5)
                 RoundedRectangle(cornerRadius: 10).foregroundColor(Color.white).frame(height: UIFrame.UIHeight / 17)
             }
             HStack {
                 Text("@")
                     .foregroundColor(Color("Blue"))
-                TextField("댓글을 남겨주세요", text: $text)
+                ZStack {
+                    RoundedRectangle(cornerRadius: 10).foregroundColor(Color("Gray")).frame(height: UIFrame.UIHeight / 20)
+                    TextField("댓글을 남겨주세요", text: $text).padding(.leading, 10)
+                }
+                
                 Image("Enter")
-            }.padding([.leading, .trailing], 10)
+            }.padding([.leading, .trailing], 20)
             
         }
     }

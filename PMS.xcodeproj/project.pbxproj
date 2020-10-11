@@ -24,7 +24,6 @@
 		D92A5CAD252E002400872B4C /* IntroduceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92A5CAC252E002400872B4C /* IntroduceViewModel.swift */; };
 		D94AC77C2524D2D0002CCB3A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94AC77B2524D2D0002CCB3A /* AppDelegate.swift */; };
 		D94AC77E2524D2D0002CCB3A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94AC77D2524D2D0002CCB3A /* SceneDelegate.swift */; };
-		D94AC7802524D2D0002CCB3A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94AC77F2524D2D0002CCB3A /* ContentView.swift */; };
 		D94AC7822524D2D3002CCB3A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D94AC7812524D2D3002CCB3A /* Assets.xcassets */; };
 		D94AC7852524D2D3002CCB3A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D94AC7842524D2D3002CCB3A /* Preview Assets.xcassets */; };
 		D94AC7882524D2D3002CCB3A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D94AC7862524D2D3002CCB3A /* LaunchScreen.storyboard */; };
@@ -51,6 +50,7 @@
 		D9A15013252AC63B00AD501A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A15012252AC63B00AD501A /* ViewController.swift */; };
 		D9A15015252AC69200AD501A /* UIColorRgb.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A15014252AC69200AD501A /* UIColorRgb.swift */; };
 		D9A1501B252B29B800AD501A /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A1501A252B29B800AD501A /* CalendarView.swift */; };
+		D9BD706E2532A02100186C12 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BD706D2532A02100186C12 /* ContentView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,7 +93,6 @@
 		D94AC7782524D2D0002CCB3A /* PMS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PMS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D94AC77B2524D2D0002CCB3A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D94AC77D2524D2D0002CCB3A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		D94AC77F2524D2D0002CCB3A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		D94AC7812524D2D3002CCB3A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D94AC7842524D2D3002CCB3A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		D94AC7872524D2D3002CCB3A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -125,6 +124,7 @@
 		D9A15012252AC63B00AD501A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		D9A15014252AC69200AD501A /* UIColorRgb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorRgb.swift; sourceTree = "<group>"; };
 		D9A1501A252B29B800AD501A /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
+		D9BD706D2532A02100186C12 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		F1725CD0E5983DECD875E0AD /* Pods-PMS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PMS.release.xcconfig"; path = "Target Support Files/Pods-PMS/Pods-PMS.release.xcconfig"; sourceTree = "<group>"; };
 		FF4EF3541F2F70DDA89482A6 /* Pods-PMS-PMSUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PMS-PMSUITests.debug.xcconfig"; path = "Target Support Files/Pods-PMS-PMSUITests/Pods-PMS-PMSUITests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -190,7 +190,7 @@
 				D903E5C8252AA2C4004F09D6 /* Introduce */,
 				D903E5C6252AA2B5004F09D6 /* Notice */,
 				D903E5B1252A98FF004F09D6 /* Login */,
-				D94AC77F2524D2D0002CCB3A /* ContentView.swift */,
+				D9BD706D2532A02100186C12 /* ContentView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -649,12 +649,12 @@
 				D92A5CA7252E000100872B4C /* ClubView.swift in Sources */,
 				D98DD19E2530A4FC001EFFA9 /* NoticeDetailViewModel.swift in Sources */,
 				D9A15002252AC16100AD501A /* IntroduceView.swift in Sources */,
-				D94AC7802524D2D0002CCB3A /* ContentView.swift in Sources */,
 				D9A15011252AC63900AD501A /* StoryboardtoUI.swift in Sources */,
 				D9A15015252AC69200AD501A /* UIColorRgb.swift in Sources */,
 				D9A15004252AC5C900AD501A /* MealView.swift in Sources */,
 				D98162A5252ECBBC0052E087 /* OutsideDetailView.swift in Sources */,
 				D98162A7252ECBC70052E087 /* ChangePWView.swift in Sources */,
+				D9BD706E2532A02100186C12 /* ContentView.swift in Sources */,
 				D95FFF9A252FEC6600446865 /* NoticeDetailView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

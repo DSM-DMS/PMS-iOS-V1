@@ -6,7 +6,7 @@
 //  Copyright © 2020 jge. All rights reserved.
 //
 
-import Foundation
+import SwiftUI
 
 class NoticeDetailViewModel: ObservableObject {
     @Published var noticeTitle: String = ""
