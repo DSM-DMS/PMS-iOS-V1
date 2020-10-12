@@ -10,6 +10,7 @@ import SwiftUI
 
 struct CompanyView: View {
     @ObservedObject var introduceVM = IntroduceViewModel()
+    @EnvironmentObject var settings: NavSettings
     @Environment(\.presentationMode) var mode
     @State var offset = CGSize.zero
     
@@ -26,10 +27,14 @@ struct CompanyView: View {
                 }.padding(.bottom)
             }.padding([.leading, .trailing], 30)
             .padding([.top, .bottom], 10)
-        }.navigationBarTitle("취업처 소개", displayMode: .inline)
+        }.onAppear {
+            self.settings.isNav = true
+        }
+        .navigationBarTitle("취업처 소개", displayMode: .inline)
         .navigationBarBackButtonHidden(true)
             .navigationBarItems(leading: Button(action: {
                 self.mode.wrappedValue.dismiss()
+                self.settings.isNav = false
             }) {
                 Image("NavArrow")
             })
@@ -39,11 +44,13 @@ struct CompanyView: View {
                         self.offset = gesture.translation
                         if abs(self.offset.width) > 0 {
                             self.mode.wrappedValue.dismiss()
+                            self.settings.isNav = false
                         }
                 }
                 .onEnded { _ in
                     if abs(self.offset.width) > 0 {
                         self.mode.wrappedValue.dismiss()
+                        self.settings.isNav = false
                     } else {
                         self.offset = .zero
                     }

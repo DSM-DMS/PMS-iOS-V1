@@ -76,44 +76,40 @@ struct Home: View {
             if self.settings.isNav == false {
                 VStack {
                     Spacer()
-                    VStack(spacing: -5) {
+                    VStack(spacing: -10) {
                         AppBar(index: self.$index, offset: self.$offset)
                         Rectangle()
                             .frame(height: self.edges!.bottom == 0 ? 10 : 30).foregroundColor(.white)
                     }
                 }
-                .animation(.default)
                 .edgesIgnoringSafeArea(.all)
             }
         }.onAppear {
-            self.offset = self.width * 2
+            self.offset = 0
         }
     }
     
     func changeView(left: Bool) {
         if left {
             if self.index != 5 {
-                
                 self.index += 1
             }
         } else {
-            
             if self.index != 0 {
-                
                 self.index -= 1
             }
         }
         
         if self.index == 1 {
-            self.offset = self.width * 2
-        } else if self.index == 2 {
-            self.offset = self.width
-        } else if self.index == 3 {
             self.offset = 0
-        } else if self.index == 4 {
+        } else if self.index == 2 {
             self.offset = -self.width
-        } else {
+        } else if self.index == 3 {
             self.offset = -self.width * 2
+        } else if self.index == 4 {
+            self.offset = -self.width * 3
+        } else {
+            self.offset = -self.width * 4
         }
     }
 }
@@ -130,39 +126,40 @@ struct AppBar: View {
             VStack {
                 Capsule()
                     .fill(Color("Blue"))
-                    .frame(width: UIFrame.UIWidth / 6, height: 4)
+                    .frame(width: UIFrame.UIWidth / 6, height: 3)
                     .offset(x: UIFrame.UIWidth / 6 * CGFloat(index - 1) + UIFrame.UIWidth / 45 * CGFloat(index - 1))
+                    .animation(.default)
             }
             HStack {
                 Button(action: {
                     self.index = 1
-                    self.offset = self.width * 2
+                    self.offset = 0
                 }) {
                     TabButtonView(image: "Calendar", text: "일정", index: self.$index, buttonIndex: 1)
                 }
                 Button(action: {
                     self.index = 2
-                    self.offset = self.width
+                    self.offset = -self.width
                 }) {
                     TabButtonView(image: "Meal", text: "급식", index: self.$index, buttonIndex: 2)
                 }
                 
                 Button(action: {
                     self.index = 3
-                    self.offset = 0
+                    self.offset = -self.width * 2
                 }) {
                     TabButtonView(image: "Notice", text: "공지", index: self.$index, buttonIndex: 3)
                 }
                 
                 Button(action: {
                     self.index = 4
-                    self.offset = -self.width
+                    self.offset = -self.width * 3
                 }) {
                     TabButtonView(image: "Introduce", text: "소개", index: self.$index, buttonIndex: 4)
                 }
                 Button(action: {
                     self.index = 5
-                    self.offset = -self.width * 2
+                    self.offset = -self.width * 4
                 }) {
                     TabButtonView(image: "Mypage", text: "내 정보", index: self.$index, buttonIndex: 5)
                 }
@@ -171,7 +168,7 @@ struct AppBar: View {
         })
             .padding(.horizontal)
             .padding(.bottom, 10)
-            .background(RoundedRectangle(cornerRadius: 10).shadow(radius: 10).foregroundColor(.white))
+            .background(RoundedRectangle(cornerRadius: 20).shadow(radius: 10).foregroundColor(.white))
     }
 }
 
@@ -182,18 +179,19 @@ struct TabButtonView: View {
     var buttonIndex: Int
     var body: some View {
         VStack(spacing: 0) {
-//            Capsule()
-//                .fill(self.index == buttonIndex ?  Color("Blue") : Color.clear)
-//                .frame(height: 4)
-//
             Capsule()
                 .fill(Color.clear)
                 .frame(height: 4)
             VStack(spacing: 0) {
-                Image(image)
-                    .resizable()
-                    .frame(width: 25, height: 25)
-                    .foregroundColor(self.index == buttonIndex ? Color("Blue") : Color.gray.opacity(0.7))
+                if self.index == buttonIndex {
+                    Image(String(image + ".fill"))
+                        .resizable()
+                        .frame(width: 25, height: 25)
+                } else {
+                    Image(image)
+                        .resizable()
+                        .frame(width: 25, height: 25)
+                }
                 
                 Text(text)
                     .foregroundColor(self.index == buttonIndex ? Color("Blue") : Color.gray.opacity(0.7))

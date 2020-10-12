@@ -10,6 +10,7 @@ import SwiftUI
 
 struct ChangePWView: View {
     @ObservedObject var mypageVM = MypageViewModel()
+    @EnvironmentObject var settings: NavSettings
     @Environment(\.presentationMode) var mode
     @State var offset = CGSize.zero
     
@@ -39,11 +40,13 @@ struct ChangePWView: View {
                         self.offset = gesture.translation
                         if abs(self.offset.width) > 0 {
                             self.mode.wrappedValue.dismiss()
+                            self.settings.isNav = false
                         }
                 }
                 .onEnded { _ in
                     if abs(self.offset.width) > 0 {
                         self.mode.wrappedValue.dismiss()
+                        self.settings.isNav = false
                     } else {
                         self.offset = .zero
                     }
@@ -53,6 +56,7 @@ struct ChangePWView: View {
                 .navigationBarBackButtonHidden(true)
                 .navigationBarItems(leading: Button(action: {
                     self.mode.wrappedValue.dismiss()
+                    self.settings.isNav = false
                 }) {
                     Image("NavArrow")
                         .foregroundColor(.black)
@@ -77,10 +81,11 @@ struct ChangePWView: View {
                             Spacer()
                             Spacer()
                             Text("확인")
-                                .foregroundColor(Color("Blue"))
+                                .foregroundColor(.blue)
                                 .onTapGesture {
                                     self.mypageVM.confirmAlert = false
                                     self.mode.wrappedValue.dismiss()
+                                    self.settings.isNav = false
                             }
                             Spacer()
                         }
@@ -90,6 +95,8 @@ struct ChangePWView: View {
                     .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.white).shadow(radius: 3))
                 }.edgesIgnoringSafeArea([.top, .bottom])
             }
+        }.onAppear {
+            self.settings.isNav = true
         }
     }
 }

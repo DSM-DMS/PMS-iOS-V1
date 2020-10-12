@@ -199,7 +199,7 @@ struct checkErrorView: View {
                     .padding(.top, 20)
                 CustomDivider()
                 Text("확인")
-                    .foregroundColor(Color("Blue"))
+                    .foregroundColor(.blue)
                     .onTapGesture {
                         self.isAlert = false
                 }

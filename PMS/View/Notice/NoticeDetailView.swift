@@ -7,23 +7,25 @@
 //
 
 import SwiftUI
+import Combine
 
 struct NoticeDetailView: View {
+    let fileUrl = Bundle.main.url(forResource: "testPdf", withExtension: "pdf")!
     @EnvironmentObject var settings: NavSettings
     @ObservedObject var NoticeDetailVM = NoticeDetailViewModel()
     @Environment(\.presentationMode) var mode
     @State var offset = CGSize.zero
     
     var body: some View {
-        ZStack {
+        ZStack(alignment: .bottom) {
             VStack {
                 ScrollView {
-                    NoticeDetailTopView()
+                    NoticeDetailTopView(isAlert: self.$NoticeDetailVM.pdfAlert)
                     Divider()
                     ScrollView {
                         Text(self.NoticeDetailVM.noticeDesc)
                     }.padding([.top, .bottom], 10)
-                        .frame(height: UIFrame.UIHeight / 4)
+                    .frame(height: UIFrame.UIHeight / 4)
                     CustomDivider()
                     VStack {
                         NoticeCommentView()
@@ -33,22 +35,22 @@ struct NoticeDetailView: View {
                     
                 }
             }.padding([.leading, .trailing], 20)
-                .navigationBarTitle("공지 제목", displayMode: .inline)
-                .navigationBarBackButtonHidden(true)
-                .navigationBarItems(leading: Button(action: {
-                    self.mode.wrappedValue.dismiss()
-                    self.settings.isNav = false
-                }) {
-                    Image("NavArrow")
-                })
-                .gesture(
-                    DragGesture()
-                        .onChanged { gesture in
-                            self.offset = gesture.translation
-                            if abs(self.offset.width) > 0 {
-                                self.mode.wrappedValue.dismiss()
-                                self.settings.isNav = false
-                            }
+            .navigationBarTitle("공지 제목", displayMode: .inline)
+            .navigationBarBackButtonHidden(true)
+            .navigationBarItems(leading: Button(action: {
+                self.mode.wrappedValue.dismiss()
+                self.settings.isNav = false
+            }) {
+                Image("NavArrow")
+            })
+            .gesture(
+                DragGesture()
+                    .onChanged { gesture in
+                        self.offset = gesture.translation
+                        if abs(self.offset.width) > 0 {
+                            self.mode.wrappedValue.dismiss()
+                            self.settings.isNav = false
+                        }
                     }
                     .onEnded { _ in
                         if abs(self.offset.width) > 0 {
@@ -59,12 +61,53 @@ struct NoticeDetailView: View {
                         }
                     }
             )
-            VStack {
-                Spacer()
+            VStack(spacing: -10) {
+                if self.NoticeDetailVM.comment.contains("@") {
+                    ScrollView {
+                        ForEach(1...4, id: \.self) { i in
+                            ReferView(name: String(i))
+                                .onTapGesture {
+                                    self.NoticeDetailVM.comment += String(i) + " "
+                                }
+                        }.padding(.top, 10)
+                    }.frame(width: UIFrame.UIWidth, height: UIFrame.UIHeight / 4.5)
+                    .background(Rectangle().foregroundColor(.white).shadow(radius: 3))
+                }
                 CustomCommentView(text: self.$NoticeDetailVM.comment)
-            }.edgesIgnoringSafeArea(.bottom)
-        }.onAppear {
-                self.settings.isNav = true
+            }
+            
+            if self.NoticeDetailVM.pdfAlert {
+                ZStack {
+                    Color(.black).opacity(0.3)
+                        .onTapGesture {
+                            withAnimation {
+                                self.NoticeDetailVM.pdfAlert = false
+                            }
+                        }
+                    HStack(spacing: 20) {
+                        Image("Download")
+                            .onTapGesture {
+                                
+                            }
+                        Text(self.NoticeDetailVM.pdfTitle)
+                        Spacer()
+                        ZStack {
+                            NavigationLink(destination: PDFKitView(url: fileUrl)) {
+                                PreviewTextView()
+                            }
+                        }
+                    }
+                    .padding(.all, 20)
+                    .padding([.top, .bottom], 10)
+                    .frame(width: UIFrame.UIWidth - 80)
+                    .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.white).shadow(radius: 3))
+                }.edgesIgnoringSafeArea([.top, .bottom])
+                
+            }
+        }.keyboardAdaptive()
+        .edgesIgnoringSafeArea(.bottom)
+        .onAppear {
+            self.settings.isNav = true
         }
     }
 }
@@ -83,6 +126,7 @@ struct NoticeDetailView_Previews: PreviewProvider {
 }
 
 struct NoticeDetailTopView: View {
+    @Binding var isAlert: Bool
     var body: some View {
         HStack {
             VStack(alignment: .leading, spacing: 7) {
@@ -94,7 +138,7 @@ struct NoticeDetailTopView: View {
                         Text("AM 02:13")
                         Text("| 조회수")
                     }.foregroundColor(.gray)
-                        .font(.callout)
+                    .font(.callout)
                     Text("30")
                         .foregroundColor(Color("Blue"))
                         .font(.callout)
@@ -102,6 +146,11 @@ struct NoticeDetailTopView: View {
             }
             Spacer()
             Image("Clip")
+                .onTapGesture {
+                    withAnimation {
+                        self.isAlert = true
+                    }
+                }
         }
     }
 }
@@ -133,6 +182,9 @@ struct CustomCommentView: View {
             HStack {
                 Text("@")
                     .foregroundColor(Color("Blue"))
+                    .onTapGesture {
+                        self.text += "@"
+                    }
                 ZStack {
                     RoundedRectangle(cornerRadius: 10).foregroundColor(Color("Gray")).frame(height: UIFrame.UIHeight / 20)
                     TextField("댓글을 남겨주세요", text: $text).padding(.leading, 10)
@@ -140,7 +192,31 @@ struct CustomCommentView: View {
                 
                 Image("Enter")
             }.padding([.leading, .trailing], 20)
-            
+            .padding(.bottom, 10)
         }
+    }
+}
+
+struct PreviewTextView: View {
+    var body: some View {
+        Text("미리보기").foregroundColor(.white)
+            .font(.callout)
+            .padding(.all, 5)
+            .background(RoundedRectangle(cornerRadius: 10).foregroundColor(Color("Blue")))
+    }
+}
+
+struct ReferView: View {
+    var name: String
+    var body: some View {
+        VStack {
+            HStack {
+                Text("@").foregroundColor(Color("Blue"))
+                Text(name)
+                Text("선생님")
+                Spacer()
+            }.padding(.all, 3)
+            Divider()
+        }.padding([.leading, .trailing], 20)
     }
 }

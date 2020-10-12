@@ -41,8 +41,12 @@ struct MealView: View {
                                 }.frame(height: UIFrame.UIHeight / 2.4)
                             }
                             ZStack {
-                                RoundedRectangle(cornerRadius: 10).foregroundColor(Color("Blue"))
-                                .frame(height: UIFrame.UIHeight / 13)
+                                VStack(spacing: -10) {
+                                    RoundedRectangle(cornerRadius: 10).foregroundColor(Color("Blue"))
+                                        .frame(height: UIFrame.UIHeight / 13)
+                                    Rectangle().foregroundColor(Color("Blue")).frame(height: 20)
+                                }
+                                
                                 Text(self.mealVM.now)
                                     .foregroundColor(.white)
                                     .font(.title)

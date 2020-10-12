@@ -17,32 +17,14 @@ struct MypageView: View {
                     MypageBackground()
                     VStack {
                         VStack(spacing: 20) {
-                            MypageTopView(nickname: self.mypageVM.nickname)
+                            MypageTopView(nickname: self.mypageVM.nickname, nicknameAlert: self.$mypageVM.nicknameAlert, studentAlert: self.$mypageVM.studentsAlert)
                             
                             TwoScoreView(plus: self.$mypageVM.plusScore, minus: self.$mypageVM.minusScore)
                             
-                            ZStack {
-                                RoundedRectangle(cornerRadius: 30).foregroundColor(Color("Blue")).frame(height: UIFrame.UIWidth / 12)
-                                Text(self.mypageVM.status)
-                                    .foregroundColor(.white)
-                            }.padding([.leading, .trailing])
+                            BlueStatusView(text: self.mypageVM.status)
                             
                             VStack(spacing: UIFrame.UIWidth / 15) {
-                                ZStack {
-                                    RoundedRectangle(cornerRadius: 10).foregroundColor(Color("LightGray")).frame(height: UIFrame.UIWidth / 4.3).shadow(radius: 5)
-                                    VStack {
-                                        HStack {
-                                            Text("이번 주 잔류 상태")
-                                            Spacer()
-                                            Text(self.mypageVM.weekStatus)
-                                        }
-                                        HStack {
-                                            Text("주말급식 신청 여부")
-                                            Spacer()
-                                            Image(self.mypageVM.isMeal ? "O" : "X").padding(.trailing, 5)
-                                        }
-                                    }.padding()
-                                }
+                                StatusView(text: self.mypageVM.weekStatus, isMeal: self.mypageVM.isMeal)
                                 NavigationLink(destination: OutsideDetailView()) {
                                     MypageButtonView(text: "외출 내역 보기")
                                 }
@@ -51,10 +33,12 @@ struct MypageView: View {
                                 }
                                 MypageButtonView(text: "로그아웃")
                                     .onTapGesture {
-                                        self.mypageVM.logoutAlert = true
+                                        withAnimation {
+                                            self.mypageVM.logoutAlert = true
+                                        }
+                                        
                                 }
                             }
-                            
                         }.padding([.leading, .trailing], 30)
                         Spacer()
                     }
@@ -75,7 +59,7 @@ struct MypageView: View {
                                     Spacer()
                                     Spacer()
                                     Text("확인")
-                                        .foregroundColor(Color("Blue"))
+                                        .foregroundColor(.blue)
                                         .onTapGesture {
                                             self.mypageVM.logoutAlert = false
                                     }
@@ -86,6 +70,129 @@ struct MypageView: View {
                             .padding()
                             .frame(width: UIFrame.UIWidth - 80)
                             .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.white).shadow(radius: 3))
+                        }.edgesIgnoringSafeArea([.top, .bottom])
+                    }
+                    if self.mypageVM.nicknameAlert {
+                        ZStack {
+                            Color(.black).opacity(0.3)
+                            VStack(spacing: 20) {
+                                VStack {
+                                    TextField("새로운 닉네임을 입력해주세요", text: self.$mypageVM.newNickname)
+                                    if self.mypageVM.newNickname != "" {
+                                        Color("Blue").frame(height: 1)
+                                    } else {
+                                        Color(.gray).frame(height: 1)
+                                    }
+                                    
+                                }.padding(.top, 20)
+                                .padding([.leading, .trailing], 20)
+                                
+                                CustomDivider()
+                                HStack {
+                                    Spacer()
+                                    Text("취소")
+                                        .onTapGesture {
+                                            self.mypageVM.nicknameAlert = false
+                                    }
+                                    Spacer()
+                                    Spacer()
+                                    Text("확인")
+                                        .foregroundColor(.blue)
+                                        .onTapGesture {
+                                            self.mypageVM.nicknameAlert = false
+                                    }
+                                    Spacer()
+                                }
+                                
+                            }
+                            .padding()
+                            .frame(width: UIFrame.UIWidth - 80)
+                            .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.white).shadow(radius: 3))
+                        }.edgesIgnoringSafeArea([.top, .bottom])
+                    }
+                    if self.mypageVM.studentCodeAlert {
+                        ZStack {
+                            Color(.black).opacity(0.3)
+                            VStack(spacing: 20) {
+                                VStack(alignment: .center) {
+                                    Text("자녀 확인 코드를 입력해주세요")
+                                    TextField("", text: self.$mypageVM.newNickname)
+                                        .keyboardType(.numberPad)
+                                        .frame(width: UIFrame.UIWidth / 2)
+                                    if self.mypageVM.newNickname != "" {
+                                        HStack {
+                                            DottedView(color: "Blue")
+                                        }
+                                    } else {
+                                        DottedView(color: "SystemGray")
+                                    }
+                                    
+                                }
+                                .padding([.leading, .trailing], 20)
+                                
+                                CustomDivider()
+                                HStack {
+                                    Spacer()
+                                    Text("취소")
+                                        .onTapGesture {
+                                            self.mypageVM.studentCodeAlert = false
+                                    }
+                                    Spacer()
+                                    Spacer()
+                                    Text("확인")
+                                        .foregroundColor(.blue)
+                                        .onTapGesture {
+                                            self.mypageVM.studentCodeAlert = false
+                                    }
+                                    Spacer()
+                                }
+                                
+                            }
+                            .padding()
+                            .frame(width: UIFrame.UIWidth - 80)
+                            .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.white).shadow(radius: 3))
+                        }.edgesIgnoringSafeArea([.top, .bottom])
+                    }
+                    if self.mypageVM.studentsAlert {
+                        ZStack {
+                            Color(.black).opacity(0.3)
+                            VStack {
+                                Spacer()
+                                VStack {
+                                    Color(.gray).frame(width: UIFrame.UIWidth / 5, height: 2)
+                                        .padding(.top, 5)
+                                        .padding(.bottom, 10)
+                                    
+                                    ForEach(1...2, id: \.self) { _ in
+                                        VStack(spacing: 20) {
+                                            HStack {
+                                                Text("1319 정고은")
+                                                Spacer()
+                                                Image("Minus")
+                                            }
+                                            Divider()
+                                        }.padding([.leading, .trailing], 20)
+                                        .padding([.top, .bottom], 10)
+                                    }
+                                    
+                                    HStack {
+                                        HStack {
+                                            Image("CirclePlus")
+                                            Text("학생 추가하기")
+                                        }.padding([.leading, .trailing], 10)
+                                        .padding(.bottom, 20)
+                                        
+                                        Spacer()
+                                    }
+                                    
+                                }.padding([.leading, .trailing], 10)
+                                .background(
+                                    VStack(spacing: -13) {
+                                        RoundedRectangle(cornerRadius: 20).foregroundColor(.white).shadow(radius: 3)
+                                        Rectangle().foregroundColor(.white).frame(height: 10)
+                                    })
+                            }
+                            
                         }.edgesIgnoringSafeArea([.top, .bottom])
                     }
                 }
@@ -146,29 +253,44 @@ struct TwoScoreView: View {
 
 struct MypageTopView: View {
     var nickname: String
-    var edges = UIApplication.shared.windows.first?.safeAreaInsets
+    @EnvironmentObject var settings: NavSettings
+    @Binding var nicknameAlert: Bool
+    @Binding var studentAlert: Bool
+//    var edges = UIApplication.shared.windows.first?.safeAreaInsets
     
     var body: some View {
         HStack {
-            Text(nickname)
-                .font(.title)
-                .foregroundColor(.white)
-            Image("Pencil")
+            Button(action: {
+                withAnimation {
+                    self.nicknameAlert = true
+                }
+            }) {
+                Text(nickname)
+                    .font(.title)
+                    .foregroundColor(.white)
+                Image("Pencil")
+            }
             Spacer()
-            Text("학생추가")
-                .font(.headline)
-                .foregroundColor(.white)
-            Image("BottomArrow")
+            HStack {
+                Text("학생추가")
+                    .font(.headline)
+                    .foregroundColor(.white)
+                Image("BottomArrow")
+            }.onTapGesture {
+                withAnimation {
+                    self.studentAlert = true
+                }
+            }
+            
         }
         .frame(height: 70)
         .padding([.leading, .trailing], 20)
         .padding(.top, UIFrame.UIWidth / 15)
-        .padding(.top, self.edges!.bottom == 0 ? 0 : UIFrame.UIWidth / 10)
+//        .padding(.top, self.edges!.bottom == 0 ? 0 : UIFrame.UIWidth / 10)
     }
 }
 
 struct MypageBackground: View {
-    
     var body: some View {
         VStack {
             VStack {
@@ -197,6 +319,53 @@ struct MypageButtonView: View {
                         .foregroundColor(.black)
                 }
             }.padding()
+        }
+    }
+}
+
+struct BlueStatusView: View {
+    var text: String
+    var body: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 30).foregroundColor(Color("Blue")).frame(height: UIFrame.UIWidth / 12)
+            Text(text)
+                .foregroundColor(.white)
+        }.padding([.leading, .trailing])
+    }
+}
+
+struct StatusView: View {
+    var text: String
+    var isMeal: Bool
+    var body: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 10).foregroundColor(Color("LightGray")).frame(height: UIFrame.UIWidth / 4.3).shadow(radius: 5)
+            VStack {
+                HStack {
+                    Text("이번 주 잔류 상태")
+                    Spacer()
+                    Text(text)
+                }
+                HStack {
+                    Text("주말급식 신청 여부")
+                    Spacer()
+                    Image(self.isMeal ? "O" : "X").padding(.trailing, 5)
+                }
+            }.padding()
+        }
+    }
+}
+
+struct DottedView: View {
+    var color: String
+    var body: some View {
+        HStack {
+            Color(color).frame(width: UIFrame.UIWidth / 15, height: 2)
+            Color(color).frame(width: UIFrame.UIWidth / 15, height: 2)
+            Color(color).frame(width: UIFrame.UIWidth / 15, height: 2)
+            Color(color).frame(width: UIFrame.UIWidth / 15, height: 2)
+            Color(color).frame(width: UIFrame.UIWidth / 15, height: 2)
+            Color(color).frame(width: UIFrame.UIWidth / 15, height: 2)
         }
     }
 }

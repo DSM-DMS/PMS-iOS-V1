@@ -26,4 +26,7 @@ class NoticeDetailViewModel: ObservableObject {
 """
     @Published var comment = ""
     @Published var personSearch = ""
+    
+    @Published var pdfAlert = false
+    @Published var pdfTitle = "가정통신문.pdf"
 }
