@@ -10,7 +10,6 @@ import SwiftUI
 import Combine
 
 struct NoticeDetailView: View {
-    let fileUrl = Bundle.main.url(forResource: "testPdf", withExtension: "pdf")!
     @EnvironmentObject var settings: NavSettings
     @ObservedObject var NoticeDetailVM = NoticeDetailViewModel()
     @Environment(\.presentationMode) var mode
@@ -80,19 +79,17 @@ struct NoticeDetailView: View {
                 ZStack {
                     Color(.black).opacity(0.3)
                         .onTapGesture {
-                            withAnimation {
                                 self.NoticeDetailVM.pdfAlert = false
-                            }
                         }
                     HStack(spacing: 20) {
                         Image("Download")
                             .onTapGesture {
-                                
+                                self.NoticeDetailVM.downloadFile(fileName: self.NoticeDetailVM.pdfTitle)
                             }
                         Text(self.NoticeDetailVM.pdfTitle)
                         Spacer()
                         ZStack {
-                            NavigationLink(destination: PDFKitView(url: fileUrl)) {
+                            NavigationLink(destination: PDFKitView(url: self.NoticeDetailVM.pdfUrl)) {
                                 PreviewTextView()
                             }
                         }

@@ -36,6 +36,7 @@
 		D98875F32533E4FB00B4D439 /* PDFKitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98875F22533E4FB00B4D439 /* PDFKitView.swift */; };
 		D9887600253474D500B4D439 /* testPdf.pdf in Resources */ = {isa = PBXBuildFile; fileRef = D98875FF253474D500B4D439 /* testPdf.pdf */; };
 		D988760E25349B2F00B4D439 /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D988760D25349B2F00B4D439 /* Keyboard.swift */; };
+		D988765625352E2500B4D439 /* PMSApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D988765525352E2500B4D439 /* PMSApi.swift */; };
 		D98DD19E2530A4FC001EFFA9 /* NoticeDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98DD19D2530A4FC001EFFA9 /* NoticeDetailViewModel.swift */; };
 		D98DD1A025314EA5001EFFA9 /* ClubDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98DD19F25314EA5001EFFA9 /* ClubDetailView.swift */; };
 		D98DD1A225314EBF001EFFA9 /* IntroduceDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98DD1A125314EBF001EFFA9 /* IntroduceDetailViewModel.swift */; };
@@ -113,6 +114,7 @@
 		D98875F22533E4FB00B4D439 /* PDFKitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFKitView.swift; sourceTree = "<group>"; };
 		D98875FF253474D500B4D439 /* testPdf.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = testPdf.pdf; sourceTree = "<group>"; };
 		D988760D25349B2F00B4D439 /* Keyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keyboard.swift; sourceTree = "<group>"; };
+		D988765525352E2500B4D439 /* PMSApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PMSApi.swift; sourceTree = "<group>"; };
 		D98DD19D2530A4FC001EFFA9 /* NoticeDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeDetailViewModel.swift; sourceTree = "<group>"; };
 		D98DD19F25314EA5001EFFA9 /* ClubDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubDetailView.swift; sourceTree = "<group>"; };
 		D98DD1A125314EBF001EFFA9 /* IntroduceDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroduceDetailViewModel.swift; sourceTree = "<group>"; };
@@ -301,6 +303,7 @@
 		D94AC77A2524D2D0002CCB3A /* PMS */ = {
 			isa = PBXGroup;
 			children = (
+				D988761D25352B6400B4D439 /* Networking */,
 				D903E5AF252A967C004F09D6 /* Extensions */,
 				D903E5AE252A9678004F09D6 /* View */,
 				D94AC77B2524D2D0002CCB3A /* AppDelegate.swift */,
@@ -338,6 +341,14 @@
 				D94AC79F2524D2D3002CCB3A /* Info.plist */,
 			);
 			path = PMSUITests;
+			sourceTree = "<group>";
+		};
+		D988761D25352B6400B4D439 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				D988765525352E2500B4D439 /* PMSApi.swift */,
+			);
+			path = Networking;
 			sourceTree = "<group>";
 		};
 		D98DD1A325314EC2001EFFA9 /* View */ = {
@@ -391,8 +402,6 @@
 			dependencies = (
 			);
 			name = PMS;
-			packageProductDependencies = (
-			);
 			productName = PMS;
 			productReference = D94AC7782524D2D0002CCB3A /* PMS.app */;
 			productType = "com.apple.product-type.application";
@@ -405,6 +414,7 @@
 				D94AC78A2524D2D3002CCB3A /* Sources */,
 				D94AC78B2524D2D3002CCB3A /* Frameworks */,
 				D94AC78C2524D2D3002CCB3A /* Resources */,
+				00292D67F7555324236879BD /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -468,8 +478,6 @@
 				Base,
 			);
 			mainGroup = D94AC76F2524D2D0002CCB3A;
-			packageReferences = (
-			);
 			productRefGroup = D94AC7792524D2D0002CCB3A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -511,6 +519,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		00292D67F7555324236879BD /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PMSTests/Pods-PMSTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PMSTests/Pods-PMSTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PMSTests/Pods-PMSTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		35CD8465A2E9535386FF5B4B /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -666,6 +691,7 @@
 				D988760E25349B2F00B4D439 /* Keyboard.swift in Sources */,
 				D9A15002252AC16100AD501A /* IntroduceView.swift in Sources */,
 				D9A15011252AC63900AD501A /* StoryboardtoUI.swift in Sources */,
+				D988765625352E2500B4D439 /* PMSApi.swift in Sources */,
 				D9A15015252AC69200AD501A /* UIColorRgb.swift in Sources */,
 				D9A15004252AC5C900AD501A /* MealView.swift in Sources */,
 				D98162A5252ECBBC0052E087 /* OutsideDetailView.swift in Sources */,

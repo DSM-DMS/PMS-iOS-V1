@@ -108,3 +108,9 @@ struct BlueTabView: View {
         Color("Blue").frame(width: 3, height: 17)
     }
 }
+
+struct RedTabView: View {
+    var body: some View {
+        Color("Red").frame(width: 3, height: 17)
+    }
+}

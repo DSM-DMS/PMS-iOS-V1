@@ -36,7 +36,9 @@ struct MealView: View {
                                     Spacer()
                                     Image("Flip")
                                         .onTapGesture {
-                                            self.mealVM.isPicture.toggle()
+                                            withAnimation {
+                                                self.mealVM.isPicture.toggle()
+                                            }
                                     }
                                 }.frame(height: UIFrame.UIHeight / 2.4)
                             }
