@@ -12,7 +12,7 @@ class MealViewModel: ObservableObject {
     @Published var today = "2020/09/21"
     @Published var now = "점심"
     @Published var meal =
-    """
+        """
     현미밥
     들깨수제비국
     목살고추장구이
@@ -23,4 +23,12 @@ class MealViewModel: ObservableObject {
     오렌지
     """
     @Published var isPicture = false
+    
+    func changeMeal(left: Bool) {
+        if left {
+            
+        } else {
+            
+        }
+    }
 }

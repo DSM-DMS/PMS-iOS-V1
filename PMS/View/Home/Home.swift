@@ -39,19 +39,6 @@ struct Home: View {
                         .frame(width: g.frame(in: .global).width)
                 }
                 .offset(x: self.offset)
-//                .highPriorityGesture(DragGesture()
-//                                        .onEnded({ value in
-//                                            if self.settings.isNav == false {
-//                                                if value.translation.width > 50 {
-//                                                    print("right")
-//                                                    self.changeView(left: false)
-//                                                }
-//                                                if -value.translation.width > 50 {
-//                                                    print("left")
-//                                                    self.changeView(left: true)
-//                                                }
-//                                            }
-//                                        }))
             }
             if self.settings.isNav == false {
                 VStack {
@@ -230,7 +217,7 @@ struct Home: View {
                             Spacer()
                         }
                         
-                    }
+                    }.animation(.spring())
                     .padding()
                     .frame(width: UIFrame.UIWidth - 80)
                     .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.white).shadow(radius: 3))

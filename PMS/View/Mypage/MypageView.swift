@@ -195,16 +195,28 @@ struct StatusView: View {
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 10).foregroundColor(Color("LightGray")).frame(height: UIFrame.UIWidth / 4.3).shadow(radius: 5)
+            HStack {
+                VStack {
+                    Text("이번 주 잔류 상태")
+                    Text("주말급식 신청 여부")
+                }
+                Spacer()
+                VStack {
+                    Text(text)
+                    
+                    Image(self.isMeal ? "O" : "X").padding(.trailing, 5)
+                }
+            }
             VStack {
                 HStack {
-                    Text("이번 주 잔류 상태")
+                    
                     Spacer()
-                    Text(text)
+                    
                 }
                 HStack {
-                    Text("주말급식 신청 여부")
+                    
                     Spacer()
-                    Image(self.isMeal ? "O" : "X").padding(.trailing, 5)
+                    
                 }
             }.padding()
         }
