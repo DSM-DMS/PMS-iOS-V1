@@ -23,22 +23,6 @@ func passwordStrengthChecker(forPassword text: String) -> PasswordValidation {
     }
 }
 
-public enum EmailValidation {
-    case emptyEmail
-    case inValidEmail
-    case validEmail
-    var errorMessage: String? {
-        switch self {
-        case .emptyEmail:
-            return "Please enter email"
-        case .inValidEmail:
-            return "Invalid email"
-        case .validEmail:
-            return nil
-        }
-    }
-}
-
 public enum PasswordValidation {
     case veryWeak
     case weak
@@ -66,9 +50,9 @@ public enum PasswordValidation {
     var confirmPasswordErrorMessage: String? {
         switch self {
         case .confirmPasswordEmpty:
-            return "Please enter confirm password"
+            return "확인할 비밀번호를 입력해주세요"
         case .notMatch:
-            return "Password not match"
+            return "비밀번호가 일치하지 않습니다."
         default:
             return nil
         }

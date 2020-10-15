@@ -24,7 +24,7 @@ struct SignupView: View {
                         CustomTextField(isLogin: false, text: self.$signupVM.nickname, placeholder: "닉네임을 입력해주세요", image: SFSymbolKey.pencil.rawValue)
                         CustomTextField(isLogin: false, text: self.$signupVM.id, placeholder: "아이디를 입력해주세요", image: SFSymbolKey.person.rawValue)
                         PasswordTextField(isLogin: false, text: self.$signupVM.password, isHidden: self.$signupVM.isHidden)
-//                        CheckTextField(text: self.$signupVM.confirmPassword, isError: self.$signupVM.confirmIsError, placeholder: "비밀번호를 한번 더 입력해주세요", isChange: false, errorMsg: self.$signupVM.confirmErrorMsg)
+                        CheckTextField(text: self.$signupVM.confirmPassword, isError: self.$signupVM.confirmIsError, placeholder: "비밀번호를 한번 더 입력해주세요", isChange: false, errorMsg: self.$signupVM.confirmErrorMsg)
                     }
                     OAuthView()
                     ButtonView(text: "회원가입", color: "Red")
@@ -41,7 +41,7 @@ struct SignupView: View {
                 Text("")
             }
             if self.signupVM.isAlert == true {
-                checkErrorView(text: "아이디 또는 비밀번호가 일치하지 않습니다", isAlert: self.$signupVM.isAlert)
+                checkErrorView(text: "아이디 중복! 다른 아이디로 다시 시도해주세요", isAlert: self.$signupVM.isAlert)
             }
         }.gesture(
             DragGesture()
@@ -99,7 +99,7 @@ struct CheckTextField: View {
                             .padding(.leading, 10)
                     }
                 }
-                TextField(placeholder, text: $text)
+                SecureField(placeholder, text: $text)
                 Spacer()
                 VStack {
                     if text != "" {
@@ -115,7 +115,7 @@ struct CheckTextField: View {
             if text != "" {
                 Color("Red").frame(height: CGFloat(4) / UIScreen.main.scale)
             } else {
-                Color.gray.frame(height: CGFloat(4) / UIScreen.main.scale)
+                CustomDivider()
             }
             HStack {
                 Spacer()

@@ -9,7 +9,12 @@
 import SwiftUI
 
 struct MypageView: View {
-    @ObservedObject var mypageVM = MypageViewModel()
+    @EnvironmentObject var mypageVM: MypageViewModel
+    @Binding var nicknameAlert: Bool
+    @Binding var studentsAlert: Bool
+    @Binding var logoutAlert: Bool
+    @State var isNav: Bool = true
+    
     var body: some View {
         NavigationView {
             GeometryReader { _ in
@@ -17,32 +22,16 @@ struct MypageView: View {
                     MypageBackground()
                     VStack {
                         VStack(spacing: 20) {
-                            MypageTopView(nickname: self.mypageVM.nickname)
+                            MypageTopView(nickname: self.mypageVM.nickname, nicknameAlert: self.$nicknameAlert, studentAlert: self.$studentsAlert)
                             
+                            NavigationLink(destination: ScoreDetailView()) {
                             TwoScoreView(plus: self.$mypageVM.plusScore, minus: self.$mypageVM.minusScore)
+                            }
                             
-                            ZStack {
-                                RoundedRectangle(cornerRadius: 30).foregroundColor(Color("Blue")).frame(height: UIFrame.UIWidth / 12)
-                                Text(self.mypageVM.status)
-                                    .foregroundColor(.white)
-                            }.padding([.leading, .trailing])
+                            BlueStatusView(text: self.mypageVM.status)
                             
                             VStack(spacing: UIFrame.UIWidth / 15) {
-                                ZStack {
-                                    RoundedRectangle(cornerRadius: 10).foregroundColor(Color("LightGray")).frame(height: UIFrame.UIWidth / 4.3).shadow(radius: 5)
-                                    VStack {
-                                        HStack {
-                                            Text("이번 주 잔류 상태")
-                                            Spacer()
-                                            Text(self.mypageVM.weekStatus)
-                                        }
-                                        HStack {
-                                            Text("주말급식 신청 여부")
-                                            Spacer()
-                                            Image(self.mypageVM.isMeal ? "O" : "X")
-                                        }
-                                    }.padding()
-                                }
+                                StatusView(text: self.mypageVM.weekStatus, isMeal: self.mypageVM.isMeal)
                                 NavigationLink(destination: OutsideDetailView()) {
                                     MypageButtonView(text: "외출 내역 보기")
                                 }
@@ -51,56 +40,30 @@ struct MypageView: View {
                                 }
                                 MypageButtonView(text: "로그아웃")
                                     .onTapGesture {
-                                        self.mypageVM.logoutAlert = true
+                                        withAnimation {
+                                            self.logoutAlert = true
+                                        }
+                                        
                                 }
                             }
-                            
                         }.padding([.leading, .trailing], 30)
                         Spacer()
                     }
-                    if self.mypageVM.logoutAlert {
-                        ZStack {
-                            Color(.black).opacity(0.3)
-                            VStack(spacing: 20) {
-                                Text("로그아웃 하시겠습니까?")
-                                    .multilineTextAlignment(.center)
-                                    .padding(.top, 20)
-                                Color.gray.frame(height: CGFloat(4) / UIScreen.main.scale)
-                                HStack {
-                                    Spacer()
-                                    Text("취소")
-                                        .onTapGesture {
-                                            self.mypageVM.logoutAlert = false
-                                    }
-                                    Spacer()
-                                    Spacer()
-                                    Text("확인")
-                                        .foregroundColor(Color("Blue"))
-                                        .onTapGesture {
-                                            self.mypageVM.logoutAlert = false
-                                    }
-                                    Spacer()
-                                }
-                                
-                            }
-                            .padding()
-                            .frame(width: UIFrame.UIWidth - 80)
-                            .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.white).shadow(radius: 3))
-                        }.edgesIgnoringSafeArea(.bottom)
-                    }
                 }
             }.edgesIgnoringSafeArea(.top)
-        }
+                .navigationBarHidden(isNav)
+        }.accentColor(.black)
+        
     }
 }
 
 struct MypageView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            MypageView()
+            MypageView(nicknameAlert: .constant(false), studentsAlert: .constant(false), logoutAlert: .constant(false))
                 .previewDevice(PreviewDevice(rawValue: "iPhone XS Max"))
                 .previewDisplayName("iPhone XS Max")
-            MypageView()
+            MypageView(nicknameAlert: .constant(false), studentsAlert: .constant(false), logoutAlert: .constant(false))
                 .previewDevice(PreviewDevice(rawValue: "iPhone 8"))
                 .previewDisplayName("iPhone 8")
         }
@@ -117,7 +80,7 @@ struct TwoScoreView: View {
     @Binding var plus: Int
     @Binding var minus: Int
     var body: some View {
-        NavigationLink(destination: ScoreDetailView()) {
+
             HStack(spacing: 30) {
                 ZStack {
                     ScoreView()
@@ -126,7 +89,7 @@ struct TwoScoreView: View {
                             .font(.title)
                             .foregroundColor(.black)
                         Text("상점")
-                            .foregroundColor(.red)
+                            .foregroundColor(Color("Blue"))
                     }
                 }
                 ZStack {
@@ -140,25 +103,40 @@ struct TwoScoreView: View {
                     }
                 }
             }
-        }
     }
 }
 
 struct MypageTopView: View {
     var nickname: String
+    @EnvironmentObject var settings: NavSettings
+    @Binding var nicknameAlert: Bool
+    @Binding var studentAlert: Bool
     var edges = UIApplication.shared.windows.first?.safeAreaInsets
     
     var body: some View {
         HStack {
-            Text(nickname)
-                .font(.title)
-                .foregroundColor(.white)
-            Image("Pencil")
+            Button(action: {
+                withAnimation {
+                    self.nicknameAlert = true
+                }
+            }) {
+                Text(nickname)
+                    .font(.title)
+                    .foregroundColor(.white)
+                Image("Pencil")
+            }
             Spacer()
-            Text("학생추가")
-                .font(.headline)
-                .foregroundColor(.white)
-            Image("BottomArrow")
+            HStack {
+                Text("학생추가")
+                    .font(.headline)
+                    .foregroundColor(.white)
+                Image("BottomArrow")
+            }.onTapGesture {
+                withAnimation {
+                    self.studentAlert = true
+                }
+            }
+            
         }
         .frame(height: 70)
         .padding([.leading, .trailing], 20)
@@ -168,7 +146,6 @@ struct MypageTopView: View {
 }
 
 struct MypageBackground: View {
-    
     var body: some View {
         VStack {
             VStack {
@@ -197,6 +174,65 @@ struct MypageButtonView: View {
                         .foregroundColor(.black)
                 }
             }.padding()
+        }
+    }
+}
+
+struct BlueStatusView: View {
+    var text: String
+    var body: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 30).foregroundColor(Color("Blue")).frame(height: UIFrame.UIWidth / 12)
+            Text(text)
+                .foregroundColor(.white)
+        }.padding([.leading, .trailing])
+    }
+}
+
+struct StatusView: View {
+    var text: String
+    var isMeal: Bool
+    var body: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 10).foregroundColor(Color("LightGray")).frame(height: UIFrame.UIWidth / 4.3).shadow(radius: 5)
+            HStack {
+                VStack {
+                    Text("이번 주 잔류 상태")
+                    Text("주말급식 신청 여부")
+                }
+                Spacer()
+                VStack {
+                    Text(text)
+                    
+                    Image(self.isMeal ? "O" : "X").padding(.trailing, 5)
+                }
+            }
+            VStack {
+                HStack {
+                    
+                    Spacer()
+                    
+                }
+                HStack {
+                    
+                    Spacer()
+                    
+                }
+            }.padding()
+        }
+    }
+}
+
+struct DottedView: View {
+    var color: String
+    var body: some View {
+        HStack {
+            Color(color).frame(width: UIFrame.UIWidth / 15, height: 2)
+            Color(color).frame(width: UIFrame.UIWidth / 15, height: 2)
+            Color(color).frame(width: UIFrame.UIWidth / 15, height: 2)
+            Color(color).frame(width: UIFrame.UIWidth / 15, height: 2)
+            Color(color).frame(width: UIFrame.UIWidth / 15, height: 2)
+            Color(color).frame(width: UIFrame.UIWidth / 15, height: 2)
         }
     }
 }

@@ -28,13 +28,21 @@ struct NoticeView: View {
                     }
                     VStack(spacing: UIFrame.UIWidth / 15) {
                         ScrollView {
-                            ForEach(1...10, id: \.self) { _ in
-                                NavigationLink(destination: NoticeDetailView()) {
-                                    NoticeRectangle()
+                            if self.noticeVM.selectedIndex == 1 {
+                                ForEach(1...6, id: \.self) { _ in
+                                    NavigationLink(destination: NoticeDetailView()) {
+                                        NoticeRectangle(isRed: true, title: "공지 제목", date: ("2020/09/10"))
+                                    }
+                                }
+                            } else {
+                                ForEach(1...6, id: \.self) { _ in
+                                    NavigationLink(destination: NoticeDetailView()) {
+                                        NoticeRectangle(isRed: false, title: "공지 제목", date: ("2020/09/10"))
+                                    }
                                 }
                             }
                         }.frame(height: UIFrame.UIHeight / 2)
-                        HStack {
+                        HStack(spacing: 25) {
                             Image("LeftArrow")
                             Text("1")
                             Image("RightArrow")
@@ -46,7 +54,7 @@ struct NoticeView: View {
                     Text("")
                 }
             }.edgesIgnoringSafeArea(.top)
-        }
+        }.accentColor(.black)
     }
 }
 
@@ -76,18 +84,28 @@ struct SearchBar: View {
 }
 
 struct NoticeRectangle: View {
+    var isRed: Bool
+    var title: String
+    var date: String
     var body: some View {
         ZStack(alignment: .leading) {
             RoundedRectangle(cornerRadius: 10).foregroundColor(Color("Gray")).shadow(radius: 5)
-            VStack {
+            VStack(spacing: 0) {
                 HStack {
-                    Color("Blue").frame(width: 3, height: 13)
+                    if isRed == true {
+                        RedTabView()
+                    } else {
+                        BlueTabView()
+                    }
                     Text("공지 제목")
                         .foregroundColor(.black)
                 }
-                Text("2020/09/10")
-                    .foregroundColor(.black)
-            }.padding([.leading, .trailing], 20)
+                Text(date)
+                    .font(.callout)
+                    .foregroundColor(.gray)
+                    .padding(.leading, 10)
+            }.padding([.leading, .trailing], 10)
+                .padding([.top, .bottom], 10)
         }.padding([.top, .leading, .trailing], 10)
     }
 }

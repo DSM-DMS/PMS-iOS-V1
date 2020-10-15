@@ -10,6 +10,7 @@ import SwiftUI
 
 struct OutsideDetailView: View {
     @Environment(\.presentationMode) var mode
+    @EnvironmentObject var settings: NavSettings
     @State var offset = CGSize.zero
     var body: some View {
         ScrollView {
@@ -20,7 +21,7 @@ struct OutsideDetailView: View {
                         .shadow(radius: 4)
                     VStack(alignment: .leading, spacing: 20) {
                         HStack {
-                            Color("Blue").frame(width: 3, height: 20)
+                            BlueTabView()
                             Text("사유")
                         }
                         Text("사유 : 그냥")
@@ -31,32 +32,36 @@ struct OutsideDetailView: View {
                 }.padding([.leading, .trailing], 20)
                     .padding([.top, .bottom], 10)
             }.padding([.top, .bottom], 10)
-            
+        }.onAppear {
+            self.settings.isNav = true
         }
+        .navigationBarTitle("상/벌점 내역", displayMode: .inline)
+        .navigationBarBackButtonHidden(true)
+        .navigationBarItems(leading: Button(action: {
+            self.mode.wrappedValue.dismiss()
+            self.settings.isNav = false
+        }) {
+            Image("NavArrow")
+                .foregroundColor(.black)
+        })
         .gesture(
             DragGesture()
                 .onChanged { gesture in
                     self.offset = gesture.translation
                     if abs(self.offset.width) > 0 {
                         self.mode.wrappedValue.dismiss()
+                        self.settings.isNav = false
                     }
             }
             .onEnded { _ in
                 if abs(self.offset.width) > 0 {
                     self.mode.wrappedValue.dismiss()
+                    self.settings.isNav = false
                 } else {
                     self.offset = .zero
                 }
             }
         )
-            .navigationBarTitle("상/벌점 내역", displayMode: .inline)
-            .navigationBarBackButtonHidden(true)
-            .navigationBarItems(leading: Button(action: {
-                self.mode.wrappedValue.dismiss()
-            }) {
-                Image("NavArrow")
-                    .foregroundColor(.black)
-            })
     }
 }
 

@@ -19,34 +19,21 @@ struct MealView: View {
                     VStack {
                         ZStack(alignment: .top) {
                             ZStack {
-                                RoundedRectangle(cornerRadius: 10).foregroundColor(Color("Gray"))
-                                    .frame(height: UIFrame.UIHeight / 2)
+                                MealBackgroundView()
                                 VStack {
                                     if self.mealVM.isPicture {
                                         RoundedRectangle(cornerRadius: 10).foregroundColor(.gray)
                                             .frame(height: UIFrame.UIHeight / 4.5).padding([.leading, .trailing], 30)
                                     } else {
                                         Text(self.mealVM.meal)
-                                        .fontWeight(.medium)
+                                            .fontWeight(.medium)
                                             .foregroundColor(.gray)
                                             .multilineTextAlignment(.center)
                                     }
                                 }
-                                VStack {
-                                    Spacer()
-                                    Image("Flip")
-                                        .onTapGesture {
-                                            self.mealVM.isPicture.toggle()
-                                    }
-                                }.frame(height: UIFrame.UIHeight / 2.4)
+                                FlipView(isPicture: self.$mealVM.isPicture)
                             }
-                            ZStack {
-                                RoundedRectangle(cornerRadius: 10).foregroundColor(Color("Blue"))
-                                .frame(height: UIFrame.UIHeight / 13)
-                                Text(self.mealVM.now)
-                                    .foregroundColor(.white)
-                                    .font(.title)
-                            }
+                            BlueTopView(text: self.mealVM.now)
                             
                         }
                     }
@@ -56,6 +43,17 @@ struct MealView: View {
                         ImageCircle()
                     }
                 }.padding([.leading, .trailing], 10)
+                .highPriorityGesture(DragGesture().onEnded({ value in
+                    if value.translation.width > 50 {
+                        print("right")
+                        self.mealVM.changeMeal(left: false)
+                    }
+                    if -value.translation.width > 50 {
+                        print("left")
+                        self.mealVM.changeMeal(left: true)
+                        
+                    }
+                }))
             }.padding([.leading, .trailing], 30)
             VStack {
                 Text("")
@@ -96,5 +94,47 @@ struct ImageCircle: View {
         Image(systemName: SFSymbolKey.circle.rawValue)
             .resizable()
             .frame(width: 10, height: 10)
+    }
+}
+
+struct BlueTopView: View {
+    var text: String
+    var body: some View {
+        ZStack {
+            VStack(spacing: -10) {
+                RoundedRectangle(cornerRadius: 10).foregroundColor(Color("Blue"))
+                    .frame(height: UIFrame.UIHeight / 15)
+                Rectangle().foregroundColor(Color("Blue")).frame(height: 20)
+            }
+            
+            Text(text)
+                .foregroundColor(.white)
+                .font(.title)
+        }
+    }
+}
+
+struct FlipView: View {
+    @Binding isPicture: Bool
+    var body: some View {
+        VStack {
+            Spacer()
+            Image("Flip")
+                .resizable()
+                .frame(width: UIFrame.UIHeight / 23, height: UIFrame.UIHeight / 23)
+                .scaledToFill()
+                .onTapGesture {
+                    withAnimation {
+                        self.isPicture.toggle()
+                    }
+                }
+        }.frame(height: UIFrame.UIHeight / 2.4)
+    }
+}
+
+struct MealBackgroundView: View {
+    var body: some View {
+        RoundedRectangle(cornerRadius: 10).foregroundColor(Color("Gray"))
+            .frame(height: UIFrame.UIHeight / 2)
     }
 }

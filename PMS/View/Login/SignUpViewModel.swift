@@ -28,15 +28,15 @@ class SignupViewModel: ObservableObject {
     @Published var password: String = ""
     @Published var nickname: String = ""
     @Published var confirmPassword: String = ""
-    @Published var isHidden = false
+    @Published var isHidden = true
     @Published var inputImage: UIImage?
 
     @Published var statusViewModel: StatusViewModel = StatusViewModel(title: "")
 
-    @Published var isAlert: Bool = true
+    @Published var isAlert: Bool = false
     @Published var passwordError: String? = ""
     @Published var confirmIsError: Bool = false
-    @Published var confirmErrorMsg: String? = ""
+    @Published var confirmErrorMsg: String = ""
     @Published var enableSignUp: Bool = false
 
     private var passwordValidPublisher: AnyPublisher<PasswordValidation, Never> {
@@ -94,7 +94,7 @@ class SignupViewModel: ObservableObject {
         confirmPasswordValidPublisher
             .dropFirst()
             .sink { (_confirmPasswordValidator) in
-                self.confirmErrorMsg = _confirmPasswordValidator.confirmPasswordErrorMessage
+                self.confirmErrorMsg = _confirmPasswordValidator.confirmPasswordErrorMessage ?? ""
         }
         .store(in: &cancellableBag)
     }

@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct LoginView: View {
+    @EnvironmentObject var settings: LoginSettings
     @ObservedObject var loginVM = LoginViewModel()
     @Environment(\.presentationMode) var mode
     @State var offset = CGSize.zero
@@ -24,13 +25,17 @@ struct LoginView: View {
                         VStack(spacing: 30) {
                             CustomTextField(isLogin: true, text: self.$loginVM.id, placeholder: "아이디를 입력해주세요", image: SFSymbolKey.person.rawValue)
                             PasswordTextField(isLogin: true, text: self.$loginVM.password, isHidden: self.$loginVM.isHidden)
-                        }
+                        }.padding(.bottom, 10)
                         AutoLoginView(isAuto: self.$loginVM.isAuto)
                         
                     }
                     OAuthView()
                     
                     ButtonView(text: "로그인", color: "Blue")
+                        .onTapGesture {
+                            self.settings.isLogined = true
+                            UserDefaults.standard.set(true, forKey: "isLogined")
+                    }
                 }.padding([.leading, .trailing], 30)
                     .navigationBarBackButtonHidden(true)
                     .navigationBarItems(leading: Button(action: {
@@ -92,7 +97,7 @@ struct CustomTextField: View {
             if text != "" {
                 Color(isLogin ? "Blue" : "Red").frame(height: CGFloat(4) / UIScreen.main.scale)
             } else {
-                Color.gray.frame(height: CGFloat(4) / UIScreen.main.scale)
+                CustomDivider()
             }
         }
     }
@@ -141,7 +146,7 @@ struct PasswordTextField: View {
                 }
             } else {
                 VStack {
-                    Color.gray.frame(height: CGFloat(4) / UIScreen.main.scale)
+                    CustomDivider()
                 }
             }
         }
@@ -192,9 +197,9 @@ struct checkErrorView: View {
                     .multilineTextAlignment(.center)
                     .frame(width: UIFrame.UIWidth / 2.5)
                     .padding(.top, 20)
-                Color.gray.frame(height: CGFloat(4) / UIScreen.main.scale)
+                CustomDivider()
                 Text("확인")
-                    .foregroundColor(Color("Blue"))
+                    .foregroundColor(.blue)
                     .onTapGesture {
                         self.isAlert = false
                 }
@@ -202,7 +207,7 @@ struct checkErrorView: View {
             .padding()
             .frame(width: UIFrame.UIWidth - 80)
             .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.white).shadow(radius: 3))
-        }.edgesIgnoringSafeArea(.bottom)
+        }.edgesIgnoringSafeArea([.top, .bottom])
     }
 }
 
