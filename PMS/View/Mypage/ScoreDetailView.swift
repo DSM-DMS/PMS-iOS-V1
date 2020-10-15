@@ -16,7 +16,7 @@ struct ScoreDetailView: View {
     var body: some View {
         ScrollView {
             ForEach(1...10, id: \.self) { _ in 
-                ScoreRow(text: "사유", date: "2020/09/21", status: "-1")
+                ScoreRow(text: "사유", date: "2020/09/21", status: "-1", isMinus: true)
             }.padding([.top, .bottom], 10)
             
         }.onAppear {
@@ -69,6 +69,8 @@ struct ScoreRow: View {
     var text: String
     var date: String
     var status: String
+    var isMinus: Bool
+    
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 10)
@@ -83,7 +85,12 @@ struct ScoreRow: View {
                         .foregroundColor(.gray)
                 }
                 Spacer()
-                Text(status)
+                if isMinus {
+                    Text(status).foregroundColor(.red).fontWeight(.medium)
+                } else {
+                    Text(status).foregroundColor(Color("Blue")).fontWeight(.medium)
+                }
+                
             }.padding([.leading, .trailing], 30)
         }.padding([.leading, .trailing], 20)
         .padding([.top, .bottom], 5)

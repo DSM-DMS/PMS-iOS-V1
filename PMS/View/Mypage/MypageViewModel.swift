@@ -16,11 +16,15 @@ class MypageViewModel: ObservableObject {
     @Published var status = "벌점 그만 쌓거라.."
     @Published var weekStatus = "잔류"
     @Published var isMeal = false
-    @Published var nicknameAlert = false
     @Published var newNickname = ""
+    
+    // Alert
+    
+    @Published var nicknameAlert = false
     @Published var studentCodeAlert = false
     @Published var studentsAlert = false
     @Published var deleteAlert = false
+    @Published var logoutAlert = false
     
     // Password
     @Published var nowPassword = ""
@@ -32,8 +36,4 @@ class MypageViewModel: ObservableObject {
     @Published var errorMsg = ""
     @Published var passwordAlert = false
     @Published var confirmAlert = false
-    
-    // Logout
-    @Published var logoutAlert = false
-    
 }

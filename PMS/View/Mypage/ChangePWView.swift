@@ -76,16 +76,20 @@ struct ChangePWView: View {
                             Spacer()
                             Text("취소")
                                 .onTapGesture {
-                                    self.mypageVM.logoutAlert = false
+                                    withAnimation {
+                                        self.mypageVM.confirmAlert = false
+                                    }
                             }
                             Spacer()
                             Spacer()
                             Text("확인")
                                 .foregroundColor(.blue)
                                 .onTapGesture {
-                                    self.mypageVM.confirmAlert = false
-                                    self.mode.wrappedValue.dismiss()
-                                    self.settings.isNav = false
+                                    withAnimation {
+                                        self.mypageVM.confirmAlert = false
+                                        self.mode.wrappedValue.dismiss()
+                                        self.settings.isNav = false
+                                    }
                             }
                             Spacer()
                         }

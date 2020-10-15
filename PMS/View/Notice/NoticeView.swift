@@ -42,7 +42,7 @@ struct NoticeView: View {
                                 }
                             }
                         }.frame(height: UIFrame.UIHeight / 2)
-                        HStack {
+                        HStack(spacing: 25) {
                             Image("LeftArrow")
                             Text("1")
                             Image("RightArrow")

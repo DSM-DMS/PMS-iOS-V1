@@ -35,6 +35,15 @@ struct OutsideDetailView: View {
         }.onAppear {
             self.settings.isNav = true
         }
+        .navigationBarTitle("상/벌점 내역", displayMode: .inline)
+        .navigationBarBackButtonHidden(true)
+        .navigationBarItems(leading: Button(action: {
+            self.mode.wrappedValue.dismiss()
+            self.settings.isNav = false
+        }) {
+            Image("NavArrow")
+                .foregroundColor(.black)
+        })
         .gesture(
             DragGesture()
                 .onChanged { gesture in
@@ -53,15 +62,6 @@ struct OutsideDetailView: View {
                 }
             }
         )
-            .navigationBarTitle("상/벌점 내역", displayMode: .inline)
-            .navigationBarBackButtonHidden(true)
-            .navigationBarItems(leading: Button(action: {
-                self.mode.wrappedValue.dismiss()
-                self.settings.isNav = false
-            }) {
-                Image("NavArrow")
-                    .foregroundColor(.black)
-            })
     }
 }
 

@@ -9,7 +9,12 @@
 import SwiftUI
 
 struct MypageView: View {
-    @ObservedObject var mypageVM = MypageViewModel()
+    @EnvironmentObject var mypageVM: MypageViewModel
+    @Binding var nicknameAlert: Bool
+    @Binding var studentsAlert: Bool
+    @Binding var logoutAlert: Bool
+    @State var isNav: Bool = true
+    
     var body: some View {
         NavigationView {
             GeometryReader { _ in
@@ -17,9 +22,11 @@ struct MypageView: View {
                     MypageBackground()
                     VStack {
                         VStack(spacing: 20) {
-                            MypageTopView(nickname: self.mypageVM.nickname, nicknameAlert: self.$mypageVM.nicknameAlert, studentAlert: self.$mypageVM.studentsAlert)
+                            MypageTopView(nickname: self.mypageVM.nickname, nicknameAlert: self.$nicknameAlert, studentAlert: self.$studentsAlert)
                             
+                            NavigationLink(destination: ScoreDetailView()) {
                             TwoScoreView(plus: self.$mypageVM.plusScore, minus: self.$mypageVM.minusScore)
+                            }
                             
                             BlueStatusView(text: self.mypageVM.status)
                             
@@ -34,7 +41,7 @@ struct MypageView: View {
                                 MypageButtonView(text: "로그아웃")
                                     .onTapGesture {
                                         withAnimation {
-                                            self.mypageVM.logoutAlert = true
+                                            self.logoutAlert = true
                                         }
                                         
                                 }
@@ -42,172 +49,21 @@ struct MypageView: View {
                         }.padding([.leading, .trailing], 30)
                         Spacer()
                     }
-                    if self.mypageVM.logoutAlert {
-                        ZStack {
-                            Color(.black).opacity(0.3)
-                            VStack(spacing: 20) {
-                                Text("로그아웃 하시겠습니까?")
-                                    .multilineTextAlignment(.center)
-                                    .padding(.top, 20)
-                                CustomDivider()
-                                HStack {
-                                    Spacer()
-                                    Text("취소")
-                                        .onTapGesture {
-                                            self.mypageVM.logoutAlert = false
-                                    }
-                                    Spacer()
-                                    Spacer()
-                                    Text("확인")
-                                        .foregroundColor(.blue)
-                                        .onTapGesture {
-                                            self.mypageVM.logoutAlert = false
-                                    }
-                                    Spacer()
-                                }
-                                
-                            }
-                            .padding()
-                            .frame(width: UIFrame.UIWidth - 80)
-                            .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.white).shadow(radius: 3))
-                        }.edgesIgnoringSafeArea([.top, .bottom])
-                    }
-                    if self.mypageVM.nicknameAlert {
-                        ZStack {
-                            Color(.black).opacity(0.3)
-                            VStack(spacing: 20) {
-                                VStack {
-                                    TextField("새로운 닉네임을 입력해주세요", text: self.$mypageVM.newNickname)
-                                    if self.mypageVM.newNickname != "" {
-                                        Color("Blue").frame(height: 1)
-                                    } else {
-                                        Color(.gray).frame(height: 1)
-                                    }
-                                    
-                                }.padding(.top, 20)
-                                .padding([.leading, .trailing], 20)
-                                
-                                CustomDivider()
-                                HStack {
-                                    Spacer()
-                                    Text("취소")
-                                        .onTapGesture {
-                                            self.mypageVM.nicknameAlert = false
-                                    }
-                                    Spacer()
-                                    Spacer()
-                                    Text("확인")
-                                        .foregroundColor(.blue)
-                                        .onTapGesture {
-                                            self.mypageVM.nicknameAlert = false
-                                    }
-                                    Spacer()
-                                }
-                                
-                            }
-                            .padding()
-                            .frame(width: UIFrame.UIWidth - 80)
-                            .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.white).shadow(radius: 3))
-                        }.edgesIgnoringSafeArea([.top, .bottom])
-                    }
-                    if self.mypageVM.studentCodeAlert {
-                        ZStack {
-                            Color(.black).opacity(0.3)
-                            VStack(spacing: 20) {
-                                VStack(alignment: .center) {
-                                    Text("자녀 확인 코드를 입력해주세요")
-                                    TextField("", text: self.$mypageVM.newNickname)
-                                        .keyboardType(.numberPad)
-                                        .frame(width: UIFrame.UIWidth / 2)
-                                    if self.mypageVM.newNickname != "" {
-                                        HStack {
-                                            DottedView(color: "Blue")
-                                        }
-                                    } else {
-                                        DottedView(color: "SystemGray")
-                                    }
-                                    
-                                }
-                                .padding([.leading, .trailing], 20)
-                                
-                                CustomDivider()
-                                HStack {
-                                    Spacer()
-                                    Text("취소")
-                                        .onTapGesture {
-                                            self.mypageVM.studentCodeAlert = false
-                                    }
-                                    Spacer()
-                                    Spacer()
-                                    Text("확인")
-                                        .foregroundColor(.blue)
-                                        .onTapGesture {
-                                            self.mypageVM.studentCodeAlert = false
-                                    }
-                                    Spacer()
-                                }
-                                
-                            }
-                            .padding()
-                            .frame(width: UIFrame.UIWidth - 80)
-                            .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.white).shadow(radius: 3))
-                        }.edgesIgnoringSafeArea([.top, .bottom])
-                    }
-                    if self.mypageVM.studentsAlert {
-                        ZStack {
-                            Color(.black).opacity(0.3)
-                            VStack {
-                                Spacer()
-                                VStack {
-                                    Color(.gray).frame(width: UIFrame.UIWidth / 5, height: 2)
-                                        .padding(.top, 5)
-                                        .padding(.bottom, 10)
-                                    
-                                    ForEach(1...2, id: \.self) { _ in
-                                        VStack(spacing: 20) {
-                                            HStack {
-                                                Text("1319 정고은")
-                                                Spacer()
-                                                Image("Minus")
-                                            }
-                                            Divider()
-                                        }.padding([.leading, .trailing], 20)
-                                        .padding([.top, .bottom], 10)
-                                    }
-                                    
-                                    HStack {
-                                        HStack {
-                                            Image("CirclePlus")
-                                            Text("학생 추가하기")
-                                        }.padding([.leading, .trailing], 10)
-                                        .padding(.bottom, 20)
-                                        
-                                        Spacer()
-                                    }
-                                    
-                                }.padding([.leading, .trailing], 10)
-                                .background(
-                                    VStack(spacing: -13) {
-                                        RoundedRectangle(cornerRadius: 20).foregroundColor(.white).shadow(radius: 3)
-                                        Rectangle().foregroundColor(.white).frame(height: 10)
-                                    })
-                            }
-                            
-                        }.edgesIgnoringSafeArea([.top, .bottom])
-                    }
                 }
             }.edgesIgnoringSafeArea(.top)
+                .navigationBarHidden(isNav)
         }.accentColor(.black)
+        
     }
 }
 
 struct MypageView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            MypageView()
+            MypageView(nicknameAlert: .constant(false), studentsAlert: .constant(false), logoutAlert: .constant(false))
                 .previewDevice(PreviewDevice(rawValue: "iPhone XS Max"))
                 .previewDisplayName("iPhone XS Max")
-            MypageView()
+            MypageView(nicknameAlert: .constant(false), studentsAlert: .constant(false), logoutAlert: .constant(false))
                 .previewDevice(PreviewDevice(rawValue: "iPhone 8"))
                 .previewDisplayName("iPhone 8")
         }
@@ -224,7 +80,7 @@ struct TwoScoreView: View {
     @Binding var plus: Int
     @Binding var minus: Int
     var body: some View {
-        NavigationLink(destination: ScoreDetailView()) {
+
             HStack(spacing: 30) {
                 ZStack {
                     ScoreView()
@@ -233,7 +89,7 @@ struct TwoScoreView: View {
                             .font(.title)
                             .foregroundColor(.black)
                         Text("상점")
-                            .foregroundColor(.red)
+                            .foregroundColor(Color("Blue"))
                     }
                 }
                 ZStack {
@@ -247,7 +103,6 @@ struct TwoScoreView: View {
                     }
                 }
             }
-        }
     }
 }
 
@@ -256,7 +111,7 @@ struct MypageTopView: View {
     @EnvironmentObject var settings: NavSettings
     @Binding var nicknameAlert: Bool
     @Binding var studentAlert: Bool
-//    var edges = UIApplication.shared.windows.first?.safeAreaInsets
+    var edges = UIApplication.shared.windows.first?.safeAreaInsets
     
     var body: some View {
         HStack {
@@ -286,7 +141,7 @@ struct MypageTopView: View {
         .frame(height: 70)
         .padding([.leading, .trailing], 20)
         .padding(.top, UIFrame.UIWidth / 15)
-//        .padding(.top, self.edges!.bottom == 0 ? 0 : UIFrame.UIWidth / 10)
+        .padding(.top, self.edges!.bottom == 0 ? 0 : UIFrame.UIWidth / 10)
     }
 }
 

@@ -35,6 +35,9 @@ struct MealView: View {
                                 VStack {
                                     Spacer()
                                     Image("Flip")
+                                        .resizable()
+                                        .frame(width: UIFrame.UIHeight / 23, height: UIFrame.UIHeight / 23)
+                                        .scaledToFill()
                                         .onTapGesture {
                                             withAnimation {
                                                 self.mealVM.isPicture.toggle()
@@ -45,7 +48,7 @@ struct MealView: View {
                             ZStack {
                                 VStack(spacing: -10) {
                                     RoundedRectangle(cornerRadius: 10).foregroundColor(Color("Blue"))
-                                        .frame(height: UIFrame.UIHeight / 13)
+                                        .frame(height: UIFrame.UIHeight / 15)
                                     Rectangle().foregroundColor(Color("Blue")).frame(height: 20)
                                 }
                                 
