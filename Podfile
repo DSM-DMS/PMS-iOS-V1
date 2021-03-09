@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
-# platform :ios, '9.0'
+platform :ios, '13.0'
 
 def pods
 	pod 'SwiftLint'
@@ -19,11 +19,13 @@ target 'PMS' do
     inherit! :search_paths
     # Pods for testing
 	pods
+	pod 'Nimble'
   end
 
   target 'PMSUITests' do
     # Pods for testing
 	pods
+	pod 'Nimble'
   end
 
 end

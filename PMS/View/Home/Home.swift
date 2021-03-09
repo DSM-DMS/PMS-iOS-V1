@@ -21,22 +21,22 @@ struct Home: View {
     
     var body: some View {
         ZStack {
-            GeometryReader {g in
+            GeometryReader { g in
                 HStack(spacing: 0) {
                     StoryboardtoUI()
-                        .frame(width: g.frame(in: .global).width)
+                        .frame(width: g.size.width)
                     
                     MealView()
-                        .frame(width: g.frame(in: .global).width)
+                        .frame(width: g.size.width)
                     
                     NoticeView()
-                        .frame(width: g.frame(in: .global).width)
+                        .frame(width: g.size.width)
                     
                     IntroduceView()
-                        .frame(width: g.frame(in: .global).width)
+                        .frame(width: g.size.width)
                     
                     MypageView(nicknameAlert: self.$mypageVM.nicknameAlert, studentsAlert: self.$mypageVM.studentsAlert, logoutAlert: self.$mypageVM.logoutAlert)
-                        .frame(width: g.frame(in: .global).width)
+                        .frame(width: g.size.width)
                 }
                 .offset(x: self.offset)
             }

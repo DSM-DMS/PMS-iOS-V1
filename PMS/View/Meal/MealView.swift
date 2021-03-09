@@ -115,7 +115,7 @@ struct BlueTopView: View {
 }
 
 struct FlipView: View {
-    @Binding isPicture: Bool
+    @Binding var isPicture: Bool
     var body: some View {
         VStack {
             Spacer()
