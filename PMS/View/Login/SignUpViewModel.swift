@@ -19,28 +19,46 @@ class StatusViewModel: ObservableObject {
 }
 
 class SignupViewModel: ObservableObject {
-
-//    private var webService: WebService
-
-    private var cancellableBag = Set<AnyCancellable>()
-
     @Published var id: String = ""
     @Published var password: String = ""
     @Published var nickname: String = ""
     @Published var confirmPassword: String = ""
     @Published var isHidden = true
-    @Published var inputImage: UIImage?
 
     @Published var statusViewModel: StatusViewModel = StatusViewModel(title: "")
 
-    @Published var isAlert: Bool = false
+    @Published var isErrorAlert: Bool = false
     @Published var passwordError: String? = ""
     @Published var confirmIsError: Bool = false
     @Published var confirmErrorMsg: String = ""
     @Published var enableSignUp: Bool = false
-
+    
+    private var apiManager: APIManager
+    private var bag = Set<AnyCancellable>()
+    
+    enum Input {
+        case registerTapped
+    }
+    
+    private let registerSubject = CurrentValueSubject<User?, Never>(nil)
+    
+    func bindInputs() {
+        registerSubject
+            .compactMap { $0 }
+            .sink(receiveValue: { [weak self] user in
+                self?.requestRegister(email: user.email, password: user.password, name: user.name!)
+            })
+            .store(in: &bag)
+    }
+    
+    func apply(_ input: Input) {
+        switch input {
+        case .registerTapped:
+            registerSubject.send(User(email: self.id, password: self.password, name: self.nickname))
+        }
+    }
+    
     private var passwordValidPublisher: AnyPublisher<PasswordValidation, Never> {
-
         $password
             .removeDuplicates()
             .debounce(for: 0.5, scheduler: RunLoop.main)
@@ -68,11 +86,8 @@ class SignupViewModel: ObservableObject {
         }
         .eraseToAnyPublisher()
     }
-
-    init() {
-
-//        self.webService = WebService()
-
+    
+    func bindOutputs() {
         Publishers.CombineLatest(self.passwordValidPublisher,
                                   self.confirmPasswordValidPublisher)
             .dropFirst()
@@ -82,47 +97,63 @@ class SignupViewModel: ObservableObject {
                     _passwordValidator.errorMessage == nil &&
                     _confirmPasswordValidator.confirmPasswordErrorMessage == nil
         }
-        .store(in: &cancellableBag)
+        .store(in: &bag)
 
         passwordValidPublisher
             .dropFirst()
             .sink { (_passwordValidator) in
                 self.passwordError = _passwordValidator.errorMessage
         }
-        .store(in: &cancellableBag)
+        .store(in: &bag)
 
         confirmPasswordValidPublisher
             .dropFirst()
             .sink { (_confirmPasswordValidator) in
                 self.confirmErrorMsg = _confirmPasswordValidator.confirmPasswordErrorMessage ?? ""
         }
-        .store(in: &cancellableBag)
+        .store(in: &bag)
+        
+        confirmPasswordValidPublisher
+            .dropFirst()
+            .sink { (_confirmPasswordValidator) in
+                self.confirmIsError = _confirmPasswordValidator.confirmPasswordErrorMessage != nil
+        }
+        .store(in: &bag)
+    }
+    
+    func requestRegister(email: String, password: String, name: String) {
+        apiManager.regiser(email: email, password: password, name: name)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { [weak self] completion in
+                if case .failure = completion {
+                    self?.isErrorAlert.toggle()
+//                    self?.movieErrors.append(.moviesRequestFailed)
+                }
+//                self?.isLoading = false
+            }, receiveValue: { [weak self] _ in
+                // 회원가입 완료 창 뜨게 해
+            })
+            .store(in: &bag)
+    }
+    
+    init() {
+        self.apiManager = APIManager()
+        bindInputs()
+        bindOutputs()
     }
 
     deinit {
-        cancellableBag.removeAll()
+        bag.removeAll()
     }
 
 }
 
 extension SignupViewModel {
-
-//    func register() {
-//
-//        let user = User(email: self.email, name: self.name, password: self.password)
-//
-//        self.webService.signup(user: user) { _ in
-//
-//        }
-//
-//    }
-
-//    func uploadImage() {
-//
-//        self.webService.uploadJPG("http://127.0.0.1:8000/image/", image: self.inputImage!) { _ in
-//
-//        }
-//    }
+    
+    func requestMovies() {
+//      movieErrors.removeAll()
+//      isLoading = trueㄴ
+    }
 
 }
 

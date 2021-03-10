@@ -14,6 +14,10 @@ struct Home: View {
     
     @State var index = 1
     @State var offset: CGFloat = UIScreen.main.bounds.width
+    // Number View
+    @State private var attempts: Int = 0
+    @ObservedObject var passCodeModel = studentCodeModel(passCodeLength: 6)
+    
     var width = UIScreen.main.bounds.width
     var edges = UIApplication.shared.windows.first?.safeAreaInsets
     
@@ -186,17 +190,8 @@ struct Home: View {
                     VStack(spacing: 20) {
                         VStack(alignment: .center) {
                             Text("자녀 확인 코드를 입력해주세요")
-                            TextField("", text: self.$mypageVM.newNickname)
-                                .keyboardType(.numberPad)
-                                .frame(width: UIFrame.UIWidth / 2)
-                            if self.mypageVM.newNickname != "" {
-                                HStack {
-                                    DottedView(color: "Blue")
-                                }
-                            } else {
-                                DottedView(color: "SystemGray")
-                            }
-                            
+                            PassCodeInputField(inputModel: self.passCodeModel)
+                                .modifier(Shake(animatableData: CGFloat(attempts)))
                         }
                         .padding([.leading, .trailing], 20)
                         
@@ -213,6 +208,7 @@ struct Home: View {
                                 .foregroundColor(.blue)
                                 .onTapGesture {
                                     self.mypageVM.studentCodeAlert = false
+                                    self.passCodeModel.selectedCellIndex = 0
                                 }
                             Spacer()
                         }

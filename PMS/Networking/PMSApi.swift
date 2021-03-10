@@ -11,8 +11,8 @@ import Moya
 
 enum PMSApi {
     // Auth
-    case login
-    case register
+    case login(email: String, password: String)
+    case register(email: String, password: String, name: String)
     
     // Calendar
     case calendar
@@ -47,16 +47,16 @@ enum PMSApi {
 
 extension PMSApi: TargetType {
     var baseURL: URL {
-        return URL(string: "https://127.0.0.1")!
+        return URL(string: "http://api.smooth-bear.live/")!
     }
     
     var path: String {
         switch self {
         // Auth
         case .login:
-            return "/auth/login"
+            return "/auth"
         case .register:
-            return "/auth/register"
+            return "/user"
             
         // Calendar
         case .calendar:
@@ -96,7 +96,7 @@ extension PMSApi: TargetType {
         case .mypage:
             return ""
         case .changeNickname:
-            return ""
+            return "/user/name"
         case .addStudent:
             return "/student/add"
         case .outside:
@@ -121,8 +121,13 @@ extension PMSApi: TargetType {
         return Data()
     }
     
+    // 기본요청(plain request), 데이터 요청(data request), 파라미터 요청(parameter request), 업로드 요청(upload request) 등
     var task: Task {
         switch self {
+        case let .register(email, password, name):
+            return .requestParameters(parameters: ["email": email, "password": password, "name": name], encoding: JSONEncoding.default)
+        case let .login(email, password):
+            return .requestParameters(parameters: ["email": email, "password": password], encoding: JSONEncoding.default)
         default:
             return .requestPlain
         }

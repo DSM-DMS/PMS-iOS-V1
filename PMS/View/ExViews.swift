@@ -39,6 +39,6 @@ struct ButtonView: View {
 
 struct CustomDivider: View {
     var body: some View {
-        Color.gray.frame(height: 2)
+        Color.gray.frame(height: 1)
     }
 }

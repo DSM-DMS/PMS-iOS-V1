@@ -23,7 +23,7 @@ struct LoginView: View {
                     
                     VStack(alignment: .leading) {
                         VStack(spacing: 30) {
-                            CustomTextField(isLogin: true, text: self.$loginVM.id, placeholder: "아이디를 입력해주세요", image: SFSymbolKey.person.rawValue)
+                            CustomTextField(isLogin: true, text: self.$loginVM.id, placeholder: "아이디를 입력해주세요", image: "person")
                             PasswordTextField(isLogin: true, text: self.$loginVM.password, isHidden: self.$loginVM.isHidden)
                         }.padding(.bottom, 10)
                         AutoLoginView(isAuto: self.$loginVM.isAuto)
@@ -79,13 +79,15 @@ struct CustomTextField: View {
         VStack(spacing: 10) {
             HStack(spacing: 20) {
                 if text != "" {
-                    Image(systemName: image)
+                    Image(image)
+                        .renderingMode(.template)
                         .resizable()
                         .frame(width: 17, height: 20)
                         .padding(.leading, 10)
                         .foregroundColor(Color(isLogin ? "Blue" : "Red"))
                 } else {
-                    Image(systemName: image)
+                    Image(image)
+                        .renderingMode(.template)
                         .resizable()
                         .frame(width: 17, height: 20)
                         .padding(.leading, 10)
@@ -112,12 +114,14 @@ struct PasswordTextField: View {
         VStack(spacing: 10) {
             HStack(spacing: 20) {
                 if text != "" {
-                    Image(systemName: SFSymbolKey.lock.rawValue)
+                    Image("lock")
+                        .renderingMode(.template)
                         .resizable()
                         .frame(width: 15, height: 20)
                         .foregroundColor(Color(isLogin ? "Blue" : "Red"))
                 } else {
-                    Image(systemName: SFSymbolKey.lock.rawValue)
+                    Image("lock")
+                        .renderingMode(.template)
                         .resizable()
                         .frame(width: 15, height: 20)
                 }

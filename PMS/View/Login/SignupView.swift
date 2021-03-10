@@ -21,13 +21,19 @@ struct SignupView: View {
                     TitleTextView(text: "회원가입")
                         .padding(.bottom, self.edges!.bottom == 0 ? 15 : 50)
                     VStack(spacing: 30) {
-                        CustomTextField(isLogin: false, text: self.$signupVM.nickname, placeholder: "닉네임을 입력해주세요", image: SFSymbolKey.pencil.rawValue)
-                        CustomTextField(isLogin: false, text: self.$signupVM.id, placeholder: "아이디를 입력해주세요", image: SFSymbolKey.person.rawValue)
+                        CustomTextField(isLogin: false, text: self.$signupVM.nickname, placeholder: "닉네임을 입력해주세요", image: "pencil-1")
+                        CustomTextField(isLogin: false, text: self.$signupVM.id, placeholder: "이메일을 입력해주세요", image: "person")
                         PasswordTextField(isLogin: false, text: self.$signupVM.password, isHidden: self.$signupVM.isHidden)
                         CheckTextField(text: self.$signupVM.confirmPassword, isError: self.$signupVM.confirmIsError, placeholder: "비밀번호를 한번 더 입력해주세요", isChange: false, errorMsg: self.$signupVM.confirmErrorMsg)
                     }
                     OAuthView()
                     ButtonView(text: "회원가입", color: "Red")
+                        .overlay(Color.white.opacity(signupVM.enableSignUp ? 0.0 : 0.5))
+                        .onTapGesture {
+                            if signupVM.enableSignUp {
+                                signupVM.apply(.registerTapped)
+                            }
+                        }
                     .navigationBarBackButtonHidden(true)
                     .navigationBarItems(leading: Button(action: {
                         self.mode.wrappedValue.dismiss()
@@ -40,8 +46,8 @@ struct SignupView: View {
             VStack {
                 Text("")
             }
-            if self.signupVM.isAlert == true {
-                checkErrorView(text: "아이디 중복! 다른 아이디로 다시 시도해주세요", isAlert: self.$signupVM.isAlert)
+            if self.signupVM.isErrorAlert == true {
+                checkErrorView(text: "이메일 중복! 다른 이메일로 시도해주세요", isAlert: self.$signupVM.isErrorAlert)
             }
         }.gesture(
             DragGesture()
@@ -87,13 +93,15 @@ struct CheckTextField: View {
             HStack(spacing: 20) {
                 if !isChange {
                     if text != "" {
-                        Image(systemName: SFSymbolKey.circleCheck.rawValue)
+                        Image("check")
+                            .renderingMode(.template)
                             .resizable()
                             .frame(width: 20, height: 20)
                             .foregroundColor(Color(isChange ? "Blue" : "Red"))
                             .padding(.leading, 10)
                     } else {
-                        Image(systemName: SFSymbolKey.circleCheck.rawValue)
+                        Image("check")
+                            .renderingMode(.template)
                             .resizable()
                             .frame(width: 20, height: 20)
                             .padding(.leading, 10)

@@ -5,7 +5,7 @@ def pods
 	pod 'SwiftLint'
 	pod 'FSCalendar'
 	pod 'CryptoSwift'
-	pod 'Moya'
+	pod 'Moya', '15.0.0-alpha.1'
 end
 
 target 'PMS' do

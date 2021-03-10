@@ -13,6 +13,7 @@ class PMSUITests: XCTestCase {
     let app = XCUIApplication()
 
     func test_sample() {
+        snapshot("0Lunch")
         app.launch()
     }
 
