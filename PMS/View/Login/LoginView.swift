@@ -24,31 +24,39 @@ struct LoginView: View {
                     VStack(alignment: .leading) {
                         VStack(spacing: 30) {
                             CustomTextField(isLogin: true, text: self.$loginVM.id, placeholder: "아이디를 입력해주세요", image: "person")
-                            PasswordTextField(isLogin: true, text: self.$loginVM.password, isHidden: self.$loginVM.isHidden)
+                            PasswordTextField(isLogin: true, errorMsg: .constant(""), text: self.$loginVM.password, isHidden: self.$loginVM.isHidden)
                         }.padding(.bottom, 10)
-                        AutoLoginView(isAuto: self.$loginVM.isAuto)
-                        
                     }
-                    OAuthView()
                     
-                    ButtonView(text: "로그인", color: "Blue")
-                        .onTapGesture {
-                            self.settings.isLogined = true
-                            UserDefaults.standard.set(true, forKey: "isLogined")
+                    VStack {
+                        OAuthView()
+                        ButtonView(text: "로그인", color: "Blue")
+                            .onTapGesture {
+                                self.loginVM.apply(.loginTapped)
+                            }
                     }
                 }.padding([.leading, .trailing], 30)
-                    .navigationBarBackButtonHidden(true)
-                    .navigationBarItems(leading: Button(action: {
-                        self.mode.wrappedValue.dismiss()
-                    }) {
-                        Image("NavArrow")
-                    })
+                .navigationBarBackButtonHidden(true)
+                .navigationBarItems(leading: Button(action: {
+                    self.mode.wrappedValue.dismiss()
+                }) {
+                    Image("NavArrow")
+                })
             }
             VStack {
                 Text("")
             }
-            if self.loginVM.isAlert == true {
-                checkErrorView(text: "아이디 또는 비밀번호가 일치하지 않습니다", isAlert: self.$loginVM.isAlert)
+            if self.loginVM.isErrorAlert == true {
+                checkErrorView(text: "아이디 또는 비밀번호가 일치하지 않습니다", isAlert: self.$loginVM.isErrorAlert)
+            }
+            if self.loginVM.isSuccessAlert {
+                SuccessView(text: "로그인이 완료되었습니다.")
+                    .onAppear {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.95) {
+                            self.settings.isLogined = true
+                            UserDefaults.standard.set(true, forKey: "isLogined")
+                        }
+                    }
             }
         }.gesture(
             DragGesture()
@@ -57,14 +65,14 @@ struct LoginView: View {
                     if abs(self.offset.width) > 0 {
                         self.mode.wrappedValue.dismiss()
                     }
-            }
-            .onEnded { _ in
-                if abs(self.offset.width) > 0 {
-                    self.mode.wrappedValue.dismiss()
-                } else {
-                    self.offset = .zero
                 }
-            }
+                .onEnded { _ in
+                    if abs(self.offset.width) > 0 {
+                        self.mode.wrappedValue.dismiss()
+                    } else {
+                        self.offset = .zero
+                    }
+                }
         )
     }
 }
@@ -107,6 +115,7 @@ struct CustomTextField: View {
 
 struct PasswordTextField: View {
     var isLogin: Bool
+    @Binding var errorMsg: String
     @Binding var text: String
     @Binding var isHidden: Bool
     
@@ -136,7 +145,7 @@ struct PasswordTextField: View {
                     Button(action: {
                         self.isHidden.toggle()
                     }) {
-                        Image(systemName: SFSymbolKey.eye.rawValue)
+                        Image(systemName: "eye.fill")
                             .resizable()
                             .frame(width: 25, height: 15)
                             .foregroundColor(.gray)
@@ -151,6 +160,13 @@ struct PasswordTextField: View {
             } else {
                 VStack {
                     CustomDivider()
+                }
+            }
+            if errorMsg != "" {
+                HStack {
+                    Spacer()
+                    Text(errorMsg)
+                        .foregroundColor(.red)
                 }
             }
         }
@@ -206,36 +222,11 @@ struct checkErrorView: View {
                     .foregroundColor(.blue)
                     .onTapGesture {
                         self.isAlert = false
-                }
+                    }
             }
             .padding()
             .frame(width: UIFrame.UIWidth - 80)
             .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.white).shadow(radius: 3))
         }.edgesIgnoringSafeArea([.top, .bottom])
-    }
-}
-
-struct AutoLoginView: View {
-    @Binding var isAuto: Bool
-    var body: some View {
-        HStack {
-            HStack(spacing: 10) {
-                if self.isAuto {
-                    Image(systemName: "checkmark.square.fill")
-                        .resizable()
-                        .frame(width: 20, height: 20)
-                        .foregroundColor(Color("Blue"))
-                } else {
-                    Image(systemName: "checkmark.square")
-                        .resizable()
-                        .frame(width: 20, height: 20)
-                        .foregroundColor(Color("Blue"))
-                }
-                Text("자동 로그인")
-            }.onTapGesture {
-                self.isAuto.toggle()
-            }.padding(.leading, 10)
-            Spacer()
-        }
     }
 }

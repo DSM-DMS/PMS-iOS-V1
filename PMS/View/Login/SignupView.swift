@@ -10,6 +10,7 @@ import SwiftUI
 
 struct SignupView: View {
     @ObservedObject var signupVM = SignupViewModel()
+    @EnvironmentObject var settings: LoginSettings
     @Environment(\.presentationMode) var mode
     @State var offset = CGSize.zero
     var edges = UIApplication.shared.windows.first?.safeAreaInsets
@@ -23,7 +24,7 @@ struct SignupView: View {
                     VStack(spacing: 30) {
                         CustomTextField(isLogin: false, text: self.$signupVM.nickname, placeholder: "닉네임을 입력해주세요", image: "pencil-1")
                         CustomTextField(isLogin: false, text: self.$signupVM.id, placeholder: "이메일을 입력해주세요", image: "person")
-                        PasswordTextField(isLogin: false, text: self.$signupVM.password, isHidden: self.$signupVM.isHidden)
+                        PasswordTextField(isLogin: false, errorMsg: self.$signupVM.passwordErrorMsg, text: self.$signupVM.password, isHidden: self.$signupVM.isHidden)
                         CheckTextField(text: self.$signupVM.confirmPassword, isError: self.$signupVM.confirmIsError, placeholder: "비밀번호를 한번 더 입력해주세요", isChange: false, errorMsg: self.$signupVM.confirmErrorMsg)
                     }
                     OAuthView()
@@ -34,20 +35,30 @@ struct SignupView: View {
                                 signupVM.apply(.registerTapped)
                             }
                         }
-                    .navigationBarBackButtonHidden(true)
-                    .navigationBarItems(leading: Button(action: {
-                        self.mode.wrappedValue.dismiss()
-                    }) {
-                        Image("NavArrow")
-                    })
+                        .navigationBarBackButtonHidden(true)
+                        .navigationBarItems(leading: Button(action: {
+                            self.mode.wrappedValue.dismiss()
+                        }) {
+                            Image("NavArrow")
+                        })
                 }
                 .padding([.leading, .trailing], 30)
             }
             VStack {
                 Text("")
             }
-            if self.signupVM.isErrorAlert == true {
+            if self.signupVM.isErrorAlert {
                 checkErrorView(text: "이메일 중복! 다른 이메일로 시도해주세요", isAlert: self.$signupVM.isErrorAlert)
+            }
+            
+            if self.signupVM.isSuccessAlert {
+                SuccessView(text: "회원가입이 완료되었습니다.")
+                    .onAppear {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.95) {
+                            self.settings.isLogined = true
+                            UserDefaults.standard.set(true, forKey: "isLogined")
+                        }
+                    }
             }
         }.gesture(
             DragGesture()

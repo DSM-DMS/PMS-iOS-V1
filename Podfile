@@ -4,8 +4,7 @@ platform :ios, '13.0'
 def pods
 	pod 'SwiftLint'
 	pod 'FSCalendar'
-	pod 'CryptoSwift'
-	pod 'Moya', '15.0.0-alpha.1'
+	pod 'Moya', '~> 15.0.0-alpha.1'
 end
 
 target 'PMS' do
@@ -14,6 +13,7 @@ target 'PMS' do
 
   # Pods for PMS
 	pods
+	pod 'lottie-ios'
 
   target 'PMSTests' do
     inherit! :search_paths

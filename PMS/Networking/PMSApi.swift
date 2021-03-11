@@ -42,12 +42,12 @@ enum PMSApi {
     case addStudent
     case outside
     case weekStatus
-    case changePassword
+    case changePassword(password: String, prePassword: String)
 }
 
-extension PMSApi: TargetType {
+extension PMSApi: TargetType, AccessTokenAuthorizable {
     var baseURL: URL {
-        return URL(string: "http://api.smooth-bear.live/")!
+        return URL(string: "http://api.smooth-bear.live")!
     }
     
     var path: String {
@@ -128,6 +128,8 @@ extension PMSApi: TargetType {
             return .requestParameters(parameters: ["email": email, "password": password, "name": name], encoding: JSONEncoding.default)
         case let .login(email, password):
             return .requestParameters(parameters: ["email": email, "password": password], encoding: JSONEncoding.default)
+        case let .changePassword(password, prePassword):
+            return .requestParameters(parameters: ["password": password, "pre-password": prePassword], encoding: JSONEncoding.default)
         default:
             return .requestPlain
         }
@@ -145,4 +147,12 @@ extension PMSApi: TargetType {
         return .successCodes
     }
     
+    var authorizationType: AuthorizationType? {
+        switch self {
+        case let .changePassword(password, prePassword):
+            return .bearer
+        default:
+            return nil
+        }
+    }
 }

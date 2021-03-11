@@ -37,11 +37,11 @@ public enum PasswordValidation {
     var errorMessage: String? {
         switch self {
         case .veryWeak:
-            return "Vary weak password"
+            return "비밀번호가 약합니다."
         case .weak:
-            return "Weak password"
+            return "비밀번호가 약합니다."
         case .empty:
-            return "Please enter password"
+            return "비밀번호를 입력해주세요."
          default:
             return nil
         }
@@ -50,7 +50,7 @@ public enum PasswordValidation {
     var confirmPasswordErrorMessage: String? {
         switch self {
         case .confirmPasswordEmpty:
-            return "확인할 비밀번호를 입력해주세요"
+            return "확인할 비밀번호를 입력해주세요."
         case .notMatch:
             return "비밀번호가 일치하지 않습니다."
         default:

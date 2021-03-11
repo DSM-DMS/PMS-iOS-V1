@@ -12,37 +12,24 @@ import Moya
 
 class APIManager {
     let provider = MoyaProvider<PMSApi>()
+    var tokenClosure: String {
+        return UD.string(forKey: "accessToken")!
+    }
     
-    func login(email: String, password: String) -> AnyPublisher<Success, MoyaError> {
+    func login(email: String, password: String) -> AnyPublisher<accessToken, MoyaError> {
         provider.requestPublisher(.login(email: email, password: password))
-            .map(Success.self)
-            .receive(on: DispatchQueue.main)
-            .eraseToAnyPublisher()
+            .map(accessToken.self)
     }
     
-    func regiser(email: String, password: String, name: String) -> AnyPublisher<Success, MoyaError> {
-        provider.requestPublisher(.register(email: email, password: password, name: name))
-            .map(Success.self)
-            .receive(on: DispatchQueue.main)
-            .eraseToAnyPublisher()
+    func regiser(email: String, password: String, name: String) -> AnyPublisher<Void, MoyaError> {
+        provider.requestVoidPublisher(.register(email: email, password: password, name: name))
     }
     
-    //    func load() {
-    //        let provider = MoyaProvider<PostService>()
-    //        provider.request(.getPosts) { result in
-    //            switch result {
-    //            case let .success(moyaResponse):
-    //                do {
-    //                    let filteredResponse = try moyaResponse.filterSuccessfulStatusCodes()
-    //                    let posts = try filteredResponse.map([Post].self)
-    //                    self.posts = posts
-    //                    self.objectWillChange.send()
-    //                } catch let error {
-    //                     print("Error: \(error)")
-    //                }
-    //            case let .failure(error):
-    //                print("Error: \(error)")
-    //            }
-    //        }
-    //    }
+    func changePassword(password: String, prePassword: String) -> AnyPublisher<accessToken, MoyaError> {
+        let authPlugin = AccessTokenPlugin { _ in self.tokenClosure}
+        let authProvider = MoyaProvider<PMSApi>(plugins: [authPlugin])
+        
+        return authProvider.requestPublisher(.changePassword(password: password, prePassword: prePassword))
+            .map(accessToken.self)
+    }
 }

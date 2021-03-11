@@ -25,6 +25,7 @@ struct PMSView: View {
             }
             .navigationBarTitle("PMS", displayMode: .inline)
         }.accentColor(.black)
+        .navigationViewStyle(StackNavigationViewStyle())
     }
 }
 

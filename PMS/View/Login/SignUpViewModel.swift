@@ -28,7 +28,8 @@ class SignupViewModel: ObservableObject {
     @Published var statusViewModel: StatusViewModel = StatusViewModel(title: "")
 
     @Published var isErrorAlert: Bool = false
-    @Published var passwordError: String? = ""
+    @Published var isSuccessAlert: Bool = false
+    @Published var passwordErrorMsg: String = ""
     @Published var confirmIsError: Bool = false
     @Published var confirmErrorMsg: String = ""
     @Published var enableSignUp: Bool = false
@@ -102,7 +103,7 @@ class SignupViewModel: ObservableObject {
         passwordValidPublisher
             .dropFirst()
             .sink { (_passwordValidator) in
-                self.passwordError = _passwordValidator.errorMessage
+                self.passwordErrorMsg = _passwordValidator.errorMessage ?? ""
         }
         .store(in: &bag)
 
@@ -121,21 +122,6 @@ class SignupViewModel: ObservableObject {
         .store(in: &bag)
     }
     
-    func requestRegister(email: String, password: String, name: String) {
-        apiManager.regiser(email: email, password: password, name: name)
-            .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: { [weak self] completion in
-                if case .failure = completion {
-                    self?.isErrorAlert.toggle()
-//                    self?.movieErrors.append(.moviesRequestFailed)
-                }
-//                self?.isLoading = false
-            }, receiveValue: { [weak self] _ in
-                // 회원가입 완료 창 뜨게 해
-            })
-            .store(in: &bag)
-    }
-    
     init() {
         self.apiManager = APIManager()
         bindInputs()
@@ -149,12 +135,36 @@ class SignupViewModel: ObservableObject {
 }
 
 extension SignupViewModel {
-    
-    func requestMovies() {
-//      movieErrors.removeAll()
-//      isLoading = trueㄴ
+    func requestRegister(email: String, password: String, name: String) {
+        apiManager.regiser(email: email, password: password, name: name)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { [weak self] completion in
+                if case let .failure(error) = completion {
+                    self?.isErrorAlert.toggle()
+                    print(error)
+                }
+                if case .finished = completion {
+                    withAnimation {
+                        self?.isSuccessAlert.toggle()
+                    }
+                    self?.requestLogin(email: email, password: password)
+                }
+            }, receiveValue: { _ in })
+            .store(in: &bag)
     }
-
+    
+    func requestLogin(email: String, password: String) {
+        apiManager.login(email: email, password: password)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { completion in
+                if case .failure(let error) = completion {
+                    print("login error \(error)")
+                }
+            }, receiveValue: { token in
+                UD.set(token.accessToken, forKey: "accessToken")
+            })
+            .store(in: &bag)
+    }
 }
 
 extension String {
