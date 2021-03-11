@@ -10,6 +10,8 @@ import SwiftUI
 
 struct PMSView: View {
     @EnvironmentObject var settings: LoginSettings
+    @Environment(\.presentationMode) private var presentationMode
+    
     var body: some View {
         NavigationView {
             VStack(spacing: UIFrame.UIWidth / 3) {
@@ -22,6 +24,16 @@ struct PMSView: View {
                         ButtonView(text: "회원가입", color: "Red")
                     }
                 }
+                Text("로그인 없이 진행하기 >")
+                    .foregroundColor(Color("Blue"))
+                    .onTapGesture {
+                        if !UD.bool(forKey: "isFirstView") {
+                            self.presentationMode.wrappedValue.dismiss()
+                        }
+                        self.settings.isFirstView = true
+                        UD.set(true, forKey: "isFirstView")
+                        UD.set(false, forKey: "isLogin")
+                    }
             }
             .navigationBarTitle("PMS", displayMode: .inline)
         }.accentColor(.black)

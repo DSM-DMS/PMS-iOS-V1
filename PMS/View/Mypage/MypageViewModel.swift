@@ -25,6 +25,7 @@ class MypageViewModel: ObservableObject {
     @Published var studentsAlert = false
     @Published var deleteAlert = false
     @Published var logoutAlert = false
+    @Published var showLoginModal = false
     
     // Password
     @Published var nowPassword = ""

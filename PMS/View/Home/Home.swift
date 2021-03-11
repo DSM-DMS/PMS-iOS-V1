@@ -75,7 +75,7 @@ struct Home: View {
                                 .foregroundColor(.blue)
                                 .onTapGesture {
                                     self.mypageVM.logoutAlert = false
-                                    self.login.isLogined = false
+                                    self.login.isFirstView = false
                                 }
                             Spacer()
                         }

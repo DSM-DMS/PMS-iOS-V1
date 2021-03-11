@@ -10,7 +10,7 @@ import UIKit
 import SwiftUI
 
 class LoginSettings: ObservableObject {
-    @Published var isLogined: Bool = false
+    @Published var isFirstView: Bool = false
 }
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
@@ -70,7 +70,7 @@ struct StartView: View {
     @EnvironmentObject var settings: LoginSettings
     
     var body: some View {
-        if UserDefaults.standard.bool(forKey: "isLogined") {
+        if UD.bool(forKey: "isFirstView") {
             return AnyView(ContentView())
         } else {
             return AnyView(PMSView())

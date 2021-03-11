@@ -30,27 +30,44 @@ struct MypageView: View {
                             
                             BlueStatusView(text: self.mypageVM.status)
                             
-                            VStack(spacing: UIFrame.UIWidth / 15) {
-                                StatusView(text: self.mypageVM.weekStatus, isMeal: self.mypageVM.isMeal)
-                                NavigationLink(destination: OutsideDetailView()) {
-                                    MypageButtonView(text: "외출 내역 보기")
-                                }
-                                NavigationLink(destination: ChangePWView()) {
-                                    MypageButtonView(text: "비밀번호 변경")
-                                }
-                                MypageButtonView(text: "로그아웃")
-                                    .onTapGesture {
-                                        withAnimation {
-                                            self.logoutAlert = true
+                            if !UD.bool(forKey: "isLogin") {
+                                VStack {
+                                    Spacer()
+                                    MypageButtonView(text: "로그인")
+                                        .onTapGesture {
+                                            self.mypageVM.showLoginModal.toggle()
                                         }
-                                        
+                                    Text("마이페이지 서비스는 로그인이 필요합니다.")
+                                        .font(.callout)
+                                        .foregroundColor(Color("Blue"))
+                                    Spacer()
+                                    Spacer()
+                                }
+                            } else {
+                                VStack(spacing: UIFrame.UIWidth / 15) {
+                                    StatusView(text: self.mypageVM.weekStatus, isMeal: self.mypageVM.isMeal)
+                                    NavigationLink(destination: OutsideDetailView()) {
+                                        MypageButtonView(text: "외출 내역 보기")
+                                    }
+                                    NavigationLink(destination: ChangePWView()) {
+                                        MypageButtonView(text: "비밀번호 변경")
+                                    }
+                                    MypageButtonView(text: "로그아웃")
+                                        .onTapGesture {
+                                            withAnimation {
+                                                self.logoutAlert = true
+                                            }
+                                    }
                                 }
                             }
                         }.padding([.leading, .trailing], 30)
                         Spacer()
                     }
                 }
-            }.edgesIgnoringSafeArea(.top)
+            }.sheet(isPresented: self.$mypageVM.showLoginModal) {
+                PMSView()
+            }
+            .edgesIgnoringSafeArea(.top)
                 .navigationBarHidden(isNav)
         }.accentColor(.black)
         
@@ -219,20 +236,6 @@ struct StatusView: View {
                     
                 }
             }.padding()
-        }
-    }
-}
-
-struct DottedView: View {
-    var color: String
-    var body: some View {
-        HStack {
-            Color(color).frame(width: UIFrame.UIWidth / 15, height: 2)
-            Color(color).frame(width: UIFrame.UIWidth / 15, height: 2)
-            Color(color).frame(width: UIFrame.UIWidth / 15, height: 2)
-            Color(color).frame(width: UIFrame.UIWidth / 15, height: 2)
-            Color(color).frame(width: UIFrame.UIWidth / 15, height: 2)
-            Color(color).frame(width: UIFrame.UIWidth / 15, height: 2)
         }
     }
 }

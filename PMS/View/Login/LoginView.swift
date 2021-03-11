@@ -52,9 +52,13 @@ struct LoginView: View {
             if self.loginVM.isSuccessAlert {
                 SuccessView(text: "로그인이 완료되었습니다.")
                     .onAppear {
+                        if !UD.bool(forKey: "isFirstView") {
+                            self.mode.wrappedValue.dismiss()
+                        }
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.95) {
-                            self.settings.isLogined = true
-                            UserDefaults.standard.set(true, forKey: "isLogined")
+                            self.settings.isFirstView = true
+                            UD.set(true, forKey: "isFirstView")
+                            UD.set(true, forKey: "isLogin")
                         }
                     }
             }
