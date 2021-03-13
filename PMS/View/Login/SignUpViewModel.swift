@@ -41,7 +41,7 @@ class SignupViewModel: ObservableObject {
         case registerTapped
     }
     
-    private let registerSubject = CurrentValueSubject<User?, Never>(nil)
+    private let registerSubject = CurrentValueSubject<Auth?, Never>(nil)
     
     func bindInputs() {
         registerSubject
@@ -55,7 +55,7 @@ class SignupViewModel: ObservableObject {
     func apply(_ input: Input) {
         switch input {
         case .registerTapped:
-            registerSubject.send(User(email: self.id, password: self.password, name: self.nickname))
+            registerSubject.send(Auth(email: self.id, password: self.password, name: self.nickname))
         }
     }
     

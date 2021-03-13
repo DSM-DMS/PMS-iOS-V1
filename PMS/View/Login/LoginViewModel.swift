@@ -25,16 +25,20 @@ class LoginViewModel: ObservableObject {
         bindInputs()
     }
     
+    deinit {
+        bag.removeAll()
+    }
+    
     enum Input {
         case loginTapped
     }
     
-    private let loginSubject = CurrentValueSubject<User?, Never>(nil)
+    private let loginSubject = CurrentValueSubject<Auth?, Never>(nil)
     
     func apply(_ input: Input) {
         switch input {
         case .loginTapped:
-            loginSubject.send(User(email: self.id, password: self.password))
+            loginSubject.send(Auth(email: self.id, password: self.password))
         }
     }
     
@@ -48,15 +52,12 @@ class LoginViewModel: ObservableObject {
     }
     
     func requestLogin(email: String, password: String) {
-        //      movieErrors.removeAll()
         apiManager.login(email: email, password: password)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { [weak self] completion in
                 if case .failure(let error) = completion {
                     self?.isErrorAlert.toggle()
-                    if error.response?.statusCode == 401 {
-                        // 뭔가 함
-                    }
+                    print(error)
                 }
             }, receiveValue: { [weak self] token in
                 self?.isSuccessAlert.toggle()

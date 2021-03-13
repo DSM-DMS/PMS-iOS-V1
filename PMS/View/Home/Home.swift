@@ -50,7 +50,7 @@ struct Home: View {
                     VStack(spacing: -10) {
                         AppBar(index: self.$index, offset: self.$offset)
                         Rectangle()
-                            .frame(height: self.edges!.bottom == 0 ? 10 : 30).foregroundColor(.white)
+                            .frame(height: self.edges!.bottom == 0 ? 10 : 30).foregroundColor(Color("WhiteDarkGray"))
                     }
                 }
                 .edgesIgnoringSafeArea(.all)
@@ -323,7 +323,7 @@ struct AppBar: View {
         })
         .padding(.horizontal)
         .padding(.bottom, 10)
-        .background(RoundedRectangle(cornerRadius: 20).shadow(radius: 10).foregroundColor(.white))
+        .background(RoundedRectangle(cornerRadius: 20).shadow(radius: 10).foregroundColor(Color("WhiteDarkGray")))
     }
 }
 

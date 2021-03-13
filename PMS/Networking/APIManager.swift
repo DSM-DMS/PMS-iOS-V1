@@ -16,6 +16,8 @@ class APIManager {
         return UD.string(forKey: "accessToken")!
     }
     
+    // MARK: Auth
+    
     func login(email: String, password: String) -> AnyPublisher<accessToken, MoyaError> {
         provider.requestPublisher(.login(email: email, password: password))
             .map(accessToken.self)
@@ -23,6 +25,22 @@ class APIManager {
     
     func regiser(email: String, password: String, name: String) -> AnyPublisher<Void, MoyaError> {
         provider.requestVoidPublisher(.register(email: email, password: password, name: name))
+    }
+    
+    // MARK: Mypage
+    
+    func mypage(number: Int) -> AnyPublisher<Student, MoyaError> {
+        provider.requestPublisher(.mypage(number: number))
+            .map(Student.self)
+    }
+    
+    func addStudent(number: Int) -> AnyPublisher<Void, MoyaError> {
+        provider.requestVoidPublisher(.addStudent(number: number))
+    }
+    
+    func getStudents() -> AnyPublisher<User, MoyaError> {
+        provider.requestPublisher(.getStudents)
+            .map(User.self)
     }
     
     func changePassword(password: String, prePassword: String) -> AnyPublisher<accessToken, MoyaError> {

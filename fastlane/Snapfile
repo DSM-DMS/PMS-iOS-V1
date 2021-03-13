@@ -13,11 +13,7 @@ devices([
 ])
 
 languages([
-   "en-US",
    "ko"
-#   "de-DE",
-#   "it-IT",
-#   ["pt", "pt_BR"] # Portuguese with Brazilian locale
 ])
 
 # The name of the scheme which contains the UI Tests

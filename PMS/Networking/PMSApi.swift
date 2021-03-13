@@ -37,11 +37,11 @@ enum PMSApi {
     case companyDetail(_ id: Int)
     
     // Mypage
-    case mypage
-    case changeNickname
-    case addStudent
-    case outside
-    case weekStatus
+    case mypage(number: Int)
+    case changeNickname(name: String)
+    case addStudent(number: Int)
+    case getStudents
+    case outside(_ id: Int)
     case changePassword(password: String, prePassword: String)
 }
 
@@ -93,16 +93,16 @@ extension PMSApi: TargetType, AccessTokenAuthorizable {
             return "/introduce/clubs/\(id)"
             
         // Mypage
-        case .mypage:
-            return ""
+        case .mypage(let number):
+            return "/user/student/\(number)"
         case .changeNickname:
             return "/user/name"
         case .addStudent:
-            return "/student/add"
-        case .outside:
-            return "/student/outing"
-        case .weekStatus:
-            return "/student/remained"
+            return "/user/student"
+        case .getStudents:
+            return "/user"
+        case .outside(let id):
+            return "/user/student/outing/\(id)"
         case .changePassword:
             return "/auth/password"
         }
@@ -149,10 +149,10 @@ extension PMSApi: TargetType, AccessTokenAuthorizable {
     
     var authorizationType: AuthorizationType? {
         switch self {
-        case let .changePassword(password, prePassword):
-            return .bearer
-        default:
+        case let .login, .register:
             return nil
+        default:
+            return .bearer
         }
     }
 }

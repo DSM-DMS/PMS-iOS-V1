@@ -109,15 +109,13 @@ struct CheckTextField: View {
                 if !isChange {
                     if text != "" {
                         Image("check")
-                            .renderingMode(.template)
-                            .resizable()
+                            .template()
                             .frame(width: 20, height: 20)
                             .foregroundColor(Color(isChange ? "Blue" : "Red"))
                             .padding(.leading, 10)
                     } else {
                         Image("check")
-                            .renderingMode(.template)
-                            .resizable()
+                            .template()
                             .frame(width: 20, height: 20)
                             .padding(.leading, 10)
                     }

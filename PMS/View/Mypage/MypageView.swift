@@ -43,6 +43,19 @@ struct MypageView: View {
                                     Spacer()
                                     Spacer()
                                 }
+                            } else if UD.value(forKey: "CurrentStudent") == nil {
+                                VStack {
+                                    Spacer()
+                                    ZStack {
+                                        RoundedRectangle(cornerRadius: 10).foregroundColor(Color("LightGray")).frame(height: UIFrame.UIWidth / 9).shadow(radius: 5)
+                                        VStack {
+                                                Text("학생을 추가해주세요.")
+                                                    .foregroundColor(.black)
+                                        }.padding()
+                                    }
+                                    Spacer()
+                                    Spacer()
+                                }
                             } else {
                                 VStack(spacing: UIFrame.UIWidth / 15) {
                                     StatusView(text: self.mypageVM.weekStatus, isMeal: self.mypageVM.isMeal)

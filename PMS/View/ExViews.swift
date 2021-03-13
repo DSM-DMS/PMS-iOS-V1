@@ -42,3 +42,11 @@ struct CustomDivider: View {
         Color.gray.frame(height: 1)
     }
 }
+
+extension Image {
+    func template() -> some View {
+        self
+            .renderingMode(.template)
+            .resizable()
+   }
+}

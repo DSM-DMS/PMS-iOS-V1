@@ -92,15 +92,13 @@ struct CustomTextField: View {
             HStack(spacing: 20) {
                 if text != "" {
                     Image(image)
-                        .renderingMode(.template)
-                        .resizable()
+                        .template()
                         .frame(width: 17, height: 20)
                         .padding(.leading, 10)
                         .foregroundColor(Color(isLogin ? "Blue" : "Red"))
                 } else {
                     Image(image)
-                        .renderingMode(.template)
-                        .resizable()
+                        .template()
                         .frame(width: 17, height: 20)
                         .padding(.leading, 10)
                 }
@@ -128,14 +126,12 @@ struct PasswordTextField: View {
             HStack(spacing: 20) {
                 if text != "" {
                     Image("lock")
-                        .renderingMode(.template)
-                        .resizable()
+                        .template()
                         .frame(width: 15, height: 20)
                         .foregroundColor(Color(isLogin ? "Blue" : "Red"))
                 } else {
                     Image("lock")
-                        .renderingMode(.template)
-                        .resizable()
+                        .template()
                         .frame(width: 15, height: 20)
                 }
                 

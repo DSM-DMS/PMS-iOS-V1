@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct User {
+struct Auth {
     var email: String
     var password: String
     var name: String?
