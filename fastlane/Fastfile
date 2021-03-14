@@ -16,8 +16,28 @@
 default_platform(:ios)
 
 platform :ios do
+  desc "Test unit tests"
+  lane :test do
+    run_tests(
+      buildlog_path: "./fastlane/fastlane-buildlog",
+      derived_data_path: "~/Library/Developer/Xcode/DerivedData",
+      workspace: "PMS.xcworkspace",
+      scheme: "PMSTests")
+
+    slather(
+      output_directory: "./fastlane/test_output",
+      workspace: "PMS.xcworkspace",
+      html: true,
+      scheme: "PMSTests",
+      proj: "PMS.xcodeproj",
+      show: true,
+      binary_basename: "PMS"
+  )
+  end
+  
   desc "Push a new release build to the App Store"
   lane :release do
+    increment_build_number
     build_app(workspace: "PMS.xcworkspace", scheme: "PMS")
     upload_to_app_store
   end

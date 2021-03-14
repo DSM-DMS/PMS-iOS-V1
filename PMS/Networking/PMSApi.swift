@@ -149,7 +149,7 @@ extension PMSApi: TargetType, AccessTokenAuthorizable {
     
     var authorizationType: AuthorizationType? {
         switch self {
-        case let .login, .register:
+        case .login, .register:
             return nil
         default:
             return .bearer

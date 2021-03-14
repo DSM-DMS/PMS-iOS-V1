@@ -1,0 +1,6 @@
+Command line invocation:
+    /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -workspace PMS.xcworkspace -scheme PMSTests -derivedDataPath "~/Library/Developer/Xcode/DerivedData" -destination "platform=iOS Simulator,id=06885F56-5634-4E6B-822F-4F7ED059F64D" build test
+
+User defaults from command line:
+    IDEDerivedDataPathOverride = /var/root/Library/Developer/Xcode/DerivedData
+

@@ -19,13 +19,11 @@ target 'PMS' do
     inherit! :search_paths
     # Pods for testing
 	pods
-	pod 'Nimble'
   end
 
   target 'PMSUITests' do
     # Pods for testing
 	pods
-	pod 'Nimble'
   end
 
 end

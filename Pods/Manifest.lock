@@ -6,14 +6,12 @@ PODS:
     - Moya/Core (= 15.0.0-alpha.1)
   - Moya/Core (15.0.0-alpha.1):
     - Alamofire (~> 5.0)
-  - Nimble (9.0.0)
   - SwiftLint (0.43.0)
 
 DEPENDENCIES:
   - FSCalendar
   - lottie-ios
   - Moya (~> 15.0.0-alpha.1)
-  - Nimble
   - SwiftLint
 
 SPEC REPOS:
@@ -22,7 +20,6 @@ SPEC REPOS:
     - FSCalendar
     - lottie-ios
     - Moya
-    - Nimble
     - SwiftLint
 
 SPEC CHECKSUMS:
@@ -30,9 +27,8 @@ SPEC CHECKSUMS:
   FSCalendar: e6a2eb9c571bf0719ed797ef807e08426753c241
   lottie-ios: 106e92eaf11fbed0a76590b4cdb9b5ec26123ff7
   Moya: 101c94dfb29289736ecd20fa6e82bea665e0671b
-  Nimble: 3b4ec3fd40f1dc178058e0981107721c615643d8
   SwiftLint: 0c645fdc6feed3e390c1701ab3cc669f88b42752
 
-PODFILE CHECKSUM: fc3e75a43600c4ce388ec02b11e71ef23ecc5f09
+PODFILE CHECKSUM: 126f1bf330115f3bdb60d048b35628cf49476d14
 
 COCOAPODS: 1.10.0
