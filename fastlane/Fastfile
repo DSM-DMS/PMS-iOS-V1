@@ -16,7 +16,7 @@
 default_platform(:ios)
 
 platform :ios do
-  desc "Test unit tests"
+
   lane :test do
     run_tests(
       buildlog_path: "./fastlane/fastlane-buildlog",
@@ -25,7 +25,6 @@ platform :ios do
       scheme: "PMSTests")
   end
 
-  desc "Test coverage with slather"
   lane :coverage do
     slather(
       output_directory: "./fastlane/coverage",
@@ -37,7 +36,6 @@ platform :ios do
   )
   end
 
-  desc "Github actions release'
   lane :version do 
     increment_build_number(xcodeproj: 'PMS.xcodeproj')
   end
@@ -54,7 +52,7 @@ platform :ios do
 
     import_certificate(
       certificate_path 'distribution.p12',
-      certificate_password: '1234'
+      certificate_password: '1234',
       keychain_name: 'ios_app_keychain',
       keychain_password: '1234'
     )
@@ -78,14 +76,12 @@ platform :ios do
     )
   end
   
-  desc "Push a new release build to the App Store"
   lane :release do
     increment_build_number
-    build_app(workspace: "PMS.xcworkspace", scheme: "PMS")
+    build_app(workspace: 'PMS.xcworkspace', scheme: 'PMS')
     upload_to_app_store
   end
 
-  desc "upload to App Store screenshots"
   lane :screenshots do 
     capture_screenshots 
     upload_to_app_store 

@@ -20,17 +20,32 @@ or alternatively using `brew install fastlane`
 ```
 fastlane ios test
 ```
-Test unit tests
+
 ### ios coverage
 ```
 fastlane ios coverage
 ```
-Test coverage with slather
+
+### ios version
+```
+fastlane ios version
+```
+
+### ios GitHub
+```
+fastlane ios GitHub
+```
+
 ### ios release
 ```
 fastlane ios release
 ```
-Push a new release build to the App Store
+
+### ios screenshots
+```
+fastlane ios screenshots
+```
+
 
 ----
 
