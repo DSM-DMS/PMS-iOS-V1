@@ -77,20 +77,21 @@
       </BuildableProductRunnable>
    </LaunchAction>
    <ProfileAction
-      buildConfiguration = "Release"
+      buildConfiguration = "Debug"
       shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D94AC7982524D2D3002CCB3A"
-            BuildableName = "PMSUITests.xctest"
-            BlueprintName = "PMSUITests"
+            BlueprintIdentifier = "D94AC7772524D2D0002CCB3A"
+            BuildableName = "PMS.app"
+            BlueprintName = "PMS"
             ReferencedContainer = "container:PMS.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

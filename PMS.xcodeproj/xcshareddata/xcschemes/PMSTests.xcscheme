@@ -20,6 +20,20 @@
                ReferencedContainer = "container:PMS.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "D94AC7772524D2D0002CCB3A"
+               BuildableName = "PMS.app"
+               BlueprintName = "PMS"
+               ReferencedContainer = "container:PMS.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -51,22 +65,33 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "D94AC7772524D2D0002CCB3A"
+            BuildableName = "PMS.app"
+            BlueprintName = "PMS"
+            ReferencedContainer = "container:PMS.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
    </LaunchAction>
    <ProfileAction
-      buildConfiguration = "Release"
+      buildConfiguration = "Debug"
       shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D94AC78D2524D2D3002CCB3A"
-            BuildableName = "PMSTests.xctest"
-            BlueprintName = "PMSTests"
+            BlueprintIdentifier = "D94AC7772524D2D0002CCB3A"
+            BuildableName = "PMS.app"
+            BlueprintName = "PMS"
             ReferencedContainer = "container:PMS.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

@@ -31,9 +31,9 @@ fastlane ios coverage
 fastlane ios version
 ```
 
-### ios GitHub
+### ios github
 ```
-fastlane ios GitHub
+fastlane ios github
 ```
 
 ### ios release
