@@ -1,6 +1,7 @@
 # PMS
 
 - SwiftUI
-- MVVM, ReactorKit + Combine
+- MVVM + Combine
 - Moya
+- Fastlane + Github Actions
 

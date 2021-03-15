@@ -23,16 +23,59 @@ platform :ios do
       derived_data_path: "~/Library/Developer/Xcode/DerivedData",
       workspace: "PMS.xcworkspace",
       scheme: "PMSTests")
+  end
 
+  desc "Test coverage with slather"
+  lane :coverage do
     slather(
-      output_directory: "./fastlane/test_output",
+      output_directory: "./fastlane/coverage",
       workspace: "PMS.xcworkspace",
       html: true,
+      binary_basename: "PMS",
       scheme: "PMSTests",
-      proj: "PMS.xcodeproj",
-      show: true,
-      binary_basename: "PMS"
+      proj: "PMS.xcodeproj"
   )
+  end
+
+  desc "Github actions release'
+  lane :version do 
+    increment_build_number(xcodeproj: 'PMS.xcodeproj')
+  end
+
+  lane :GitHub do
+    create_keychain(
+      name: 'ios_app_keychain',
+      password: '1234',
+      Timeout: 1800,
+      default_keychain: true,
+      unlock: true,
+      lock_when_sleeps: false
+    )
+
+    import_certificate(
+      certificate_path 'distribution.p12',
+      certificate_password: '1234'
+      keychain_name: 'ios_app_keychain',
+      keychain_password: '1234'
+    )
+    install_provisioning_profile(path: 'distribution.mobildprovision')
+    update_project_provisioning(
+      xcodeproj: 'PMS.xcodeproj',
+      target_filter: 'github',
+      profile: 'distrribution.mobileprovision',
+      build_configuration: 'Release'
+    )
+    api_key = app_storre_connect_api_key(
+      key_id: '5F84GBFHDC',
+      issuer_id: '69a6de96-accd-47e3-e053-5b8c7c11a4d1',
+      key_filepath: 'distribution.p8'
+    )
+
+    build_app(workspace: 'PMS.xcworkspace', scheme: 'PMS')
+    upload_to_app_store(
+      precheck_include_in_app_purchases: false,
+      api_key: api_key
+    )
   end
   
   desc "Push a new release build to the App Store"
@@ -40,5 +83,11 @@ platform :ios do
     increment_build_number
     build_app(workspace: "PMS.xcworkspace", scheme: "PMS")
     upload_to_app_store
+  end
+
+  desc "upload to App Store screenshots"
+  lane :screenshots do 
+    capture_screenshots 
+    upload_to_app_store 
   end
 end

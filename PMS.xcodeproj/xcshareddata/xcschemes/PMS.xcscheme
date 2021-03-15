@@ -20,6 +20,34 @@
                ReferencedContainer = "container:PMS.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "D94AC78D2524D2D3002CCB3A"
+               BuildableName = "PMSTests.xctest"
+               BlueprintName = "PMSTests"
+               ReferencedContainer = "container:PMS.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "D94AC7982524D2D3002CCB3A"
+               BuildableName = "PMSUITests.xctest"
+               BlueprintName = "PMSUITests"
+               ReferencedContainer = "container:PMS.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction

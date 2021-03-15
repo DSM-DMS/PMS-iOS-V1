@@ -6,7 +6,7 @@ devices([
 #   "iPhone 8 Plus",
 #   "iPhone SE",
 #   "iPhone X",
-    "iPhone 11 Pro Max",
+    "iPhone 12 Pro Max",
 #   "iPad Pro (12.9-inch)",
 #   "iPad Pro (9.7-inch)",
 #   "Apple TV 1080p"
@@ -33,7 +33,3 @@ clear_previous_screenshots(true)
 
 # For more information about all available options run
 # fastlane action snapshot
-
-reinstall_app true
-clean true
-erase_simulator true
