@@ -18,12 +18,14 @@ jobs:
       - uses: actions/setup-ruby@v1
         with:
           ruby-version: "2.x"
-          repo-token: ${{ secrets.TOKEN }}
       - name: Install Fastlane
         run: bundle install
       - name: Install packages
         run: yarn install
       - name: Install pods
         run: pod install
+      - uses: actions/checkout@v2
+        with: 
+          repo-token: ${{ secrets.TOKEN }}
       - name: Execute Fastlane command
         run: fastlane github
