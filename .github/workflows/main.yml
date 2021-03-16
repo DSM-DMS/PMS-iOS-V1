@@ -18,6 +18,7 @@ jobs:
       - uses: actions/setup-ruby@v1
         with:
           ruby-version: "2.x"
+          repo-token: ${{ secrets.TOKEN }}
       - name: Install Fastlane
         run: bundle install
       - name: Install packages
