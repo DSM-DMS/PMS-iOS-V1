@@ -1,4 +1,4 @@
-git_url("https://github.com/DSM-DMS/PMS-iOS-fastlane.git")
+git_url("git@github.com:DSM-DMS/PMS-iOS-fastlane.git")
 
 storage_mode("git")
 
