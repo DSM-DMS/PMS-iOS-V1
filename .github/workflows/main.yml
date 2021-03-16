@@ -24,8 +24,8 @@ jobs:
         run: yarn install
       - name: Install pods
         run: pod install
-      - uses: actions/checkout@v2
+      - uses: actions/github-script@v2
         with: 
-          repo-token: ${{ secrets.TOKEN }}
+          github-token: ${{ secrets.TOKEN }}
       - name: Execute Fastlane command
         run: fastlane github
