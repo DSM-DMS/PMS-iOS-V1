@@ -19,10 +19,10 @@ jobs:
         with:
           ruby-version: "2.x"
       - name: Install Fastlane
-        run: cd fastlane && bundle install && cd ..
+        run: bundle install
       - name: Install packages
         run: yarn install
       - name: Install pods
-        run: cd fastlane && pod install && cd ..
+        run: pod install
       - name: Execute Fastlane command
-        run: cd fastlane && fastlane github
+        run: fastlane github

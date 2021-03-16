@@ -26,11 +26,6 @@ fastlane ios test
 fastlane ios coverage
 ```
 
-### ios version
-```
-fastlane ios version
-```
-
 ### ios github
 ```
 fastlane ios github
