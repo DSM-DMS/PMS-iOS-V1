@@ -41,9 +41,17 @@ platform :ios do
   end
 
   lane :github do
-    automatic_code_signing(use_automatic_signing: true)
-    build_app(workspace: "PMS.xcworkspace", scheme: "PMS", xcargs: "-allowProvisioningUpdates")
-    upload_to_app_store(skip_metadata: true, skip_screenshots: true)
+    create_keychain(
+      name: "ios_app_store",
+      password: "1234",
+      default_keychain: true,
+      unlock: true,
+      timeout: 3600,
+      add_to_search_list: true,
+    )
+    match(type: "appstore", readonly: true, keychain_name: 'ios_app_store', keychain_password: '1234')
+    build_app(workspace: "PMS.xcworkspace", scheme: "PMS")
+    upload_to_app_store(force: true)
   end
   
   lane :release do
