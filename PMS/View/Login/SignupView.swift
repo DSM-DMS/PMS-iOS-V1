@@ -54,7 +54,7 @@ struct SignupView: View {
             if self.signupVM.isSuccessAlert {
                 SuccessView(text: "회원가입이 완료되었습니다.")
                     .onAppear {
-                        if !UD.bool(forKey: "isFirstView") {
+                        if UD.bool(forKey: "isFirstView") {
                             self.mode.wrappedValue.dismiss()
                         }
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.95) {

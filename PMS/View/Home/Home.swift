@@ -75,7 +75,8 @@ struct Home: View {
                                 .foregroundColor(.blue)
                                 .onTapGesture {
                                     self.mypageVM.logoutAlert = false
-                                    self.login.isFirstView = false
+                                    self.mypageVM.showLoginModal = true
+                                    UD.set(false, forKey: "isLogin")
                                 }
                             Spacer()
                         }
@@ -143,21 +144,28 @@ struct Home: View {
                                 .padding(.top, 5)
                                 .padding(.bottom, 10)
                             
-                            ForEach(1...2, id: \.self) { _ in
-                                VStack(spacing: 20) {
-                                    HStack {
-                                        Text("1319 정고은")
-                                        Spacer()
-                                        Image("Minus")
-                                            .onTapGesture {
-                                                withAnimation {
-                                                    self.mypageVM.deleteAlert = true
-                                                }
-                                            }
-                                    }
+                            if UD.array(forKey: "Students") == nil {
+                                VStack(spacing: 10) {
+                                    Text("이런! 학생이 아무도 없습니다.").foregroundColor(.gray)
                                     Divider()
-                                }.padding([.leading, .trailing], 20)
-                                .padding([.top, .bottom], 10)
+                                }.padding([.top, .bottom], 10)
+                            } else {
+                                ForEach(1...UD.array(forKey: "Students")!.count, id: \.self) { _ in
+                                    VStack(spacing: 20) {
+                                        HStack {
+                                            Text("1319 정고은")
+                                            Spacer()
+                                            Image("Minus")
+                                                .onTapGesture {
+                                                    withAnimation {
+                                                        self.mypageVM.deleteAlert = true
+                                                    }
+                                                }
+                                        }
+                                        Divider()
+                                    }.padding([.leading, .trailing], 20)
+                                    .padding([.top, .bottom], 10)
+                                }
                             }
                             
                             HStack {

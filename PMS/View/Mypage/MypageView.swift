@@ -44,14 +44,23 @@ struct MypageView: View {
                                     Spacer()
                                 }
                             } else if UD.value(forKey: "CurrentStudent") == nil {
-                                VStack {
-                                    Spacer()
+                                VStack(spacing: UIFrame.UIWidth / 15) {
                                     ZStack {
-                                        RoundedRectangle(cornerRadius: 10).foregroundColor(Color("LightGray")).frame(height: UIFrame.UIWidth / 9).shadow(radius: 5)
+                                        RoundedRectangle(cornerRadius: 10).foregroundColor(Color("LightGray")).frame(height: UIFrame.UIWidth / 9).shadow(radius: 3)
                                         VStack {
-                                                Text("학생을 추가해주세요.")
+                                                Text("학생을 추가해주세요")
                                                     .foregroundColor(.black)
                                         }.padding()
+                                    }
+                                    Spacer()
+                                    NavigationLink(destination: ChangePWView()) {
+                                        MypageButtonView(text: "비밀번호 변경")
+                                    }
+                                    MypageButtonView(text: "로그아웃")
+                                        .onTapGesture {
+                                            withAnimation {
+                                                self.logoutAlert = true
+                                            }
                                     }
                                     Spacer()
                                     Spacer()

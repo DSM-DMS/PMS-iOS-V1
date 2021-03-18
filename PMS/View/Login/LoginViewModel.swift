@@ -62,6 +62,20 @@ class LoginViewModel: ObservableObject {
             }, receiveValue: { [weak self] token in
                 self?.isSuccessAlert.toggle()
                 UD.set(token.accessToken, forKey: "accessToken")
+                self?.requestStudent()
+            })
+            .store(in: &bag)
+    }
+    
+    func requestStudent() {
+        apiManager.getStudents()
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { completion in
+                if case .failure(let error) = completion {
+                    print(error)
+                }
+            }, receiveValue: { user in
+                UD.set(user.name, forKey: "name")
             })
             .store(in: &bag)
     }

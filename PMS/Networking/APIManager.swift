@@ -39,7 +39,10 @@ class APIManager {
     }
     
     func getStudents() -> AnyPublisher<User, MoyaError> {
-        provider.requestPublisher(.getStudents)
+        let authPlugin = AccessTokenPlugin { _ in self.tokenClosure}
+        let authProvider = MoyaProvider<PMSApi>(plugins: [authPlugin])
+        
+        return authProvider.requestPublisher(.getStudents)
             .map(User.self)
     }
     

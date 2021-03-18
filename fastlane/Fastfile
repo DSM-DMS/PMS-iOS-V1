@@ -36,10 +36,13 @@ platform :ios do
   )
   end
 
-  lane :github do
-    match(type: "appstore", git_private_key: 'SHA256:y0zNrudr8+6sMxkFyLa9zdvfnBVBDVGn8J5ZOTWo4tw')
+  lane :versionup do
     increment_build_number
-    build_app(workspace: "PMS.xcworkspace", scheme: "PMS")
+  end
+
+  lane :github do
+    automatic_code_signing(use_automatic_signing: true)
+    build_app(workspace: "PMS.xcworkspace", scheme: "PMS", xcargs: "-allowProvisioningUpdates")
     upload_to_app_store(skip_metadata: true, skip_screenshots: true)
   end
   
@@ -47,6 +50,7 @@ platform :ios do
     increment_build_number
     build_app(workspace: "PMS.xcworkspace", scheme: "PMS")
     upload_to_app_store
+    sh "watchbuild"
   end
 
   lane :screenshots do 

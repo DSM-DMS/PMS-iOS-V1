@@ -27,7 +27,7 @@ struct PMSView: View {
                 Text("로그인 없이 진행하기 >")
                     .foregroundColor(Color("Blue"))
                     .onTapGesture {
-                        if !UD.bool(forKey: "isFirstView") {
+                        if UD.bool(forKey: "isFirstView") == false {
                             self.presentationMode.wrappedValue.dismiss()
                         }
                         self.settings.isFirstView = true
