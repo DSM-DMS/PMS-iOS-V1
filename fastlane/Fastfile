@@ -16,6 +16,10 @@
 default_platform(:ios)
 
 platform :ios do
+  before_all do
+    ENV["SLACK_URL"] = "https://hooks.slack.com/services/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"
+    ENV["SLACK_CHANNEL"] = "#ios"
+  end
 
   lane :test do
     run_tests(
@@ -58,11 +62,9 @@ platform :ios do
     increment_build_number
     build_app(workspace: "PMS.xcworkspace", scheme: "PMS")
     upload_to_app_store
-    sh "watchbuild"
   end
 
   lane :screenshots do 
-    capture_screenshots 
-    upload_to_app_store 
+    capture_screenshots
   end
 end
