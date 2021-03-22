@@ -9,33 +9,26 @@
 import SwiftUI
 
 struct OutsideDetailView: View {
+    @EnvironmentObject var mypageVM: MypageViewModel
     @Environment(\.presentationMode) var mode
     @EnvironmentObject var settings: NavSettings
     @State var offset = CGSize.zero
     var body: some View {
         ScrollView {
-            ForEach(1...10, id: \.self) { _ in
-                ZStack(alignment: .leading) {
-                    RoundedRectangle(cornerRadius: 10).foregroundColor(Color("Gray"))
-                        .frame(height: UIFrame.UIWidth / 3)
-                        .shadow(radius: 4)
-                    VStack(alignment: .leading, spacing: 20) {
-                        HStack {
-                            BlueTabView()
-                            Text("사유")
-                        }
-                        Text("사유 : 그냥")
-                            .foregroundColor(.gray)
-                        Text("장소 : 운심부지처")
-                            .foregroundColor(.gray)
-                    }.padding(.leading, 30)
-                }.padding([.leading, .trailing], 20)
-                    .padding([.top, .bottom], 10)
-            }.padding([.top, .bottom], 10)
+            if self.mypageVM.outings == nil || ((self.mypageVM.outings?.outings.isEmpty) == true) {
+                Spacer()
+                Text("아직 외출 이력이 없습니다.")
+                    .foregroundColor(.gray)
+                    .font(.headline)
+            } else {
+                ForEach(self.mypageVM.outings!.outings, id: \.self) { outing in
+                    OutsideRow(date: outing.date, reason: outing.reason, place: outing.place, type: outing.type)
+                }.padding([.top, .bottom], 10)
+            }
         }.onAppear {
             self.settings.isNav = true
         }
-        .navigationBarTitle("상/벌점 내역", displayMode: .inline)
+        .navigationBarTitle("외출 내역", displayMode: .inline)
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(leading: Button(action: {
             self.mode.wrappedValue.dismiss()
@@ -58,5 +51,34 @@ struct OutsideDetailView_Previews: PreviewProvider {
                 .previewDevice(PreviewDevice(rawValue: "iPhone 8"))
                 .previewDisplayName("iPhone 8")
         }
+    }
+}
+
+struct OutsideRow: View {
+    var date: String
+    var reason: String
+    var place: String
+    var type: String
+    var body: some View {
+        ZStack(alignment: .leading) {
+            RoundedRectangle(cornerRadius: 10).foregroundColor(Color("Gray"))
+                .frame(height: UIFrame.UIWidth / 3)
+                .shadow(radius: 4)
+            VStack(alignment: .leading, spacing: 20) {
+                HStack {
+                    if type == "DISEASE" {
+                        RedTabView()
+                    } else {
+                        BlueTabView()
+                    }
+                    Text(date)
+                }
+                Text("사유 : \(reason)")
+                    .foregroundColor(.gray)
+                Text("장소 : \(place)")
+                    .foregroundColor(.gray)
+            }.padding(.leading, 30)
+        }.padding([.leading, .trailing], 20)
+            .padding([.top, .bottom], 10)
     }
 }

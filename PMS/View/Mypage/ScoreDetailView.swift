@@ -9,22 +9,30 @@
 import SwiftUI
 
 struct ScoreDetailView: View {
-    @ObservedObject var MypageVM = MypageViewModel()
+    @EnvironmentObject var mypageVM: MypageViewModel
     @EnvironmentObject var settings: NavSettings
     @Environment(\.presentationMode) var mode
     @State var offset = CGSize.zero
     var body: some View {
         ScrollView {
-            ForEach(1...10, id: \.self) { _ in 
-                ScoreRow(text: "사유", date: "2020/09/21", status: "-1", isMinus: true)
-            }.padding([.top, .bottom], 10)
-            
+            if self.mypageVM.points == nil || ((self.mypageVM.points?.points.isEmpty) == true) {
+                Spacer()
+                Text("아직 상벌점 이력이 없습니다.")
+                    .foregroundColor(.gray)
+                    .font(.headline)
+            } else {
+                Spacer(minLength: 10.0)
+                ForEach(self.mypageVM.points!.points, id: \.self) { point in
+                    ScoreRow(text: point.reason, date: point.date, status: point.type ? "+" : "-" +  String(point.point), isMinus: !point.type)
+                }.padding(.bottom, 5)
+            }
         }.onAppear {
+            self.mypageVM.apply(.getPoint)
             self.settings.isNav = true
         }
         .modifier(myPageDrag(offset: self.$offset))
-        .navigationBarTitle("상/벌점 내역", displayMode: .inline)
         .navigationBarBackButtonHidden(true)
+        .navigationBarTitle("상/벌점 내역", displayMode: .inline)
         .navigationBarItems(leading: Button(action: {
             self.mode.wrappedValue.dismiss()
             self.settings.isNav = false

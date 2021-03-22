@@ -30,6 +30,10 @@ class APIManager {
             .map(Student.self)
     }
     
+    func changeName(name: String) -> AnyPublisher<Void, MoyaError> {
+        provider.requestVoidPublisher(.changeNickname(name: name))
+    }
+    
     func addStudent(number: Int) -> AnyPublisher<Void, MoyaError> {
         provider.requestVoidPublisher(.addStudent(number: number))
     }
@@ -39,11 +43,17 @@ class APIManager {
             .map(User.self)
     }
     
-//    func changePassword(password: String, prePassword: String) -> AnyPublisher<accessToken, MoyaError> {
-//        let authPlugin = AccessTokenPlugin { _ in self.tokenClosure}
-//        let authProvider = MoyaProvider<PMSApi>(plugins: [authPlugin])
-//
-//        return authProvider.requestPublisher(.changePassword(password: password, prePassword: prePassword))
-//            .map(accessToken.self)
-//    }
+    func changePassword(password: String, prePassword: String) -> AnyPublisher<Void, MoyaError> {
+        provider.requestVoidPublisher(.changePassword(password: password, prePassword: prePassword))
+    }
+    
+    func getOutsideList(number: Int) -> AnyPublisher<OutsideList, MoyaError> {
+        provider.requestPublisher(.outside(number: number))
+            .map(OutsideList.self)
+    }
+    
+    func getPointList(number: Int) -> AnyPublisher<PointList, MoyaError> {
+        provider.requestPublisher(.pointList(number: number))
+            .map(PointList.self)
+    }
 }

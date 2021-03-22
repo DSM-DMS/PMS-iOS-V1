@@ -22,7 +22,7 @@ struct MypageView: View {
                     MypageBackground()
                     VStack {
                         VStack(spacing: 20) {
-                            MypageTopView(nickname: self.mypageVM.nickname, nicknameAlert: self.$nicknameAlert, studentAlert: self.$studentsAlert)
+                            MypageTopView(nickname: self.mypageVM.nickname, student: self.$mypageVM.currentStudent, nicknameAlert: self.$nicknameAlert, studentAlert: self.$studentsAlert)
                             
                             NavigationLink(destination: ScoreDetailView()) {
                             TwoScoreView(plus: self.$mypageVM.plusScore, minus: self.$mypageVM.minusScore)
@@ -83,10 +83,15 @@ struct MypageView: View {
                     }
                 }
             }.onAppear {
+                print("MyPageOnAppear")
                 self.mypageVM.apply(.onAppear)
             }
             .sheet(isPresented: self.$mypageVM.showLoginModal) {
                 PMSView()
+                    .onDisappear {
+                        print("disappear")
+                        self.mypageVM.apply(.onAppear)
+                    }
             }
             .edgesIgnoringSafeArea(.top)
                 .navigationBarHidden(isNav)
@@ -146,6 +151,7 @@ struct TwoScoreView: View {
 
 struct MypageTopView: View {
     var nickname: String
+    @Binding var student: String
     @EnvironmentObject var settings: NavSettings
     @Binding var nicknameAlert: Bool
     @Binding var studentAlert: Bool
@@ -156,21 +162,26 @@ struct MypageTopView: View {
             Button(action: {
                     self.nicknameAlert.toggle()
             }) {
-                Text(nickname)
+                Text(!UDManager.shared.isLogin ? "로그인 안함" : nickname)
                     .font(.title)
                     .foregroundColor(.white)
                 Image("Pencil")
             }
             Spacer()
-            HStack {
-                Text("학생추가")
-                    .font(.headline)
-                    .foregroundColor(.white)
-                Image("BottomArrow")
-            }.onTapGesture {
+            Button(action: {
+                withAnimation(.easeIn(duration: 0.1)) {
                     self.studentAlert.toggle()
-            }
-            
+                }
+            }, label: {
+                HStack {
+                    Text(self.student)
+                        .font(.headline)
+                        .foregroundColor(.white)
+                    Image("BottomArrow")
+                }
+            })
+            .disabled(!UDManager.shared.isLogin)
+            .opacity(!UDManager.shared.isLogin ? 0.5 : 1.0)
         }
         .frame(height: 70)
         .padding([.leading, .trailing], 20)
@@ -230,16 +241,15 @@ struct StatusView: View {
         ZStack {
             RoundedRectangle(cornerRadius: 10).foregroundColor(Color("LightGray")).frame(height: UIFrame.UIWidth / 4.3).shadow(radius: 5)
             HStack {
-                VStack {
+                VStack(alignment: .leading, spacing: 10) {
                     Text("이번 주 잔류 상태")
                     Text("주말급식 신청 여부")
-                }
+                }.padding(.leading)
                 Spacer()
-                VStack {
+                VStack(alignment: .trailing) {
                     Text(text)
-                    
                     Image(self.isMeal ? "O" : "X").padding(.trailing, 5)
-                }
+                }.padding(.trailing)
             }
             VStack {
                 HStack {

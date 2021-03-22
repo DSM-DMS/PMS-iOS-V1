@@ -14,14 +14,12 @@ struct Home: View {
     
     @State var index = 1
     @State var offset: CGFloat = UIScreen.main.bounds.width
-    // Number View
-    @State private var attempts: Int = 0
-    @ObservedObject var passCodeModel = studentCodeModel(passCodeLength: 6)
     
     var width = UIScreen.main.bounds.width
     var edges = UIApplication.shared.windows.first?.safeAreaInsets
     
     @EnvironmentObject var mypageVM: MypageViewModel
+    @State var selectedStudent: String = ""
     
     var body: some View {
         ZStack {
@@ -116,6 +114,7 @@ struct Home: View {
                             Text("확인")
                                 .foregroundColor(.blue)
                                 .onTapGesture {
+                                    self.mypageVM.apply(.changeName)
                                     withAnimation {
                                         self.mypageVM.nicknameAlert.toggle()
                                     }
@@ -150,13 +149,20 @@ struct Home: View {
                                     Divider()
                                 }.padding([.top, .bottom], 10)
                             } else {
-                                ForEach(1...UDManager.shared.currentStudent!.count, id: \.self) { _ in
+                                ForEach(mypageVM.studentsArray, id: \.self) { user in
                                     VStack(spacing: 20) {
                                         HStack {
-                                            Text("1319 정고은")
+                                            Text(user)
+                                                .onTapGesture {
+                                                    selectedStudent = user
+                                                    UDManager.shared.currentStudent = selectedStudent
+                                                    mypageVM.apply(.onAppear)
+                                                    // CurrentUser 바꾸기
+                                                }
                                             Spacer()
                                             Image("Minus")
                                                 .onTapGesture {
+                                                    selectedStudent = user
                                                     withAnimation {
                                                         self.mypageVM.deleteAlert = true
                                                     }
@@ -198,8 +204,8 @@ struct Home: View {
                     VStack(spacing: 20) {
                         VStack(alignment: .center) {
                             Text("자녀 확인 코드를 입력해주세요")
-                            PassCodeInputField(inputModel: self.passCodeModel)
-                                .modifier(Shake(animatableData: CGFloat(attempts)))
+                            PassCodeInputField(inputModel: self.mypageVM.passCodeModel)
+                                .modifier(Shake(animatableData: CGFloat(self.mypageVM.attempts)))
                         }
                         .padding([.leading, .trailing], 20)
                         
@@ -213,10 +219,12 @@ struct Home: View {
                             Spacer()
                             Spacer()
                             Text("확인")
+                                .disabled(!self.mypageVM.passCodeModel.isValid)
+//                                .opacity(self.mypageVM.passCodeModel.isValid ? 1.0 : 0.5)
                                 .foregroundColor(.blue)
                                 .onTapGesture {
-                                    self.mypageVM.studentCodeAlert = false
-                                    self.passCodeModel.selectedCellIndex = 0
+                                    self.mypageVM.apply(.addStudent)
+                                    self.mypageVM.passCodeModel.selectedCellIndex = 0
                                 }
                             Spacer()
                         }
@@ -232,7 +240,7 @@ struct Home: View {
                     Color(.black).opacity(0.3)
                     VStack(spacing: 20) {
                         VStack {
-                            Text("‘2303 김도현’")
+                            Text("'\(selectedStudent)'")
                             Text("목록에서 삭제하시겠습니까?")
                         }.padding(.top, 10)
                         

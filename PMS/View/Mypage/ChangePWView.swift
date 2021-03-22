@@ -30,7 +30,9 @@ struct ChangePWView: View {
                 }
                 ButtonView(text: "확인", color: "Blue")
                     .onTapGesture {
-                        self.mypageVM.confirmAlert = true
+                        withAnimation {
+                            self.mypageVM.confirmAlert = true
+                        }
                     }
             }
             .padding([.leading, .trailing], 30)
@@ -47,11 +49,20 @@ struct ChangePWView: View {
             if self.mypageVM.passwordAlert == true {
                 checkErrorView(text: "현재 비밀번호가 일치하지 않습니다.", isAlert: self.$mypageVM.passwordAlert)
             }
+            if self.mypageVM.passwordSuccessAlert {
+                SuccessView(text: "비밀번호가 변경되었습니다.")
+                    .onAppear {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.95) {
+                            self.mode.wrappedValue.dismiss()
+                            self.settings.isNav = false
+                        }
+                    }
+            }
             if self.mypageVM.confirmAlert == true {
                 ZStack {
                     Color(.black).opacity(0.3)
                     VStack(spacing: 20) {
-                        Text("비밀번호를 번경하시겠습니까?")
+                        Text("비밀번호를 변경하시겠습니까?")
                             .multilineTextAlignment(.center)
                             .padding(.top, 20)
                         CustomDivider()
@@ -68,10 +79,9 @@ struct ChangePWView: View {
                             Text("확인")
                                 .foregroundColor(.blue)
                                 .onTapGesture {
+                                    self.mypageVM.apply(.changePassword)
                                     withAnimation {
                                         self.mypageVM.confirmAlert.toggle()
-                                        self.mode.wrappedValue.dismiss()
-                                        self.settings.isNav = false
                                     }
                                 }
                             Spacer()

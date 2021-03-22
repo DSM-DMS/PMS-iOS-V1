@@ -74,13 +74,13 @@ struct myPageDrag: ViewModifier {
             DragGesture()
                 .onChanged { gesture in
                     self.offset = gesture.translation
-                    if abs(self.offset.width) > 0 {
+                    if abs(self.offset.width) > 50 {
                         self.mode.wrappedValue.dismiss()
                         self.settings.isNav = false
                     }
             }
             .onEnded { _ in
-                if abs(self.offset.width) > 0 {
+                if abs(self.offset.width) > 50 {
                     self.mode.wrappedValue.dismiss()
                     self.settings.isNav = false
                 } else {

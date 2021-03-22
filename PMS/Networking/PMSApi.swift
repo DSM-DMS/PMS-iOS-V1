@@ -41,8 +41,9 @@ enum PMSApi {
     case changeNickname(name: String)
     case addStudent(number: Int)
     case getStudents
-    case outside(_ id: Int)
+    case outside(number: Int)
     case changePassword(password: String, prePassword: String)
+    case pointList(number: Int)
 }
 
 extension PMSApi: TargetType {
@@ -101,17 +102,21 @@ extension PMSApi: TargetType {
             return "/user/student"
         case .getStudents:
             return "/user"
-        case .outside(let id):
-            return "/user/student/outing/\(id)"
+        case .outside(let number):
+            return "/user/student/outing/\(number)"
         case .changePassword:
             return "/auth/password"
+        case .pointList(number: let number):
+            return "/user/student/point/\(number)"
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .login, .register, .changePassword, .addComment:
+        case .login, .register, .addComment, .addStudent:
             return .post
+        case .changePassword, .changeNickname:
+            return .put
         default:
             return .get
         }
@@ -130,6 +135,10 @@ extension PMSApi: TargetType {
             return .requestParameters(parameters: ["email": email, "password": password], encoding: JSONEncoding.default)
         case let .changePassword(password, prePassword):
             return .requestParameters(parameters: ["password": password, "pre-password": prePassword], encoding: JSONEncoding.default)
+        case let.addStudent(number):
+            return .requestParameters(parameters: ["number": number], encoding: JSONEncoding.default)
+        case let .changeNickname(name):
+            return .requestParameters(parameters: ["name": name], encoding: JSONEncoding.default)
         default:
             return .requestPlain
         }
@@ -137,10 +146,10 @@ extension PMSApi: TargetType {
     
     var headers: [String: String]? {
         switch self {
-        case .getStudents:
-            return ["Authorization": "Bearer " + UDManager.shared.token!]
-        default:
+        case .login, .register:
             return ["Content-type": "application/json"]
+        default:
+            return ["Authorization": "Bearer " + UDManager.shared.token!]
         }
     }
     

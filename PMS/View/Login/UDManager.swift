@@ -75,9 +75,9 @@ class UDManager {
         }
     }
     
-    var studentsArray: [Any]? {
+    var studentsArray: [String]? {
         get {
-            UD.array(forKey: "studentsArray")
+            UD.stringArray(forKey: "studentsArray")
         } set(value) {
             UD.set(value, forKey: "studentsArray")
         }

@@ -30,4 +30,31 @@ struct User: Codable {
 struct UsersStudent: Codable {
     var name: String
     var number: Int
+    
+    enum CodingKeys: String, CodingKey {
+        case name = "student-name"
+        case number = "student-number"
+    }
+}
+
+struct OutsideList: Codable {
+    var outings: [Outside]
+}
+
+struct Outside: Codable, Hashable {
+    var date: String
+    var place: String
+    var reason: String
+    var type: String
+}
+
+struct PointList: Codable {
+    var points: [Point]
+}
+
+struct Point: Codable, Hashable {
+    var date: String
+    var reason: String
+    var point: Int
+    var type: Bool
 }

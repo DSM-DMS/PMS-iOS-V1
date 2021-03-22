@@ -47,14 +47,15 @@ class AuthManager {
             }, receiveValue: { user in
                 UDManager.shared.name = user.name
                 if user.students.isEmpty == false {
-                    let firstuser: String = (user.students.first!.name) + String((user.students.first!.number))
+                    let firstuser: String = String(user.students.first!.number) + " " + user.students.first!.name
                     UDManager.shared.currentStudent = firstuser
                     print(firstuser)
-                    var studentsArray: [String]?
-                    for i in 1...user.students.count {
-                        studentsArray?.append(String((user.students[i].number)) + " " + (user.students[i].name))
+                    var studentsArray = [String]()
+                    for i in 0...user.students.count - 1 {
+                        studentsArray.append(String((user.students[i].number)) + " " + (user.students[i].name))
                     }
-                    if studentsArray != nil {
+                    if !studentsArray.isEmpty {
+                        print(studentsArray)
                         UDManager.shared.studentsArray = studentsArray
                     }
                     

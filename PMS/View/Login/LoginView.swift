@@ -55,13 +55,13 @@ struct LoginView: View {
             if self.loginVM.isSuccessAlert {
                 SuccessView(text: "로그인이 완료되었습니다.")
                     .onAppear {
-                        if UDManager.shared.isFirstView {
-                            self.mode.wrappedValue.dismiss()
-                        }
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.95) {
                             self.settings.isFirstView = true
                             UDManager.shared.isFirstView = true
                             UDManager.shared.isLogin = true
+                            if UDManager.shared.isFirstView {
+                                self.mode.wrappedValue.dismiss()
+                            }
                         }
                     }
             }

@@ -134,7 +134,7 @@ struct CheckTextField: View {
             }
             
             if text != "" {
-                Color("Red").frame(height: CGFloat(4) / UIScreen.main.scale)
+                Color(isChange ? "Blue" : "Red").frame(height: CGFloat(4) / UIScreen.main.scale)
             } else {
                 CustomDivider()
             }
