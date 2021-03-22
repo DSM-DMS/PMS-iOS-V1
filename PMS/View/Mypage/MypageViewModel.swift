@@ -62,12 +62,17 @@ class MypageViewModel: ObservableObject {
     func apply(_ input: Input) {
         switch input {
         case .onAppear:
-            if UD.value(forKey: "CurrentStudent") == nil {
+            self.nickname = UDManager.shared.name ?? "UD가 비어있음"
+            if checkDateForReset() == "03-01" {
+                AuthManager.shared.requestStudent()
+            }
+            if UDManager.shared.currentStudent == nil {
                 
             } else {
-                
+                let str = UDManager.shared.currentStudent
+                let arr =  str!.components(separatedBy: " ")
+                appearSubject.send(Int(arr.first!)!)
             }
-            appearSubject.send(1)
         }
     }
     
@@ -135,7 +140,15 @@ extension MypageViewModel {
         } else if num >= 35 && num < 40 {
             self.status = "퇴사를 당하고 싶으신가요?"
         } else if num <= 40 {
-            self.status = "기숙사에서 무얼 하길래..."
+            self.status = "......"
         }
+    }
+    
+    func checkDateForReset() -> String {
+        let date: Date = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM-dd"
+        let dateString = dateFormatter.string(from: date)
+        return dateString
     }
 }

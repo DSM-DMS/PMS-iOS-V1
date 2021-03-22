@@ -56,6 +56,8 @@ class SignupViewModel: ObservableObject {
         switch input {
         case .registerTapped:
             registerSubject.send(Auth(email: self.id, password: self.password, name: self.nickname))
+            UDManager.shared.email = self.id
+            UDManager.shared.password = self.password
         }
     }
     
@@ -161,7 +163,8 @@ extension SignupViewModel {
                     print("login error \(error)")
                 }
             }, receiveValue: { token in
-                UD.set(token.accessToken, forKey: "accessToken")
+                UDManager.shared.token = token.accessToken
+                AuthManager.shared.requestStudent()
             })
             .store(in: &bag)
     }

@@ -31,38 +31,21 @@ struct ChangePWView: View {
                 ButtonView(text: "확인", color: "Blue")
                     .onTapGesture {
                         self.mypageVM.confirmAlert = true
-                }
+                    }
             }
             .padding([.leading, .trailing], 30)
-            .gesture(
-                DragGesture()
-                    .onChanged { gesture in
-                        self.offset = gesture.translation
-                        if abs(self.offset.width) > 0 {
-                            self.mode.wrappedValue.dismiss()
-                            self.settings.isNav = false
-                        }
-                }
-                .onEnded { _ in
-                    if abs(self.offset.width) > 0 {
-                        self.mode.wrappedValue.dismiss()
-                        self.settings.isNav = false
-                    } else {
-                        self.offset = .zero
-                    }
-                }
-            )
-                .navigationBarTitle("비밀번호 변경", displayMode: .inline)
-                .navigationBarBackButtonHidden(true)
-                .navigationBarItems(leading: Button(action: {
-                    self.mode.wrappedValue.dismiss()
-                    self.settings.isNav = false
-                }) {
-                    Image("NavArrow")
-                        .foregroundColor(.black)
+            .modifier(myPageDrag(offset: self.$offset))
+            .navigationBarTitle("비밀번호 변경", displayMode: .inline)
+            .navigationBarBackButtonHidden(true)
+            .navigationBarItems(leading: Button(action: {
+                self.mode.wrappedValue.dismiss()
+                self.settings.isNav = false
+            }) {
+                Image("NavArrow")
+                    .foregroundColor(.black)
             })
-                if self.mypageVM.passwordAlert == true {
-                    checkErrorView(text: "현재 비밀번호가 일치하지 않습니다.", isAlert: self.$mypageVM.passwordAlert)
+            if self.mypageVM.passwordAlert == true {
+                checkErrorView(text: "현재 비밀번호가 일치하지 않습니다.", isAlert: self.$mypageVM.passwordAlert)
             }
             if self.mypageVM.confirmAlert == true {
                 ZStack {
@@ -77,20 +60,20 @@ struct ChangePWView: View {
                             Text("취소")
                                 .onTapGesture {
                                     withAnimation {
-                                        self.mypageVM.confirmAlert = false
+                                        self.mypageVM.confirmAlert.toggle()
                                     }
-                            }
+                                }
                             Spacer()
                             Spacer()
                             Text("확인")
                                 .foregroundColor(.blue)
                                 .onTapGesture {
                                     withAnimation {
-                                        self.mypageVM.confirmAlert = false
+                                        self.mypageVM.confirmAlert.toggle()
                                         self.mode.wrappedValue.dismiss()
                                         self.settings.isNav = false
                                     }
-                            }
+                                }
                             Spacer()
                         }
                     }

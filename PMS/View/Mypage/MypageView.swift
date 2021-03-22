@@ -30,7 +30,7 @@ struct MypageView: View {
                             
                             BlueStatusView(text: self.mypageVM.status)
                             
-                            if !UD.bool(forKey: "isLogin") {
+                            if !UDManager.shared.isLogin {
                                 VStack {
                                     Spacer()
                                     MypageButtonView(text: "로그인")
@@ -43,7 +43,7 @@ struct MypageView: View {
                                     Spacer()
                                     Spacer()
                                 }
-                            } else if UD.value(forKey: "CurrentStudent") == nil {
+                            } else if UDManager.shared.currentStudent == nil {
                                 VStack(spacing: UIFrame.UIWidth / 15) {
                                     ZStack {
                                         RoundedRectangle(cornerRadius: 10).foregroundColor(Color("LightGray")).frame(height: UIFrame.UIWidth / 9).shadow(radius: 3)
@@ -58,9 +58,7 @@ struct MypageView: View {
                                     }
                                     MypageButtonView(text: "로그아웃")
                                         .onTapGesture {
-                                            withAnimation {
-                                                self.logoutAlert = true
-                                            }
+                                                self.logoutAlert.toggle()
                                     }
                                     Spacer()
                                     Spacer()
@@ -76,9 +74,7 @@ struct MypageView: View {
                                     }
                                     MypageButtonView(text: "로그아웃")
                                         .onTapGesture {
-                                            withAnimation {
-                                                self.logoutAlert = true
-                                            }
+                                                self.logoutAlert.toggle()
                                     }
                                 }
                             }
@@ -86,7 +82,10 @@ struct MypageView: View {
                         Spacer()
                     }
                 }
-            }.sheet(isPresented: self.$mypageVM.showLoginModal) {
+            }.onAppear {
+                self.mypageVM.apply(.onAppear)
+            }
+            .sheet(isPresented: self.$mypageVM.showLoginModal) {
                 PMSView()
             }
             .edgesIgnoringSafeArea(.top)
@@ -155,9 +154,7 @@ struct MypageTopView: View {
     var body: some View {
         HStack {
             Button(action: {
-                withAnimation {
-                    self.nicknameAlert = true
-                }
+                    self.nicknameAlert.toggle()
             }) {
                 Text(nickname)
                     .font(.title)
@@ -171,9 +168,7 @@ struct MypageTopView: View {
                     .foregroundColor(.white)
                 Image("BottomArrow")
             }.onTapGesture {
-                withAnimation {
-                    self.studentAlert = true
-                }
+                    self.studentAlert.toggle()
             }
             
         }

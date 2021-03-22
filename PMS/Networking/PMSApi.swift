@@ -45,7 +45,7 @@ enum PMSApi {
     case changePassword(password: String, prePassword: String)
 }
 
-extension PMSApi: TargetType, AccessTokenAuthorizable {
+extension PMSApi: TargetType {
     var baseURL: URL {
         return URL(string: "http://api.smooth-bear.live")!
     }
@@ -137,6 +137,8 @@ extension PMSApi: TargetType, AccessTokenAuthorizable {
     
     var headers: [String: String]? {
         switch self {
+        case .getStudents:
+            return ["Authorization": "Bearer " + UDManager.shared.token!]
         default:
             return ["Content-type": "application/json"]
         }
@@ -145,14 +147,5 @@ extension PMSApi: TargetType, AccessTokenAuthorizable {
     // HTTP code가 200에서 299사이인 경우 요청이 성공한 것으로 간주된다.
     public var validationType: ValidationType {
         return .successCodes
-    }
-    
-    var authorizationType: AuthorizationType? {
-        switch self {
-        case .login, .register:
-            return nil
-        default:
-            return .bearer
-        }
     }
 }

@@ -76,7 +76,7 @@ struct Home: View {
                                 .onTapGesture {
                                     self.mypageVM.logoutAlert = false
                                     self.mypageVM.showLoginModal = true
-                                    UD.set(false, forKey: "isLogin")
+                                    UDManager.shared.isLogin = false
                                 }
                             Spacer()
                         }
@@ -108,7 +108,7 @@ struct Home: View {
                             Text("취소")
                                 .onTapGesture {
                                     withAnimation {
-                                        self.mypageVM.nicknameAlert = false
+                                        self.mypageVM.nicknameAlert.toggle()
                                     }
                                 }
                             Spacer()
@@ -117,7 +117,7 @@ struct Home: View {
                                 .foregroundColor(.blue)
                                 .onTapGesture {
                                     withAnimation {
-                                        self.mypageVM.nicknameAlert = false
+                                        self.mypageVM.nicknameAlert.toggle()
                                     }
                                 }
                             Spacer()
@@ -144,13 +144,13 @@ struct Home: View {
                                 .padding(.top, 5)
                                 .padding(.bottom, 10)
                             
-                            if UD.array(forKey: "Students") == nil {
+                            if UDManager.shared.currentStudent == nil {
                                 VStack(spacing: 10) {
-                                    Text("이런! 학생이 아무도 없습니다.").foregroundColor(.gray)
+                                    Text("학생이 아무도 없습니다.").foregroundColor(.gray)
                                     Divider()
                                 }.padding([.top, .bottom], 10)
                             } else {
-                                ForEach(1...UD.array(forKey: "Students")!.count, id: \.self) { _ in
+                                ForEach(1...UDManager.shared.currentStudent!.count, id: \.self) { _ in
                                     VStack(spacing: 20) {
                                         HStack {
                                             Text("1319 정고은")

@@ -44,24 +44,7 @@ struct OutsideDetailView: View {
             Image("NavArrow")
                 .foregroundColor(.black)
         })
-        .gesture(
-            DragGesture()
-                .onChanged { gesture in
-                    self.offset = gesture.translation
-                    if abs(self.offset.width) > 0 {
-                        self.mode.wrappedValue.dismiss()
-                        self.settings.isNav = false
-                    }
-            }
-            .onEnded { _ in
-                if abs(self.offset.width) > 0 {
-                    self.mode.wrappedValue.dismiss()
-                    self.settings.isNav = false
-                } else {
-                    self.offset = .zero
-                }
-            }
-        )
+        .modifier(myPageDrag(offset: self.$offset))
     }
 }
 

@@ -27,12 +27,12 @@ struct PMSView: View {
                 Text("로그인 없이 진행하기 >")
                     .foregroundColor(Color("Blue"))
                     .onTapGesture {
-                        if UD.bool(forKey: "isFirstView") == false {
+                        if UDManager.shared.isFirstView == false {
                             self.presentationMode.wrappedValue.dismiss()
                         }
                         self.settings.isFirstView = true
-                        UD.set(true, forKey: "isFirstView")
-                        UD.set(false, forKey: "isLogin")
+                        UDManager.shared.isFirstView = true
+                        UDManager.shared.isLogin = false
                     }
             }
             .navigationBarTitle("PMS", displayMode: .inline)

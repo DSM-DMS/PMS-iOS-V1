@@ -43,10 +43,50 @@ struct CustomDivider: View {
     }
 }
 
-extension Image {
-    func template() -> some View {
-        self
-            .renderingMode(.template)
+struct Template: ImageModifier {
+    func body(image: Image) -> some View {
+        image.renderingMode(.template)
             .resizable()
-   }
+    }
+}
+
+protocol ImageModifier {
+    /// `Body` is derived from `View`
+    associatedtype Body: View
+
+    /// Modify an image by applying any modifications into `some View`
+    func body(image: Image) -> Self.Body
+}
+
+extension Image {
+    func modifier<M>(_ modifier: M) -> some View where M: ImageModifier {
+        modifier.body(image: self)
+    }
+}
+
+struct myPageDrag: ViewModifier {
+    @Binding var offset: CGSize
+    @Environment(\.presentationMode) var mode
+    @EnvironmentObject var settings: NavSettings
+    
+    func body(content: Content) -> some View {
+        return content.gesture(
+            DragGesture()
+                .onChanged { gesture in
+                    self.offset = gesture.translation
+                    if abs(self.offset.width) > 0 {
+                        self.mode.wrappedValue.dismiss()
+                        self.settings.isNav = false
+                    }
+            }
+            .onEnded { _ in
+                if abs(self.offset.width) > 0 {
+                    self.mode.wrappedValue.dismiss()
+                    self.settings.isNav = false
+                } else {
+                    self.offset = .zero
+                }
+            }
+        )
+    }
 }

@@ -12,10 +12,6 @@ import Moya
 
 class APIManager {
     let provider = MoyaProvider<PMSApi>()
-    var tokenClosure: String {
-        return UD.string(forKey: "accessToken")!
-    }
-    
     // MARK: Auth
     
     func login(email: String, password: String) -> AnyPublisher<accessToken, MoyaError> {
@@ -39,18 +35,15 @@ class APIManager {
     }
     
     func getStudents() -> AnyPublisher<User, MoyaError> {
-        let authPlugin = AccessTokenPlugin { _ in self.tokenClosure}
-        let authProvider = MoyaProvider<PMSApi>(plugins: [authPlugin])
-        
-        return authProvider.requestPublisher(.getStudents)
+        provider.requestPublisher(.getStudents)
             .map(User.self)
     }
     
-    func changePassword(password: String, prePassword: String) -> AnyPublisher<accessToken, MoyaError> {
-        let authPlugin = AccessTokenPlugin { _ in self.tokenClosure}
-        let authProvider = MoyaProvider<PMSApi>(plugins: [authPlugin])
-        
-        return authProvider.requestPublisher(.changePassword(password: password, prePassword: prePassword))
-            .map(accessToken.self)
-    }
+//    func changePassword(password: String, prePassword: String) -> AnyPublisher<accessToken, MoyaError> {
+//        let authPlugin = AccessTokenPlugin { _ in self.tokenClosure}
+//        let authProvider = MoyaProvider<PMSApi>(plugins: [authPlugin])
+//
+//        return authProvider.requestPublisher(.changePassword(password: password, prePassword: prePassword))
+//            .map(accessToken.self)
+//    }
 }

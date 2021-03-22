@@ -81,14 +81,10 @@ struct MealDateView: View {
     var body: some View {
         HStack {
             Image("leftArrow-1")
-                .template()
-                .foregroundColor(Color("Black"))
             Spacer()
             Text(date)
             Spacer()
             Image("rightArrow-1")
-                .template()
-                .foregroundColor(Color("Black"))
         }
     }
 }

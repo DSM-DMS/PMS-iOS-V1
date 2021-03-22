@@ -46,19 +46,22 @@ struct LoginView: View {
             VStack {
                 Text("")
             }
-            if self.loginVM.isErrorAlert == true {
-                checkErrorView(text: "아이디 또는 비밀번호가 일치하지 않습니다", isAlert: self.$loginVM.isErrorAlert)
+            if self.loginVM.isNotMatchError == true {
+                checkErrorView(text: "아이디 또는 비밀번호가 일치하지 않습니다", isAlert: self.$loginVM.isNotMatchError)
+            }
+            if self.loginVM.isNotInternet == true {
+                checkErrorView(text: "인터넷 연결이 되지 않았습니다.", isAlert: self.$loginVM.isNotInternet)
             }
             if self.loginVM.isSuccessAlert {
                 SuccessView(text: "로그인이 완료되었습니다.")
                     .onAppear {
-                        if UD.bool(forKey: "isFirstView") {
+                        if UDManager.shared.isFirstView {
                             self.mode.wrappedValue.dismiss()
                         }
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.95) {
                             self.settings.isFirstView = true
-                            UD.set(true, forKey: "isFirstView")
-                            UD.set(true, forKey: "isLogin")
+                            UDManager.shared.isFirstView = true
+                            UDManager.shared.isLogin = true
                         }
                     }
             }
@@ -92,13 +95,13 @@ struct CustomTextField: View {
             HStack(spacing: 20) {
                 if text != "" {
                     Image(image)
-                        .template()
+                        .modifier(Template())
                         .frame(width: 17, height: 20)
                         .padding(.leading, 10)
                         .foregroundColor(Color(isLogin ? "Blue" : "Red"))
                 } else {
                     Image(image)
-                        .template()
+                        .modifier(Template())
                         .frame(width: 17, height: 20)
                         .padding(.leading, 10)
                 }
@@ -126,12 +129,12 @@ struct PasswordTextField: View {
             HStack(spacing: 20) {
                 if text != "" {
                     Image("lock")
-                        .template()
+                        .modifier(Template())
                         .frame(width: 15, height: 20)
                         .foregroundColor(Color(isLogin ? "Blue" : "Red"))
                 } else {
                     Image("lock")
-                        .template()
+                        .modifier(Template())
                         .frame(width: 15, height: 20)
                 }
                 

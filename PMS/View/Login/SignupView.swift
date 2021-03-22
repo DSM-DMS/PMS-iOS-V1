@@ -54,13 +54,13 @@ struct SignupView: View {
             if self.signupVM.isSuccessAlert {
                 SuccessView(text: "회원가입이 완료되었습니다.")
                     .onAppear {
-                        if UD.bool(forKey: "isFirstView") {
+                        if UDManager.shared.isFirstView {
                             self.mode.wrappedValue.dismiss()
                         }
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.95) {
                             self.settings.isFirstView = true
-                            UD.set(true, forKey: "isFirstView")
-                            UD.set(true, forKey: "isLogin")
+                            UDManager.shared.isFirstView = true
+                            UDManager.shared.isLogin = true
                         }
                     }
             }
@@ -109,13 +109,13 @@ struct CheckTextField: View {
                 if !isChange {
                     if text != "" {
                         Image("check")
-                            .template()
+                            .modifier(Template())
                             .frame(width: 20, height: 20)
                             .foregroundColor(Color(isChange ? "Blue" : "Red"))
                             .padding(.leading, 10)
                     } else {
                         Image("check")
-                            .template()
+                            .modifier(Template())
                             .frame(width: 20, height: 20)
                             .padding(.leading, 10)
                     }

@@ -22,33 +22,16 @@ struct ScoreDetailView: View {
         }.onAppear {
             self.settings.isNav = true
         }
-        .gesture(
-            DragGesture()
-                .onChanged { gesture in
-                    self.offset = gesture.translation
-                    if abs(self.offset.width) > 0 {
-                        self.mode.wrappedValue.dismiss()
-                        self.settings.isNav = false
-                    }
-            }
-            .onEnded { _ in
-                if abs(self.offset.width) > 0 {
-                    self.mode.wrappedValue.dismiss()
-                    self.settings.isNav = false
-                } else {
-                    self.offset = .zero
-                }
-            }
-        )
-            .navigationBarTitle("상/벌점 내역", displayMode: .inline)
-            .navigationBarBackButtonHidden(true)
-            .navigationBarItems(leading: Button(action: {
-                self.mode.wrappedValue.dismiss()
-                self.settings.isNav = false
-            }) {
-                Image("NavArrow")
-                    .foregroundColor(.black)
-            })
+        .modifier(myPageDrag(offset: self.$offset))
+        .navigationBarTitle("상/벌점 내역", displayMode: .inline)
+        .navigationBarBackButtonHidden(true)
+        .navigationBarItems(leading: Button(action: {
+            self.mode.wrappedValue.dismiss()
+            self.settings.isNav = false
+        }) {
+            Image("NavArrow")
+                .foregroundColor(.black)
+        })
     }
 }
 

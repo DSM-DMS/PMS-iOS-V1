@@ -24,7 +24,7 @@ struct Student: Codable {
 
 struct User: Codable {
     var name: String
-    var students: [UsersStudent]?
+    var students: [UsersStudent]
 }
 
 struct UsersStudent: Codable {

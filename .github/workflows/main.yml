@@ -19,6 +19,6 @@ jobs:
       - name: Set Appstore Connect User
         run: bundle exec fastlane fastlane-credentials add --username ${{ secrets.APPSTORE_USERNAME }} --password ${{ secrets.APPSTORE_PASSWORD }}
       - name: Increase Build Version
-        run: bunddle exec fastlane versionup
+        run: bundle exec fastlane versionup
       - name: Deploy App
         run: bundle exec fastlane github

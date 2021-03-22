@@ -14,7 +14,8 @@ class LoginViewModel: ObservableObject {
     @Published var password = ""
     @Published var isHidden = true
     @Published var errorMsg = ""
-    @Published var isErrorAlert = false
+    @Published var isNotMatchError = false
+    @Published var isNotInternet = false
     @Published var isSuccessAlert = false
     
     private var apiManager: APIManager
@@ -47,6 +48,8 @@ class LoginViewModel: ObservableObject {
             .compactMap { $0 }
             .sink(receiveValue: { [weak self] user in
                 self?.requestLogin(email: user.email, password: user.password)
+                UDManager.shared.email = user.email
+                UDManager.shared.password = user.password
             })
             .store(in: &bag)
     }
@@ -56,26 +59,18 @@ class LoginViewModel: ObservableObject {
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { [weak self] completion in
                 if case .failure(let error) = completion {
-                    self?.isErrorAlert.toggle()
+                    if error.response?.statusCode == 401 {
+                        self?.isNotMatchError.toggle()
+                    } else if error.errorCode == 6 {
+                        self?.isNotInternet.toggle()
+                    }
                     print(error)
+                    
                 }
             }, receiveValue: { [weak self] token in
                 self?.isSuccessAlert.toggle()
-                UD.set(token.accessToken, forKey: "accessToken")
-                self?.requestStudent()
-            })
-            .store(in: &bag)
-    }
-    
-    func requestStudent() {
-        apiManager.getStudents()
-            .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: { completion in
-                if case .failure(let error) = completion {
-                    print(error)
-                }
-            }, receiveValue: { user in
-                UD.set(user.name, forKey: "name")
+                UDManager.shared.token = token.accessToken
+                AuthManager.shared.requestStudent()
             })
             .store(in: &bag)
     }

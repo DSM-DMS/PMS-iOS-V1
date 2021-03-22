@@ -145,7 +145,7 @@ struct NoticeDetailTopView: View {
             Image("Clip")
                 .onTapGesture {
                     withAnimation {
-                        self.isAlert = true
+                        self.isAlert.toggle()
                     }
                 }
         }

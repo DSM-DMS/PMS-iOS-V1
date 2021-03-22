@@ -15,6 +15,8 @@
 		D903E5B7252A9B8D004F09D6 /* PMSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D903E5B6252A9B8D004F09D6 /* PMSView.swift */; };
 		D903E5B9252A9BBF004F09D6 /* UIFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = D903E5B8252A9BBF004F09D6 /* UIFrame.swift */; };
 		D903E5CB252AA31A004F09D6 /* ExViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = D903E5CA252AA31A004F09D6 /* ExViews.swift */; };
+		D9105CCE2608105A00EC3DA9 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9105CCD2608105A00EC3DA9 /* AuthManager.swift */; };
+		D9105CD3260812E500EC3DA9 /* UDManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9105CD2260812E500EC3DA9 /* UDManager.swift */; };
 		D928A7D8252AAF4800FD6CB2 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D928A7D7252AAF4700FD6CB2 /* SignUpViewModel.swift */; };
 		D928A7DA252AAFB900FD6CB2 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D928A7D9252AAFB900FD6CB2 /* Validation.swift */; };
 		D92A5CA5252DD98000872B4C /* SFSymbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92A5CA4252DD98000872B4C /* SFSymbols.swift */; };
@@ -29,7 +31,6 @@
 		D94AC7882524D2D3002CCB3A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D94AC7862524D2D3002CCB3A /* LaunchScreen.storyboard */; };
 		D94AC7932524D2D3002CCB3A /* PMSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94AC7922524D2D3002CCB3A /* PMSTests.swift */; };
 		D94AC79E2524D2D3002CCB3A /* PMSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94AC79D2524D2D3002CCB3A /* PMSUITests.swift */; };
-		D95373F825F9FB7300EE1BF1 /* UD.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95373F725F9FB7300EE1BF1 /* UD.swift */; };
 		D953743425FA028300EE1BF1 /* success.json in Resources */ = {isa = PBXBuildFile; fileRef = D953743325FA028300EE1BF1 /* success.json */; };
 		D953743925FA029F00EE1BF1 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D953743825FA029F00EE1BF1 /* LottieView.swift */; };
 		D953746A25FAF28200EE1BF1 /* Student.swift in Sources */ = {isa = PBXBuildFile; fileRef = D953746925FAF28200EE1BF1 /* Student.swift */; };
@@ -100,6 +101,8 @@
 		D903E5B6252A9B8D004F09D6 /* PMSView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PMSView.swift; sourceTree = "<group>"; };
 		D903E5B8252A9BBF004F09D6 /* UIFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFrame.swift; sourceTree = "<group>"; };
 		D903E5CA252AA31A004F09D6 /* ExViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExViews.swift; sourceTree = "<group>"; };
+		D9105CCD2608105A00EC3DA9 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
+		D9105CD2260812E500EC3DA9 /* UDManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UDManager.swift; sourceTree = "<group>"; };
 		D928A7D7252AAF4700FD6CB2 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		D928A7D9252AAFB900FD6CB2 /* Validation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
 		D92A5CA4252DD98000872B4C /* SFSymbols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFSymbols.swift; sourceTree = "<group>"; };
@@ -120,7 +123,6 @@
 		D94AC7992524D2D3002CCB3A /* PMSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PMSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D94AC79D2524D2D3002CCB3A /* PMSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PMSUITests.swift; sourceTree = "<group>"; };
 		D94AC79F2524D2D3002CCB3A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D95373F725F9FB7300EE1BF1 /* UD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UD.swift; sourceTree = "<group>"; };
 		D953743325FA028300EE1BF1 /* success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = success.json; sourceTree = "<group>"; };
 		D953743825FA029F00EE1BF1 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
 		D953746925FAF28200EE1BF1 /* Student.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Student.swift; sourceTree = "<group>"; };
@@ -242,7 +244,6 @@
 				D92A5CA4252DD98000872B4C /* SFSymbols.swift */,
 				D9A15014252AC69200AD501A /* UIColorRgb.swift */,
 				D988760D25349B2F00B4D439 /* Keyboard.swift */,
-				D95373F725F9FB7300EE1BF1 /* UD.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -270,6 +271,8 @@
 				D928A7D7252AAF4700FD6CB2 /* SignUpViewModel.swift */,
 				D9A14FFB252AC13A00AD501A /* SignupView.swift */,
 				D95CDFA225F90AC800BEC04A /* SuccessView.swift */,
+				D9105CCD2608105A00EC3DA9 /* AuthManager.swift */,
+				D9105CD2260812E500EC3DA9 /* UDManager.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -779,7 +782,6 @@
 				D98875F32533E4FB00B4D439 /* PDFKitView.swift in Sources */,
 				D92A5CAB252E001800872B4C /* CompanyView.swift in Sources */,
 				D9721F4425F8700A00EB92E8 /* studentCodeModel.swift in Sources */,
-				D95373F825F9FB7300EE1BF1 /* UD.swift in Sources */,
 				D928A7D8252AAF4800FD6CB2 /* SignUpViewModel.swift in Sources */,
 				D903E5B7252A9B8D004F09D6 /* PMSView.swift in Sources */,
 				D9A1500A252AC5E400AD501A /* MypageViewModel.swift in Sources */,
@@ -789,8 +791,10 @@
 				D988769E253706FB00B4D439 /* Home.swift in Sources */,
 				D903E5B5252A9916004F09D6 /* LoginViewModel.swift in Sources */,
 				D9A15006252AC5D200AD501A /* MealViewModel.swift in Sources */,
+				D9105CCE2608105A00EC3DA9 /* AuthManager.swift in Sources */,
 				D98162A3252EC1200052E087 /* ScoreDetailView.swift in Sources */,
 				D903E5B9252A9BBF004F09D6 /* UIFrame.swift in Sources */,
+				D9105CD3260812E500EC3DA9 /* UDManager.swift in Sources */,
 				D928A7DA252AAFB900FD6CB2 /* Validation.swift in Sources */,
 				D98DD1A62531547F001EFFA9 /* CompanyDetailView.swift in Sources */,
 				D9A14FFC252AC13A00AD501A /* SignupView.swift in Sources */,
