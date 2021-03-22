@@ -90,15 +90,18 @@ extension MypageViewModel {
     func requestStudent(number: Int) {
         apiManager.mypage(number: number)
             .receive(on: DispatchQueue.main)
+            .retry(2)
             .sink(receiveCompletion: { completion in
                 if case .failure(let error) = completion {
-                    if error.response?.statusCode == 404 {
-                        // 학생이 사라짐.
+                    if error.response?.statusCode == 401 {
+                        AuthManager.shared.refreshToken()
+                    } else if error.response?.statusCode == 404 {
+                        let arr = UDManager.shared.studentsArray
+                        UDManager.shared.currentStudent = arr?.first as? String
                     }
                     print(error)
                 }
             }, receiveValue: { [weak self] student in
-//                self?.isSuccessAlert.toggle()
                 self?.plusScore = student.plus
                 self?.minusScore = student.minus
                 self?.minusStatus(num: student.minus)
