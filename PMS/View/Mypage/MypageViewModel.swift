@@ -101,7 +101,7 @@ class MypageViewModel: ObservableObject {
         case .onAppear:
             if checkDateForReset() == "03-01" {
                 AuthManager.shared.requestStudent()
-                // 로직 더 추가해야됨...
+                // 로직 더 추가해야됨... 학번 리셋 코드
             }
             if UDManager.shared.currentStudent == nil {
                 AuthManager.shared.requestStudent()
@@ -142,7 +142,6 @@ class MypageViewModel: ObservableObject {
             .compactMap { $0 }
             .sink(receiveValue: { num in
                 self.requestStudent(number: num)
-                AuthManager.shared.requestStudent()
             })
             .store(in: &bag)
         

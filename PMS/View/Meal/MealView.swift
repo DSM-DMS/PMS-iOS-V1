@@ -11,6 +11,8 @@ import Kingfisher
 
 struct MealView: View {
     @EnvironmentObject var mealVM: MealViewModel
+    @State var showModal = [false, false, false] // 상태
+    
     var body: some View {
         GeometryReader { _ in
             VStack {
@@ -32,10 +34,36 @@ struct MealView: View {
                         HStack {
                             MealRow(now: self.mealVM.nows[0], meal: self.$mealVM.meals[0], picture: self.$mealVM.pictures[0], isPicture: self.$mealVM.isPicture[0])
                                 .padding([.leading, .trailing], 5)
+                                .onTapGesture {
+                                    if self.mealVM.pictures[0] != "" {
+                                        self.showModal[0] = true
+                                    }
+                                }
+                                .sheet(isPresented: $showModal[0]) {
+                                    ImageDetailView(url: self.mealVM.pictures[0])
+                                }
                             MealRow(now: self.mealVM.nows[1], meal: self.$mealVM.meals[1], picture: self.$mealVM.pictures[1], isPicture: self.$mealVM.isPicture[1])
                                 .padding([.leading, .trailing])
+                                .onTapGesture {
+                                    if self.mealVM.pictures[1] != "" {
+                                        self.showModal[1] = true
+                                    }
+                                }
+                                .sheet(isPresented: $showModal[1]) {
+                                    ImageDetailView(url: self.mealVM.pictures[1])
+                                }
+                            
                             MealRow(now: self.mealVM.nows[2], meal: self.$mealVM.meals[2], picture: self.$mealVM.pictures[2], isPicture: self.$mealVM.isPicture[2])
                                 .padding([.leading, .trailing], 5)
+                                .onTapGesture {
+                                    if self.mealVM.pictures[2] != "" {
+                                        self.showModal[2] = true
+                                    }
+                                }
+                                .sheet(isPresented: $showModal[2]) {
+                                    ImageDetailView(url: self.mealVM.pictures[2])
+                                }
+                            
                         }.padding()
                     }
                 }.padding([.leading, .trailing], 10)
@@ -120,6 +148,7 @@ struct MealRow: View {
     @Binding var meal: String
     @Binding var picture: String
     @Binding var isPicture: Bool
+    
     var body: some View {
         VStack {
             ZStack(alignment: .top) {
@@ -128,13 +157,11 @@ struct MealRow: View {
                     VStack {
                         if self.isPicture {
                             if picture != "" {
-                                NavigationLink(destination: ImageDetailView(url: picture)) {
-                                    KFImage(URL(string: picture)!)
-                                        .resizable()
-                                        .cornerRadius(10)
-                                        .aspectRatio(contentMode: .fit)
-                                        .frame(height: UIFrame.UIHeight / 4.5).padding([.leading, .trailing], 10)
-                                }
+                                KFImage(URL(string: picture)!)
+                                    .resizable()
+                                    .cornerRadius(10)
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(height: UIFrame.UIHeight / 4.5).padding([.leading, .trailing], 10)
                             } else {
                                 RoundedRectangle(cornerRadius: 10).foregroundColor(.gray)
                                     .frame(height: UIFrame.UIHeight / 4.5).padding([.leading, .trailing], 10)

@@ -12,9 +12,6 @@ import Kingfisher
 struct ImageDetailView: View {
     var url: String
     
-    @EnvironmentObject var settings: NavSettings
-    @Environment(\.presentationMode) var mode
-    
     @State var scale: CGFloat = 1.0
     @State private var currentPosition: CGSize = .zero
     @State private var newPosition: CGSize = .zero
@@ -25,7 +22,6 @@ struct ImageDetailView: View {
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: UIFrame.UIWidth)
-                .background(Rectangle().foregroundColor(.black))
                 .scaleEffect(scale)
                 .pinchToZoom()
                 .offset(x: self.currentPosition.width, y: self.currentPosition.height)
@@ -37,17 +33,6 @@ struct ImageDetailView: View {
                                 self.currentPosition = CGSize(width: value.translation.width + self.newPosition.width, height: value.translation.height + self.newPosition.height)
                                 self.newPosition = self.currentPosition
                             })
-                .onAppear {
-                    self.settings.isNav = true
-                }
-                .navigationBarTitle("동아리 소개", displayMode: .inline)
-                .navigationBarBackButtonHidden(true)
-                .navigationBarItems(leading: Button(action: {
-                    self.mode.wrappedValue.dismiss()
-                    self.settings.isNav = false
-                }) {
-                    Image("NavArrow")
-                })
         }
     }
 }
