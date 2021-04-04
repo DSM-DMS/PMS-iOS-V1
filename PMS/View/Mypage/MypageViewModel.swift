@@ -107,6 +107,7 @@ class MypageViewModel: ObservableObject {
                 AuthManager.shared.requestStudent()
                 if UDManager.shared.currentStudent != nil {
                     let str = UDManager.shared.currentStudent
+                    self.currentStudent = UDManager.shared.currentStudent!
                     let arr =  str!.components(separatedBy: " ")
                     appearSubject.send(Int(arr.first!)!)
                 }
@@ -115,6 +116,7 @@ class MypageViewModel: ObservableObject {
                     studentsArray = UDManager.shared.studentsArray!
                 }
                 let str = UDManager.shared.currentStudent
+                self.currentStudent = UDManager.shared.currentStudent!
                 let arr =  str!.components(separatedBy: " ")
                 appearSubject.send(Int(arr.first!)!)
             }
@@ -140,6 +142,7 @@ class MypageViewModel: ObservableObject {
             .compactMap { $0 }
             .sink(receiveValue: { num in
                 self.requestStudent(number: num)
+                AuthManager.shared.requestStudent()
             })
             .store(in: &bag)
         
@@ -339,17 +342,17 @@ extension MypageViewModel {
         } else if num >= 5 && num < 10 {
             self.status = "꽤 모범적이네요!"
         } else if num >= 10 && num < 15 {
-            self.status = "관리가 필요해요~"
+            self.status = "1차 봉사는 하셨나요?"
         } else if num >= 15 && num < 20 {
-            self.status = "1차 봉사를  축하드립니다."
+            self.status = "2차 봉사는 하셨나요?"
         } else if num >= 20 && num < 25 {
-            self.status = "2차 봉사를 축하드립니다."
+            self.status = "3차 봉사는 하셨나요?"
         } else if num >= 25 && num < 30 {
             self.status = "벌점을 줄여주세요!!"
         } else if num >= 30 && num < 35 {
-            self.status = "3차 봉사를 축하드립니다."
+            self.status = "곧 다벌점 교육이..."
         } else if num >= 35 && num < 40 {
-            self.status = "퇴사를 당하고 싶으신가요?"
+            self.status = "이정도면 퇴사를 당하고 싶으신가요?"
         } else if num <= 40 {
             self.status = "......"
         }

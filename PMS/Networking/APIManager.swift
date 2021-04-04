@@ -11,49 +11,62 @@ import Combine
 import Moya
 
 class APIManager {
-    let provider = MoyaProvider<PMSApi>()
+    let authProvider = MoyaProvider<AuthApi>()
+    let pmsProvider = MoyaProvider<PMSApi>()
+    
     // MARK: Auth
     
     func login(email: String, password: String) -> AnyPublisher<accessToken, MoyaError> {
-        provider.requestPublisher(.login(email: email, password: password))
+        authProvider.requestPublisher(.login(email: email, password: password))
             .map(accessToken.self)
     }
     
     func regiser(email: String, password: String, name: String) -> AnyPublisher<Void, MoyaError> {
-        provider.requestVoidPublisher(.register(email: email, password: password, name: name))
+        authProvider.requestVoidPublisher(.register(email: email, password: password, name: name))
     }
     
     // MARK: Mypage
     
     func mypage(number: Int) -> AnyPublisher<Student, MoyaError> {
-        provider.requestPublisher(.mypage(number: number))
+        authProvider.requestPublisher(.mypage(number: number))
             .map(Student.self)
     }
     
     func changeName(name: String) -> AnyPublisher<Void, MoyaError> {
-        provider.requestVoidPublisher(.changeNickname(name: name))
+        authProvider.requestVoidPublisher(.changeNickname(name: name))
     }
     
     func addStudent(number: Int) -> AnyPublisher<Void, MoyaError> {
-        provider.requestVoidPublisher(.addStudent(number: number))
+        authProvider.requestVoidPublisher(.addStudent(number: number))
     }
     
     func getStudents() -> AnyPublisher<User, MoyaError> {
-        provider.requestPublisher(.getStudents)
+        authProvider.requestPublisher(.getStudents)
             .map(User.self)
     }
     
     func changePassword(password: String, prePassword: String) -> AnyPublisher<Void, MoyaError> {
-        provider.requestVoidPublisher(.changePassword(password: password, prePassword: prePassword))
+        authProvider.requestVoidPublisher(.changePassword(password: password, prePassword: prePassword))
     }
     
     func getOutsideList(number: Int) -> AnyPublisher<OutsideList, MoyaError> {
-        provider.requestPublisher(.outside(number: number))
+        authProvider.requestPublisher(.outside(number: number))
             .map(OutsideList.self)
     }
     
     func getPointList(number: Int) -> AnyPublisher<PointList, MoyaError> {
-        provider.requestPublisher(.pointList(number: number))
+        authProvider.requestPublisher(.pointList(number: number))
             .map(PointList.self)
     }
+    
+    func getMeal(date: Int) -> AnyPublisher<Meal, MoyaError> {
+        pmsProvider.requestPublisher(.meal(date))
+            .map(Meal.self)
+    }
+    
+    func getMealPicture(date: Int) -> AnyPublisher<MealPicture, MoyaError> {
+        pmsProvider.requestPublisher(.mealPicture(date))
+            .map(MealPicture.self)
+    }
+    
 }

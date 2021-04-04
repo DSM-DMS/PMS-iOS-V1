@@ -14,7 +14,7 @@ struct PMSView: View {
     
     var body: some View {
         NavigationView {
-            VStack(spacing: UIFrame.UIWidth / 3) {
+            VStack(spacing: UIFrame.UIWidth / 4) {
                 Image("PMS")
                 VStack(spacing: 30) {
                     NavigationLink(destination: LoginView()) {

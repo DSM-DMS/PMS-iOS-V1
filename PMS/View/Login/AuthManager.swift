@@ -46,7 +46,7 @@ class AuthManager {
                 }
             }, receiveValue: { user in
                 UDManager.shared.name = user.name
-                if user.students.isEmpty == false {
+                if !user.students.isEmpty {
                     let firstuser: String = String(user.students.first!.number) + " " + user.students.first!.name
                     UDManager.shared.currentStudent = firstuser
                     print(firstuser)
@@ -58,7 +58,6 @@ class AuthManager {
                         print(studentsArray)
                         UDManager.shared.studentsArray = studentsArray
                     }
-                    
                 }
             })
             .store(in: &bag)

@@ -7,58 +7,47 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct MealView: View {
-    @ObservedObject var mealVM = MealViewModel()
+    @EnvironmentObject var mealVM: MealViewModel
     var body: some View {
         GeometryReader { _ in
             VStack {
                 TitleTextView(text: "급식")
                 VStack(spacing: UIFrame.UIHeight / 20) {
-                    MealDateView(date: self.$mealVM.today)
-                    VStack {
-                        ZStack(alignment: .top) {
-                            ZStack {
-                                MealBackgroundView()
-                                VStack {
-                                    if self.mealVM.isPicture {
-                                        RoundedRectangle(cornerRadius: 10).foregroundColor(.gray)
-                                            .frame(height: UIFrame.UIHeight / 4.5).padding([.leading, .trailing], 30)
-                                    } else {
-                                        Text(self.mealVM.meal)
-                                            .fontWeight(.medium)
-                                            .foregroundColor(.gray)
-                                            .multilineTextAlignment(.center)
-                                    }
-                                }
-                                FlipView(isPicture: self.$mealVM.isPicture)
+                    HStack {
+                        Image("leftArrow-1")
+                            .onTapGesture {
+                                self.mealVM.changeDate(increse: false)
                             }
-                            BlueTopView(text: self.mealVM.now)
-                            
+                        Spacer()
+                        Text(self.mealVM.today)
+                        Spacer()
+                        Image("rightArrow-1").onTapGesture {
+                            self.mealVM.changeDate(increse: true)
                         }
                     }
-                    HStack(spacing: 20) {
-                        ImageCircle()
-                        ImageCircle()
-                        ImageCircle()
+                    ScrollView(.horizontal, showsIndicators: true) {
+                        HStack {
+                            MealRow(now: self.mealVM.nows[0], meal: self.$mealVM.meals[0], picture: self.$mealVM.pictures[0], isPicture: self.$mealVM.isPicture[0])
+                                .padding([.leading, .trailing], 5)
+                            MealRow(now: self.mealVM.nows[1], meal: self.$mealVM.meals[1], picture: self.$mealVM.pictures[1], isPicture: self.$mealVM.isPicture[1])
+                                .padding([.leading, .trailing])
+                            MealRow(now: self.mealVM.nows[2], meal: self.$mealVM.meals[2], picture: self.$mealVM.pictures[2], isPicture: self.$mealVM.isPicture[2])
+                                .padding([.leading, .trailing], 5)
+                        }.padding()
                     }
                 }.padding([.leading, .trailing], 10)
-                .highPriorityGesture(DragGesture().onEnded({ value in
-                    if value.translation.width > 50 {
-                        print("right")
-                        self.mealVM.changeMeal(left: false)
-                    }
-                    if -value.translation.width > 50 {
-                        print("left")
-                        self.mealVM.changeMeal(left: true)
-                        
-                    }
-                }))
             }.padding([.leading, .trailing], 30)
+            .onAppear {
+                self.mealVM.apply(.getMeal)
+            }
             VStack {
                 Text("")
             }
-        }.edgesIgnoringSafeArea(.top)
+        }
+        .edgesIgnoringSafeArea(.top)
         
     }
 }
@@ -72,19 +61,6 @@ struct MealView_Previews: PreviewProvider {
             MealView()
                 .previewDevice(PreviewDevice(rawValue: "iPhone 8"))
                 .previewDisplayName("iPhone 8")
-        }
-    }
-}
-
-struct MealDateView: View {
-    @Binding var date: String
-    var body: some View {
-        HStack {
-            Image("leftArrow-1")
-            Spacer()
-            Text(date)
-            Spacer()
-            Image("rightArrow-1")
         }
     }
 }
@@ -103,13 +79,13 @@ struct BlueTopView: View {
         ZStack {
             VStack(spacing: -10) {
                 RoundedRectangle(cornerRadius: 10).foregroundColor(Color("Blue"))
-                    .frame(height: UIFrame.UIHeight / 15)
+                    .frame(height: UIFrame.UIHeight / 17)
                 Rectangle().foregroundColor(Color("Blue")).frame(height: 20)
             }
             
             Text(text)
                 .foregroundColor(.white)
-                .font(.title)
+                .font(.system(size: 20))
         }
     }
 }
@@ -134,7 +110,48 @@ struct FlipView: View {
 
 struct MealBackgroundView: View {
     var body: some View {
-        RoundedRectangle(cornerRadius: 10).foregroundColor(Color("GrayDarkGray"))
-            .frame(height: UIFrame.UIHeight / 2)
+        RoundedRectangle(cornerRadius: 10).foregroundColor(Color("LightGray"))
+            .frame(width: UIFrame.UIWidth / 1.5, height: UIFrame.UIHeight / 2).shadow(radius: 5)
+    }
+}
+
+struct MealRow: View {
+    var now: String
+    @Binding var meal: String
+    @Binding var picture: String
+    @Binding var isPicture: Bool
+    var body: some View {
+        VStack {
+            ZStack(alignment: .top) {
+                ZStack {
+                    MealBackgroundView()
+                    VStack {
+                        if self.isPicture {
+                            if picture != "" {
+                                NavigationLink(destination: ImageDetailView(url: picture)) {
+                                    KFImage(URL(string: picture)!)
+                                        .resizable()
+                                        .cornerRadius(10)
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(height: UIFrame.UIHeight / 4.5).padding([.leading, .trailing], 10)
+                                }
+                            } else {
+                                RoundedRectangle(cornerRadius: 10).foregroundColor(.gray)
+                                    .frame(height: UIFrame.UIHeight / 4.5).padding([.leading, .trailing], 10)
+                            }
+                        } else {
+                            Text(self.meal)
+                                .font(.system(size: 20))
+                                .foregroundColor(.gray)
+                                .multilineTextAlignment(.center)
+                                .minimumScaleFactor(0.1)
+                        }
+                    }
+                    FlipView(isPicture: self.$isPicture)
+                }
+                BlueTopView(text: self.now)
+                
+            }
+        }
     }
 }

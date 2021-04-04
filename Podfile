@@ -5,6 +5,7 @@ def pods
 	pod 'SwiftLint'
 	pod 'FSCalendar'
 	pod 'Moya', '~> 15.0.0-alpha.1'
+	pod 'Kingfisher'
 end
 
 target 'PMS' do

@@ -13,13 +13,23 @@ struct DeveloperView: View {
     @EnvironmentObject var settings: NavSettings
     @Environment(\.presentationMode) var mode
     @State var offset = CGSize.zero
+    var images = [ "Front1", "Front2", "Back1", "Back2", "Android1", "Android2", "iOS1"]
+    var fields = ["웹", "웹", "서버", "서버", "안드로이드", "안드로이드", "iOS"]
+    var persons = ["강은빈", "이진우", "정지우", "김정빈", "이은별", "김재원", "정고은"]
     
     var body: some View {
         ScrollView {
-            ForEach(1...10, id: \.self) { _ in
-                HStack(spacing: 20) {
-                    DeveloperRectangle(isPerson: true, image: "TestImage", text: "iOS")
-                    DeveloperRectangle(isPerson: true, image: "TestImage", text: "iOS")
+            ForEach(0...3, id: \.self) { index in
+                HStack {
+                    DeveloperRectangle(image: images[index*2], person: persons[index*2], field: fields[index*2])
+                        .padding([.leading, .trailing], 10)
+                        .padding([.bottom, .top], 3)
+                    if index != 3 {
+                        DeveloperRectangle(image: images[index*2+1], person: persons[index*2+1], field: fields[index*2+1])
+                            .padding([.leading, .trailing], 10)
+                            .padding([.bottom, .top], 3)
+                    }
+                    
                 }.padding(.bottom)
             }.padding([.leading, .trailing], 30)
             .padding([.top, .bottom], 10)
@@ -27,57 +37,39 @@ struct DeveloperView: View {
             self.settings.isNav = true
         }
         .navigationBarTitle("개발자 소개", displayMode: .inline)
-            .navigationBarBackButtonHidden(true)
-            .navigationBarItems(leading: Button(action: {
-                self.mode.wrappedValue.dismiss()
-                self.settings.isNav = false
-            }) {
-                Image("NavArrow")
-            })
-            .gesture(
-                DragGesture()
-                    .onChanged { gesture in
-                        self.offset = gesture.translation
-                        if abs(self.offset.width) > 0 {
-                            self.mode.wrappedValue.dismiss()
-                            self.settings.isNav = false
-                        }
-                }
-                .onEnded { _ in
-                    if abs(self.offset.width) > 0 {
-                        self.mode.wrappedValue.dismiss()
-                        self.settings.isNav = false
-                    } else {
-                        self.offset = .zero
-                    }
-                }
-        )
+        .navigationBarBackButtonHidden(true)
+        .navigationBarItems(leading: Button(action: {
+            self.mode.wrappedValue.dismiss()
+            self.settings.isNav = false
+        }) {
+            Image("NavArrow")
+        })
+        .modifier(myPageDrag(offset: self.$offset))
     }
 }
 
 struct DeveloperRectangle: View {
-    var isPerson: Bool
     var image: String
-    var text: String
+    var person: String
+    var field = ""
     var body: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: 10).foregroundColor(Color("Gray")).frame(width: UIFrame.UIWidth / 2 - 40, height: UIFrame.UIHeight / 4.7).shadow(radius: 5)
+            RoundedRectangle(cornerRadius: 10).foregroundColor(Color("Gray")).frame(width: UIFrame.UIWidth / 2.6, height: UIFrame.UIHeight / 4.7).shadow(radius: 5)
             VStack(spacing: 15) {
-                if isPerson {
-                    Image(image)
-                        .resizable()
-                        .frame(width: 70, height: 70)
-                        .scaledToFit()
-                        .clipShape(Circle())
-                } else {
-                    Image(image)
-                        .resizable()
-                        .frame(width: 60, height: 60)
-                        .scaledToFit()
+                Image(image)
+                    .resizable()
+                    .frame(width: 80, height: 80)
+                    .scaledToFit()
+                    .clipShape(Circle())
+                
+                VStack(spacing: 5) {
+                    Text(person)
+                        .foregroundColor(.black)
+                        .font(.system(size: 23))
+                    
+                    Text(field).foregroundColor(.gray).font(.body)
                 }
                 
-                Text(text)
-                    .foregroundColor(Color.black.opacity(0.7))
             }
         }
     }

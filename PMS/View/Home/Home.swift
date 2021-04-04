@@ -21,6 +21,8 @@ struct Home: View {
     @EnvironmentObject var mypageVM: MypageViewModel
     @State var selectedStudent: String = ""
     
+    let mealVM = MealViewModel()
+    
     var body: some View {
         ZStack {
             GeometryReader { g in
@@ -28,7 +30,7 @@ struct Home: View {
                     StoryboardtoUI()
                         .frame(width: g.size.width)
                     
-                    MealView()
+                    MealView().environmentObject(mealVM)
                         .frame(width: g.size.width)
                     
                     NoticeView()

@@ -23,7 +23,7 @@ struct ScoreDetailView: View {
             } else {
                 Spacer(minLength: 10.0)
                 ForEach(self.mypageVM.points!.points, id: \.self) { point in
-                    ScoreRow(text: point.reason, date: point.date, status: point.type ? "+" : "-" +  String(point.point), isMinus: !point.type)
+                    ScoreRow(text: point.reason, date: point.date, status: point.type ? "+" + String(point.point) : "-" +  String(point.point), isMinus: !point.type)
                 }.padding(.bottom, 5)
             }
         }.onAppear {
