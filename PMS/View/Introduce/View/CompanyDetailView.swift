@@ -77,7 +77,7 @@ struct CompanySiteView: View {
     var address: String
     var body: some View {
         ZStack(alignment: .leading) {
-            RoundedRectangle(cornerRadius: 10).foregroundColor(Color("Gray")).frame(height: UIFrame.UIHeight / 15).shadow(radius: 5)
+            RoundedRectangle(cornerRadius: 10).foregroundColor(GEColor.gray).frame(height: UIFrame.UIHeight / 15).shadow(radius: 5)
             VStack(alignment: .leading, spacing: 10) {
                 HStack {
                     BlueTabView()
@@ -90,12 +90,12 @@ struct CompanySiteView: View {
 
 struct BlueTabView: View {
     var body: some View {
-        Color("Blue").frame(width: 3, height: 17)
+        GEColor.blue.frame(width: 3, height: 17)
     }
 }
 
 struct RedTabView: View {
     var body: some View {
-        Color("Red").frame(width: 3, height: 17)
+        GEColor.red.frame(width: 3, height: 17)
     }
 }

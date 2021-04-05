@@ -19,16 +19,16 @@ struct ChangePWView: View {
             VStack(spacing: UIFrame.UIHeight / 13) {
                 VStack(alignment: .leading, spacing: 20) {
                     Text("현재 비밀번호")
-                        .foregroundColor(Color("Blue"))
+                        .foregroundColor(GEColor.blue)
                     ChangePWTextField(placeholder: "현재 비밀번호를 입력해주세요", text: self.$mypageVM.nowPassword, isHidden: self.$mypageVM.nowisHidden)
                     Text("새 비밀번호")
-                        .foregroundColor(Color("Blue"))
+                        .foregroundColor(GEColor.blue)
                     ChangePWTextField(placeholder: "변경할 비밀번호를 입력해주세요", text: self.$mypageVM.newPassword, isHidden: self.$mypageVM.newisHidden)
                     Text("비밀번호 확인")
-                        .foregroundColor(Color("Blue"))
+                        .foregroundColor(GEColor.blue)
                     CheckTextField(text: self.$mypageVM.confirmPassword, isError: self.$mypageVM.confirmError, placeholder: "변경한 비밀번호를 확인해주세요", isChange: true, errorMsg: self.$mypageVM.errorMsg)
                 }
-                ButtonView(text: "확인", color: "Blue")
+                ButtonView(text: "확인", color: GEEColor.blue.rawValue)
                     .onTapGesture {
                         withAnimation {
                             self.mypageVM.confirmAlert = true
@@ -126,7 +126,7 @@ struct ChangePWTextField: View {
             
             if text != "" {
                 VStack {
-                    Color( "Blue").frame(height: CGFloat(4) / UIScreen.main.scale)
+                    GEColor.blue.frame(height: CGFloat(4) / UIScreen.main.scale)
                 }
             } else {
                 VStack {

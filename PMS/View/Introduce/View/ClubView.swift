@@ -52,7 +52,7 @@ struct ClubView: View {
             self.settings.isNav = true
             self.introduceVM.apply(.getClubList)
         }
-        .accentColor(.black)
+        .accentColor(GEColor.black)
         .navigationBarTitle("동아리 소개", displayMode: .inline)
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(leading: Button(action: {
@@ -83,15 +83,16 @@ struct IntroduceRectangle: View {
     var text: String
     var body: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: 10).foregroundColor(Color("Gray")).frame(width: UIFrame.UIWidth / 2.5, height: UIFrame.UIHeight / 4.7).shadow(radius: 5)
+            RoundedRectangle(cornerRadius: 10).foregroundColor(GEColor.gray).frame(width: UIFrame.UIWidth / 2.5, height: UIFrame.UIHeight / 4.7).shadow(radius: 5)
             VStack {
                 KFImage(URL(string: image.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)!.replacingOccurrences(of: "%3A", with: ":")))
                     .resizable()
                     .frame(width: 90, height: 90)
                     .scaledToFit()
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
                 
                 Text(text)
-                    .foregroundColor(Color.black.opacity(0.7))
+                    .foregroundColor(GEColor.black)
             }
         }
     }

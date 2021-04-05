@@ -45,7 +45,8 @@ struct CustomDivider: View {
 
 struct Template: ImageModifier {
     func body(image: Image) -> some View {
-        image.renderingMode(.template)
+        image
+            .renderingMode(.template)
             .resizable()
     }
 }
@@ -90,3 +91,15 @@ struct backDrag: ViewModifier {
         )
     }
 }
+
+struct shadowModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        return content.shadow(radius: 3)
+    }
+}
+
+ struct alertBGModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        return content.background(RoundedRectangle(cornerRadius: 10).foregroundColor(.white).modifier(shadowModifier()))
+    }
+ }

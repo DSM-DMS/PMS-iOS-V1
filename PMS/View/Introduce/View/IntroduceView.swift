@@ -17,7 +17,7 @@ struct IntroduceView: View {
                     VStack(alignment: .leading) {
                         TitleTextView(text: "소개")
                         Text("대마고의 자랑거리를 소개합니다")
-                            .foregroundColor(Color("Blue"))
+                            .foregroundColor(GEColor.blue)
                     }.padding(.bottom, UIFrame.UIHeight / 15)
                     
                     VStack(spacing: UIFrame.UIHeight / 15) {
@@ -37,7 +37,7 @@ struct IntroduceView: View {
                     Text("")
                 }
             }.edgesIgnoringSafeArea(.top)
-        }.accentColor(.black)
+        }.accentColor(GEColor.black)
     }
 }
 
@@ -59,15 +59,15 @@ struct RectangleView: View {
     var sub: String
     var body: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: 10).foregroundColor(Color("LightGray")).frame(width: UIFrame.UIWidth - 60, height: UIFrame.UIWidth / 4)
+            RoundedRectangle(cornerRadius: 10).foregroundColor(GEColor.gray).frame(width: UIFrame.UIWidth - 60, height: UIFrame.UIWidth / 4)
                 .shadow(color: Color.gray.opacity(0.5), radius: 6, x: 0, y: 3)
             
             HStack {
                 VStack(alignment: .leading, spacing: 15) {
                     HStack {
-                        Color("Blue").frame(width: 3, height: 18)
+                        GEColor.blue.frame(width: 3, height: 18)
                         Text(title)
-                            .foregroundColor(.black)
+                            .foregroundColor(GEColor.black)
                     }
                     Text(sub)
                         .font(.callout)

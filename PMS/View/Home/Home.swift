@@ -50,7 +50,7 @@ struct Home: View {
                     VStack(spacing: -10) {
                         AppBar(index: self.$index, offset: self.$offset)
                         Rectangle()
-                            .frame(height: self.edges!.bottom == 0 ? 10 : 30).foregroundColor(Color("WhiteDarkGray"))
+                            .frame(height: self.edges!.bottom == 0 ? 10 : 30).foregroundColor(GEColor.white)
                     }
                 }
                 .edgesIgnoringSafeArea(.all)
@@ -84,7 +84,7 @@ struct Home: View {
                     }
                     .padding()
                     .frame(width: UIFrame.UIWidth - 80)
-                    .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.white).shadow(radius: 3))
+                    .modifier(alertBGModifier())
                 }.edgesIgnoringSafeArea([.top, .bottom])
             }
             if self.mypageVM.nicknameAlert {
@@ -94,7 +94,7 @@ struct Home: View {
                         VStack {
                             TextField("새로운 닉네임을 입력해주세요", text: self.$mypageVM.newNickname)
                             if self.mypageVM.newNickname != "" {
-                                Color("Blue").frame(height: 1)
+                                GEColor.blue.frame(height: 1)
                             } else {
                                 Color(.gray).frame(height: 1)
                             }
@@ -127,7 +127,7 @@ struct Home: View {
                     }
                     .padding()
                     .frame(width: UIFrame.UIWidth - 80)
-                    .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.white).shadow(radius: 3))
+                    .modifier(alertBGModifier())
                 }.edgesIgnoringSafeArea([.top, .bottom])
             }
             if self.mypageVM.studentsAlert {
@@ -155,11 +155,11 @@ struct Home: View {
                                     VStack(spacing: 20) {
                                         HStack {
                                             Text(user)
+                                                .foregroundColor(GEColor.black)
                                                 .onTapGesture {
                                                     selectedStudent = user
                                                     UDManager.shared.currentStudent = selectedStudent
                                                     mypageVM.apply(.onAppear)
-                                                    // CurrentUser 바꾸기
                                                 }
                                             Spacer()
                                             Image("Minus")
@@ -193,8 +193,8 @@ struct Home: View {
                         }.padding([.leading, .trailing], 10)
                         .background(
                             VStack(spacing: -13) {
-                                RoundedRectangle(cornerRadius: 20).foregroundColor(.white).shadow(radius: 3)
-                                Rectangle().foregroundColor(.white).frame(height: 10)
+                                RoundedRectangle(cornerRadius: 20).foregroundColor(GEColor.white).shadow(radius: 3)
+                                Rectangle().foregroundColor(GEColor.white).frame(height: 10)
                             })
                     }
                     
@@ -222,7 +222,6 @@ struct Home: View {
                             Spacer()
                             Text("확인")
                                 .disabled(!self.mypageVM.passCodeModel.isValid)
-//                                .opacity(self.mypageVM.passCodeModel.isValid ? 1.0 : 0.5)
                                 .foregroundColor(.blue)
                                 .onTapGesture {
                                     self.mypageVM.apply(.addStudent)
@@ -234,7 +233,7 @@ struct Home: View {
                     }.animation(.spring())
                     .padding()
                     .frame(width: UIFrame.UIWidth - 80)
-                    .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.white).shadow(radius: 3))
+                    .modifier(alertBGModifier())
                 }.edgesIgnoringSafeArea([.top, .bottom])
             }
             if self.mypageVM.deleteAlert {
@@ -265,7 +264,7 @@ struct Home: View {
                     }
                     .padding()
                     .frame(width: UIFrame.UIWidth - 80)
-                    .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.white).shadow(radius: 3))
+                    .modifier(alertBGModifier())
                 }.edgesIgnoringSafeArea([.top, .bottom])
             }
         }.onAppear {
@@ -298,7 +297,7 @@ struct AppBar: View {
         VStack(alignment: .leading, spacing: 3, content: {
             VStack {
                 Capsule()
-                    .fill(Color("Blue"))
+                    .fill(GEColor.blue)
                     .frame(width: UIFrame.UIWidth / 6, height: 3)
                     .offset(x: UIFrame.UIWidth / 6 * CGFloat(index - 1) + UIFrame.UIWidth / 45 * CGFloat(index - 1))
                     .animation(.default)
@@ -341,7 +340,7 @@ struct AppBar: View {
         })
         .padding(.horizontal)
         .padding(.bottom, 10)
-        .background(RoundedRectangle(cornerRadius: 20).shadow(radius: 10).foregroundColor(Color("WhiteDarkGray")))
+        .background(RoundedRectangle(cornerRadius: 20).shadow(radius: 10).foregroundColor(GEColor.white))
     }
 }
 
@@ -367,7 +366,7 @@ struct TabButtonView: View {
                 }
                 
                 Text(text)
-                    .foregroundColor(self.index == buttonIndex ? Color("Blue") : Color.gray.opacity(0.7))
+                    .foregroundColor(self.index == buttonIndex ?  GEColor.blue : Color.gray.opacity(0.7))
             }
         }
     }

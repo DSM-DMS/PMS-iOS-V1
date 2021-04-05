@@ -18,14 +18,14 @@ struct PMSView: View {
                 Image("PMS")
                 VStack(spacing: 30) {
                     NavigationLink(destination: LoginView()) {
-                        ButtonView(text: "로그인", color: "Blue")
+                        ButtonView(text: "로그인", color: GEEColor.blue.rawValue)
                     }
                     NavigationLink(destination: SignupView()) {
-                        ButtonView(text: "회원가입", color: "Red")
+                        ButtonView(text: "회원가입", color: GEEColor.red.rawValue)
                     }
                 }
                 Text("로그인 없이 진행하기 >")
-                    .foregroundColor(Color("Blue"))
+                    .foregroundColor(GEColor.blue)
                     .onTapGesture {
                         if UDManager.shared.isFirstView == false {
                             self.presentationMode.wrappedValue.dismiss()
@@ -36,7 +36,7 @@ struct PMSView: View {
                     }
             }
             .navigationBarTitle("PMS", displayMode: .inline)
-        }.accentColor(.black)
+        }.accentColor(GEColor.black)
         .navigationViewStyle(StackNavigationViewStyle())
     }
 }

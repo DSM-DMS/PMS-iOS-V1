@@ -52,7 +52,7 @@ struct DeveloperRectangle: View {
     var field = ""
     var body: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: 10).foregroundColor(Color("Gray")).frame(width: UIFrame.UIWidth / 2.6, height: UIFrame.UIHeight / 4.7).shadow(radius: 5)
+            RoundedRectangle(cornerRadius: 10).foregroundColor(GEColor.gray).frame(width: UIFrame.UIWidth / 2.6, height: UIFrame.UIHeight / 4.7).shadow(radius: 5)
             VStack(spacing: 15) {
                 Image(image)
                     .resizable()
@@ -62,7 +62,7 @@ struct DeveloperRectangle: View {
                 
                 VStack(spacing: 5) {
                     Text(person)
-                        .foregroundColor(.black)
+                        .foregroundColor(GEColor.black)
                         .font(.system(size: 23))
                     
                     Text(field).foregroundColor(.gray).font(.body)

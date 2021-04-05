@@ -54,7 +54,7 @@ struct NoticeView: View {
                     Text("")
                 }
             }.edgesIgnoringSafeArea(.top)
-        }.accentColor(.black)
+        }.accentColor(GEColor.black)
     }
 }
 
@@ -74,7 +74,7 @@ struct NoticeView_Previews: PreviewProvider {
 struct SearchBar: View {
     var body: some View {
         ZStack(alignment: .leading) {
-            RoundedRectangle(cornerRadius: 10).foregroundColor(Color("Gray")).frame(height: 30)
+            RoundedRectangle(cornerRadius: 10).foregroundColor(GEColor.gray).frame(height: 30)
             HStack {
                 Image(systemName: SFSymbolKey.search.rawValue)
                 Text("검색할 공지 제목을 입력하세요.")
@@ -89,7 +89,7 @@ struct NoticeRectangle: View {
     var date: String
     var body: some View {
         ZStack(alignment: .leading) {
-            RoundedRectangle(cornerRadius: 10).foregroundColor(Color("Gray")).shadow(radius: 5)
+            RoundedRectangle(cornerRadius: 10).foregroundColor(GEColor.gray).shadow(radius: 5)
             VStack(spacing: 0) {
                 HStack {
                     if isRed == true {
@@ -98,7 +98,7 @@ struct NoticeRectangle: View {
                         BlueTabView()
                     }
                     Text("공지 제목")
-                        .foregroundColor(.black)
+                        .foregroundColor(GEColor.black)
                 }
                 Text(date)
                     .font(.callout)

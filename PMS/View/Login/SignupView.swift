@@ -96,7 +96,7 @@ struct CheckTextField: View {
                         Image("check")
                             .modifier(Template())
                             .frame(width: 20, height: 20)
-                            .foregroundColor(Color(isChange ? "Blue" : "Red"))
+                            .foregroundColor(isChange ? GEColor.blue : GEColor.red)
                             .padding(.leading, 10)
                     } else {
                         Image("check")
@@ -119,7 +119,8 @@ struct CheckTextField: View {
             }
             
             if text != "" {
-                Color(isChange ? "Blue" : "Red").frame(height: CGFloat(4) / UIScreen.main.scale)
+                Color(isChange ? GEEColor.blue.rawValue : GEEColor.red.rawValue)
+                    .frame(height: CGFloat(4) / UIScreen.main.scale)
             } else {
                 CustomDivider()
             }

@@ -20,13 +20,18 @@ struct MealView: View {
                 VStack(spacing: UIFrame.UIHeight / 20) {
                     HStack {
                         Image("leftArrow-1")
+                            .renderingMode(.template)
+                            .foregroundColor(GEColor.black)
                             .onTapGesture {
                                 self.mealVM.changeDate(increse: false)
                             }
                         Spacer()
                         Text(self.mealVM.today)
                         Spacer()
-                        Image("rightArrow-1").onTapGesture {
+                        Image("rightArrow-1")
+                            .renderingMode(.template)
+                            .foregroundColor(GEColor.black)
+                            .onTapGesture {
                             self.mealVM.changeDate(increse: true)
                         }
                     }
@@ -106,9 +111,9 @@ struct BlueTopView: View {
     var body: some View {
         ZStack {
             VStack(spacing: -10) {
-                RoundedRectangle(cornerRadius: 10).foregroundColor(Color("Blue"))
+                RoundedRectangle(cornerRadius: 10).foregroundColor(GEColor.blue)
                     .frame(height: UIFrame.UIHeight / 17)
-                Rectangle().foregroundColor(Color("Blue")).frame(height: 20)
+                Rectangle().foregroundColor(GEColor.blue).frame(height: 20)
             }
             
             Text(text)
@@ -162,6 +167,7 @@ struct MealRow: View {
                                     .cornerRadius(10)
                                     .aspectRatio(contentMode: .fit)
                                     .frame(height: UIFrame.UIHeight / 4.5).padding([.leading, .trailing], 10)
+                                .shadow(radius: 5)
                             } else {
                                 RoundedRectangle(cornerRadius: 10).foregroundColor(.gray)
                                     .frame(height: UIFrame.UIHeight / 4.5).padding([.leading, .trailing], 10)
@@ -169,7 +175,7 @@ struct MealRow: View {
                         } else {
                             Text(self.meal)
                                 .font(.system(size: 20))
-                                .foregroundColor(.gray)
+                                .foregroundColor(GEColor.gray)
                                 .multilineTextAlignment(.center)
                                 .minimumScaleFactor(0.1)
                         }

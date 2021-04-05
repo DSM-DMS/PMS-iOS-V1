@@ -120,7 +120,7 @@ struct NoticeDetailTopView: View {
                     }.foregroundColor(.gray)
                     .font(.callout)
                     Text("30")
-                        .foregroundColor(Color("Blue"))
+                        .foregroundColor(GEColor.blue)
                         .font(.callout)
                 }
             }
@@ -139,7 +139,7 @@ struct NoticeCommentView: View {
     var body: some View {
         VStack {
             ZStack(alignment: .leading) {
-                RoundedRectangle(cornerRadius: 10).foregroundColor(Color("Gray")).shadow(radius: 5).frame(height: UIFrame.UIHeight / 15)
+                RoundedRectangle(cornerRadius: 10).foregroundColor(GEColor.gray).shadow(radius: 5).frame(height: UIFrame.UIHeight / 15)
                 VStack(alignment: .leading) {
                     Text("댓글 내용")
                     Text("단 사람")
@@ -156,17 +156,17 @@ struct CustomCommentView: View {
     var body: some View {
         ZStack {
             ZStack(alignment: .bottom) {
-                RoundedRectangle(cornerRadius: 20).foregroundColor(Color.white).frame(height: UIFrame.UIHeight / 11).shadow(radius: 5)
-                RoundedRectangle(cornerRadius: 10).foregroundColor(Color.white).frame(height: UIFrame.UIHeight / 17)
+                RoundedRectangle(cornerRadius: 20).foregroundColor(GEColor.white).frame(height: UIFrame.UIHeight / 11).shadow(radius: 5)
+                RoundedRectangle(cornerRadius: 10).foregroundColor(GEColor.white).frame(height: UIFrame.UIHeight / 17)
             }
             HStack {
                 Text("@")
-                    .foregroundColor(Color("Blue"))
+                    .foregroundColor(GEColor.blue)
                     .onTapGesture {
                         self.text += "@"
                     }
                 ZStack {
-                    RoundedRectangle(cornerRadius: 10).foregroundColor(Color("Gray")).frame(height: UIFrame.UIHeight / 20)
+                    RoundedRectangle(cornerRadius: 10).foregroundColor(GEColor.gray).frame(height: UIFrame.UIHeight / 20)
                     TextField("댓글을 남겨주세요", text: $text).padding(.leading, 10)
                 }
                 
@@ -182,7 +182,7 @@ struct PreviewTextView: View {
         Text("미리보기").foregroundColor(.white)
             .font(.callout)
             .padding(.all, 5)
-            .background(RoundedRectangle(cornerRadius: 10).foregroundColor(Color("Blue")))
+            .background(RoundedRectangle(cornerRadius: 10).foregroundColor(GEColor.blue))
     }
 }
 
@@ -191,7 +191,7 @@ struct ReferView: View {
     var body: some View {
         VStack {
             HStack {
-                Text("@").foregroundColor(Color("Blue"))
+                Text("@").foregroundColor(GEColor.blue)
                 Text(name)
                 Text("선생님")
                 Spacer()

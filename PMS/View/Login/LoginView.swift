@@ -30,7 +30,7 @@ struct LoginView: View {
                     
                     VStack {
                         OAuthView()
-                        ButtonView(text: "로그인", color: "Blue")
+                        ButtonView(text: "로그인", color: GEEColor.blue.rawValue)
                             .onTapGesture {
                                 self.loginVM.apply(.loginTapped)
                             }
@@ -83,7 +83,7 @@ struct CustomTextField: View {
                         .modifier(Template())
                         .frame(width: 17, height: 20)
                         .padding(.leading, 10)
-                        .foregroundColor(Color(isLogin ? "Blue" : "Red"))
+                        .foregroundColor(isLogin ? GEColor.blue : GEColor.red)
                 } else {
                     Image(image)
                         .modifier(Template())
@@ -95,7 +95,8 @@ struct CustomTextField: View {
             }
             
             if text != "" {
-                Color(isLogin ? "Blue" : "Red").frame(height: CGFloat(4) / UIScreen.main.scale)
+                Color(isLogin ? GEEColor.blue.rawValue : GEEColor.red.rawValue)
+                    .frame(height: CGFloat(4) / UIScreen.main.scale)
             } else {
                 CustomDivider()
             }
@@ -116,7 +117,7 @@ struct PasswordTextField: View {
                     Image("lock")
                         .modifier(Template())
                         .frame(width: 15, height: 20)
-                        .foregroundColor(Color(isLogin ? "Blue" : "Red"))
+                        .foregroundColor(isLogin ? GEColor.blue : GEColor.red)
                 } else {
                     Image("lock")
                         .modifier(Template())
@@ -143,7 +144,8 @@ struct PasswordTextField: View {
             
             if text != "" {
                 VStack {
-                    Color(isLogin ? "Blue" : "Red").frame(height: CGFloat(4) / UIScreen.main.scale)
+                    Color(isLogin ? GEEColor.blue.rawValue : GEEColor.red.rawValue)
+                        .frame(height: CGFloat(4) / UIScreen.main.scale)
                 }
             } else {
                 VStack {

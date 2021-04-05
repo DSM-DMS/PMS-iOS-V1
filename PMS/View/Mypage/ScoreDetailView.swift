@@ -65,7 +65,7 @@ struct ScoreRow: View {
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 10)
-                .foregroundColor(Color("Gray"))
+                .foregroundColor(GEColor.gray)
                 .frame(height: UIFrame.UIWidth / 6)
                 .shadow(radius: 5)
             HStack {
@@ -79,7 +79,7 @@ struct ScoreRow: View {
                 if isMinus {
                     Text(status).foregroundColor(.red).fontWeight(.medium)
                 } else {
-                    Text(status).foregroundColor(Color("Blue")).fontWeight(.medium)
+                    Text(status).foregroundColor(.blue).fontWeight(.medium)
                 }
                 
             }.padding([.leading, .trailing], 30)

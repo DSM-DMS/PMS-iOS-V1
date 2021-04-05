@@ -61,7 +61,7 @@ struct OutsideRow: View {
     var type: String
     var body: some View {
         ZStack(alignment: .leading) {
-            RoundedRectangle(cornerRadius: 10).foregroundColor(Color("Gray"))
+            RoundedRectangle(cornerRadius: 10).foregroundColor(GEColor.gray)
                 .frame(height: UIFrame.UIWidth / 3)
                 .shadow(radius: 4)
             VStack(alignment: .leading, spacing: 20) {

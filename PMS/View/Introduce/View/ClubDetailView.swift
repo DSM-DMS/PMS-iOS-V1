@@ -81,7 +81,7 @@ struct DetailIntroduce: View {
     var text: String
     var body: some View {
         ZStack(alignment: .leading) {
-            RoundedRectangle(cornerRadius: 10).foregroundColor(Color("Gray")).frame(height: UIFrame.UIHeight / 10).shadow(radius: 5)
+            RoundedRectangle(cornerRadius: 10).foregroundColor(GEColor.gray).frame(height: UIFrame.UIHeight / 10).shadow(radius: 5)
             VStack(alignment: .leading, spacing: 10) {
                 HStack {
                     BlueTabView()
@@ -100,13 +100,13 @@ struct ClubMembersView: View {
     var members: [String]
     var body: some View {
         ZStack(alignment: .topLeading) {
-            RoundedRectangle(cornerRadius: 10).foregroundColor(Color("Gray")).frame(height: UIFrame.UIHeight / 3.5).shadow(radius: 5)
+            RoundedRectangle(cornerRadius: 10).foregroundColor(GEColor.gray).frame(height: UIFrame.UIHeight / 3.5).shadow(radius: 5)
             
             VStack(alignment: .leading, spacing: 10) {
                 HStack {
-                    Color("Blue").frame(width: 3, height: 20)
+                    GEColor.blue.frame(width: 3, height: 20)
                     Text("동아리 인원")
-                }.padding(.top, 10)
+                }.padding(.top, 20)
                 VStack(alignment: .leading) {
                     HStack {
                         Text(members.joined(separator: ", "))

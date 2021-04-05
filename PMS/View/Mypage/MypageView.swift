@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct MypageView: View {
+    @Environment(\.colorScheme) var colorScheme
     @EnvironmentObject var mypageVM: MypageViewModel
     @Binding var nicknameAlert: Bool
     @Binding var studentsAlert: Bool
@@ -25,7 +26,7 @@ struct MypageView: View {
                             MypageTopView(nickname: self.mypageVM.nickname, student: self.$mypageVM.currentStudent, nicknameAlert: self.$nicknameAlert, studentAlert: self.$studentsAlert)
                             
                             NavigationLink(destination: ScoreDetailView()) {
-                            TwoScoreView(plus: self.$mypageVM.plusScore, minus: self.$mypageVM.minusScore)
+                                TwoScoreView(plus: self.$mypageVM.plusScore, minus: self.$mypageVM.minusScore)
                             }
                             
                             BlueStatusView(text: self.mypageVM.status)
@@ -39,17 +40,17 @@ struct MypageView: View {
                                         }
                                     Text("마이페이지 서비스는 로그인이 필요합니다.")
                                         .font(.callout)
-                                        .foregroundColor(Color("Blue"))
+                                        .foregroundColor(GEColor.blue)
                                     Spacer()
                                     Spacer()
                                 }
                             } else if UDManager.shared.currentStudent == nil {
                                 VStack(spacing: UIFrame.UIWidth / 15) {
                                     ZStack {
-                                        RoundedRectangle(cornerRadius: 10).foregroundColor(Color("LightGray")).frame(height: UIFrame.UIWidth / 9).shadow(radius: 3)
+                                        RoundedRectangle(cornerRadius: 10).foregroundColor(Color("LightGray")).frame(height: UIFrame.UIWidth / 9).modifier(shadowModifier())
                                         VStack {
-                                                Text("학생을 추가해주세요")
-                                                    .foregroundColor(.black)
+                                            Text("학생을 추가해주세요")
+                                                .foregroundColor(.black)
                                         }.padding()
                                     }
                                     Spacer()
@@ -58,8 +59,10 @@ struct MypageView: View {
                                     }
                                     MypageButtonView(text: "로그아웃")
                                         .onTapGesture {
+                                            withAnimation {
                                                 self.logoutAlert.toggle()
-                                    }
+                                            }
+                                        }
                                     Spacer()
                                     Spacer()
                                 }
@@ -74,8 +77,10 @@ struct MypageView: View {
                                     }
                                     MypageButtonView(text: "로그아웃")
                                         .onTapGesture {
+                                            withAnimation {
                                                 self.logoutAlert.toggle()
-                                    }
+                                            }
+                                        }
                                 }
                             }
                         }.padding([.leading, .trailing], 30)
@@ -94,8 +99,8 @@ struct MypageView: View {
                     }
             }
             .edgesIgnoringSafeArea(.top)
-                .navigationBarHidden(isNav)
-        }.accentColor(.black)
+            .navigationBarHidden(isNav)
+        }.accentColor(GEColor.black)
         
     }
 }
@@ -115,7 +120,7 @@ struct MypageView_Previews: PreviewProvider {
 
 struct ScoreView: View {
     var body: some View {
-        RoundedRectangle(cornerRadius: 10).foregroundColor(Color("LightGray")).shadow(radius: 10).frame(width: UIFrame.UIWidth / 2 - 50, height: UIFrame.UIHeight / 10)
+        RoundedRectangle(cornerRadius: 10).foregroundColor(GEColor.gray).shadow(radius: 10).frame(width: UIFrame.UIWidth / 2 - 50, height: UIFrame.UIHeight / 10)
     }
 }
 
@@ -123,29 +128,29 @@ struct TwoScoreView: View {
     @Binding var plus: Int
     @Binding var minus: Int
     var body: some View {
-
-            HStack(spacing: 30) {
-                ZStack {
-                    ScoreView()
-                    VStack {
-                        Text(String(plus))
-                            .font(.title)
-                            .foregroundColor(.black)
-                        Text("상점")
-                            .foregroundColor(Color("Blue"))
-                    }
-                }
-                ZStack {
-                    ScoreView()
-                    VStack {
-                        Text(String(minus))
-                            .font(.title)
-                            .foregroundColor(.black)
-                        Text("벌점")
-                            .foregroundColor(.red)
-                    }
+        
+        HStack(spacing: 30) {
+            ZStack {
+                ScoreView()
+                VStack {
+                    Text(String(plus))
+                        .font(.title)
+                        .foregroundColor(GEColor.black)
+                    Text("상점")
+                        .foregroundColor(GEColor.blue)
                 }
             }
+            ZStack {
+                ScoreView()
+                VStack {
+                    Text(String(minus))
+                        .font(.title)
+                        .foregroundColor(GEColor.black)
+                    Text("벌점")
+                        .foregroundColor(.red)
+                }
+            }
+        }
     }
 }
 
@@ -160,7 +165,9 @@ struct MypageTopView: View {
     var body: some View {
         HStack {
             Button(action: {
+                withAnimation {
                     self.nicknameAlert.toggle()
+                }
             }) {
                 Text(!UDManager.shared.isLogin ? "로그인 안함" : nickname)
                     .font(.title)
@@ -193,13 +200,9 @@ struct MypageTopView: View {
 struct MypageBackground: View {
     var body: some View {
         VStack {
-            VStack {
-                Color("Blue")
-                    .frame(height: UIFrame.UIHeight / 4)
-            }
-            VStack {
-                Color(.white)
-            }
+            GEColor.blue
+                .frame(height: UIFrame.UIHeight / 4)
+            Spacer()
         }
         
     }
@@ -209,14 +212,14 @@ struct MypageButtonView: View {
     var text: String
     var body: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: 10).foregroundColor(Color("LightGray")).frame(height: UIFrame.UIWidth / 7).shadow(radius: 5)
+            RoundedRectangle(cornerRadius: 10).foregroundColor(GEColor.gray).frame(height: UIFrame.UIWidth / 7).shadow(radius: 5)
             VStack {
                 HStack {
                     Text(text)
-                        .foregroundColor(.black)
+                        .foregroundColor(GEColor.black)
                     Spacer()
                     Text(">")
-                        .foregroundColor(.black)
+                        .foregroundColor(GEColor.black)
                 }
             }.padding()
         }
@@ -227,7 +230,7 @@ struct BlueStatusView: View {
     var text: String
     var body: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: 30).foregroundColor(Color("Blue")).frame(height: UIFrame.UIWidth / 12)
+            RoundedRectangle(cornerRadius: 30).foregroundColor(GEColor.blue).frame(height: UIFrame.UIWidth / 12)
             Text(text)
                 .foregroundColor(.white)
         }.padding([.leading, .trailing])
@@ -239,12 +242,13 @@ struct StatusView: View {
     var isMeal: Bool
     var body: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: 10).foregroundColor(Color("LightGray")).frame(height: UIFrame.UIWidth / 4.3).shadow(radius: 5)
+            RoundedRectangle(cornerRadius: 10).foregroundColor(GEColor.gray).frame(height: UIFrame.UIWidth / 4.3).shadow(radius: 5)
             HStack {
                 VStack(alignment: .leading, spacing: 10) {
                     Text("이번 주 잔류 상태")
                     Text("주말급식 신청 여부")
                 }.padding(.leading)
+                .foregroundColor(GEColor.black)
                 Spacer()
                 VStack(alignment: .trailing) {
                     Text(text)
@@ -253,14 +257,10 @@ struct StatusView: View {
             }
             VStack {
                 HStack {
-                    
                     Spacer()
-                    
                 }
                 HStack {
-                    
                     Spacer()
-                    
                 }
             }.padding()
         }
