@@ -69,4 +69,14 @@ class APIManager {
             .map(MealPicture.self)
     }
     
+    func getClubs() -> AnyPublisher<ClubList, MoyaError> {
+        pmsProvider.requestPublisher(.clubs)
+            .map(ClubList.self)
+    }
+    
+    func getClubDetail(name: String) -> AnyPublisher<Club, MoyaError> {
+        pmsProvider.requestPublisher(.clubDetail(name))
+            .map(Club.self)
+    }
+    
 }

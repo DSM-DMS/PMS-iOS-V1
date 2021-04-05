@@ -7,19 +7,24 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct ClubDetailView: View {
-    @ObservedObject var IntroduceDetailVM = IntroduceDetailViewModel()
+    @EnvironmentObject var IntroduceDetailVM: IntroduceViewModel
+    @EnvironmentObject var settings: NavSettings
     @Environment(\.presentationMode) var mode
     @State var offset = CGSize.zero
+    var name: String
     
     var body: some View {
         GeometryReader { _ in
             VStack(spacing: 10) {
                 CustomDivider()
                 ZStack {
-                    Rectangle().frame(height: UIFrame.UIHeight / 4)
-                    Rectangle().frame(height: UIFrame.UIHeight / 4)
+                    KFImage(URL(string: IntroduceDetailVM.clubDetail.imageUrl.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)!.replacingOccurrences(of: "%3A", with: ":")))
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(height: UIFrame.UIHeight / 4)
                 }
                 
                 HStack {
@@ -30,52 +35,41 @@ struct ClubDetailView: View {
                     ImageCircle()
                 }
                 CustomDivider()
-                Text("DMS")
+                Text(IntroduceDetailVM.clubDetail.title)
                     .font(.title)
                     .fontWeight(.semibold)
-                DetailIntroduce(title: "동아리 소개", text: self.IntroduceDetailVM.clubDesc)
+                DetailIntroduce(title: "동아리 소개", text: IntroduceDetailVM.clubDetail.description)
                     .padding(.bottom)
                 
-                ClubMembersView(chief: self.IntroduceDetailVM.clubChief, members: self.IntroduceDetailVM.clubMembers)
+                ClubMembersView(members: IntroduceDetailVM.clubDetail.member)
                 
             }.padding(.top, 10)
             VStack {
                 Text("")
             }
-        }.padding([.leading, .trailing], 30)
-        .navigationBarTitle("DMS", displayMode: .inline)
-            .navigationBarBackButtonHidden(true)
-            .navigationBarItems(leading: Button(action: {
-                self.mode.wrappedValue.dismiss()
-            }) {
-                Image("NavArrow")
-            })
-            .gesture(
-                DragGesture()
-                    .onChanged { gesture in
-                        self.offset = gesture.translation
-                        if abs(self.offset.width) > 0 {
-                            self.mode.wrappedValue.dismiss()
-                        }
-                }
-                .onEnded { _ in
-                    if abs(self.offset.width) > 0 {
-                        self.mode.wrappedValue.dismiss()
-                    } else {
-                        self.offset = .zero
-                    }
-                }
-        )
+        }.onAppear {
+            self.settings.isNav = true
+            self.IntroduceDetailVM.apply(.getClubDetail(name: name))
+        }
+        .padding([.leading, .trailing], 30)
+        .navigationBarTitle("\(self.name)", displayMode: .inline)
+        .navigationBarBackButtonHidden(true)
+        .navigationBarItems(leading: Button(action: {
+            self.mode.wrappedValue.dismiss()
+        }) {
+            Image("NavArrow")
+        })
+        .modifier(backDrag(offset: self.$offset))
     }
 }
 
 struct ClubDetailView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            ClubDetailView()
+            ClubDetailView(name: "GG")
                 .previewDevice(PreviewDevice(rawValue: "iPhone XS Max"))
                 .previewDisplayName("iPhone XS Max")
-            ClubDetailView()
+            ClubDetailView(name: "GG")
                 .previewDevice(PreviewDevice(rawValue: "iPhone 8"))
                 .previewDisplayName("iPhone 8")
         }
@@ -103,12 +97,11 @@ struct DetailIntroduce: View {
 }
 
 struct ClubMembersView: View {
-    var chief: String
-    var members: String
+    var members: [String]
     var body: some View {
         ZStack(alignment: .topLeading) {
             RoundedRectangle(cornerRadius: 10).foregroundColor(Color("Gray")).frame(height: UIFrame.UIHeight / 3.5).shadow(radius: 5)
-                
+            
             VStack(alignment: .leading, spacing: 10) {
                 HStack {
                     Color("Blue").frame(width: 3, height: 20)
@@ -116,14 +109,10 @@ struct ClubMembersView: View {
                 }.padding(.top, 10)
                 VStack(alignment: .leading) {
                     HStack {
-                        Text("부장 - ")
-                        Text(chief)
-                    }
-                    HStack {
-                        Text(members)
+                        Text(members.joined(separator: ", "))
                     }
                 }.foregroundColor(Color.gray)
-                    .font(.callout)
+                .font(.callout)
                 
             }.padding([.leading, .trailing])
         }

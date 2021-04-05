@@ -7,6 +7,8 @@
 //
 
 import SwiftUI
+import Kingfisher
+import WaterfallGrid
 
 struct ClubView: View {
     @ObservedObject var introduceVM = IntroduceViewModel()
@@ -21,7 +23,7 @@ struct ClubView: View {
                     VStack(alignment: .leading) {
                         Text("자녀의 동아리")
                             .foregroundColor(Color.gray)
-                        NavigationLink(destination: ClubDetailView()) {
+                        NavigationLink(destination: ClubDetailView(name: "DMS").environmentObject(introduceVM)) {
                             IntroduceRectangle(image: "DMS", text: "DMS")
                         }
                     }
@@ -31,20 +33,24 @@ struct ClubView: View {
                 Divider()
                     .padding([.top, .bottom], 10)
             }.padding([.leading, .trailing], 30)
-                .padding(.top, 10)
+            .padding(.top, 10)
             
-            ForEach(1...10, id: \.self) { _ in
-                HStack(spacing: 30) {
-                    NavigationLink(destination: ClubDetailView()) {
-                        IntroduceRectangle(image: "DMS", text: "DMS")
-                    }
-                    NavigationLink(destination: ClubDetailView()) {
-                        IntroduceRectangle(image: "DMS", text: "DMS")
-                    }
+            WaterfallGrid(introduceVM.clubList.clubs, id: \.self) { club in
+                NavigationLink(destination: ClubDetailView(name: club.name) .environmentObject(introduceVM)) {
+                    IntroduceRectangle(image: club.imageUrl, text: club.name)
+                        .padding(.bottom)
                 }
-            }.padding(.bottom, 10)
+            }
+            .gridStyle(
+                columnsInPortrait: 2,
+                columnsInLandscape: 3,
+                spacing: 8,
+                animation: .easeInOut(duration: 0.5)
+            )
+            .padding([.leading, .trailing])
         }.onAppear {
             self.settings.isNav = true
+            self.introduceVM.apply(.getClubList)
         }
         .accentColor(.black)
         .navigationBarTitle("동아리 소개", displayMode: .inline)
@@ -55,24 +61,7 @@ struct ClubView: View {
         }) {
             Image("NavArrow")
         })
-            .gesture(
-                DragGesture()
-                    .onChanged { gesture in
-                        self.offset = gesture.translation
-                        if abs(self.offset.width) > 0 {
-                            self.mode.wrappedValue.dismiss()
-                            self.settings.isNav = false
-                        }
-                }
-                .onEnded { _ in
-                    if abs(self.offset.width) > 0 {
-                        self.mode.wrappedValue.dismiss()
-                        self.settings.isNav = false
-                    } else {
-                        self.offset = .zero
-                    }
-                }
-        )
+        .modifier(backDrag(offset: self.$offset))
     }
 }
 
@@ -96,9 +85,9 @@ struct IntroduceRectangle: View {
         ZStack {
             RoundedRectangle(cornerRadius: 10).foregroundColor(Color("Gray")).frame(width: UIFrame.UIWidth / 2.5, height: UIFrame.UIHeight / 4.7).shadow(radius: 5)
             VStack {
-                Image(image)
+                KFImage(URL(string: image.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)!.replacingOccurrences(of: "%3A", with: ":")))
                     .resizable()
-                    .frame(width: 60, height: 60)
+                    .frame(width: 90, height: 90)
                     .scaledToFit()
                 
                 Text(text)

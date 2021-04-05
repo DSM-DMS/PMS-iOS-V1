@@ -64,7 +64,7 @@ extension Image {
     }
 }
 
-struct myPageDrag: ViewModifier {
+struct backDrag: ViewModifier {
     @Binding var offset: CGSize
     @Environment(\.presentationMode) var mode
     @EnvironmentObject var settings: NavSettings

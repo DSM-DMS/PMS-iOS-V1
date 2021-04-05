@@ -42,24 +42,7 @@ struct NoticeDetailView: View {
             }) {
                 Image("NavArrow")
             })
-            .gesture(
-                DragGesture()
-                    .onChanged { gesture in
-                        self.offset = gesture.translation
-                        if abs(self.offset.width) > 0 {
-                            self.mode.wrappedValue.dismiss()
-                            self.settings.isNav = false
-                        }
-                    }
-                    .onEnded { _ in
-                        if abs(self.offset.width) > 0 {
-                            self.mode.wrappedValue.dismiss()
-                            self.settings.isNav = false
-                        } else {
-                            self.offset = .zero
-                        }
-                    }
-            )
+            .modifier(backDrag(offset: self.$offset))
             VStack(spacing: -10) {
                 if self.NoticeDetailVM.comment.contains("@") {
                     ScrollView {

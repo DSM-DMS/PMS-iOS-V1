@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct CompanyDetailView: View {
-    @ObservedObject var IntroduceDetailVM = IntroduceDetailViewModel()
+    @ObservedObject var IntroduceDetailVM = IntroduceViewModel()
     @Environment(\.presentationMode) var mode
     @State var offset = CGSize.zero
     
@@ -55,22 +55,7 @@ struct CompanyDetailView: View {
             }) {
                 Image("NavArrow")
             })
-            .gesture(
-                DragGesture()
-                    .onChanged { gesture in
-                        self.offset = gesture.translation
-                        if abs(self.offset.width) > 0 {
-                            self.mode.wrappedValue.dismiss()
-                        }
-                }
-                .onEnded { _ in
-                    if abs(self.offset.width) > 0 {
-                        self.mode.wrappedValue.dismiss()
-                    } else {
-                        self.offset = .zero
-                    }
-                }
-        )
+        .modifier(backDrag(offset: self.$offset))
     }
 }
 

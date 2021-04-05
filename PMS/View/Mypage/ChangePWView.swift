@@ -36,7 +36,7 @@ struct ChangePWView: View {
                     }
             }
             .padding([.leading, .trailing], 30)
-            .modifier(myPageDrag(offset: self.$offset))
+            .modifier(backDrag(offset: self.$offset))
             .navigationBarTitle("비밀번호 변경", displayMode: .inline)
             .navigationBarBackButtonHidden(true)
             .navigationBarItems(leading: Button(action: {

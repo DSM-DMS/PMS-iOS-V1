@@ -26,7 +26,7 @@ enum AuthApi {
 
 extension AuthApi: TargetType {
     var baseURL: URL {
-        return URL(string: "http://211.38.86.92:8082")!
+        return URL(string: "https://api.smooth-bear.live")!
     }
     
     var path: String {

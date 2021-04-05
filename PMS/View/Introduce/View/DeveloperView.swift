@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import WaterfallGrid
 
 struct DeveloperView: View {
     @ObservedObject var introduceVM = IntroduceViewModel()
@@ -19,19 +20,16 @@ struct DeveloperView: View {
     
     var body: some View {
         ScrollView {
-            ForEach(0...3, id: \.self) { index in
-                HStack {
-                    DeveloperRectangle(image: images[index*2], person: persons[index*2], field: fields[index*2])
-                        .padding([.leading, .trailing], 10)
-                        .padding([.bottom, .top], 3)
-                    if index != 3 {
-                        DeveloperRectangle(image: images[index*2+1], person: persons[index*2+1], field: fields[index*2+1])
-                            .padding([.leading, .trailing], 10)
-                            .padding([.bottom, .top], 3)
-                    }
-                    
-                }.padding(.bottom)
-            }.padding([.leading, .trailing], 30)
+            WaterfallGrid(0...6, id: \.self) { index in
+                DeveloperRectangle(image: images[index], person: persons[index], field: fields[index])
+                    .padding(.top)
+            }
+            .gridStyle(
+                columnsInPortrait: 2,
+                columnsInLandscape: 3,
+                spacing: 8,
+                animation: .easeInOut(duration: 0.5)
+            ).padding([.leading, .trailing])
             .padding([.top, .bottom], 10)
         }.onAppear {
             self.settings.isNav = true
@@ -44,7 +42,7 @@ struct DeveloperView: View {
         }) {
             Image("NavArrow")
         })
-        .modifier(myPageDrag(offset: self.$offset))
+        .modifier(backDrag(offset: self.$offset))
     }
 }
 

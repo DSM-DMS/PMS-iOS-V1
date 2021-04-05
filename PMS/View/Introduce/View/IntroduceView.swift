@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct IntroduceView: View {
+    
     var body: some View {
         NavigationView {
             GeometryReader { _ in

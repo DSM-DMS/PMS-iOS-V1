@@ -30,7 +30,7 @@ struct ScoreDetailView: View {
             self.mypageVM.apply(.getPoint)
             self.settings.isNav = true
         }
-        .modifier(myPageDrag(offset: self.$offset))
+        .modifier(backDrag(offset: self.$offset))
         .navigationBarBackButtonHidden(true)
         .navigationBarTitle("상/벌점 내역", displayMode: .inline)
         .navigationBarItems(leading: Button(action: {

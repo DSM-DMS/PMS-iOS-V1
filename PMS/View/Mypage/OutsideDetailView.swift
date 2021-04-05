@@ -37,7 +37,7 @@ struct OutsideDetailView: View {
             Image("NavArrow")
                 .foregroundColor(.black)
         })
-        .modifier(myPageDrag(offset: self.$offset))
+        .modifier(backDrag(offset: self.$offset))
     }
 }
 

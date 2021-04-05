@@ -15,6 +15,7 @@ target 'PMS' do
   # Pods for PMS
 	pods
 	pod 'lottie-ios'
+	pod 'WaterfallGrid', '~> 1.0.0'
 
   target 'PMSTests' do
     inherit! :search_paths

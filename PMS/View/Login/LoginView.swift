@@ -65,22 +65,7 @@ struct LoginView: View {
                         }
                     }
             }
-        }.gesture(
-            DragGesture()
-                .onChanged { gesture in
-                    self.offset = gesture.translation
-                    if abs(self.offset.width) > 0 {
-                        self.mode.wrappedValue.dismiss()
-                    }
-                }
-                .onEnded { _ in
-                    if abs(self.offset.width) > 0 {
-                        self.mode.wrappedValue.dismiss()
-                    } else {
-                        self.offset = .zero
-                    }
-                }
-        )
+        }.modifier(backDrag(offset: self.$offset))
     }
 }
 

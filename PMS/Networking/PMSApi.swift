@@ -28,7 +28,7 @@ enum PMSApi {
     
     // Introduce
     case clubs
-    case clubDetail(_ id: Int)
+    case clubDetail(_ name: String)
     case companys
     case companyDetail(_ id: Int)
     
@@ -69,8 +69,8 @@ extension PMSApi: TargetType {
         // Introduce
         case .clubs:
             return "/introduce/clubs"
-        case .clubDetail(let id):
-            return "/introduce/clubs/\(id)"
+        case .clubDetail(let name):
+            return "/introduce/clubs/\(name)"
         case .companys:
             return "/introduce/company"
         case .companyDetail(let id):

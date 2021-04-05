@@ -8,6 +8,7 @@ PODS:
   - Moya/Core (15.0.0-alpha.1):
     - Alamofire (~> 5.0)
   - SwiftLint (0.43.0)
+  - WaterfallGrid (1.0.1)
 
 DEPENDENCIES:
   - FSCalendar
@@ -15,6 +16,7 @@ DEPENDENCIES:
   - lottie-ios
   - Moya (~> 15.0.0-alpha.1)
   - SwiftLint
+  - WaterfallGrid (~> 1.0.0)
 
 SPEC REPOS:
   trunk:
@@ -24,6 +26,7 @@ SPEC REPOS:
     - lottie-ios
     - Moya
     - SwiftLint
+    - WaterfallGrid
 
 SPEC CHECKSUMS:
   Alamofire: 2291f7d21ca607c491dd17642e5d40fdcda0e65c
@@ -32,7 +35,8 @@ SPEC CHECKSUMS:
   lottie-ios: 106e92eaf11fbed0a76590b4cdb9b5ec26123ff7
   Moya: 101c94dfb29289736ecd20fa6e82bea665e0671b
   SwiftLint: 0c645fdc6feed3e390c1701ab3cc669f88b42752
+  WaterfallGrid: 0554a759d9a8aa136fc1769480ddb01bc6fb94b9
 
-PODFILE CHECKSUM: 1a2d02a53220aff40e55bc06668e4cdfaf53e6b0
+PODFILE CHECKSUM: 0ba541e463bbb749eca58fc57b72b4e51cc2eba5
 
 COCOAPODS: 1.10.0
