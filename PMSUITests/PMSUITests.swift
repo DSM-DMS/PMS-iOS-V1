@@ -10,65 +10,82 @@ import XCTest
 
 class PMSUITests: XCTestCase {
     
+    let app = XCUIApplication()
+    
     override func setUp() {
-        let app = XCUIApplication()
+        
         app.activate()
         setupSnapshot(app)
         app.launch()
     }
     
-    func test_loginBtn() {
-        let app = XCUIApplication()
-        app.buttons["로그인"].tap()
-        snapshot("0Login")
+    func test_A_PMS_Main_View() {
+        snapshot("0Main_View")
     }
     
-//    func test_sample() {
-//        let app = XCUIApplication()
-//        app.buttons["로그인"].tap()
-//
-//        let textField = app.textFields["아이디를 입력해주세요"]
-//        textField.tap()
-//        app.buttons["shift"].tap()
-//
-//        app.keys["g"].tap()
-//        app.keys["o"].tap()
-//        app.keys["g"].tap()
-//        app.keys["o"].tap()
-//        app.keys["more"].tap()
-//        app.keys["8"].tap()
-//        app.keys["2"].tap()
-//        app.keys["7"].tap()
-//        app.keys["2"].tap()
-//        app.keys["@"].tap()
-//        app.keys["more"].tap()
-//        app.keys["g"].tap()
-//        app.keys["m"].tap()
-//        app.keys["a"].tap()
-//        app.keys["i"].tap()
-//        app/*@START_MENU_TOKEN@*/.keys["l"]/*[[".keyboards.keys[\"l\"]",".keys[\"l\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
-//        app.keys["more"].tap()
-//        app.keys["."].tap()
-//        app.keys["more"].tap()
-//        app.keys["c"].tap()
-//        app.keys["o"].tap()
-//        app.keys["m"].tap()
-//        app.secureTextFields["비밀번호를 입력해주세요"].tap()
-//
-//        app.keys["r"].tap()
-//        app.keys["h"].tap()
-//        app.keys["d"].tap()
-//        app.keys["m"].tap()
-//        app.keys["s"].tap()
-//        app.keys["more"].tap()
-//        app.keys["8"].tap()
-//        app.keys["2"].tap()
-//        app.keys["7"].tap()
-//        app.keys["2"].tap()
-//
-//        app.buttons["Return"].tap()
-//        app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .staticText).matching(identifier: "로그인").element(boundBy: 1).tap()
-//
-//        snapshot("0Launch")
+//    func test_login() {
+//        login()
 //    }
+//
+    func test_CalendarView() {
+        if !app.buttons["일정"].exists {
+            login()
+        }
+        
+        snapshot("1Calendar_View")
+        
+    }
+    
+    func test_MealView() {
+        if !app.buttons["일정"].exists {
+            login()
+        }
+        
+        app.buttons["급식"].tap()
+        snapshot("2Meal_View")
+        
+    }
+    
+    func test_NoticeView() {
+        if !app.buttons["일정"].exists {
+            login()
+        }
+        
+        self.app.buttons["공지"].tap()
+        snapshot("3Notice_View")
+    }
+    
+    func test_IntroduceView() {
+        if !app.buttons["일정"].exists {
+            login()
+        }
+        
+        self.app.buttons["소개"].tap()
+        snapshot("4Introduce_View")
+        
+    }
+    
+    func test_MypageView() {
+        if !app.buttons["일정"].exists {
+            login()
+        }
+        
+        self.app.buttons["내 정보"].tap()
+        snapshot("5Mypage_View")
+    }
+    
+    func login() {
+        app.buttons["로그인"].tap()
+        let email = app.textFields["아이디를 입력해주세요"]
+        email.tap()
+        email.typeText("gogo8272@gmail.com")
+        
+        let secureTextField = app.secureTextFields["비밀번호를 입력해주세요"]
+        secureTextField.tap()
+        secureTextField.typeText("rhdms8272")
+        
+        app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .staticText).matching(identifier: "로그인").element(boundBy: 1).tap()
+        sleep(8)
+    }
+    
 }

@@ -267,6 +267,7 @@
 				D98162A2252EC1200052E087 /* ScoreDetailView.swift */,
 				D98162A4252ECBBC0052E087 /* OutsideDetailView.swift */,
 				D98162A6252ECBC70052E087 /* ChangePWView.swift */,
+				D968B3F0261994670051BAF5 /* PMSApi.swift */,
 				D9721F4325F8700A00EB92E8 /* studentCodeModel.swift */,
 				D9721F4825F870B000EB92E8 /* studentCodeView.swift */,
 			);
@@ -422,7 +423,6 @@
 				D9721EB425F7A53100EB92E8 /* ResponseModel */,
 				D988765525352E2500B4D439 /* AuthApi.swift */,
 				D9721EAF25F7925800EB92E8 /* APIManager.swift */,
-				D968B3F0261994670051BAF5 /* PMSApi.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";

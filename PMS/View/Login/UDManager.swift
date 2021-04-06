@@ -35,7 +35,7 @@ class UDManager {
     
     var token: String? {
         get {
-            UD.string(forKey: "accessToken")
+            return UD.string(forKey: "accessToken")
         } set(value) {
             UD.set(value, forKey: "accessToken")
         }

@@ -25,9 +25,9 @@ class AuthManager {
                         print("you're not in internet")
                     }
                     print(error)
-                    
                 }
             }, receiveValue: { token in
+                print(token.accessToken)
                 UDManager.shared.token = token.accessToken
             })
             .store(in: &bag)

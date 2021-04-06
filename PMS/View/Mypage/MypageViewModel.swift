@@ -236,23 +236,19 @@ extension MypageViewModel {
     func changePassword(password: String, prePassword: String) {
         apiManager.changePassword(password: password, prePassword: prePassword)
             .receive(on: DispatchQueue.main)
-            .retry(2)
             .sink(receiveCompletion: { [weak self] completion in
                 if case let .failure(error) = completion {
                     if error.response?.statusCode == 401 {
                         AuthManager.shared.refreshToken()
-                    } else if error.response?.statusCode == 403 {
-                        // 비밀번호 틀림
-                        // UD에 있는 원래 비밀번호랑 비교 필요.
+                        self?.apply(.changePassword)
                     }
                     self?.passwordAlert.toggle()
                     print(error)
                 }
-                if case .finished = completion {
-                    UDManager.shared.password = password
-                    self?.passwordSuccessAlert.toggle()
-                }
-            }, receiveValue: { _ in })
+            }, receiveValue: { [weak self] _ in
+                UDManager.shared.password = password
+                self?.passwordSuccessAlert.toggle()
+            })
             .store(in: &bag)
     }
     

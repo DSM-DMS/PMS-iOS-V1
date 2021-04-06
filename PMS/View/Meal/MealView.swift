@@ -175,7 +175,7 @@ struct MealRow: View {
                         } else {
                             Text(self.meal)
                                 .font(.system(size: 20))
-                                .foregroundColor(GEColor.gray)
+                                .foregroundColor(.black)
                                 .multilineTextAlignment(.center)
                                 .minimumScaleFactor(0.1)
                         }

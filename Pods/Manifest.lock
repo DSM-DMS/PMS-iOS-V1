@@ -3,8 +3,8 @@ PODS:
   - FSCalendar (2.8.2)
   - Kingfisher (6.2.1)
   - lottie-ios (3.2.1)
-  - Moya (15.0.0-alpha.1):
-    - Moya/Core (= 15.0.0-alpha.1)
+  - Moya/Combine (15.0.0-alpha.1):
+    - Moya/Core
   - Moya/Core (15.0.0-alpha.1):
     - Alamofire (~> 5.0)
   - SwiftLint (0.43.0)
@@ -14,7 +14,7 @@ DEPENDENCIES:
   - FSCalendar
   - Kingfisher
   - lottie-ios
-  - Moya (~> 15.0.0-alpha.1)
+  - Moya/Combine (~> 15.0.0-alpha.1)
   - SwiftLint
   - WaterfallGrid (~> 1.0.0)
 
@@ -37,6 +37,6 @@ SPEC CHECKSUMS:
   SwiftLint: 0c645fdc6feed3e390c1701ab3cc669f88b42752
   WaterfallGrid: 0554a759d9a8aa136fc1769480ddb01bc6fb94b9
 
-PODFILE CHECKSUM: 0ba541e463bbb749eca58fc57b72b4e51cc2eba5
+PODFILE CHECKSUM: 923d72a3f71d81de74b0af205c5e8fce99fa5b2e
 
 COCOAPODS: 1.10.0

@@ -4,7 +4,7 @@ platform :ios, '13.0'
 def pods
 	pod 'SwiftLint'
 	pod 'FSCalendar'
-	pod 'Moya', '~> 15.0.0-alpha.1'
+	pod 'Moya/Combine', '~> 15.0.0-alpha.1'
 	pod 'Kingfisher'
 end
 

@@ -11,6 +11,7 @@ import SwiftUI
 struct PMSView: View {
     @EnvironmentObject var settings: LoginSettings
     @Environment(\.presentationMode) private var presentationMode
+    @ObservedObject var loginVM = LoginViewModel()
     
     var body: some View {
         NavigationView {
@@ -33,6 +34,9 @@ struct PMSView: View {
                         self.settings.isFirstView = true
                         UDManager.shared.isFirstView = true
                         UDManager.shared.isLogin = false
+                        UDManager.shared.email = "test@test.com"
+                        UDManager.shared.password = "testpass"
+                        AuthManager.shared.refreshToken()
                     }
             }
             .navigationBarTitle("PMS", displayMode: .inline)
