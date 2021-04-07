@@ -23,10 +23,6 @@ class PMSUITests: XCTestCase {
         snapshot("0Main_View")
     }
     
-//    func test_login() {
-//        login()
-//    }
-//
     func test_CalendarView() {
         if !app.buttons["일정"].exists {
             login()
