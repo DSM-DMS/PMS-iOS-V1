@@ -27,26 +27,6 @@ platform :ios do
       derived_data_path: "~/Library/Developer/Xcode/DerivedData",
       workspace: "PMS.xcworkspace",
       scheme: "PMSTests")
-
-    slather(
-      output_directory: "./fastlane/coverage",
-      workspace: "PMS.xcworkspace",
-      html: true,
-      binary_basename: "PMS",
-      scheme: "PMSTests",
-      proj: "PMS.xcodeproj"
-  )
-  end
-
-  lane :coverage do 
-    slather(
-      output_directory: "./fastlane/coverage",
-      workspace: "PMS.xcworkspace",
-      html: true,
-      binary_basename: "PMS",
-      scheme: "PMSTests",
-      proj: "PMS.xcodeproj"
-  )
   end
 
   lane :github do
