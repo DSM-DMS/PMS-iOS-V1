@@ -83,7 +83,7 @@ class MypageViewModel: ObservableObject {
     
     private var confirmPasswordValidPublisher: AnyPublisher<PasswordValidation, Never> {
         $confirmPassword
-            .debounce(for: 0.0, scheduler: RunLoop.main)
+            .debounce(for: 0.5, scheduler: RunLoop.main)
             .map { confirmPassword in
                 if confirmPassword.isEmpty {
                     return .confirmPasswordEmpty
@@ -245,10 +245,11 @@ extension MypageViewModel {
                     self?.passwordAlert.toggle()
                     print(error)
                 }
-            }, receiveValue: { [weak self] _ in
-                UDManager.shared.password = password
-                self?.passwordSuccessAlert.toggle()
-            })
+                if case .finished = completion {
+                    UDManager.shared.password = password
+                    self?.passwordSuccessAlert.toggle()
+                }
+            }, receiveValue: { _ in })
             .store(in: &bag)
     }
     

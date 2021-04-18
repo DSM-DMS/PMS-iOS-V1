@@ -23,6 +23,7 @@
 		D92A5CA7252E000100872B4C /* ClubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92A5CA6252E000100872B4C /* ClubView.swift */; };
 		D92A5CA9252E000B00872B4C /* DeveloperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92A5CA8252E000B00872B4C /* DeveloperView.swift */; };
 		D92A5CAB252E001800872B4C /* CompanyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92A5CAA252E001800872B4C /* CompanyView.swift */; };
+		D9355C412629A9AE00923106 /* MypageRemoteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9355C402629A9AD00923106 /* MypageRemoteDataSource.swift */; };
 		D939520626199DBE00683132 /* Meal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D939520526199DBE00683132 /* Meal.swift */; };
 		D93952272619E88A00683132 /* ImageDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93952262619E88A00683132 /* ImageDetailView.swift */; };
 		D939522C2619E8B900683132 /* PinchToZoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = D939522B2619E8B900683132 /* PinchToZoom.swift */; };
@@ -114,6 +115,7 @@
 		D92A5CA6252E000100872B4C /* ClubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubView.swift; sourceTree = "<group>"; };
 		D92A5CA8252E000B00872B4C /* DeveloperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeveloperView.swift; sourceTree = "<group>"; };
 		D92A5CAA252E001800872B4C /* CompanyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyView.swift; sourceTree = "<group>"; };
+		D9355C402629A9AD00923106 /* MypageRemoteDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageRemoteDataSource.swift; sourceTree = "<group>"; };
 		D939520526199DBE00683132 /* Meal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Meal.swift; sourceTree = "<group>"; };
 		D93952262619E88A00683132 /* ImageDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDetailView.swift; sourceTree = "<group>"; };
 		D939522B2619E8B900683132 /* PinchToZoom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinchToZoom.swift; sourceTree = "<group>"; };
@@ -229,10 +231,9 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		D903E5AE252A9678004F09D6 /* View */ = {
+		D903E5AE252A9678004F09D6 /* PMSScene */ = {
 			isa = PBXGroup;
 			children = (
-				D903E5CA252AA31A004F09D6 /* ExViews.swift */,
 				D953742F25FA026E00EE1BF1 /* Lottie */,
 				D988769C253706DE00B4D439 /* Home */,
 				D903E5B0252A968D004F09D6 /* Mypage */,
@@ -241,9 +242,8 @@
 				D903E5C8252AA2C4004F09D6 /* Introduce */,
 				D903E5C6252AA2B5004F09D6 /* Notice */,
 				D903E5B1252A98FF004F09D6 /* Login */,
-				D9BD706D2532A02100186C12 /* ContentView.swift */,
 			);
-			path = View;
+			path = PMSScene;
 			sourceTree = "<group>";
 		};
 		D903E5AF252A967C004F09D6 /* Extensions */ = {
@@ -255,6 +255,8 @@
 				D9A15014252AC69200AD501A /* UIColorRgb.swift */,
 				D988760D25349B2F00B4D439 /* Keyboard.swift */,
 				D939525F261AE16E00683132 /* GEColor.swift */,
+				D939522B2619E8B900683132 /* PinchToZoom.swift */,
+				D903E5CA252AA31A004F09D6 /* ExViews.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -262,14 +264,8 @@
 		D903E5B0252A968D004F09D6 /* Mypage */ = {
 			isa = PBXGroup;
 			children = (
-				D9A15007252AC5DC00AD501A /* MypageView.swift */,
-				D9A15009252AC5E400AD501A /* MypageViewModel.swift */,
-				D98162A2252EC1200052E087 /* ScoreDetailView.swift */,
-				D98162A4252ECBBC0052E087 /* OutsideDetailView.swift */,
-				D98162A6252ECBC70052E087 /* ChangePWView.swift */,
-				D968B3F0261994670051BAF5 /* PMSApi.swift */,
-				D9721F4325F8700A00EB92E8 /* studentCodeModel.swift */,
-				D9721F4825F870B000EB92E8 /* studentCodeView.swift */,
+				D9355C1E2629A57600923106 /* ViewModel */,
+				D9355C1D2629A57300923106 /* View */,
 			);
 			path = Mypage;
 			sourceTree = "<group>";
@@ -277,12 +273,8 @@
 		D903E5B1252A98FF004F09D6 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				D903E5B2252A990A004F09D6 /* LoginView.swift */,
-				D903E5B4252A9916004F09D6 /* LoginViewModel.swift */,
-				D903E5B6252A9B8D004F09D6 /* PMSView.swift */,
-				D928A7D7252AAF4700FD6CB2 /* SignUpViewModel.swift */,
-				D9A14FFB252AC13A00AD501A /* SignupView.swift */,
-				D95CDFA225F90AC800BEC04A /* SuccessView.swift */,
+				D9355C242629A5ED00923106 /* ViewModel */,
+				D9355C232629A5EA00923106 /* View */,
 				D9105CCD2608105A00EC3DA9 /* AuthManager.swift */,
 				D9105CD2260812E500EC3DA9 /* UDManager.swift */,
 			);
@@ -311,11 +303,8 @@
 		D903E5C6252AA2B5004F09D6 /* Notice */ = {
 			isa = PBXGroup;
 			children = (
-				D9A14FFD252AC15000AD501A /* NoticeView.swift */,
-				D9A14FFF252AC15900AD501A /* NoticeViewModel.swift */,
-				D95FFF99252FEC6600446865 /* NoticeDetailView.swift */,
-				D98DD19D2530A4FC001EFFA9 /* NoticeDetailViewModel.swift */,
-				D98875F22533E4FB00B4D439 /* PDFKitView.swift */,
+				D9355C222629A5D800923106 /* ViewModel */,
+				D9355C212629A5D500923106 /* View */,
 			);
 			path = Notice;
 			sourceTree = "<group>";
@@ -327,6 +316,133 @@
 				D98DD1A325314EC2001EFFA9 /* View */,
 			);
 			path = Introduce;
+			sourceTree = "<group>";
+		};
+		D9355C0F26299FBA00923106 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				D903E5AE252A9678004F09D6 /* PMSScene */,
+				D903E5AF252A967C004F09D6 /* Extensions */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		D9355C1026299FC200923106 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		D9355C1126299FC600923106 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				D9355C3F2629A99100923106 /* Mypage */,
+				D9355C122629A4D300923106 /* Models */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		D9355C122629A4D300923106 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				D9721F3A25F85BBB00EB92E8 /* Auth.swift */,
+				D953746925FAF28200EE1BF1 /* Student.swift */,
+				D939520526199DBE00683132 /* Meal.swift */,
+				D939523F261A839800683132 /* Introduce.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		D9355C1D2629A57300923106 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D9A15007252AC5DC00AD501A /* MypageView.swift */,
+				D98162A2252EC1200052E087 /* ScoreDetailView.swift */,
+				D98162A4252ECBBC0052E087 /* OutsideDetailView.swift */,
+				D98162A6252ECBC70052E087 /* ChangePWView.swift */,
+				D9721F4825F870B000EB92E8 /* studentCodeView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		D9355C1E2629A57600923106 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				D9A15009252AC5E400AD501A /* MypageViewModel.swift */,
+				D9721F4325F8700A00EB92E8 /* studentCodeModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		D9355C212629A5D500923106 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D9A14FFD252AC15000AD501A /* NoticeView.swift */,
+				D95FFF99252FEC6600446865 /* NoticeDetailView.swift */,
+				D98875F22533E4FB00B4D439 /* PDFKitView.swift */,
+				D98875FF253474D500B4D439 /* testPdf.pdf */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		D9355C222629A5D800923106 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				D98DD19D2530A4FC001EFFA9 /* NoticeDetailViewModel.swift */,
+				D9A14FFF252AC15900AD501A /* NoticeViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		D9355C232629A5EA00923106 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D903E5B2252A990A004F09D6 /* LoginView.swift */,
+				D903E5B6252A9B8D004F09D6 /* PMSView.swift */,
+				D9A14FFB252AC13A00AD501A /* SignupView.swift */,
+				D95CDFA225F90AC800BEC04A /* SuccessView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		D9355C242629A5ED00923106 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				D903E5B4252A9916004F09D6 /* LoginViewModel.swift */,
+				D928A7D7252AAF4700FD6CB2 /* SignUpViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		D9355C252629A61100923106 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				D94AC77D2524D2D0002CCB3A /* SceneDelegate.swift */,
+				D9BD706D2532A02100186C12 /* ContentView.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		D9355C262629A62A00923106 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				D95CDFA725F90FEE00BEC04A /* PMS.entitlements */,
+				D94AC77B2524D2D0002CCB3A /* AppDelegate.swift */,
+				D94AC7812524D2D3002CCB3A /* Assets.xcassets */,
+				D94AC7862524D2D3002CCB3A /* LaunchScreen.storyboard */,
+				D94AC7892524D2D3002CCB3A /* Info.plist */,
+				D94AC7832524D2D3002CCB3A /* Preview Content */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		D9355C3F2629A99100923106 /* Mypage */ = {
+			isa = PBXGroup;
+			children = (
+				D9355C402629A9AD00923106 /* MypageRemoteDataSource.swift */,
+			);
+			path = Mypage;
 			sourceTree = "<group>";
 		};
 		D94AC76F2524D2D0002CCB3A = {
@@ -354,17 +470,12 @@
 		D94AC77A2524D2D0002CCB3A /* PMS */ = {
 			isa = PBXGroup;
 			children = (
-				D95CDFA725F90FEE00BEC04A /* PMS.entitlements */,
+				D9355C262629A62A00923106 /* Resource */,
+				D9355C252629A61100923106 /* Application */,
+				D9355C1126299FC600923106 /* Data */,
+				D9355C1026299FC200923106 /* Domain */,
+				D9355C0F26299FBA00923106 /* Presentation */,
 				D988761D25352B6400B4D439 /* Networking */,
-				D903E5AF252A967C004F09D6 /* Extensions */,
-				D903E5AE252A9678004F09D6 /* View */,
-				D94AC77B2524D2D0002CCB3A /* AppDelegate.swift */,
-				D94AC77D2524D2D0002CCB3A /* SceneDelegate.swift */,
-				D98875FF253474D500B4D439 /* testPdf.pdf */,
-				D94AC7812524D2D3002CCB3A /* Assets.xcassets */,
-				D94AC7862524D2D3002CCB3A /* LaunchScreen.storyboard */,
-				D94AC7892524D2D3002CCB3A /* Info.plist */,
-				D94AC7832524D2D3002CCB3A /* Preview Content */,
 			);
 			path = PMS;
 			sourceTree = "<group>";
@@ -406,21 +517,10 @@
 			path = Lottie;
 			sourceTree = "<group>";
 		};
-		D9721EB425F7A53100EB92E8 /* ResponseModel */ = {
-			isa = PBXGroup;
-			children = (
-				D9721F3A25F85BBB00EB92E8 /* Auth.swift */,
-				D953746925FAF28200EE1BF1 /* Student.swift */,
-				D939520526199DBE00683132 /* Meal.swift */,
-				D939523F261A839800683132 /* Introduce.swift */,
-			);
-			path = ResponseModel;
-			sourceTree = "<group>";
-		};
 		D988761D25352B6400B4D439 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
-				D9721EB425F7A53100EB92E8 /* ResponseModel */,
+				D968B3F0261994670051BAF5 /* PMSApi.swift */,
 				D988765525352E2500B4D439 /* AuthApi.swift */,
 				D9721EAF25F7925800EB92E8 /* APIManager.swift */,
 			);
@@ -431,7 +531,6 @@
 			isa = PBXGroup;
 			children = (
 				D988769D253706FA00B4D439 /* Home.swift */,
-				D939522B2619E8B900683132 /* PinchToZoom.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -794,6 +893,7 @@
 				D9A1501B252B29B800AD501A /* CalendarView.swift in Sources */,
 				D903E5CB252AA31A004F09D6 /* ExViews.swift in Sources */,
 				D98875F32533E4FB00B4D439 /* PDFKitView.swift in Sources */,
+				D9355C412629A9AE00923106 /* MypageRemoteDataSource.swift in Sources */,
 				D92A5CAB252E001800872B4C /* CompanyView.swift in Sources */,
 				D9721F4425F8700A00EB92E8 /* studentCodeModel.swift in Sources */,
 				D928A7D8252AAF4800FD6CB2 /* SignUpViewModel.swift in Sources */,
@@ -1014,10 +1114,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 9;
-				DEVELOPMENT_ASSET_PATHS = "\"PMS/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"PMS/Resource/Preview Content\"";
 				DEVELOPMENT_TEAM = Z25H7B85Z8;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = PMS/Info.plist;
+				INFOPLIST_FILE = PMS/Resource/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1041,11 +1141,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 9;
-				DEVELOPMENT_ASSET_PATHS = "\"PMS/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"PMS/Resource/Preview Content\"";
 				DEVELOPMENT_TEAM = Z25H7B85Z8;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_TESTABILITY = YES;
-				INFOPLIST_FILE = PMS/Info.plist;
+				INFOPLIST_FILE = PMS/Resource/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

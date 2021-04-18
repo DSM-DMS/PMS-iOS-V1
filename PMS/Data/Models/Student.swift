@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Student: Codable {
+public struct Student: Codable {
     var plus: Int
     var minus: Int
     var status: Int
@@ -22,12 +22,12 @@ struct Student: Codable {
     }
 }
 
-struct User: Codable {
+public struct User: Codable {
     var name: String
     var students: [UsersStudent]
 }
 
-struct UsersStudent: Codable {
+public struct UsersStudent: Codable {
     var name: String
     var number: Int
     
@@ -37,22 +37,22 @@ struct UsersStudent: Codable {
     }
 }
 
-struct OutsideList: Codable {
+public struct OutsideList: Codable {
     var outings: [Outside]
 }
 
-struct Outside: Codable, Hashable {
+public struct Outside: Codable, Hashable {
     var date: String
     var place: String
     var reason: String
     var type: String
 }
 
-struct PointList: Codable {
+public struct PointList: Codable {
     var points: [Point]
 }
 
-struct Point: Codable, Hashable {
+public struct Point: Codable, Hashable {
     var date: String
     var reason: String
     var point: Int
