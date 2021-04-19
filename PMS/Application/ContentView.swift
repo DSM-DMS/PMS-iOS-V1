@@ -7,16 +7,13 @@
 //
 
 import SwiftUI
-
-class NavSettings: ObservableObject {
-    @Published var isNav: Bool = false
-}
+import presentation
 
 struct ContentView: View {
     let onNav = NavSettings()
-    let maypageVM = MypageViewModel()
+//    let maypageVM = MypageViewModel()
     var body: some View {
-        Home().environmentObject(onNav).environmentObject(maypageVM)
+        Home().environmentObject(onNav).environmentObject(AppDI.shared.mypageDependencies())
     }
 }
 
