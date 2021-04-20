@@ -10,7 +10,7 @@ import Foundation
 
 public protocol MypageInteractorInterface {
     func mypage(number: Int, completion: @escaping (Result<Student, GEError>) -> Void)
-    func getStudent(completion: @escaping (Result<[User], GEError>) -> Void)
+    func getStudent(completion: @escaping (Result<User, GEError>) -> Void)
     func changeNickname(name: String, completion: @escaping (Result<Void, GEError>) -> Void)
     func changePassword(password: String, prePassword: String, completion: @escaping (Result<Void, GEError>) -> Void)
     func addStudent(number: Int, completion: @escaping (Result<Void, GEError>) -> Void)
@@ -36,7 +36,7 @@ public class MypageInteractor: MypageInteractorInterface {
         }
     }
     
-    public func getStudent(completion: @escaping (Result<[User], GEError>) -> Void) {
+    public func getStudent(completion: @escaping (Result<User, GEError>) -> Void) {
         mypageDomainRepo.getStudent { result in
             switch result {
             case let .success(success):

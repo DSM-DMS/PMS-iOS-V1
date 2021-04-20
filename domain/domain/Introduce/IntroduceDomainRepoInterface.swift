@@ -6,3 +6,8 @@
 //
 
 import Foundation
+
+public protocol IntroduceDomainRepoInterface {
+    func getClublist(completion : @escaping (Result<ClubList, GEError>) -> Void)
+    func getClub(name: String, completion: @escaping (Result<Club, GEError>) -> Void)
+}

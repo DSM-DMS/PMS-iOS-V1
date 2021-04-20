@@ -30,8 +30,8 @@ struct SignupView: View {
                     TitleTextView(text: "회원가입")
                         .padding(.bottom, self.edges!.bottom == 0 ? 15 : 50)
                     VStack(spacing: 30) {
-                        CustomTextField(isLogin: false, text: self.$signupVM.nickname, placeholder: "닉네임을 입력해주세요", image: "pencil-1")
-                        CustomTextField(isLogin: false, text: self.$signupVM.id, placeholder: "이메일을 입력해주세요", image: "person")
+                        CustomTextField(isLogin: false, text: self.$signupVM.nickname, placeholder: "닉네임을 입력해주세요", image: GEImage.nicknamePencil)
+                        CustomTextField(isLogin: false, text: self.$signupVM.id, placeholder: "이메일을 입력해주세요", image: GEImage.person)
                         PasswordTextField(isLogin: false, errorMsg: self.$signupVM.passwordErrorMsg, text: self.$signupVM.password, isHidden: self.$signupVM.isHidden)
                         CheckTextField(text: self.$signupVM.confirmPassword, isError: self.$signupVM.confirmIsError, placeholder: "비밀번호를 한번 더 입력해주세요", isChange: false, errorMsg: self.$signupVM.confirmErrorMsg)
                     }
@@ -47,7 +47,7 @@ struct SignupView: View {
                         .navigationBarItems(leading: Button(action: {
                             self.mode.wrappedValue.dismiss()
                         }) {
-                            Image("NavArrow")
+                            GEImage.navArrow
                         })
                 }
                 .padding([.leading, .trailing], 30)
@@ -101,13 +101,13 @@ struct CheckTextField: View {
             HStack(spacing: 20) {
                 if !isChange {
                     if text != "" {
-                        Image("check")
+                        GEImage.check
                             .modifier(Template())
                             .frame(width: 20, height: 20)
                             .foregroundColor(isChange ? GEColor.blue : GEColor.red)
                             .padding(.leading, 10)
                     } else {
-                        Image("check")
+                        GEImage.check
                             .modifier(Template())
                             .frame(width: 20, height: 20)
                             .padding(.leading, 10)
@@ -117,7 +117,7 @@ struct CheckTextField: View {
                 Spacer()
                 VStack {
                     if text != "" {
-                        Image(systemName: SFSymbolKey.check.rawValue)
+                        GEImage.search
                             .resizable()
                             .frame(width: 17, height: 20)
                             .foregroundColor(isError ? .red : .green)

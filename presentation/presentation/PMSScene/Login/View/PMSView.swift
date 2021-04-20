@@ -24,7 +24,7 @@ public struct PMSView: View {
     public var body: some View {
         NavigationView {
             VStack(spacing: UIFrame.UIWidth / 4) {
-                Image("PMS")
+                GEImage.pms
                 VStack(spacing: 30) {
                     NavigationLink(destination: LoginView(appDI: appDI, loginVM: loginVM)) {
                         ButtonView(text: "로그인", color: GEEColor.blue.rawValue)

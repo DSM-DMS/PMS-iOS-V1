@@ -23,7 +23,7 @@ struct MealView: View {
                 TitleTextView(text: "급식")
                 VStack(spacing: UIFrame.UIHeight / 20) {
                     HStack {
-                        Image("leftArrow-1")
+                        GEImage.blackLeftArrow
                             .renderingMode(.template)
                             .foregroundColor(GEColor.black)
                             .onTapGesture {
@@ -32,7 +32,7 @@ struct MealView: View {
                         Spacer()
                         Text(self.mealVM.today)
                         Spacer()
-                        Image("rightArrow-1")
+                        GEImage.blackRightArrow
                             .renderingMode(.template)
                             .foregroundColor(GEColor.black)
                             .onTapGesture {
@@ -104,7 +104,7 @@ struct MealView: View {
 
 struct ImageCircle: View {
     var body: some View {
-        Image(systemName: SFSymbolKey.circle.rawValue)
+        GEImage.circle
             .resizable()
             .frame(width: 10, height: 10)
     }

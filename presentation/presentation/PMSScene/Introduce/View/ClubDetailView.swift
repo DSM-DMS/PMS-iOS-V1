@@ -57,7 +57,7 @@ public struct ClubDetailView: View {
         .navigationBarItems(leading: Button(action: {
             self.mode.wrappedValue.dismiss()
         }) {
-            Image("NavArrow")
+            GEImage.navArrow
         })
         .modifier(backDrag(offset: self.$offset))
     }

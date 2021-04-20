@@ -7,17 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D91F3360262D868300E87F47 /* AuthDataRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91F335F262D868300E87F47 /* AuthDataRepo.swift */; };
+		D91F337C262DB42600E87F47 /* MealRemoteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91F337B262DB42600E87F47 /* MealRemoteDataSource.swift */; };
+		D91F337E262DB4DA00E87F47 /* MealDataRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91F337D262DB4DA00E87F47 /* MealDataRepo.swift */; };
+		D91F3389262DBC0900E87F47 /* IntroduceRemoteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91F3388262DBC0900E87F47 /* IntroduceRemoteDataSource.swift */; };
+		D91F338B262DBC1200E87F47 /* IntroduceDataRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91F338A262DBC1200E87F47 /* IntroduceDataRepo.swift */; };
 		D9CEEC1F262C6054002F9566 /* data.h in Headers */ = {isa = PBXBuildFile; fileRef = D9CEEC1D262C6054002F9566 /* data.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D9CEEC5C262C6113002F9566 /* domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9CEEC5B262C6113002F9566 /* domain.framework */; };
 		D9CEEC5D262C6113002F9566 /* domain.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D9CEEC5B262C6113002F9566 /* domain.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D9CEEE75262D015E002F9566 /* MypageRemoteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CEEC65262C6137002F9566 /* MypageRemoteDataSource.swift */; };
 		D9CEEE76262D0161002F9566 /* MypageLocalDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CEEC66262C6137002F9566 /* MypageLocalDataSource.swift */; };
 		D9CEEE77262D0164002F9566 /* MypageDataRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CEEC67262C6137002F9566 /* MypageDataRepo.swift */; };
-		D9CF9162262D13A7000A37C9 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CF915D262D13A5000A37C9 /* AuthManager.swift */; };
 		D9CF9163262D13A7000A37C9 /* PMSApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CF915E262D13A6000A37C9 /* PMSApi.swift */; };
 		D9CF9165262D13A7000A37C9 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CF9160262D13A7000A37C9 /* APIManager.swift */; };
 		D9CF9166262D13A7000A37C9 /* AuthApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CF9161262D13A7000A37C9 /* AuthApi.swift */; };
 		D9CF916B262D13BE000A37C9 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = D9CF916A262D13BE000A37C9 /* Moya */; };
+		D9CF91B0262D4844000A37C9 /* LoginRemoteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CF91AF262D4844000A37C9 /* LoginRemoteDataSource.swift */; };
+		D9CF91B2262D4A03000A37C9 /* LoginDataRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CF91B1262D4A03000A37C9 /* LoginDataRepo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -35,6 +41,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		D91F335F262D868300E87F47 /* AuthDataRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDataRepo.swift; sourceTree = "<group>"; };
+		D91F337B262DB42600E87F47 /* MealRemoteDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealRemoteDataSource.swift; sourceTree = "<group>"; };
+		D91F337D262DB4DA00E87F47 /* MealDataRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealDataRepo.swift; sourceTree = "<group>"; };
+		D91F3388262DBC0900E87F47 /* IntroduceRemoteDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroduceRemoteDataSource.swift; sourceTree = "<group>"; };
+		D91F338A262DBC1200E87F47 /* IntroduceDataRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroduceDataRepo.swift; sourceTree = "<group>"; };
 		D9CEEC1A262C6054002F9566 /* data.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = data.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9CEEC1D262C6054002F9566 /* data.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = data.h; sourceTree = "<group>"; };
 		D9CEEC1E262C6054002F9566 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -42,10 +53,11 @@
 		D9CEEC65262C6137002F9566 /* MypageRemoteDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageRemoteDataSource.swift; sourceTree = "<group>"; };
 		D9CEEC66262C6137002F9566 /* MypageLocalDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageLocalDataSource.swift; sourceTree = "<group>"; };
 		D9CEEC67262C6137002F9566 /* MypageDataRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageDataRepo.swift; sourceTree = "<group>"; };
-		D9CF915D262D13A5000A37C9 /* AuthManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		D9CF915E262D13A6000A37C9 /* PMSApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PMSApi.swift; sourceTree = "<group>"; };
 		D9CF9160262D13A7000A37C9 /* APIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		D9CF9161262D13A7000A37C9 /* AuthApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthApi.swift; sourceTree = "<group>"; };
+		D9CF91AF262D4844000A37C9 /* LoginRemoteDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRemoteDataSource.swift; sourceTree = "<group>"; };
+		D9CF91B1262D4A03000A37C9 /* LoginDataRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginDataRepo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +73,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D91F3387262DBBFD00E87F47 /* Introduce */ = {
+			isa = PBXGroup;
+			children = (
+				D91F3388262DBC0900E87F47 /* IntroduceRemoteDataSource.swift */,
+				D91F338A262DBC1200E87F47 /* IntroduceDataRepo.swift */,
+			);
+			path = Introduce;
+			sourceTree = "<group>";
+		};
 		D9CEEC10262C6054002F9566 = {
 			isa = PBXGroup;
 			children = (
@@ -81,7 +102,9 @@
 		D9CEEC1C262C6054002F9566 /* data */ = {
 			isa = PBXGroup;
 			children = (
-				D9CF915C262D139A000A37C9 /* Manager */,
+				D91F3387262DBBFD00E87F47 /* Introduce */,
+				D9CF9194262D4076000A37C9 /* Login */,
+				D9CF915C262D139A000A37C9 /* Network */,
 				D9CEEC64262C6136002F9566 /* Meal */,
 				D9CEEC68262C6137002F9566 /* Mypage */,
 				D9CEEC1D262C6054002F9566 /* data.h */,
@@ -101,6 +124,8 @@
 		D9CEEC64262C6136002F9566 /* Meal */ = {
 			isa = PBXGroup;
 			children = (
+				D91F337B262DB42600E87F47 /* MealRemoteDataSource.swift */,
+				D91F337D262DB4DA00E87F47 /* MealDataRepo.swift */,
 			);
 			path = Meal;
 			sourceTree = "<group>";
@@ -115,15 +140,24 @@
 			path = Mypage;
 			sourceTree = "<group>";
 		};
-		D9CF915C262D139A000A37C9 /* Manager */ = {
+		D9CF915C262D139A000A37C9 /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				D9CF915D262D13A5000A37C9 /* AuthManager.swift */,
 				D9CF915E262D13A6000A37C9 /* PMSApi.swift */,
 				D9CF9161262D13A7000A37C9 /* AuthApi.swift */,
 				D9CF9160262D13A7000A37C9 /* APIManager.swift */,
+				D91F335F262D868300E87F47 /* AuthDataRepo.swift */,
 			);
-			path = Manager;
+			path = Network;
+			sourceTree = "<group>";
+		};
+		D9CF9194262D4076000A37C9 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				D9CF91AF262D4844000A37C9 /* LoginRemoteDataSource.swift */,
+				D9CF91B1262D4A03000A37C9 /* LoginDataRepo.swift */,
+			);
+			path = Login;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -213,11 +247,17 @@
 			files = (
 				D9CF9163262D13A7000A37C9 /* PMSApi.swift in Sources */,
 				D9CEEE75262D015E002F9566 /* MypageRemoteDataSource.swift in Sources */,
-				D9CF9162262D13A7000A37C9 /* AuthManager.swift in Sources */,
+				D91F3389262DBC0900E87F47 /* IntroduceRemoteDataSource.swift in Sources */,
+				D9CF91B0262D4844000A37C9 /* LoginRemoteDataSource.swift in Sources */,
 				D9CF9166262D13A7000A37C9 /* AuthApi.swift in Sources */,
 				D9CEEE77262D0164002F9566 /* MypageDataRepo.swift in Sources */,
+				D91F337C262DB42600E87F47 /* MealRemoteDataSource.swift in Sources */,
 				D9CEEE76262D0161002F9566 /* MypageLocalDataSource.swift in Sources */,
+				D91F337E262DB4DA00E87F47 /* MealDataRepo.swift in Sources */,
 				D9CF9165262D13A7000A37C9 /* APIManager.swift in Sources */,
+				D91F3360262D868300E87F47 /* AuthDataRepo.swift in Sources */,
+				D9CF91B2262D4A03000A37C9 /* LoginDataRepo.swift in Sources */,
+				D91F338B262DBC1200E87F47 /* IntroduceDataRepo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

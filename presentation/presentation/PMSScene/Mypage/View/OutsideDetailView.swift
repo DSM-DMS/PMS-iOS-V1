@@ -34,7 +34,7 @@ struct OutsideDetailView: View {
             self.mode.wrappedValue.dismiss()
             self.settings.isNav = false
         }) {
-            Image("NavArrow")
+            GEImage.navArrow
                 .foregroundColor(.black)
         })
         .modifier(backDrag(offset: self.$offset))

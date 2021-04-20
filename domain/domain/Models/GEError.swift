@@ -6,3 +6,12 @@
 //
 
 import Foundation
+
+public enum GEError: Error {
+    case noInternet
+    case unauthorized
+    case forbidden
+    case notFound
+    case mappingError
+    case error
+}

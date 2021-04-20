@@ -40,7 +40,7 @@ struct NoticeDetailView: View {
                 self.mode.wrappedValue.dismiss()
                 self.settings.isNav = false
             }) {
-                Image("NavArrow")
+                GEImage.navArrow
             })
             .modifier(backDrag(offset: self.$offset))
             VStack(spacing: -10) {
@@ -65,7 +65,7 @@ struct NoticeDetailView: View {
                                 self.NoticeDetailVM.pdfAlert = false
                         }
                     HStack(spacing: 20) {
-                        Image("Download")
+                        GEImage.download
                             .onTapGesture {
                                 self.NoticeDetailVM.downloadFile(fileName: self.NoticeDetailVM.pdfTitle)
                             }
@@ -125,7 +125,7 @@ struct NoticeDetailTopView: View {
                 }
             }
             Spacer()
-            Image("Clip")
+            GEImage.clip
                 .onTapGesture {
                     withAnimation {
                         self.isAlert.toggle()
@@ -170,7 +170,7 @@ struct CustomCommentView: View {
                     TextField("댓글을 남겨주세요", text: $text).padding(.leading, 10)
                 }
                 
-                Image("Enter")
+                GEImage.enter
             }.padding([.leading, .trailing], 20)
             .padding(.bottom, 10)
         }

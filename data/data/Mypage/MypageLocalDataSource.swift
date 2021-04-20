@@ -10,7 +10,7 @@ import Foundation
 import domain
 
 public protocol MypageLocalDataSourceInterface {
-    func getCachedStudent(completion: @escaping (Result<Student, Error>) -> Void)
+    func getCachedStudent(completion: @escaping (Result<Student, GEError>) -> Void)
 }
 
 public class MypageLocalDataSource: MypageLocalDataSourceInterface {
@@ -19,7 +19,7 @@ public class MypageLocalDataSource: MypageLocalDataSourceInterface {
         
     }
     
-    public func getCachedStudent(completion: @escaping (Result<Student, Error>) -> Void) {
+    public func getCachedStudent(completion: @escaping (Result<Student, GEError>) -> Void) {
         // Coredata
         // Realm
     }

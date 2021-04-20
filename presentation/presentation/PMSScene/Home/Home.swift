@@ -169,7 +169,7 @@ public struct Home: View {
                                                     mypageVM.apply(.onAppear)
                                                 }
                                             Spacer()
-                                            Image("Minus")
+                                            GEImage.minus
                                                 .onTapGesture {
                                                     selectedStudent = user
                                                     withAnimation {
@@ -185,7 +185,7 @@ public struct Home: View {
                             
                             HStack {
                                 HStack {
-                                    Image("CirclePlus")
+                                    GEImage.circlePlus
                                     Text("학생 추가하기")
                                 }.onTapGesture {
                                     withAnimation {
@@ -275,7 +275,11 @@ public struct Home: View {
                 }.edgesIgnoringSafeArea([.top, .bottom])
             }
         }.onAppear {
-            self.offset = 0
+            if #available(iOS 14, *) {
+                self.offset = 0
+            } else {
+                self.offset = UIScreen.main.bounds.width * 2
+            }
         }
     }
 }
@@ -309,40 +313,76 @@ struct AppBar: View {
                     .offset(x: UIFrame.UIWidth / 6 * CGFloat(index - 1) + UIFrame.UIWidth / 45 * CGFloat(index - 1))
                     .animation(.default)
             }
-            HStack {
-                Button(action: {
-                    self.index = 1
-                    self.offset = 0
-                }) {
-                    TabButtonView(image: "Calendar", text: "일정", index: self.$index, buttonIndex: 1)
+            if #available(iOS 14, *) {
+                HStack {
+                    Button(action: {
+                        self.index = 1
+                        self.offset = 0
+                    }) {
+                        TabButtonView(image: GEImage.calendar, text: "일정", index: self.$index, buttonIndex: 1)
+                    }
+                    Button(action: {
+                        self.index = 2
+                        self.offset = -self.width
+                    }) {
+                        TabButtonView(image: GEImage.meal, text: "급식", index: self.$index, buttonIndex: 2)
+                    }
+                    
+                    Button(action: {
+                        self.index = 3
+                        self.offset = -self.width * 2
+                    }) {
+                        TabButtonView(image: GEImage.notice, text: "공지", index: self.$index, buttonIndex: 3)
+                    }
+                    
+                    Button(action: {
+                        self.index = 4
+                        self.offset = -self.width * 3
+                    }) {
+                        TabButtonView(image: GEImage.introduce, text: "소개", index: self.$index, buttonIndex: 4)
+                    }
+                    Button(action: {
+                        self.index = 5
+                        self.offset = -self.width * 4
+                    }) {
+                        TabButtonView(image: GEImage.mypage, text: "내 정보", index: self.$index, buttonIndex: 5)
+                    }
                 }
-                Button(action: {
-                    self.index = 2
-                    self.offset = -self.width
-                }) {
-                    TabButtonView(image: "Meal", text: "급식", index: self.$index, buttonIndex: 2)
+            } else {
+                HStack {
+                    Button(action: {
+                        self.index = 1
+                        self.offset = self.width * 2
+                    }) {
+                        TabButtonView(image: GEImage.calendar, text: "일정", index: self.$index, buttonIndex: 1)
+                    }
+                    Button(action: {
+                        self.index = 2
+                        self.offset = self.width
+                    }) {
+                        TabButtonView(image: GEImage.meal, text: "급식", index: self.$index, buttonIndex: 2)
+                    }
+                    
+                    Button(action: {
+                        self.index = 3
+                        self.offset = 0
+                    }) {
+                        TabButtonView(image: GEImage.notice, text: "공지", index: self.$index, buttonIndex: 3)
+                    }
+                    
+                    Button(action: {
+                        self.index = 4
+                        self.offset = -self.width
+                    }) {
+                        TabButtonView(image: GEImage.introduce, text: "소개", index: self.$index, buttonIndex: 4)
+                    }
+                    Button(action: {
+                        self.index = 5
+                        self.offset = -self.width * 2
+                    }) {
+                        TabButtonView(image: GEImage.mypage, text: "내 정보", index: self.$index, buttonIndex: 5)
+                    }
                 }
-                
-                Button(action: {
-                    self.index = 3
-                    self.offset = -self.width * 2
-                }) {
-                    TabButtonView(image: "Notice", text: "공지", index: self.$index, buttonIndex: 3)
-                }
-                
-                Button(action: {
-                    self.index = 4
-                    self.offset = -self.width * 3
-                }) {
-                    TabButtonView(image: "Introduce", text: "소개", index: self.$index, buttonIndex: 4)
-                }
-                Button(action: {
-                    self.index = 5
-                    self.offset = -self.width * 4
-                }) {
-                    TabButtonView(image: "Mypage", text: "내 정보", index: self.$index, buttonIndex: 5)
-                }
-                
             }
         })
         .padding(.horizontal)

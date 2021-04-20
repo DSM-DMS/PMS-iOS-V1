@@ -41,7 +41,7 @@ struct ChangePWView: View {
                 self.mode.wrappedValue.dismiss()
                 self.settings.isNav = false
             }) {
-                Image("NavArrow")
+                GEImage.navArrow
                     .foregroundColor(.black)
             })
             if self.mypageVM.passwordAlert == true {
@@ -114,7 +114,7 @@ struct ChangePWTextField: View {
                     Button(action: {
                         self.isHidden.toggle()
                     }) {
-                        Image(systemName: SFSymbolKey.eye.rawValue)
+                        GEImage.eyeFill
                             .resizable()
                             .frame(width: 25, height: 15)
                             .foregroundColor(.gray)

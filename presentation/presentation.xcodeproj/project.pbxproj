@@ -9,10 +9,9 @@
 /* Begin PBXBuildFile section */
 		D9CEED77262C7CCE002F9566 /* presentation.h in Headers */ = {isa = PBXBuildFile; fileRef = D9CEED75262C7CCE002F9566 /* presentation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D9CEEDC2262C7CE5002F9566 /* PinchToZoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CEED7F262C7CE5002F9566 /* PinchToZoom.swift */; };
-		D9CEEDC3262C7CE5002F9566 /* GEColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CEED80262C7CE5002F9566 /* GEColor.swift */; };
+		D9CEEDC3262C7CE5002F9566 /* GEExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CEED80262C7CE5002F9566 /* GEExtension.swift */; };
 		D9CEEDC4262C7CE5002F9566 /* ExViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CEED81262C7CE5002F9566 /* ExViews.swift */; };
 		D9CEEDC5262C7CE5002F9566 /* UIColorRgb.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CEED82262C7CE5002F9566 /* UIColorRgb.swift */; };
-		D9CEEDC6262C7CE5002F9566 /* SFSymbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CEED83262C7CE5002F9566 /* SFSymbols.swift */; };
 		D9CEEDC7262C7CE5002F9566 /* UIFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CEED84262C7CE5002F9566 /* UIFrame.swift */; };
 		D9CEEDC8262C7CE5002F9566 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CEED85262C7CE5002F9566 /* Validation.swift */; };
 		D9CEEDC9262C7CE5002F9566 /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CEED86262C7CE5002F9566 /* Keyboard.swift */; };
@@ -82,10 +81,9 @@
 		D9CEED75262C7CCE002F9566 /* presentation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = presentation.h; sourceTree = "<group>"; };
 		D9CEED76262C7CCE002F9566 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D9CEED7F262C7CE5002F9566 /* PinchToZoom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinchToZoom.swift; sourceTree = "<group>"; };
-		D9CEED80262C7CE5002F9566 /* GEColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GEColor.swift; sourceTree = "<group>"; };
+		D9CEED80262C7CE5002F9566 /* GEExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GEExtension.swift; sourceTree = "<group>"; };
 		D9CEED81262C7CE5002F9566 /* ExViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExViews.swift; sourceTree = "<group>"; };
 		D9CEED82262C7CE5002F9566 /* UIColorRgb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorRgb.swift; sourceTree = "<group>"; };
-		D9CEED83262C7CE5002F9566 /* SFSymbols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFSymbols.swift; sourceTree = "<group>"; };
 		D9CEED84262C7CE5002F9566 /* UIFrame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIFrame.swift; sourceTree = "<group>"; };
 		D9CEED85262C7CE5002F9566 /* Validation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
 		D9CEED86262C7CE5002F9566 /* Keyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keyboard.swift; sourceTree = "<group>"; };
@@ -197,10 +195,9 @@
 			isa = PBXGroup;
 			children = (
 				D9CEED7F262C7CE5002F9566 /* PinchToZoom.swift */,
-				D9CEED80262C7CE5002F9566 /* GEColor.swift */,
+				D9CEED80262C7CE5002F9566 /* GEExtension.swift */,
 				D9CEED81262C7CE5002F9566 /* ExViews.swift */,
 				D9CEED82262C7CE5002F9566 /* UIColorRgb.swift */,
-				D9CEED83262C7CE5002F9566 /* SFSymbols.swift */,
 				D9CEED84262C7CE5002F9566 /* UIFrame.swift */,
 				D9CEED85262C7CE5002F9566 /* Validation.swift */,
 				D9CEED86262C7CE5002F9566 /* Keyboard.swift */,
@@ -530,11 +527,10 @@
 				D9CEEDE3262C7CE6002F9566 /* ChangePWView.swift in Sources */,
 				D9CEEDE0262C7CE5002F9566 /* ScoreDetailView.swift in Sources */,
 				D9CEEDDC262C7CE5002F9566 /* NoticeDetailView.swift in Sources */,
-				D9CEEDC6262C7CE5002F9566 /* SFSymbols.swift in Sources */,
 				D9CEEDDD262C7CE5002F9566 /* studentCodeModel.swift in Sources */,
 				D9CEEDED262C7CE6002F9566 /* SuccessView.swift in Sources */,
 				D9CEEDE9262C7CE6002F9566 /* LoginViewModel.swift in Sources */,
-				D9CEEDC3262C7CE5002F9566 /* GEColor.swift in Sources */,
+				D9CEEDC3262C7CE5002F9566 /* GEExtension.swift in Sources */,
 				D9CEEDE1262C7CE5002F9566 /* studentCodeView.swift in Sources */,
 				D9CEEDE5262C7CE6002F9566 /* MealView.swift in Sources */,
 				D9CEEDC5262C7CE5002F9566 /* UIColorRgb.swift in Sources */,

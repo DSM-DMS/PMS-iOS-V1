@@ -174,7 +174,8 @@ struct MypageTopView: View {
                 Text(!UDManager.shared.isLogin ? "로그인 안함" : nickname)
                     .font(.title)
                     .foregroundColor(.white)
-                Image("Pencil")
+                GEImage.pencil
+                    .foregroundColor(.white)
             }
             Spacer()
             Button(action: {
@@ -186,7 +187,8 @@ struct MypageTopView: View {
                     Text(self.student)
                         .font(.headline)
                         .foregroundColor(.white)
-                    Image("BottomArrow")
+                    GEImage.bottomArrow
+                        .foregroundColor(.white)
                 }
             })
             .disabled(!UDManager.shared.isLogin)

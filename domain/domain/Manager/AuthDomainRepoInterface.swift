@@ -6,3 +6,8 @@
 //
 
 import Foundation
+
+public protocol AuthDomainRepoInterface {
+    func refreshToken()
+    func getStudent()
+}

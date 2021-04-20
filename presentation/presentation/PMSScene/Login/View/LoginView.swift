@@ -32,7 +32,7 @@ struct LoginView: View {
                     
                     VStack(alignment: .leading) {
                         VStack(spacing: 30) {
-                            CustomTextField(isLogin: true, text: self.$loginVM.id, placeholder: "아이디를 입력해주세요", image: "person")
+                            CustomTextField(isLogin: true, text: self.$loginVM.id, placeholder: "아이디를 입력해주세요", image: GEImage.person)
                             PasswordTextField(isLogin: true, errorMsg: .constant(""), text: self.$loginVM.password, isHidden: self.$loginVM.isHidden)
                         }.padding(.bottom, 10)
                     }
@@ -49,7 +49,7 @@ struct LoginView: View {
                 .navigationBarItems(leading: Button(action: {
                     self.mode.wrappedValue.dismiss()
                 }) {
-                    Image("NavArrow")
+                    GEImage.navArrow
                 })
             }
             VStack {
@@ -123,12 +123,12 @@ struct PasswordTextField: View {
         VStack(spacing: 10) {
             HStack(spacing: 20) {
                 if text != "" {
-                    Image("lock")
+                    GEImage.lock
                         .modifier(Template())
                         .frame(width: 15, height: 20)
                         .foregroundColor(isLogin ? GEColor.blue : GEColor.red)
                 } else {
-                    Image("lock")
+                    GEImage.lock
                         .modifier(Template())
                         .frame(width: 15, height: 20)
                 }
@@ -143,7 +143,7 @@ struct PasswordTextField: View {
                     Button(action: {
                         self.isHidden.toggle()
                     }) {
-                        Image(systemName: "eye.fill")
+                        GEImage.eyeFill
                             .resizable()
                             .frame(width: 25, height: 15)
                             .foregroundColor(.gray)
@@ -188,16 +188,16 @@ struct PasswordTextField: View {
 struct OAuthView: View {
     var body: some View {
         HStack(spacing: 10) {
-            Image("Facebook")
+            GEImage.facebook
                 .resizable()
                 .frame(width: 70, height: 70)
-            Image("Naver")
+            GEImage.naver
                 .resizable()
                 .frame(width: 70, height: 70)
-            Image("KakaoTalk")
+            GEImage.kakaotalk
                 .resizable()
                 .frame(width: 70, height: 70)
-            Image("Apple")
+            GEImage.apple
                 .resizable()
                 .frame(width: 70, height: 70)
         }

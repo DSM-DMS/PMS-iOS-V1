@@ -43,9 +43,9 @@ struct NoticeView: View {
                             }
                         }.frame(height: UIFrame.UIHeight / 2)
                         HStack(spacing: 25) {
-                            Image("LeftArrow")
+                            GEImage.leftArrow
                             Text("1")
-                            Image("RightArrow")
+                            GEImage.rightArrow
                         }
                     }
                     
@@ -76,7 +76,7 @@ struct SearchBar: View {
         ZStack(alignment: .leading) {
             RoundedRectangle(cornerRadius: 10).foregroundColor(GEColor.gray).frame(height: 30)
             HStack {
-                Image(systemName: SFSymbolKey.search.rawValue)
+                GEImage.search
                 Text("검색할 공지 제목을 입력하세요.")
             }.padding(.leading, 10)
         }

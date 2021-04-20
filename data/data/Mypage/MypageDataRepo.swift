@@ -20,7 +20,7 @@ public class MypageDataRepo: MypageDomainRepoInterface {
         
     }
     
-    public func mypage(number: Int, completion: @escaping (Result<Student, Error>) -> Void) {
+    public func mypage(number: Int, completion: @escaping (Result<Student, GEError>) -> Void) {
         mypageRemoteDataSource.mypage(number: number) { result in
             switch result {
             case let .success(success):
@@ -39,7 +39,7 @@ public class MypageDataRepo: MypageDomainRepoInterface {
         }
     }
     
-    public func getStudent(completion: @escaping (Result<[User], Error>) -> Void) {
+    public func getStudent(completion: @escaping (Result<User, GEError>) -> Void) {
         mypageRemoteDataSource.getStudent { result in
             switch result {
             case let .success(success):
@@ -50,7 +50,7 @@ public class MypageDataRepo: MypageDomainRepoInterface {
         }
     }
     
-    public func changeNickname(name: String, completion: @escaping (Result<Void, Error>) -> Void) {
+    public func changeNickname(name: String, completion: @escaping (Result<Void, GEError>) -> Void) {
         mypageRemoteDataSource.changeNickname(name: name) { result in
             switch result {
             case let .success(success):
@@ -61,7 +61,7 @@ public class MypageDataRepo: MypageDomainRepoInterface {
         }
     }
     
-    public func changePassword(password: String, prePassword: String, completion: @escaping (Result<Void, Error>) -> Void) {
+    public func changePassword(password: String, prePassword: String, completion: @escaping (Result<Void, GEError>) -> Void) {
         mypageRemoteDataSource.changePassword(password: password, prePassword: prePassword) { result in
             switch result {
             case let .success(success):
@@ -72,7 +72,7 @@ public class MypageDataRepo: MypageDomainRepoInterface {
         }
     }
     
-    public func addStudent(number: Int, completion: @escaping (Result<Void, Error>) -> Void) {
+    public func addStudent(number: Int, completion: @escaping (Result<Void, GEError>) -> Void) {
         mypageRemoteDataSource.addStudent(number: number) { result in
             switch result {
             case let .success(success):
@@ -83,7 +83,7 @@ public class MypageDataRepo: MypageDomainRepoInterface {
         }
     }
     
-    public func getPointList(number: Int, completion: @escaping (Result<PointList, Error>) -> Void) {
+    public func getPointList(number: Int, completion: @escaping (Result<PointList, GEError>) -> Void) {
         mypageRemoteDataSource.getPointList(number: number) { result in
             switch result {
             case let .success(success):
@@ -94,7 +94,7 @@ public class MypageDataRepo: MypageDomainRepoInterface {
         }
     }
     
-    public func getOutingList(number: Int, completion: @escaping (Result<OutsideList, Error>) -> Void) {
+    public func getOutingList(number: Int, completion: @escaping (Result<OutsideList, GEError>) -> Void) {
         mypageRemoteDataSource.getOutingList(number: number) { result in
             switch result {
             case let .success(success):
