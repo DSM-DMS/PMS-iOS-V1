@@ -7,12 +7,18 @@
 //
 
 import Foundation
+import domain
 
 public protocol MypageLocalDataSourceInterface {
     func getCachedStudent(completion: @escaping (Result<Student, Error>) -> Void)
 }
 
 public class MypageLocalDataSource: MypageLocalDataSourceInterface {
+    
+    public init() {
+        
+    }
+    
     public func getCachedStudent(completion: @escaping (Result<Student, Error>) -> Void) {
         // Coredata
         // Realm

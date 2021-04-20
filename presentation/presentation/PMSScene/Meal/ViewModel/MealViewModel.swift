@@ -8,8 +8,9 @@
 
 import Foundation
 import Combine
+import domain
 
-class MealViewModel: ObservableObject {
+public class MealViewModel: ObservableObject {
     var nows = ["아침", "점심", "저녁"]
     var changeDate = 0
     
@@ -22,11 +23,14 @@ class MealViewModel: ObservableObject {
     
     // MARK: SetUp
     
-//    private var apiManager: APIManager
     private var bag = Set<AnyCancellable>()
     
-    init() {
-//        self.apiManager = APIManager()
+    private var mealInteractor: MealInteractorInterface
+    private var authDataRepo: AuthDomainRepoInterface
+    
+    public init(mealInteractor: MealInteractorInterface, authDataRepo: AuthDomainRepoInterface) {
+        self.mealInteractor = mealInteractor
+        self.authDataRepo = authDataRepo
         bindInputs()
     }
     
@@ -90,40 +94,30 @@ class MealViewModel: ObservableObject {
 
 extension MealViewModel {
     func requestMeal(date: Int) {
-//        apiManager.getMeal(date: date)
-//            .receive(on: DispatchQueue.main)
-//            .sink(receiveCompletion: { completion in
-//                if case .failure(let error) = completion {
-//                    if error.response?.statusCode == 401 {
-//                        AuthManager.shared.refreshToken()
-//                        self.apply(.getMeal)
-//                    }
-//                    print(error)
-//                }
-//            }, receiveValue: { [weak self] meal in
-//                self?.meals[0] = meal.breakfast.joined(separator: "\n")
-//                self?.meals[1] = meal.lunch.joined(separator: "\n")
-//                self?.meals[2] = meal.dinner.joined(separator: "\n")
-//            })
-//            .store(in: &bag)
+        mealInteractor.getMeal(date: date) { [weak self] result in
+            switch result {
+            case let .success(meal):
+                self?.meals[0] = meal.breakfast.joined(separator: "\n")
+                self?.meals[1] = meal.lunch.joined(separator: "\n")
+                self?.meals[2] = meal.dinner.joined(separator: "\n")
+            case .failure:
+                self?.authDataRepo.refreshToken()
+                self?.requestMeal(date: date)
+            }
+        }
     }
     
     func requestMealPicture(date: Int) {
-//        apiManager.getMealPicture(date: date)
-//            .receive(on: DispatchQueue.main)
-//            .sink(receiveCompletion: { completion in
-//                if case .failure(let error) = completion {
-//                    if error.response?.statusCode == 401 {
-//                        AuthManager.shared.refreshToken()
-//                        self.apply(.getMeal)
-//                    }
-//                    print(error)
-//                }
-//            }, receiveValue: { [weak self] meal in
-//                self?.pictures[0] = meal.breakfast
-//                self?.pictures[1] = meal.lunch
-//                self?.pictures[2] = meal.dinner
-//            })
-//            .store(in: &bag)
+        mealInteractor.getMealPicture(date: date) { [weak self] result in
+            switch result {
+            case let .success(meal):
+                self?.pictures[0] = meal.breakfast
+                self?.pictures[1] = meal.lunch
+                self?.pictures[2] = meal.dinner
+            case .failure:
+                self?.authDataRepo.refreshToken()
+                self?.requestMeal(date: date)
+            }
+        }
     }
 }

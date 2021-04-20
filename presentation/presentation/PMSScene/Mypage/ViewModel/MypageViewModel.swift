@@ -58,9 +58,11 @@ public class MypageViewModel: ObservableObject {
     private var bag = Set<AnyCancellable>()
     
     private var mypageInteractor: MypageInteractorInterface
+    private var authDataRepo: AuthDomainRepoInterface
     
-    public init(mypageInteractor: MypageInteractorInterface) {
+    public init(mypageInteractor: MypageInteractorInterface, authDataRepo: AuthDomainRepoInterface) {
         self.mypageInteractor = mypageInteractor
+        self.authDataRepo = authDataRepo
         bindInputs()
     }
     
@@ -103,11 +105,11 @@ public class MypageViewModel: ObservableObject {
         switch input {
         case .onAppear:
             if checkDateForReset() == "03-01" {
-//                AuthManager.shared.requestStudent()
+                authDataRepo.getStudent()
                 // 로직 더 추가해야됨... 학번 리셋 코드
             }
             if UDManager.shared.currentStudent == nil {
-//                AuthManager.shared.requestStudent()
+                authDataRepo.getStudent()
                 if UDManager.shared.currentStudent != nil {
                     let str = UDManager.shared.currentStudent
                     self.currentStudent = UDManager.shared.currentStudent!
@@ -202,14 +204,14 @@ extension MypageViewModel {
                 self?.minusStatus(num: student.minus)
                 self?.weekStatus = self?.convertStatus(num: student.status) ?? "오류가 났어요"
                 self?.isMeal = student.isMeal
-            case let .failure(error): break
-//                if error.asAFError?.responseCode == 401 {
-//                    AuthManager.shared.refreshToken()
-//                    self?.requestStudent(number: number)
-//                } else if error.asAFError?.responseCode == 404 {
-//                    let arr = UDManager.shared.studentsArray
-//                    UDManager.shared.currentStudent = arr?.first
-//                }
+            case let .failure(error):
+                if error == .unauthorized {
+                    self?.authDataRepo.refreshToken()
+                    self?.requestStudent(number: number)
+                } else if error == .notFound {
+                    let arr = UDManager.shared.studentsArray
+                    UDManager.shared.currentStudent = arr?.first
+                }
             }
         }
     }
@@ -220,11 +222,11 @@ extension MypageViewModel {
             case .success:
                 UDManager.shared.name = name
                 self?.nickname = name
-            case let .failure(error): break
-//                if error.asAFError?.responseCode == 401 {
-//                    AuthManager.shared.refreshToken()
-//                    self?.changeNickname(name: name)
-//                }
+            case let .failure(error):
+                if error == .unauthorized {
+                    self?.authDataRepo.refreshToken()
+                    self?.changeNickname(name: name)
+                }
             }
         }
     }
@@ -236,10 +238,10 @@ extension MypageViewModel {
                 UDManager.shared.password = password
                 self?.passwordSuccessAlert.toggle()
             case let .failure(error):
-//                if error.asAFError?.responseCode == 401 {
-//                    AuthManager.shared.refreshToken()
-//                    self?.changePassword(password: password, prePassword: prePassword)
-//                }
+                if error == .unauthorized {
+                    self?.authDataRepo.refreshToken()
+                    self?.changePassword(password: password, prePassword: prePassword)
+                }
                 self?.passwordAlert.toggle()
             }
         }
@@ -251,18 +253,18 @@ extension MypageViewModel {
             case .success:
                 self?.studentCodeAlert = false
                 self?.passCodeModel.selectedCellIndex = 0
-//                AuthManager.shared.requestStudent()
+                self?.authDataRepo.getStudent()
                 self?.studentsArray = UDManager.shared.studentsArray!
                 // currentStudent 바꾸고 음.. 학생 목록 업데이트해야됨
             case let .failure(error):
-//                if error.asAFError?.responseCode == 401 {
-//                    AuthManager.shared.refreshToken()
-//                    self?.addStudent(number: number)
-//                } else if error.asAFError?.responseCode == 404 {
-//                    withAnimation(.default) {
-//                        self?.attempts += 1
-//                    }
-//                }
+                if error == .unauthorized {
+                    self?.authDataRepo.getStudent()
+                    self?.addStudent(number: number)
+                } else if error == .notFound {
+                    withAnimation(.default) {
+                        self?.attempts += 1
+                    }
+                }
                 self?.passwordAlert.toggle()
             }
         }
@@ -273,13 +275,13 @@ extension MypageViewModel {
             switch result {
             case let .success(pointList):
                 self?.points = pointList
-            case let .failure(error): break
-//                if error.asAFError?.responseCode == 401 {
-//                    AuthManager.shared.refreshToken()
-//                    self?.getPointList(number: number)
-//                } else if error.asAFError?.responseCode == 404 {
-//                    print("그런 학생은 없습니다.")
-//                }
+            case let .failure(error):
+                if error == .unauthorized {
+                    self?.authDataRepo.refreshToken()
+                    self?.getPointList(number: number)
+                } else if error == .notFound {
+                    print("그런 학생은 없습니다.")
+                }
             }
         }
     }
@@ -289,13 +291,13 @@ extension MypageViewModel {
             switch result {
             case let .success(outingList):
                 self?.outings = outingList
-            case let .failure(error): break
-//                if error.asAFError?.responseCode == 401 {
-//                    AuthManager.shared.refreshToken()
-//                    self?.getPointList(number: number)
-//                } else if error.asAFError?.responseCode == 404 {
-//                    print("그런 학생은 없습니다.")
-//                }
+            case let .failure(error):
+                if error == .unauthorized {
+                    self?.authDataRepo.refreshToken()
+                    self?.getPointList(number: number)
+                } else if error == .notFound {
+                    print("그런 학생은 없습니다.")
+                }
             }
         }
     }

@@ -8,12 +8,13 @@
 import Foundation
 import SwiftUI
 
-struct StoryboardtoUI: UIViewControllerRepresentable {
+ struct StoryboardtoUI: UIViewControllerRepresentable {
 
     typealias UIViewControllerType = ViewController
 
     func makeUIViewController(context: Context) -> UIViewControllerType {
-        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        let bundle = Bundle(identifier: "com.jeonggo.presentation")
+        let storyboard = UIStoryboard(name: "Main", bundle: bundle)
         let controller = storyboard.instantiateViewController(identifier: "Main")
         return controller as! ViewController
     }
@@ -22,4 +23,4 @@ struct StoryboardtoUI: UIViewControllerRepresentable {
 
     }
 
-}
+ }

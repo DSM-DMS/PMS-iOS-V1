@@ -13,30 +13,44 @@ import domain
 
 class StatusViewModel: ObservableObject {
     var title: String
-
+    
     init(title: String) {
         self.title = title
     }
 }
 
-class SignupViewModel: ObservableObject {
+public class SignupViewModel: ObservableObject {
     @Published var id: String = ""
     @Published var password: String = ""
     @Published var nickname: String = ""
     @Published var confirmPassword: String = ""
     @Published var isHidden = true
-
+    
     @Published var statusViewModel: StatusViewModel = StatusViewModel(title: "")
-
+    
     @Published var isErrorAlert: Bool = false
+    @Published var isNotInternet: Bool = false
     @Published var isSuccessAlert: Bool = false
     @Published var passwordErrorMsg: String = ""
     @Published var confirmIsError: Bool = false
     @Published var confirmErrorMsg: String = ""
     @Published var enableSignUp: Bool = false
     
-//    private var apiManager: APIManager
     private var bag = Set<AnyCancellable>()
+    
+    private var loginInteractor: LoginInteractorInterface
+    private var authDataRepo: AuthDomainRepoInterface
+    
+    public init(loginInteractor: LoginInteractorInterface, authDataRepo: AuthDomainRepoInterface) {
+        self.loginInteractor = loginInteractor
+        self.authDataRepo = authDataRepo
+        bindInputs()
+        bindOutputs()
+    }
+    
+    deinit {
+        bag.removeAll()
+    }
     
     enum Input {
         case registerTapped
@@ -72,10 +86,10 @@ class SignupViewModel: ObservableObject {
                 } else {
                     return passwordStrengthChecker(forPassword: password)
                 }
-        }
-        .eraseToAnyPublisher()
+            }
+            .eraseToAnyPublisher()
     }
-
+    
     private var confirmPasswordValidPublisher: AnyPublisher<PasswordValidation, Never> {
         $confirmPassword
             .debounce(for: 0.0, scheduler: RunLoop.main)
@@ -87,87 +101,77 @@ class SignupViewModel: ObservableObject {
                 } else {
                     return .reasonable
                 }
-        }
-        .eraseToAnyPublisher()
+            }
+            .eraseToAnyPublisher()
     }
     
     func bindOutputs() {
         Publishers.CombineLatest(self.passwordValidPublisher,
-                                  self.confirmPasswordValidPublisher)
+                                 self.confirmPasswordValidPublisher)
             .dropFirst()
             .sink {_passwordValidator, _confirmPasswordValidator in
-
+                
                 self.enableSignUp =
                     _passwordValidator.errorMessage == nil &&
                     _confirmPasswordValidator.confirmPasswordErrorMessage == nil
-        }
-        .store(in: &bag)
-
+            }
+            .store(in: &bag)
+        
         passwordValidPublisher
             .dropFirst()
             .sink { (_passwordValidator) in
                 self.passwordErrorMsg = _passwordValidator.errorMessage ?? ""
-        }
-        .store(in: &bag)
-
+            }
+            .store(in: &bag)
+        
         confirmPasswordValidPublisher
             .dropFirst()
             .sink { (_confirmPasswordValidator) in
                 self.confirmErrorMsg = _confirmPasswordValidator.confirmPasswordErrorMessage ?? ""
-        }
-        .store(in: &bag)
+            }
+            .store(in: &bag)
         
         confirmPasswordValidPublisher
             .dropFirst()
             .sink { (_confirmPasswordValidator) in
                 self.confirmIsError = _confirmPasswordValidator.confirmPasswordErrorMessage != nil
-        }
-        .store(in: &bag)
+            }
+            .store(in: &bag)
     }
     
-    init() {
-//        self.apiManager = APIManager()
-        bindInputs()
-        bindOutputs()
-    }
-
-    deinit {
-        bag.removeAll()
-    }
-
 }
 
 extension SignupViewModel {
     func requestRegister(email: String, password: String, name: String) {
-//        apiManager.regiser(email: email, password: password, name: name)
-//            .receive(on: DispatchQueue.main)
-//            .sink(receiveCompletion: { [weak self] completion in
-//                if case let .failure(error) = completion {
-//                    self?.isErrorAlert.toggle()
-//                    print(error)
-//                }
-//                if case .finished = completion {
-//                    withAnimation {
-//                        self?.isSuccessAlert.toggle()
-//                    }
-//                    self?.requestLogin(email: email, password: password)
-//                }
-//            }, receiveValue: { _ in })
-//            .store(in: &bag)
+        loginInteractor.register(email: email, password: password, name: name) { [weak self] result in
+            switch result {
+            case .success:
+                withAnimation {
+                    self?.isSuccessAlert.toggle()
+                }
+                self?.requestLogin(email: email, password: password)
+            case let .failure(error):
+                if error == .unauthorized {
+                    self?.isErrorAlert.toggle()
+                }
+            }
+        }
     }
     
     func requestLogin(email: String, password: String) {
-//        apiManager.login(email: email, password: password)
-//            .receive(on: DispatchQueue.main)
-//            .sink(receiveCompletion: { completion in
-//                if case .failure(let error) = completion {
-//                    print("login error \(error)")
-//                }
-//            }, receiveValue: { token in
-//                UDManager.shared.token = token.accessToken
-//                AuthManager.shared.requestStudent()
-//            })
-//            .store(in: &bag)
+        loginInteractor.login(email: email, password: password) { [weak self] result in
+            switch result {
+            case let .success(token):
+                UDManager.shared.token = token.accessToken
+                self?.authDataRepo.getStudent()
+            case let .failure(error):
+                if error == .unauthorized {
+                    self?.isErrorAlert.toggle()
+                } else if error == .noInternet {
+                    self?.isNotInternet.toggle()
+                }
+            }
+        }
     }
 }
 

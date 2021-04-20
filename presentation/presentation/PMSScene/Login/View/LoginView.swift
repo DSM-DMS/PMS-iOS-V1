@@ -11,9 +11,17 @@ import domain
 
 struct LoginView: View {
     @EnvironmentObject var settings: LoginSettings
-    @ObservedObject var loginVM = LoginViewModel()
+//    @EnvironmentObject var loginVM = LoginViewModel()
     @Environment(\.presentationMode) var mode
     @State var offset = CGSize.zero
+    
+    var appDI: AppDIInterface
+    @ObservedObject var loginVM: LoginViewModel
+    
+    public init(appDI: AppDIInterface, loginVM: LoginViewModel) {
+        self.appDI = appDI
+        self.loginVM = loginVM
+    }
     
     var body: some View {
         GeometryReader { _ in
@@ -164,18 +172,18 @@ struct PasswordTextField: View {
     }
 }
 
-struct LoginView_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
-            LoginView()
-                .previewDevice(PreviewDevice(rawValue: "iPhone XS Max"))
-                .previewDisplayName("iPhone XS Max")
-            LoginView()
-                .previewDevice(PreviewDevice(rawValue: "iPhone 8"))
-                .previewDisplayName("iPhone 8")
-        }
-    }
-}
+// struct LoginView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        Group {
+//            LoginView()
+//                .previewDevice(PreviewDevice(rawValue: "iPhone XS Max"))
+//                .previewDisplayName("iPhone XS Max")
+//            LoginView()
+//                .previewDevice(PreviewDevice(rawValue: "iPhone 8"))
+//                .previewDisplayName("iPhone 8")
+//        }
+//    }
+// }
 
 struct OAuthView: View {
     var body: some View {

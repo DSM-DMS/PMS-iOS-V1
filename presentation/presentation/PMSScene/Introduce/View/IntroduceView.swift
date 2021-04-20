@@ -9,6 +9,8 @@
 import SwiftUI
 
 struct IntroduceView: View {
+    var appDI: AppDIInterface
+    
     var body: some View {
         NavigationView {
             GeometryReader { _ in
@@ -20,13 +22,13 @@ struct IntroduceView: View {
                     }.padding(.bottom, UIFrame.UIHeight / 15)
                     
                     VStack(spacing: UIFrame.UIHeight / 15) {
-                        NavigationLink(destination: ClubView()) {
+                        NavigationLink(destination: ClubView(introduceVM: appDI.introduceDependencies())) {
                             RectangleView(title: "동아리 소개", sub: "대마고의 동아리를 소개합니다")
                         }
-                        NavigationLink(destination: CompanyView()) {
+                        NavigationLink(destination: CompanyView(introduceVM: appDI.introduceDependencies())) {
                             RectangleView(title: "취업처 소개", sub: "대마고의 학생들이 취업한 회사를 소개합니다")
                         }
-                        NavigationLink(destination: DeveloperView()) {
+                        NavigationLink(destination: DeveloperView(introduceVM: appDI.introduceDependencies())) {
                             RectangleView(title: "개발자 소개", sub: "PMS의 개발자를 소개합니다")
                         }
                     }
@@ -40,18 +42,18 @@ struct IntroduceView: View {
     }
 }
 
-struct IntroduceView_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
-            IntroduceView()
-                .previewDevice(PreviewDevice(rawValue: "iPhone XS Max"))
-                .previewDisplayName("iPhone XS Max")
-            IntroduceView()
-                .previewDevice(PreviewDevice(rawValue: "iPhone 8"))
-                .previewDisplayName("iPhone 8")
-        }
-    }
-}
+// struct IntroduceView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        Group {
+//            IntroduceView()
+//                .previewDevice(PreviewDevice(rawValue: "iPhone XS Max"))
+//                .previewDisplayName("iPhone XS Max")
+//            IntroduceView()
+//                .previewDevice(PreviewDevice(rawValue: "iPhone 8"))
+//                .previewDisplayName("iPhone 8")
+//        }
+//    }
+// }
 
 struct RectangleView: View {
     var title: String

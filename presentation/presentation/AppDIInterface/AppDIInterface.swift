@@ -7,8 +7,14 @@
 //
 
 import Foundation
+import domain
 
 public protocol AppDIInterface {
     func mypageDependencies() -> MypageViewModel
-//    func beerDetailsDependencies() -> MealViewModel
+    func loginDependencies() -> LoginViewModel
+    func signupDependencies() -> SignupViewModel
+    func mealDependencies() -> MealViewModel
+    func introduceDependencies() -> IntroduceViewModel
+    
+    func authDataRepo() -> AuthDomainRepoInterface
 }

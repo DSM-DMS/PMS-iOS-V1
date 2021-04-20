@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import domain
 
 public class MypageDataRepo: MypageDomainRepoInterface {
     let mypageRemoteDataSource: MypageRemoteDataSourceInterface

@@ -8,8 +8,9 @@
 
 import Foundation
 import Moya
+import domain
 
-enum AuthApi {
+public enum AuthApi {
     // Auth
     case login(email: String, password: String)
     case register(email: String, password: String, name: String)
@@ -25,11 +26,11 @@ enum AuthApi {
 }
 
 extension AuthApi: TargetType {
-    var baseURL: URL {
+    public var baseURL: URL {
         return URL(string: "https://api.smooth-bear.live")!
     }
     
-    var path: String {
+    public var path: String {
         switch self {
         // Auth
         case .login:
@@ -55,7 +56,7 @@ extension AuthApi: TargetType {
         }
     }
     
-    var method: Moya.Method {
+    public var method: Moya.Method {
         switch self {
         case .login, .register, .addStudent:
             return .post
@@ -66,12 +67,12 @@ extension AuthApi: TargetType {
         }
     }
     
-    var sampleData: Data {
+    public var sampleData: Data {
         return Data()
     }
     
     // 기본요청(plain request), 데이터 요청(data request), 파라미터 요청(parameter request), 업로드 요청(upload request) 등
-    var task: Task {
+    public var task: Task {
         switch self {
         case let .register(email, password, name):
             return .requestParameters(parameters: ["email": email, "password": password, "name": name], encoding: JSONEncoding.default)
@@ -88,7 +89,7 @@ extension AuthApi: TargetType {
         }
     }
     
-    var headers: [String: String]? {
+    public var headers: [String: String]? {
         switch self {
         case .login, .register:
             return ["Content-type": "application/json"]

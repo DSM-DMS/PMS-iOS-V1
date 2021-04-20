@@ -8,12 +8,26 @@
 
 /* Begin PBXBuildFile section */
 		D9CEEC38262C60E4002F9566 /* domain.h in Headers */ = {isa = PBXBuildFile; fileRef = D9CEEC36262C60E4002F9566 /* domain.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D9CEEE66262CFB15002F9566 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CEEE43262CF79B002F9566 /* Auth.swift */; };
+		D9CEEE68262CFB18002F9566 /* Student.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CEEE44262CF79B002F9566 /* Student.swift */; };
+		D9CEEE6A262CFB1A002F9566 /* Meal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CEEE45262CF79B002F9566 /* Meal.swift */; };
+		D9CEEE6C262CFB1D002F9566 /* Introduce.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CEEE46262CF79B002F9566 /* Introduce.swift */; };
+		D9CEEE6E262D0036002F9566 /* MypageDomainRepoInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CEEC6C262C6140002F9566 /* MypageDomainRepoInterface.swift */; };
+		D9CEEE70262D0038002F9566 /* MypageInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CEEC6D262C6140002F9566 /* MypageInteractor.swift */; };
+		D9CF9175262D14A9000A37C9 /* UDManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CF9174262D14A9000A37C9 /* UDManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		D9CEEC33262C60E4002F9566 /* domain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = domain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9CEEC36262C60E4002F9566 /* domain.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = domain.h; sourceTree = "<group>"; };
 		D9CEEC37262C60E4002F9566 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D9CEEC6C262C6140002F9566 /* MypageDomainRepoInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageDomainRepoInterface.swift; sourceTree = "<group>"; };
+		D9CEEC6D262C6140002F9566 /* MypageInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageInteractor.swift; sourceTree = "<group>"; };
+		D9CEEE43262CF79B002F9566 /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
+		D9CEEE44262CF79B002F9566 /* Student.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Student.swift; sourceTree = "<group>"; };
+		D9CEEE45262CF79B002F9566 /* Meal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Meal.swift; sourceTree = "<group>"; };
+		D9CEEE46262CF79B002F9566 /* Introduce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Introduce.swift; sourceTree = "<group>"; };
+		D9CF9174262D14A9000A37C9 /* UDManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UDManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,10 +60,41 @@
 		D9CEEC35262C60E4002F9566 /* domain */ = {
 			isa = PBXGroup;
 			children = (
+				D9CF9173262D14A2000A37C9 /* Manager */,
+				D9CEEE47262CF79B002F9566 /* Models */,
+				D9CEEC6E262C6140002F9566 /* Mypage */,
 				D9CEEC36262C60E4002F9566 /* domain.h */,
 				D9CEEC37262C60E4002F9566 /* Info.plist */,
 			);
 			path = domain;
+			sourceTree = "<group>";
+		};
+		D9CEEC6E262C6140002F9566 /* Mypage */ = {
+			isa = PBXGroup;
+			children = (
+				D9CEEC6C262C6140002F9566 /* MypageDomainRepoInterface.swift */,
+				D9CEEC6D262C6140002F9566 /* MypageInteractor.swift */,
+			);
+			path = Mypage;
+			sourceTree = "<group>";
+		};
+		D9CEEE47262CF79B002F9566 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				D9CEEE43262CF79B002F9566 /* Auth.swift */,
+				D9CEEE44262CF79B002F9566 /* Student.swift */,
+				D9CEEE45262CF79B002F9566 /* Meal.swift */,
+				D9CEEE46262CF79B002F9566 /* Introduce.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		D9CF9173262D14A2000A37C9 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				D9CF9174262D14A9000A37C9 /* UDManager.swift */,
+			);
+			path = Manager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -80,6 +125,8 @@
 			dependencies = (
 			);
 			name = domain;
+			packageProductDependencies = (
+			);
 			productName = domain;
 			productReference = D9CEEC33262C60E4002F9566 /* domain.framework */;
 			productType = "com.apple.product-type.framework";
@@ -106,6 +153,8 @@
 				Base,
 			);
 			mainGroup = D9CEEC29262C60E4002F9566;
+			packageReferences = (
+			);
 			productRefGroup = D9CEEC34262C60E4002F9566 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -130,6 +179,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D9CF9175262D14A9000A37C9 /* UDManager.swift in Sources */,
+				D9CEEE66262CFB15002F9566 /* Auth.swift in Sources */,
+				D9CEEE6A262CFB1A002F9566 /* Meal.swift in Sources */,
+				D9CEEE68262CFB18002F9566 /* Student.swift in Sources */,
+				D9CEEE70262D0038002F9566 /* MypageInteractor.swift in Sources */,
+				D9CEEE6E262D0036002F9566 /* MypageDomainRepoInterface.swift in Sources */,
+				D9CEEE6C262CFB1D002F9566 /* Introduce.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -188,7 +244,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -246,7 +302,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -269,6 +325,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = domain/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -293,6 +350,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = domain/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

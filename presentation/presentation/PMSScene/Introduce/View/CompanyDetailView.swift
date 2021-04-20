@@ -9,9 +9,10 @@
 import SwiftUI
 
 public struct CompanyDetailView: View {
-    @ObservedObject var IntroduceDetailVM = IntroduceViewModel()
     @Environment(\.presentationMode) var mode
     @State var offset = CGSize.zero
+    
+    @EnvironmentObject var IntroduceDetailVM: IntroduceViewModel
     
     public var body: some View {
         GeometryReader { _ in

@@ -12,18 +12,25 @@ import presentation
 struct ContentView: View {
     let onNav = NavSettings()
 //    let maypageVM = MypageViewModel()
+    
+    var appDI: AppDIInterface
+    
+    public init(appDI: AppDIInterface) {
+        self.appDI = appDI
+    }
+    
     var body: some View {
-        Home().environmentObject(onNav).environmentObject(AppDI.shared.mypageDependencies())
+        Home(appDI: appDI).environmentObject(onNav).environmentObject(appDI.mypageDependencies())
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            ContentView()
+            ContentView(appDI: AppDI())
                 .previewDevice(PreviewDevice(rawValue: "iPhone XS Max"))
                 .previewDisplayName("iPhone XS Max")
-            ContentView()
+            ContentView(appDI: AppDI())
                 .previewDevice(PreviewDevice(rawValue: "iPhone 8"))
                 .previewDisplayName("iPhone 8")
         }

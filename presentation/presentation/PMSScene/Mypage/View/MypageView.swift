@@ -17,6 +17,8 @@ struct MypageView: View {
     @Binding var logoutAlert: Bool
     @State var isNav: Bool = true
     
+    var appDI: AppDIInterface
+    
     var body: some View {
         NavigationView {
             GeometryReader { _ in
@@ -92,7 +94,7 @@ struct MypageView: View {
                 self.mypageVM.apply(.onAppear)
             }
             .sheet(isPresented: self.$mypageVM.showLoginModal) {
-                PMSView()
+                PMSView(appDI: appDI, loginVM: appDI.loginDependencies())
                     .onDisappear {
                         print("disappear")
                         self.mypageVM.apply(.onAppear)
@@ -105,18 +107,18 @@ struct MypageView: View {
     }
 }
 
-struct MypageView_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
-            MypageView(nicknameAlert: .constant(false), studentsAlert: .constant(false), logoutAlert: .constant(false))
-                .previewDevice(PreviewDevice(rawValue: "iPhone XS Max"))
-                .previewDisplayName("iPhone XS Max")
-            MypageView(nicknameAlert: .constant(false), studentsAlert: .constant(false), logoutAlert: .constant(false))
-                .previewDevice(PreviewDevice(rawValue: "iPhone 8"))
-                .previewDisplayName("iPhone 8")
-        }
-    }
-}
+// struct MypageView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        Group {
+//            MypageView(nicknameAlert: .constant(false), studentsAlert: .constant(false), logoutAlert: .constant(false))
+//                .previewDevice(PreviewDevice(rawValue: "iPhone XS Max"))
+//                .previewDisplayName("iPhone XS Max")
+//            MypageView(nicknameAlert: .constant(false), studentsAlert: .constant(false), logoutAlert: .constant(false))
+//                .previewDevice(PreviewDevice(rawValue: "iPhone 8"))
+//                .previewDisplayName("iPhone 8")
+//        }
+//    }
+// }
 
 struct ScoreView: View {
     var body: some View {

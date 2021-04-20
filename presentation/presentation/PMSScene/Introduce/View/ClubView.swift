@@ -11,10 +11,15 @@ import Kingfisher
 import WaterfallGrid
 
 struct ClubView: View {
-    @ObservedObject var introduceVM = IntroduceViewModel()
     @EnvironmentObject var settings: NavSettings
     @Environment(\.presentationMode) var mode
     @State var offset = CGSize.zero
+    
+    @ObservedObject var introduceVM: IntroduceViewModel
+    
+    public init(introduceVM: IntroduceViewModel) {
+        self.introduceVM = introduceVM
+    }
     
     var body: some View {
         ScrollView {
@@ -65,18 +70,18 @@ struct ClubView: View {
     }
 }
 
-struct ClubView_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
-            ClubView()
-                .previewDevice(PreviewDevice(rawValue: "iPhone XS Max"))
-                .previewDisplayName("iPhone XS Max")
-            ClubView()
-                .previewDevice(PreviewDevice(rawValue: "iPhone 8"))
-                .previewDisplayName("iPhone 8")
-        }
-    }
-}
+// struct ClubView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        Group {
+//            ClubView()
+//                .previewDevice(PreviewDevice(rawValue: "iPhone XS Max"))
+//                .previewDisplayName("iPhone XS Max")
+//            ClubView()
+//                .previewDevice(PreviewDevice(rawValue: "iPhone 8"))
+//                .previewDisplayName("iPhone 8")
+//        }
+//    }
+// }
 
 struct IntroduceRectangle: View {
     var image: String

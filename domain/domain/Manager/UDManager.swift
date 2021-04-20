@@ -10,12 +10,12 @@ import Foundation
 
 public let UD = UserDefaults.standard
 
-class UDManager {
-    static let shared = UDManager()
+public class UDManager {
+    public static let shared = UDManager()
     
     // MARK: Views
     
-    var isFirstView: Bool {
+    public var isFirstView: Bool {
         get {
             UD.bool(forKey: "isFirstView")
         } set(value) {
@@ -23,7 +23,7 @@ class UDManager {
         }
     }
     
-    var isLogin: Bool {
+    public var isLogin: Bool {
         get {
             UD.bool(forKey: "isLogin")
         } set(value) {
@@ -33,7 +33,7 @@ class UDManager {
     
     // MARK: User
     
-    var token: String? {
+    public var token: String? {
         get {
             return UD.string(forKey: "accessToken")
         } set(value) {
@@ -41,7 +41,7 @@ class UDManager {
         }
     }
     
-    var name: String? {
+    public var name: String? {
         get {
             UD.string(forKey: "name")
         } set(value) {
@@ -49,7 +49,7 @@ class UDManager {
         }
     }
     
-    var email: String? {
+    public var email: String? {
         get {
             UD.string(forKey: "email")
         } set(value) {
@@ -57,7 +57,7 @@ class UDManager {
         }
     }
     
-    var password: String? {
+    public var password: String? {
         get {
             UD.string(forKey: "password")
         } set(value) {
@@ -67,7 +67,7 @@ class UDManager {
     
     // MARK: Student
     
-    var currentStudent: String? {
+    public var currentStudent: String? {
         get {
             UD.string(forKey: "currentStudent")
         } set(value) {
@@ -75,7 +75,7 @@ class UDManager {
         }
     }
     
-    var studentsArray: [String]? {
+    public var studentsArray: [String]? {
         get {
             UD.stringArray(forKey: "studentsArray")
         } set(value) {

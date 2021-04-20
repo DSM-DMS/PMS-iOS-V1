@@ -8,6 +8,7 @@
 
 import Foundation
 import Moya
+import domain
 
 public enum PMSApi {
     // Calendar

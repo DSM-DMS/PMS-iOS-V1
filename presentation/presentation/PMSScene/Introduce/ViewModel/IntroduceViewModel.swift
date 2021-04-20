@@ -11,7 +11,6 @@ import Combine
 import domain
 
 public class IntroduceViewModel: ObservableObject {
-    
     // MARK: Output
     
     @Published var clubList: ClubList = ClubList(clubs: [ClubDetail(name: "", imageUrl: "")])
@@ -21,11 +20,14 @@ public class IntroduceViewModel: ObservableObject {
     @Published var companySite: String = "https://www.naver.com"
     @Published var companyAddress: String = "대전 유성구 장동 가정북로 76"
     
-//    private var apiManager: APIManager
     private var bag = Set<AnyCancellable>()
     
-    init() {
-//        self.apiManager = APIManager()
+    private var introduceInteractor: IntroduceInteractorInterface
+    private var authDataRepo: AuthDomainRepoInterface
+    
+    public init(introduceInteractor: IntroduceInteractorInterface, authDataRepo: AuthDomainRepoInterface) {
+        self.introduceInteractor = introduceInteractor
+        self.authDataRepo = authDataRepo
         bindInputs()
     }
     
@@ -77,36 +79,30 @@ public class IntroduceViewModel: ObservableObject {
 
 extension IntroduceViewModel {
     func requestClubList() {
-//        apiManager.getClubs()
-//            .receive(on: DispatchQueue.main)
-//            .sink(receiveCompletion: { completion in
-//                if case .failure(let error) = completion {
-//                    if error.response?.statusCode == 401 {
-//                        AuthManager.shared.refreshToken()
-//                        self.apply(.getClubList)
-//                    }
-////                    print(error)
-//                }
-//            }, receiveValue: { [weak self] clubs in
-//                self?.clubList = clubs
-//            })
-//            .store(in: &bag)
+        introduceInteractor.getClublist { [weak self] result in
+            switch result {
+            case let .success(clubList):
+                self?.clubList = clubList
+            case let .failure(error):
+                if error == .unauthorized {
+                    self?.authDataRepo.refreshToken()
+                    self?.requestClubList()
+                }
+            }
+        }
     }
     
     func requestClubDetail(name: String) {
-//        apiManager.getClubDetail(name: name)
-//            .receive(on: DispatchQueue.main)
-//            .sink(receiveCompletion: { completion in
-//                if case .failure(let error) = completion {
-//                    if error.response?.statusCode == 401 {
-//                        AuthManager.shared.refreshToken()
-//                        self.apply(.getClubDetail(name: name))
-//                    }
-////                    print(error)
-//                }
-//            }, receiveValue: { [weak self] club in
-//                self?.clubDetail = club
-//            })
-//            .store(in: &bag)
+        introduceInteractor.getClub(name: name) { [weak self] result in
+            switch result {
+            case let .success(club):
+                self?.clubDetail = club
+            case let .failure(error):
+                if error == .unauthorized {
+                    self?.authDataRepo.refreshToken()
+                    self?.requestClubDetail(name: name)
+                }
+            }
+        }
     }
 }

@@ -10,11 +10,18 @@ import SwiftUI
 import domain
 
 struct SignupView: View {
-    @ObservedObject var signupVM = SignupViewModel()
     @EnvironmentObject var settings: LoginSettings
     @Environment(\.presentationMode) var mode
     @State var offset = CGSize.zero
     var edges = UIApplication.shared.windows.first?.safeAreaInsets
+    
+    var appDI: AppDIInterface
+    @ObservedObject var signupVM: SignupViewModel
+    
+    public init(appDI: AppDIInterface, signupVM: SignupViewModel) {
+        self.appDI = appDI
+        self.signupVM = signupVM
+    }
     
     var body: some View {
         GeometryReader { _ in
@@ -69,18 +76,18 @@ struct SignupView: View {
     }
 }
 
-struct SignupView_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
-            SignupView()
-                .previewDevice(PreviewDevice(rawValue: "iPhone XS Max"))
-                .previewDisplayName("iPhone XS Max")
-            SignupView()
-                .previewDevice(PreviewDevice(rawValue: "iPhone 8"))
-                .previewDisplayName("iPhone 8")
-        }
-    }
-}
+// struct SignupView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        Group {
+//            SignupView()
+//                .previewDevice(PreviewDevice(rawValue: "iPhone XS Max"))
+//                .previewDisplayName("iPhone XS Max")
+//            SignupView()
+//                .previewDevice(PreviewDevice(rawValue: "iPhone 8"))
+//                .previewDisplayName("iPhone 8")
+//        }
+//    }
+// }
 
 struct CheckTextField: View {
     @Binding var text: String

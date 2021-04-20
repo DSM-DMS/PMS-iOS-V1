@@ -9,10 +9,15 @@
 import SwiftUI
 
 public struct CompanyView: View {
-    @ObservedObject var introduceVM = IntroduceViewModel()
     @EnvironmentObject var settings: NavSettings
     @Environment(\.presentationMode) var mode
     @State var offset = CGSize.zero
+    
+    @ObservedObject var introduceVM: IntroduceViewModel
+    
+    public init(introduceVM: IntroduceViewModel) {
+        self.introduceVM = introduceVM
+    }
     
     public var body: some View {
         ScrollView {            
@@ -42,15 +47,15 @@ public struct CompanyView: View {
     }
 }
 
-struct CompanyView_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
-            CompanyView()
-                .previewDevice(PreviewDevice(rawValue: "iPhone XS Max"))
-                .previewDisplayName("iPhone XS Max")
-            CompanyView()
-                .previewDevice(PreviewDevice(rawValue: "iPhone 8"))
-                .previewDisplayName("iPhone 8")
-        }
-    }
-}
+// struct CompanyView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        Group {
+//            CompanyView()
+//                .previewDevice(PreviewDevice(rawValue: "iPhone XS Max"))
+//                .previewDisplayName("iPhone XS Max")
+//            CompanyView()
+//                .previewDevice(PreviewDevice(rawValue: "iPhone 8"))
+//                .previewDisplayName("iPhone 8")
+//        }
+//    }
+// }

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import domain
 import Moya
 
 public protocol MypageRemoteDataSourceInterface {
@@ -22,7 +23,7 @@ public protocol MypageRemoteDataSourceInterface {
 public class MypageRemoteDataSource: MypageRemoteDataSourceInterface {
     let provider: MoyaProvider<AuthApi>
     
-    init(provider: MoyaProvider<AuthApi> = MoyaProvider<AuthApi>()) {
+    public init(provider: MoyaProvider<AuthApi> = MoyaProvider<AuthApi>()) {
         self.provider = provider
     }
     

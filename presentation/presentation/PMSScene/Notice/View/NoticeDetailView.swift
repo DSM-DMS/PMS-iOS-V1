@@ -72,9 +72,9 @@ struct NoticeDetailView: View {
                         Text(self.NoticeDetailVM.pdfTitle)
                         Spacer()
                         ZStack {
-                            NavigationLink(destination: PDFKitView(url: self.NoticeDetailVM.pdfUrl)) {
-                                PreviewTextView()
-                            }
+//                            NavigationLink(destination: PDFKitView(url: self.NoticeDetailVM.pdfUrl)) {
+//                                PreviewTextView()
+//                            }
                         }
                     }
                     .padding(.all, 20)

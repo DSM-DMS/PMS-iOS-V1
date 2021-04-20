@@ -10,8 +10,12 @@ import SwiftUI
 import Kingfisher
 
 struct MealView: View {
-    @EnvironmentObject var mealVM: MealViewModel
+    @ObservedObject var mealVM: MealViewModel
     @State var showModal = [false, false, false] // 상태
+    
+    public init(mealVM: MealViewModel) {
+        self.mealVM = mealVM
+    }
     
     var body: some View {
         GeometryReader { _ in
@@ -85,18 +89,18 @@ struct MealView: View {
     }
 }
 
-struct MealView_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
-            MealView()
-                .previewDevice(PreviewDevice(rawValue: "iPhone XS Max"))
-                .previewDisplayName("iPhone XS Max")
-            MealView()
-                .previewDevice(PreviewDevice(rawValue: "iPhone 8"))
-                .previewDisplayName("iPhone 8")
-        }
-    }
-}
+// struct MealView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        Group {
+//            MealView()
+//                .previewDevice(PreviewDevice(rawValue: "iPhone XS Max"))
+//                .previewDisplayName("iPhone XS Max")
+//            MealView()
+//                .previewDevice(PreviewDevice(rawValue: "iPhone 8"))
+//                .previewDisplayName("iPhone 8")
+//        }
+//    }
+// }
 
 struct ImageCircle: View {
     var body: some View {
@@ -118,7 +122,6 @@ struct BlueTopView: View {
             
             Text(text)
                 .foregroundColor(.white)
-                .font(.system(size: 20))
         }
     }
 }
@@ -174,7 +177,7 @@ struct MealRow: View {
                             }
                         } else {
                             Text(self.meal)
-                                .font(.system(size: 20))
+//                                .font(.system(size: 20))
                                 .foregroundColor(.black)
                                 .multilineTextAlignment(.center)
                                 .minimumScaleFactor(0.1)

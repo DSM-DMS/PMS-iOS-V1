@@ -25,7 +25,7 @@ class MypageDI {
         let mypageInteractor = MypageInteractor(mypageDomainRepo: mypageDataRepo)
         
         // Presentation
-        let mypageVM = MypageViewModel(mypageInteractor: mypageInteractor)
+        let mypageVM = MypageViewModel(mypageInteractor: mypageInteractor, authDataRepo: AuthDataRepo())
         
         return mypageVM
     }

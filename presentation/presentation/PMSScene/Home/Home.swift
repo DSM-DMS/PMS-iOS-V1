@@ -22,27 +22,31 @@ public struct Home: View {
     @EnvironmentObject var mypageVM: MypageViewModel
     @State var selectedStudent: String = ""
     
-    let mealVM = MealViewModel()
+    var appDI: AppDIInterface
+    var mealVM: MealViewModel
     
-    public init() {}
+    public init(appDI: AppDIInterface) {
+        self.appDI = appDI
+        self.mealVM = appDI.mealDependencies()
+    }
     
     public var body: some View {
         ZStack {
             GeometryReader { g in
                 HStack(spacing: 0) {
-                    StoryboardtoUI()
+                    CalendarView()
                         .frame(width: g.size.width)
                     
-                    MealView().environmentObject(mealVM)
+                    MealView(mealVM: mealVM) // mealVM의 생성이 느린 것 같아 init시에 VM을 만들어 주입하였음.
                         .frame(width: g.size.width)
                     
                     NoticeView()
                         .frame(width: g.size.width)
                     
-                    IntroduceView()
+                    IntroduceView(appDI: appDI)
                         .frame(width: g.size.width)
                     
-                    MypageView(nicknameAlert: self.$mypageVM.nicknameAlert, studentsAlert: self.$mypageVM.studentsAlert, logoutAlert: self.$mypageVM.logoutAlert)
+                    MypageView(nicknameAlert: self.$mypageVM.nicknameAlert, studentsAlert: self.$mypageVM.studentsAlert, logoutAlert: self.$mypageVM.logoutAlert, appDI: appDI)
                         .frame(width: g.size.width)
                 }
                 .offset(x: self.offset)
@@ -276,18 +280,18 @@ public struct Home: View {
     }
 }
 
-struct Home_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
-            Home()
-                .previewDevice(PreviewDevice(rawValue: "iPhone XS Max"))
-                .previewDisplayName("iPhone XS Max")
-            Home()
-                .previewDevice(PreviewDevice(rawValue: "iPhone 8"))
-                .previewDisplayName("iPhone 8")
-        }
-    }
-}
+// struct Home_Previews: PreviewProvider {
+//    static var previews: some View {
+//        Group {
+//            Home()
+//                .previewDevice(PreviewDevice(rawValue: "iPhone XS Max"))
+//                .previewDisplayName("iPhone XS Max")
+//            Home()
+//                .previewDevice(PreviewDevice(rawValue: "iPhone 8"))
+//                .previewDisplayName("iPhone 8")
+//        }
+//    }
+// }
 
 struct AppBar: View {
     @Binding var index: Int

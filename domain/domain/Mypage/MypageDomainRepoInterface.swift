@@ -9,11 +9,11 @@
 import Foundation
 
 public protocol MypageDomainRepoInterface {
-    func mypage(number: Int, completion: @escaping (Result<Student, Error>) -> Void)
-    func getStudent(completion: @escaping (Result<[User], Error>) -> Void)
-    func changeNickname(name: String, completion: @escaping (Result<Void, Error>) -> Void)
-    func changePassword(password: String, prePassword: String, completion: @escaping (Result<Void, Error>) -> Void)
-    func addStudent(number: Int, completion: @escaping (Result<Void, Error>) -> Void)
-    func getPointList(number: Int, completion: @escaping (Result<PointList, Error>) -> Void)
-    func getOutingList(number: Int, completion: @escaping (Result<OutsideList, Error>) -> Void)
+    func mypage(number: Int, completion: @escaping (Result<Student, GEError>) -> Void)
+    func getStudent(completion: @escaping (Result<[User], GEError>) -> Void)
+    func changeNickname(name: String, completion: @escaping (Result<Void, GEError>) -> Void)
+    func changePassword(password: String, prePassword: String, completion: @escaping (Result<Void, GEError>) -> Void)
+    func addStudent(number: Int, completion: @escaping (Result<Void, GEError>) -> Void)
+    func getPointList(number: Int, completion: @escaping (Result<PointList, GEError>) -> Void)
+    func getOutingList(number: Int, completion: @escaping (Result<OutsideList, GEError>) -> Void)
 }

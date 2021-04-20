@@ -9,13 +9,13 @@
 import Foundation
 
 public protocol MypageInteractorInterface {
-    func mypage(number: Int, completion: @escaping (Result<Student, Error>) -> Void)
-    func getStudent(completion: @escaping (Result<[User], Error>) -> Void)
-    func changeNickname(name: String, completion: @escaping (Result<Void, Error>) -> Void)
-    func changePassword(password: String, prePassword: String, completion: @escaping (Result<Void, Error>) -> Void)
-    func addStudent(number: Int, completion: @escaping (Result<Void, Error>) -> Void)
-    func getPointList(number: Int, completion: @escaping (Result<PointList, Error>) -> Void)
-    func getOutingList(number: Int, completion: @escaping (Result<OutsideList, Error>) -> Void)
+    func mypage(number: Int, completion: @escaping (Result<Student, GEError>) -> Void)
+    func getStudent(completion: @escaping (Result<[User], GEError>) -> Void)
+    func changeNickname(name: String, completion: @escaping (Result<Void, GEError>) -> Void)
+    func changePassword(password: String, prePassword: String, completion: @escaping (Result<Void, GEError>) -> Void)
+    func addStudent(number: Int, completion: @escaping (Result<Void, GEError>) -> Void)
+    func getPointList(number: Int, completion: @escaping (Result<PointList, GEError>) -> Void)
+    func getOutingList(number: Int, completion: @escaping (Result<OutsideList, GEError>) -> Void)
 }
 
 public class MypageInteractor: MypageInteractorInterface {
@@ -25,7 +25,7 @@ public class MypageInteractor: MypageInteractorInterface {
         self.mypageDomainRepo = mypageDomainRepo
     }
     
-    public func mypage(number: Int, completion: @escaping (Result<Student, Error>) -> Void) {
+    public func mypage(number: Int, completion: @escaping (Result<Student, GEError>) -> Void) {
         mypageDomainRepo.mypage(number: number) { result in
             switch result {
             case let .success(success):
@@ -36,7 +36,7 @@ public class MypageInteractor: MypageInteractorInterface {
         }
     }
     
-    public func getStudent(completion: @escaping (Result<[User], Error>) -> Void) {
+    public func getStudent(completion: @escaping (Result<[User], GEError>) -> Void) {
         mypageDomainRepo.getStudent { result in
             switch result {
             case let .success(success):
@@ -47,7 +47,7 @@ public class MypageInteractor: MypageInteractorInterface {
         }
     }
     
-    public func changeNickname(name: String, completion: @escaping (Result<Void, Error>) -> Void) {
+    public func changeNickname(name: String, completion: @escaping (Result<Void, GEError>) -> Void) {
         mypageDomainRepo.changeNickname(name: name) { result in
             switch result {
             case let .success(success):
@@ -58,7 +58,7 @@ public class MypageInteractor: MypageInteractorInterface {
         }
     }
     
-    public func changePassword(password: String, prePassword: String, completion: @escaping (Result<Void, Error>) -> Void) {
+    public func changePassword(password: String, prePassword: String, completion: @escaping (Result<Void, GEError>) -> Void) {
         mypageDomainRepo.changePassword(password: password, prePassword: prePassword) { result in
             switch result {
             case let .success(success):
@@ -69,7 +69,7 @@ public class MypageInteractor: MypageInteractorInterface {
         }
     }
     
-    public func addStudent(number: Int, completion: @escaping (Result<Void, Error>) -> Void) {
+    public func addStudent(number: Int, completion: @escaping (Result<Void, GEError>) -> Void) {
         mypageDomainRepo.addStudent(number: number) { result in
             switch result {
             case let .success(success):
@@ -80,7 +80,7 @@ public class MypageInteractor: MypageInteractorInterface {
         }
     }
     
-    public func getPointList(number: Int, completion: @escaping (Result<PointList, Error>) -> Void) {
+    public func getPointList(number: Int, completion: @escaping (Result<PointList, GEError>) -> Void) {
         mypageDomainRepo.getPointList(number: number) { result in
             switch result {
             case let .success(success):
@@ -91,7 +91,7 @@ public class MypageInteractor: MypageInteractorInterface {
         }
     }
     
-    public func getOutingList(number: Int, completion: @escaping (Result<OutsideList, Error>) -> Void) {
+    public func getOutingList(number: Int, completion: @escaping (Result<OutsideList, GEError>) -> Void) {
         mypageDomainRepo.getOutingList(number: number) { result in
             switch result {
             case let .success(success):
@@ -101,5 +101,4 @@ public class MypageInteractor: MypageInteractorInterface {
             }
         }
     }
-    
 }

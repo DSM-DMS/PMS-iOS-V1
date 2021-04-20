@@ -10,13 +10,18 @@ import SwiftUI
 import WaterfallGrid
 
 public struct DeveloperView: View {
-    @ObservedObject var introduceVM = IntroduceViewModel()
     @EnvironmentObject var settings: NavSettings
     @Environment(\.presentationMode) var mode
     @State var offset = CGSize.zero
     var images = [ "Front1", "Front2", "Back1", "Back2", "Android1", "Android2", "iOS1"]
     var fields = ["웹", "웹", "서버", "서버", "안드로이드", "안드로이드", "iOS"]
     var persons = ["강은빈", "이진우", "정지우", "김정빈", "이은별", "김재원", "정고은"]
+    
+    @ObservedObject var introduceVM: IntroduceViewModel
+    
+    public init(introduceVM: IntroduceViewModel) {
+        self.introduceVM = introduceVM
+    }
     
     public var body: some View {
         ScrollView {
@@ -73,15 +78,15 @@ struct DeveloperRectangle: View {
     }
 }
 
-struct DeveloperView_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
-            DeveloperView()
-                .previewDevice(PreviewDevice(rawValue: "iPhone XS Max"))
-                .previewDisplayName("iPhone XS Max")
-            DeveloperView()
-                .previewDevice(PreviewDevice(rawValue: "iPhone 8"))
-                .previewDisplayName("iPhone 8")
-        }
-    }
-}
+// struct DeveloperView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        Group {
+//            DeveloperView()
+//                .previewDevice(PreviewDevice(rawValue: "iPhone XS Max"))
+//                .previewDisplayName("iPhone XS Max")
+//            DeveloperView()
+//                .previewDevice(PreviewDevice(rawValue: "iPhone 8"))
+//                .previewDisplayName("iPhone 8")
+//        }
+//    }
+// }

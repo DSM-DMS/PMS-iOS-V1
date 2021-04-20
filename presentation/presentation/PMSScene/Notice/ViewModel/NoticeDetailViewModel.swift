@@ -30,7 +30,7 @@ class NoticeDetailViewModel: ObservableObject {
     @Published var pdfAlert = false
     @Published var pdfTitle = "가정통신문.pdf"
     
-    let pdfUrl = Bundle.main.url(forResource: "testPdf", withExtension: "pdf")!
+//    let pdfUrl = Bundle.main.url(forResource: "testPdf", withExtension: "pdf")!
     
     func downloadFile(fileName: String) {
         let fileManager = FileManager.default

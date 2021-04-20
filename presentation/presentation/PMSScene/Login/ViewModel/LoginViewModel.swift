@@ -10,7 +10,7 @@ import Foundation
 import Combine
 import domain
 
-class LoginViewModel: ObservableObject {
+public class LoginViewModel: ObservableObject {
     @Published var id = ""
     @Published var password = ""
     @Published var isHidden = true
@@ -19,11 +19,14 @@ class LoginViewModel: ObservableObject {
     @Published var isNotInternet = false
     @Published var isSuccessAlert = false
     
-//    private var apiManager: APIManager
     private var bag = Set<AnyCancellable>()
     
-    init() {
-//        self.apiManager = APIManager()
+    private var loginInteractor: LoginInteractorInterface
+    private var authDataRepo: AuthDomainRepoInterface
+    
+    public init(loginInteractor: LoginInteractorInterface, authDataRepo: AuthDomainRepoInterface) {
+        self.loginInteractor = loginInteractor
+        self.authDataRepo = authDataRepo
         bindInputs()
     }
     
@@ -56,23 +59,19 @@ class LoginViewModel: ObservableObject {
     }
     
     func requestLogin(email: String, password: String) {
-//        apiManager.login(email: email, password: password)
-//            .receive(on: DispatchQueue.main)
-//            .sink(receiveCompletion: { [weak self] completion in
-//                if case .failure(let error) = completion {
-//                    if error.response?.statusCode == 401 {
-//                        self?.isNotMatchError.toggle()
-//                    } else if error.errorCode == 6 {
-//                        self?.isNotInternet.toggle()
-//                    }
-//                    print(error)
-//
-//                }
-//            }, receiveValue: { [weak self] token in
-//                self?.isSuccessAlert.toggle()
-//                UDManager.shared.token = token.accessToken
-//                AuthManager.shared.requestStudent()
-//            })
-//            .store(in: &bag)
+        loginInteractor.login(email: email, password: password) { [weak self] result in
+            switch result {
+            case let .success(token):
+                self?.isSuccessAlert.toggle()
+                UDManager.shared.token = token.accessToken
+                self?.authDataRepo.getStudent()
+            case let .failure(error):
+                if error == .unauthorized {
+                    self?.isNotMatchError.toggle()
+                } else if error == .noInternet {
+                    self?.isNotInternet.toggle()
+                }
+            }
+        }
     }
 }

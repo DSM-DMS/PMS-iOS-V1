@@ -10,6 +10,8 @@
 		4B871B3433BF300E587A1824 /* Pods_PMSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 163768674B0C28767B1FF501 /* Pods_PMSTests.framework */; };
 		AA33F242B9085A3285F60C2D /* Pods_PMS_PMSUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A61A41D34681701356E74BF8 /* Pods_PMS_PMSUITests.framework */; };
 		D7A7832DB4A59F3DFA319B7E /* Pods_PMS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 506372177945A001976672FE /* Pods_PMS.framework */; };
+		D91F336C262DB32F00E87F47 /* MealDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91F336B262DB32F00E87F47 /* MealDI.swift */; };
+		D91F338D262DC04800E87F47 /* IntroduceDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91F338C262DC04800E87F47 /* IntroduceDI.swift */; };
 		D94AC77E2524D2D0002CCB3A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94AC77D2524D2D0002CCB3A /* SceneDelegate.swift */; };
 		D94AC7822524D2D3002CCB3A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D94AC7812524D2D3002CCB3A /* Assets.xcassets */; };
 		D94AC7852524D2D3002CCB3A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D94AC7842524D2D3002CCB3A /* Preview Assets.xcassets */; };
@@ -27,6 +29,7 @@
 		D9CEECCF262C66BA002F9566 /* presentation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9CEECCE262C66BA002F9566 /* presentation.framework */; };
 		D9CEECD0262C66BA002F9566 /* presentation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D9CEECCE262C66BA002F9566 /* presentation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D9CF9185262D1FC1000A37C9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CF9184262D1FC1000A37C9 /* AppDelegate.swift */; };
+		D9CF91BC262D50D3000A37C9 /* LoginDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CF91BB262D50D3000A37C9 /* LoginDI.swift */; };
 		D9D8927825FF4A6800A1D5DC /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = D9D8927725FF4A6800A1D5DC /* Entitlements.plist */; };
 /* End PBXBuildFile section */
 
@@ -71,6 +74,8 @@
 		7F79DC1AAD2D755376E03DE6 /* Pods-PMS-PMSUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PMS-PMSUITests.release.xcconfig"; path = "Target Support Files/Pods-PMS-PMSUITests/Pods-PMS-PMSUITests.release.xcconfig"; sourceTree = "<group>"; };
 		A61A41D34681701356E74BF8 /* Pods_PMS_PMSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PMS_PMSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D897394764333B2329DD2A97 /* Pods-PMSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PMSTests.release.xcconfig"; path = "Target Support Files/Pods-PMSTests/Pods-PMSTests.release.xcconfig"; sourceTree = "<group>"; };
+		D91F336B262DB32F00E87F47 /* MealDI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealDI.swift; sourceTree = "<group>"; };
+		D91F338C262DC04800E87F47 /* IntroduceDI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroduceDI.swift; sourceTree = "<group>"; };
 		D94AC7782524D2D0002CCB3A /* PMS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PMS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D94AC77D2524D2D0002CCB3A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		D94AC7812524D2D3002CCB3A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -92,6 +97,7 @@
 		D9CEECC9262C66B6002F9566 /* domain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = domain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9CEECCE262C66BA002F9566 /* presentation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = presentation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9CF9184262D1FC1000A37C9 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		D9CF91BB262D50D3000A37C9 /* LoginDI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginDI.swift; sourceTree = "<group>"; };
 		D9D8927725FF4A6800A1D5DC /* Entitlements.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
 		F1725CD0E5983DECD875E0AD /* Pods-PMS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PMS.release.xcconfig"; path = "Target Support Files/Pods-PMS/Pods-PMS.release.xcconfig"; sourceTree = "<group>"; };
 		FF4EF3541F2F70DDA89482A6 /* Pods-PMS-PMSUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PMS-PMSUITests.debug.xcconfig"; path = "Target Support Files/Pods-PMS-PMSUITests/Pods-PMS-PMSUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -241,6 +247,9 @@
 			children = (
 				D9CEEBFD262C5BF1002F9566 /* AppDI.swift */,
 				D9CEEC08262C5C5C002F9566 /* MypageDI.swift */,
+				D9CF91BB262D50D3000A37C9 /* LoginDI.swift */,
+				D91F336B262DB32F00E87F47 /* MealDI.swift */,
+				D91F338C262DC04800E87F47 /* IntroduceDI.swift */,
 			);
 			path = DI;
 			sourceTree = "<group>";
@@ -506,9 +515,12 @@
 			files = (
 				D94AC77E2524D2D0002CCB3A /* SceneDelegate.swift in Sources */,
 				D9CEEBFE262C5BF1002F9566 /* AppDI.swift in Sources */,
+				D9CF91BC262D50D3000A37C9 /* LoginDI.swift in Sources */,
 				D9CEEC09262C5C5C002F9566 /* MypageDI.swift in Sources */,
 				D9CF9185262D1FC1000A37C9 /* AppDelegate.swift in Sources */,
 				D9BD706E2532A02100186C12 /* ContentView.swift in Sources */,
+				D91F338D262DC04800E87F47 /* IntroduceDI.swift in Sources */,
+				D91F336C262DB32F00E87F47 /* MealDI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
