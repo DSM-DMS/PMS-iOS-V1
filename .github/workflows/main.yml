@@ -16,8 +16,6 @@ jobs:
         uses: snickerbockers/submodules-init@v4
       - name: Bundle Install
         run: bundle install
-      - name: Set Appstore Connect User
-        run: bundle exec fastlane fastlane-credentials add --username ${{ secrets.APPSTORE_USERNAME }} --password ${{ secrets.APPSTORE_PASSWORD }}
       - name: Increase Build Version
         run: bundle exec fastlane versionup
       - name: Deploy App
