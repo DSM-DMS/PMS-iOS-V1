@@ -44,7 +44,7 @@ public struct PMSView: View {
                         UDManager.shared.isLogin = false
                         UDManager.shared.email = "test@test.com"
                         UDManager.shared.password = "testpass"
-//                        AuthManager.shared.refreshToken()
+                        loginVM.apply(.loginTapped)
                     }
             }
             .navigationBarTitle("PMS", displayMode: .inline)

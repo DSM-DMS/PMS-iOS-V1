@@ -15,25 +15,43 @@ public class AuthDataRepo: AuthDomainRepoInterface {
     public init() {}
     
     public func refreshToken() {
-        provider.request(.login(email: UDManager.shared.email!, password: UDManager.shared.password!)) { result in
-            switch result {
-            case let .success(success):
-                let responseData = success.data
-                do {
-                    let token = try JSONDecoder().decode(accessToken.self, from: responseData)
-                    UDManager.shared.token = token.accessToken
-                } catch {
-                    print("map error")
+        if UDManager.shared.isLogin == false {
+            provider.request(.login(email: "test@test.com", password: "testpass")) { result in
+                switch result {
+                case let .success(success):
+                    let responseData = success.data
+                    do {
+                        let token = try JSONDecoder().decode(accessToken.self, from: responseData)
+                        UDManager.shared.token = token.accessToken
+                    } catch {
+                        print("map error")
+                    }
+                case .failure:
+                    break
                 }
-            case let .failure(error):
-                if error.response?.statusCode == 401 {
-                    print("the email & password not match")
-                } else if error.errorCode == 6 {
-                    print("you're not in internet")
+            }
+        } else {
+            provider.request(.login(email: UDManager.shared.email!, password: UDManager.shared.password!)) { result in
+                switch result {
+                case let .success(success):
+                    let responseData = success.data
+                    do {
+                        let token = try JSONDecoder().decode(accessToken.self, from: responseData)
+                        UDManager.shared.token = token.accessToken
+                    } catch {
+                        print("map error")
+                    }
+                case let .failure(error):
+                    if error.response?.statusCode == 401 {
+                        print("the email & password not match")
+                    } else if error.errorCode == 6 {
+                        print("you're not in internet")
+                    }
+                    print(error)
                 }
-                print(error)
             }
         }
+        
     }
     
     public func getStudent() {

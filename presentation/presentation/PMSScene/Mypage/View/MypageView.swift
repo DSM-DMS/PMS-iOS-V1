@@ -28,8 +28,12 @@ struct MypageView: View {
                         VStack(spacing: 20) {
                             MypageTopView(nickname: self.mypageVM.nickname, student: self.$mypageVM.currentStudent, nicknameAlert: self.$nicknameAlert, studentAlert: self.$studentsAlert)
                             
-                            NavigationLink(destination: ScoreDetailView()) {
+                            if !UDManager.shared.isLogin {
                                 TwoScoreView(plus: self.$mypageVM.plusScore, minus: self.$mypageVM.minusScore)
+                            } else {
+                                NavigationLink(destination: ScoreDetailView()) {
+                                    TwoScoreView(plus: self.$mypageVM.plusScore, minus: self.$mypageVM.minusScore)
+                                }
                             }
                             
                             BlueStatusView(text: self.mypageVM.status)
@@ -171,7 +175,7 @@ struct MypageTopView: View {
                     self.nicknameAlert.toggle()
                 }
             }) {
-                Text(!UDManager.shared.isLogin ? "로그인 안함" : nickname)
+                Text(!UDManager.shared.isLogin ? "비로그인 유저" : nickname)
                     .font(.title)
                     .foregroundColor(.white)
                 GEImage.pencil
@@ -179,8 +183,10 @@ struct MypageTopView: View {
             }
             Spacer()
             Button(action: {
-                withAnimation(.easeIn(duration: 0.1)) {
-                    self.studentAlert.toggle()
+                if UDManager.shared.isLogin {
+                    withAnimation(.easeIn(duration: 0.1)) {
+                        self.studentAlert.toggle()
+                    }
                 }
             }, label: {
                 HStack {

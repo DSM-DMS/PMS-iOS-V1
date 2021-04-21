@@ -36,14 +36,18 @@ public class LoginViewModel: ObservableObject {
     
     enum Input {
         case loginTapped
+        case anonymous
     }
     
     private let loginSubject = CurrentValueSubject<Auth?, Never>(nil)
+    private let anonymousSubject = CurrentValueSubject<Void, Never>(())
     
     func apply(_ input: Input) {
         switch input {
         case .loginTapped:
             loginSubject.send(Auth(email: self.id, password: self.password))
+        case .anonymous:
+            anonymousSubject.send(())
         }
     }
     
@@ -54,6 +58,12 @@ public class LoginViewModel: ObservableObject {
                 self?.requestLogin(email: user.email, password: user.password)
                 UDManager.shared.email = user.email
                 UDManager.shared.password = user.password
+            })
+            .store(in: &bag)
+        anonymousSubject
+            .compactMap { $0 }
+            .sink(receiveValue: { [weak self] _ in
+                self?.requestLogin(email: "test@test.com", password: "testpass")
             })
             .store(in: &bag)
     }

@@ -35,7 +35,7 @@ struct GEImage {
     static let circle = Image(systemName: "circle")
     static let leftArrow = Image("LeftArrow")
     static let rightArrow = Image("RightArrow")
-    static let blackLeftArrow = Image("lefArrow-1")
+    static let blackLeftArrow = Image("leftArrow-1")
     static let blackRightArrow = Image("rightArrow-1")
     static let download = Image("Download")
     static let clip = Image("Clip")
