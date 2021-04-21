@@ -9,15 +9,15 @@
          <BuildActionEntry
             buildForTesting = "YES"
             buildForRunning = "YES"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "NO">
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D9CEED71262C7CCE002F9566"
-               BuildableName = "presentation.framework"
-               BlueprintName = "presentation"
-               ReferencedContainer = "container:presentation.xcodeproj">
+               BlueprintIdentifier = "B0E9DE1BA799D67F20560386B256979F"
+               BuildableName = "Pods_PMS_PMSUITests.framework"
+               BlueprintName = "Pods-PMS-PMSUITests"
+               ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -50,10 +50,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D9CEED71262C7CCE002F9566"
-            BuildableName = "presentation.framework"
-            BlueprintName = "presentation"
-            ReferencedContainer = "container:presentation.xcodeproj">
+            BlueprintIdentifier = "B0E9DE1BA799D67F20560386B256979F"
+            BuildableName = "Pods_PMS_PMSUITests.framework"
+            BlueprintName = "Pods-PMS-PMSUITests"
+            ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>

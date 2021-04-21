@@ -16,7 +16,16 @@ jobs:
         uses: snickerbockers/submodules-init@v4
       - name: Bundle Install
         run: bundle install
-      - name: Increase Build Version
-        run: bundle exec fastlane versionup
+      - name: Set Appstore Connect User
+        run: bundle exec fastlane fastlane-credentials add --username ${{ secrets.APPLE_ACCOUNT }} --password ${{ secrets.FASTLANE_PASSWORD }}
       - name: Deploy App
+        env:
+          MATCH_REPO: ${{ secrets.MATCH_REPO }}
+          APPLE_ACCOUNT: ${{ secrets.APPLE_ACCOUNT }}
+          TEAM_ID: ${{ secrets.TEAM_ID }}
+          SLACK_URL: ${{ secrets.SLACK_URL }}
+          ITC_TEAM_ID: ${{ secrets.ITC_TEAM_ID }}
+          FASTLANE_PASSWORD: ${{ secrets.FASTLANE_PASSWORD }}
+          FASTLANE_SESSION: ${{ secrets.TOKEN }}
+          FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: ${{ secrets.FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD }}
         run: bundle exec fastlane github

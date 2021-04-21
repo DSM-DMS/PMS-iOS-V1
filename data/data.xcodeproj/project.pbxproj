@@ -14,7 +14,7 @@
 		D91F338B262DBC1200E87F47 /* IntroduceDataRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91F338A262DBC1200E87F47 /* IntroduceDataRepo.swift */; };
 		D9CEEC1F262C6054002F9566 /* data.h in Headers */ = {isa = PBXBuildFile; fileRef = D9CEEC1D262C6054002F9566 /* data.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D9CEEC5C262C6113002F9566 /* domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9CEEC5B262C6113002F9566 /* domain.framework */; };
-		D9CEEC5D262C6113002F9566 /* domain.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D9CEEC5B262C6113002F9566 /* domain.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D9CEEC5D262C6113002F9566 /* domain.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D9CEEC5B262C6113002F9566 /* domain.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D9CEEE75262D015E002F9566 /* MypageRemoteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CEEC65262C6137002F9566 /* MypageRemoteDataSource.swift */; };
 		D9CEEE76262D0161002F9566 /* MypageLocalDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CEEC66262C6137002F9566 /* MypageLocalDataSource.swift */; };
 		D9CEEE77262D0164002F9566 /* MypageDataRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CEEC67262C6137002F9566 /* MypageDataRepo.swift */; };
@@ -389,9 +389,11 @@
 		D9CEEC23262C6054002F9566 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = C2JSJLJ4FN;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -405,6 +407,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.jeonggo.data;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -414,9 +418,11 @@
 		D9CEEC24262C6054002F9566 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = C2JSJLJ4FN;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -430,6 +436,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.jeonggo.data;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

@@ -1,4 +1,4 @@
-git_url("https://Goeun1001:g2gb!220@github.com/DSM-DMS/PMS-iOS-fastlane.git")
+git_url(ENV["MATCH_REPO"])
 
 storage_mode("git")
 

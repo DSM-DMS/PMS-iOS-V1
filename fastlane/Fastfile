@@ -17,7 +17,6 @@ default_platform(:ios)
 
 platform :ios do
   before_all do
-    ENV["SLACK_URL"] = "https://hooks.slack.com/services/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"
     ENV["SLACK_CHANNEL"] = "#ios"
   end
 
@@ -45,7 +44,8 @@ platform :ios do
       force: true,
       skip_metadata: true,
       skip_screenshots: true,
-      skip_binary_upload: true
+      skip_binary_upload: true,
+      app_identifier: "com.dms.PMS"
     )
   end
 

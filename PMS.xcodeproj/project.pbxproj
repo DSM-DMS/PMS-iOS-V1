@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		4B871B3433BF300E587A1824 /* Pods_PMSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 163768674B0C28767B1FF501 /* Pods_PMSTests.framework */; };
 		AA33F242B9085A3285F60C2D /* Pods_PMS_PMSUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A61A41D34681701356E74BF8 /* Pods_PMS_PMSUITests.framework */; };
-		D7A7832DB4A59F3DFA319B7E /* Pods_PMS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 506372177945A001976672FE /* Pods_PMS.framework */; };
 		D91F336C262DB32F00E87F47 /* MealDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91F336B262DB32F00E87F47 /* MealDI.swift */; };
 		D91F338D262DC04800E87F47 /* IntroduceDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91F338C262DC04800E87F47 /* IntroduceDI.swift */; };
 		D94AC77E2524D2D0002CCB3A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94AC77D2524D2D0002CCB3A /* SceneDelegate.swift */; };
@@ -20,14 +19,16 @@
 		D94AC79E2524D2D3002CCB3A /* PMSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94AC79D2524D2D3002CCB3A /* PMSUITests.swift */; };
 		D9721F6A25F8BA4B00EB92E8 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9721F6925F8BA4B00EB92E8 /* SnapshotHelper.swift */; };
 		D9BD706E2532A02100186C12 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BD706D2532A02100186C12 /* ContentView.swift */; };
+		D9BE8C9C262FE252002664E1 /* data.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9CEECC3262C66B4002F9566 /* data.framework */; };
+		D9BE8C9D262FE252002664E1 /* data.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D9CEECC3262C66B4002F9566 /* data.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		D9BE8C9F262FE253002664E1 /* domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9CEECC9262C66B6002F9566 /* domain.framework */; };
+		D9BE8CA0262FE253002664E1 /* domain.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D9CEECC9262C66B6002F9566 /* domain.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		D9BE8CA1262FE255002664E1 /* Pods_PMS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 506372177945A001976672FE /* Pods_PMS.framework */; };
+		D9BE8CA2262FE255002664E1 /* Pods_PMS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 506372177945A001976672FE /* Pods_PMS.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		D9BE8CA3262FE256002664E1 /* presentation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9CEECCE262C66BA002F9566 /* presentation.framework */; };
+		D9BE8CA4262FE256002664E1 /* presentation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D9CEECCE262C66BA002F9566 /* presentation.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D9CEEBFE262C5BF1002F9566 /* AppDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CEEBFD262C5BF1002F9566 /* AppDI.swift */; };
 		D9CEEC09262C5C5C002F9566 /* MypageDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CEEC08262C5C5C002F9566 /* MypageDI.swift */; };
-		D9CEECC4262C66B4002F9566 /* data.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9CEECC3262C66B4002F9566 /* data.framework */; };
-		D9CEECC5262C66B4002F9566 /* data.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D9CEECC3262C66B4002F9566 /* data.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		D9CEECCA262C66B6002F9566 /* domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9CEECC9262C66B6002F9566 /* domain.framework */; };
-		D9CEECCB262C66B6002F9566 /* domain.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D9CEECC9262C66B6002F9566 /* domain.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		D9CEECCF262C66BA002F9566 /* presentation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9CEECCE262C66BA002F9566 /* presentation.framework */; };
-		D9CEECD0262C66BA002F9566 /* presentation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D9CEECCE262C66BA002F9566 /* presentation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D9CF9185262D1FC1000A37C9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CF9184262D1FC1000A37C9 /* AppDelegate.swift */; };
 		D9CF91BC262D50D3000A37C9 /* LoginDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CF91BB262D50D3000A37C9 /* LoginDI.swift */; };
 		D9D8927825FF4A6800A1D5DC /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = D9D8927725FF4A6800A1D5DC /* Entitlements.plist */; };
@@ -51,15 +52,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		D9CEECC6262C66B4002F9566 /* Embed Frameworks */ = {
+		D9BE8C9E262FE252002664E1 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				D9CEECD0262C66BA002F9566 /* presentation.framework in Embed Frameworks */,
-				D9CEECCB262C66B6002F9566 /* domain.framework in Embed Frameworks */,
-				D9CEECC5262C66B4002F9566 /* data.framework in Embed Frameworks */,
+				D9BE8CA0262FE253002664E1 /* domain.framework in Embed Frameworks */,
+				D9BE8CA2262FE255002664E1 /* Pods_PMS.framework in Embed Frameworks */,
+				D9BE8CA4262FE256002664E1 /* presentation.framework in Embed Frameworks */,
+				D9BE8C9D262FE252002664E1 /* data.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -108,10 +110,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D9CEECCA262C66B6002F9566 /* domain.framework in Frameworks */,
-				D9CEECCF262C66BA002F9566 /* presentation.framework in Frameworks */,
-				D9CEECC4262C66B4002F9566 /* data.framework in Frameworks */,
-				D7A7832DB4A59F3DFA319B7E /* Pods_PMS.framework in Frameworks */,
+				D9BE8C9F262FE253002664E1 /* domain.framework in Frameworks */,
+				D9BE8C9C262FE252002664E1 /* data.framework in Frameworks */,
+				D9BE8CA3262FE256002664E1 /* presentation.framework in Frameworks */,
+				D9BE8CA1262FE255002664E1 /* Pods_PMS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -266,7 +268,7 @@
 				D94AC7752524D2D0002CCB3A /* Frameworks */,
 				D94AC7762524D2D0002CCB3A /* Resources */,
 				D94AC7AB2524D38B002CCB3A /* ShellScript */,
-				D9CEECC6262C66B4002F9566 /* Embed Frameworks */,
+				D9BE8C9E262FE252002664E1 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -694,12 +696,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5C7E763583EB67608915121F /* Pods-PMS.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = PMS/Resource/PMS.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_ASSET_PATHS = "\"PMS/Resource/Preview Content\"";
 				DEVELOPMENT_TEAM = Z25H7B85Z8;
 				ENABLE_PREVIEWS = YES;
@@ -726,7 +727,7 @@
 				CODE_SIGN_ENTITLEMENTS = PMS/Resource/PMS.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_ASSET_PATHS = "\"PMS/Resource/Preview Content\"";
 				DEVELOPMENT_TEAM = Z25H7B85Z8;
 				ENABLE_PREVIEWS = YES;

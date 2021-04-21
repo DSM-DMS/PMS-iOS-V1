@@ -14,10 +14,10 @@
             buildForAnalyzing = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D9CEED71262C7CCE002F9566"
-               BuildableName = "presentation.framework"
-               BlueprintName = "presentation"
-               ReferencedContainer = "container:presentation.xcodeproj">
+               BlueprintIdentifier = "D9CEEC19262C6054002F9566"
+               BuildableName = "data.framework"
+               BlueprintName = "data"
+               ReferencedContainer = "container:data.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -50,10 +50,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D9CEED71262C7CCE002F9566"
-            BuildableName = "presentation.framework"
-            BlueprintName = "presentation"
-            ReferencedContainer = "container:presentation.xcodeproj">
+            BlueprintIdentifier = "D9CEEC19262C6054002F9566"
+            BuildableName = "data.framework"
+            BlueprintName = "data"
+            ReferencedContainer = "container:data.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>

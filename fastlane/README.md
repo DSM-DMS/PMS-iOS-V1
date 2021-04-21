@@ -21,11 +21,6 @@ or alternatively using `brew install fastlane`
 fastlane ios test
 ```
 
-### ios coverage
-```
-fastlane ios coverage
-```
-
 ### ios github
 ```
 fastlane ios github
