@@ -6,14 +6,14 @@
 //  Copyright © 2021 jge. All rights reserved.
 //
 
-import Foundation
+import Combine
 
 public protocol MypageDomainRepoInterface {
-    func mypage(number: Int, completion: @escaping (Result<Student, GEError>) -> Void)
-    func getStudent(completion: @escaping (Result<User, GEError>) -> Void)
-    func changeNickname(name: String, completion: @escaping (Result<Void, GEError>) -> Void)
-    func changePassword(password: String, prePassword: String, completion: @escaping (Result<Void, GEError>) -> Void)
-    func addStudent(number: Int, completion: @escaping (Result<Void, GEError>) -> Void)
-    func getPointList(number: Int, completion: @escaping (Result<PointList, GEError>) -> Void)
-    func getOutingList(number: Int, completion: @escaping (Result<OutsideList, GEError>) -> Void)
+    func mypage(number: Int) -> AnyPublisher<Student, GEError>
+    func getStudent() -> AnyPublisher<User, GEError>
+    func changeNickname(name: String) -> AnyPublisher<Void, GEError>
+    func changePassword(password: String, prePassword: String) -> AnyPublisher<Void, GEError>
+    func addStudent(number: Int) -> AnyPublisher<Void, GEError>
+    func getPointList(number: Int) -> AnyPublisher<PointList, GEError>
+    func getOutingList(number: Int) -> AnyPublisher<OutsideList, GEError>
 }

@@ -7,15 +7,16 @@
 //
 
 import Foundation
+import Combine
 
 public protocol MypageInteractorInterface {
-    func mypage(number: Int, completion: @escaping (Result<Student, GEError>) -> Void)
-    func getStudent(completion: @escaping (Result<User, GEError>) -> Void)
-    func changeNickname(name: String, completion: @escaping (Result<Void, GEError>) -> Void)
-    func changePassword(password: String, prePassword: String, completion: @escaping (Result<Void, GEError>) -> Void)
-    func addStudent(number: Int, completion: @escaping (Result<Void, GEError>) -> Void)
-    func getPointList(number: Int, completion: @escaping (Result<PointList, GEError>) -> Void)
-    func getOutingList(number: Int, completion: @escaping (Result<OutsideList, GEError>) -> Void)
+    func mypage(number: Int) -> AnyPublisher<Student, GEError>
+    func getStudent() -> AnyPublisher<User, GEError>
+    func changeNickname(name: String) -> AnyPublisher<Void, GEError>
+    func changePassword(password: String, prePassword: String) -> AnyPublisher<Void, GEError>
+    func addStudent(number: Int) -> AnyPublisher<Void, GEError>
+    func getPointList(number: Int) -> AnyPublisher<PointList, GEError>
+    func getOutingList(number: Int) -> AnyPublisher<OutsideList, GEError>
 }
 
 public class MypageInteractor: MypageInteractorInterface {
@@ -25,80 +26,31 @@ public class MypageInteractor: MypageInteractorInterface {
         self.mypageDomainRepo = mypageDomainRepo
     }
     
-    public func mypage(number: Int, completion: @escaping (Result<Student, GEError>) -> Void) {
-        mypageDomainRepo.mypage(number: number) { result in
-            switch result {
-            case let .success(success):
-                return completion(.success(success))
-            case let .failure(error):
-                return completion(.failure(error))
-            }
-        }
+    public func mypage(number: Int) -> AnyPublisher<Student, GEError> {
+        return mypageDomainRepo.mypage(number: number)
     }
     
-    public func getStudent(completion: @escaping (Result<User, GEError>) -> Void) {
-        mypageDomainRepo.getStudent { result in
-            switch result {
-            case let .success(success):
-                return completion(.success(success))
-            case let .failure(error):
-                return completion(.failure(error))
-            }
-        }
+    public func getStudent() -> AnyPublisher<User, GEError> {
+        mypageDomainRepo.getStudent()
     }
     
-    public func changeNickname(name: String, completion: @escaping (Result<Void, GEError>) -> Void) {
-        mypageDomainRepo.changeNickname(name: name) { result in
-            switch result {
-            case let .success(success):
-                return completion(.success(success))
-            case let .failure(error):
-                return completion(.failure(error))
-            }
-        }
+    public func changeNickname(name: String) -> AnyPublisher<Void, GEError> {
+        mypageDomainRepo.changeNickname(name: name)
     }
     
-    public func changePassword(password: String, prePassword: String, completion: @escaping (Result<Void, GEError>) -> Void) {
-        mypageDomainRepo.changePassword(password: password, prePassword: prePassword) { result in
-            switch result {
-            case let .success(success):
-                return completion(.success(success))
-            case let .failure(error):
-                return completion(.failure(error))
-            }
-        }
+    public func changePassword(password: String, prePassword: String) -> AnyPublisher<Void, GEError> {
+        mypageDomainRepo.changePassword(password: password, prePassword: prePassword)
     }
     
-    public func addStudent(number: Int, completion: @escaping (Result<Void, GEError>) -> Void) {
-        mypageDomainRepo.addStudent(number: number) { result in
-            switch result {
-            case let .success(success):
-                return completion(.success(success))
-            case let .failure(error):
-                return completion(.failure(error))
-            }
-        }
+    public func addStudent(number: Int) -> AnyPublisher<Void, GEError> {
+        mypageDomainRepo.addStudent(number: number)
     }
     
-    public func getPointList(number: Int, completion: @escaping (Result<PointList, GEError>) -> Void) {
-        mypageDomainRepo.getPointList(number: number) { result in
-            switch result {
-            case let .success(success):
-                return completion(.success(success))
-            case let .failure(error):
-                return completion(.failure(error))
-            }
-        }
+    public func getPointList(number: Int) -> AnyPublisher<PointList, GEError> {
+        mypageDomainRepo.getPointList(number: number)
     }
     
-    public func getOutingList(number: Int, completion: @escaping (Result<OutsideList, GEError>) -> Void) {
-        mypageDomainRepo.getOutingList(number: number) { result in
-            switch result {
-            case let .success(success):
-                return completion(.success(success))
-            case let .failure(error):
-                return completion(.failure(error))
-            }
-        }
+    public func getOutingList(number: Int) -> AnyPublisher<OutsideList, GEError> {
+        mypageDomainRepo.getOutingList(number: number)
     }
 }

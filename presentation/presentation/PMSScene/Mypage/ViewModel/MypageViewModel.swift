@@ -46,8 +46,8 @@ public class MypageViewModel: ObservableObject {
     @Published var passwordSuccessAlert = false
     
     // Point List & Outing List
-    @Published var points: PointList?
-    @Published var outings: OutsideList?
+    @Published var points = PointList(points: [Point]())
+    @Published var outings = OutsideList(outings: [Outside]())
     
     // Student Add
     @Published var passCodeModel = studentCodeModel(passCodeLength: 6)
@@ -64,6 +64,7 @@ public class MypageViewModel: ObservableObject {
         self.mypageInteractor = mypageInteractor
         self.authDataRepo = authDataRepo
         bindInputs()
+        bindOutputs()
     }
     
     deinit {
@@ -81,10 +82,18 @@ public class MypageViewModel: ObservableObject {
     
     private let appearSubject = PassthroughSubject<Int, Never>()
     private let addSubject = PassthroughSubject<Int, Never>()
-    private let passwordSubject = PassthroughSubject<Void, Never>()
-    private let nameSubject = PassthroughSubject<Void, Never>()
-    private let pointSubject = PassthroughSubject<Int, Never>()
-    private let outsideSubject = PassthroughSubject<Int, Never>()
+    private let changePasswordSubject = PassthroughSubject<Void, Never>()
+    private let changeNameSubject = PassthroughSubject<Void, Never>()
+    private let getPointSubject = PassthroughSubject<Int, Never>()
+    private let getOutsideSubject = PassthroughSubject<Int, Never>()
+    private let studentSubject = PassthroughSubject<Student, Never>()
+    private let errorSubject = PassthroughSubject<GEError, Never>()
+    private let passwordErrorSubject = PassthroughSubject<Bool, Never>()
+    private let passwordResponseSubject = PassthroughSubject<Bool, Never>()
+    private let nameErrorSubject = PassthroughSubject<Bool, Never>()
+    private let nameResponseSubject = PassthroughSubject<Bool, Never>()
+    private let PointSubject = PassthroughSubject<PointList, Never>()
+    private let OutsideSubject = PassthroughSubject<OutsideList, Never>()
     
     private var confirmPasswordValidPublisher: AnyPublisher<PasswordValidation, Never> {
         $confirmPassword
@@ -97,8 +106,8 @@ public class MypageViewModel: ObservableObject {
                 } else {
                     return .reasonable
                 }
-        }
-        .eraseToAnyPublisher()
+            }
+            .eraseToAnyPublisher()
     }
     
     func apply(_ input: Input) {
@@ -128,180 +137,166 @@ public class MypageViewModel: ObservableObject {
         case .addStudent:
             addSubject.send(Int(self.passCodeModel.passCodeString)!)
         case .changePassword:
-            passwordSubject.send()
+            changePasswordSubject.send()
         case .getPoint:
             let str = UDManager.shared.currentStudent
             let arr =  str!.components(separatedBy: " ")
-            pointSubject.send(Int(arr.first!)!)
+            getPointSubject.send(Int(arr.first!)!)
         case .getOutside:
             let str = UDManager.shared.currentStudent
             let arr =  str!.components(separatedBy: " ")
-            outsideSubject.send(Int(arr.first!)!)
+            getOutsideSubject.send(Int(arr.first!)!)
         case .changeName:
-            nameSubject.send()
+            changeNameSubject.send()
         }
     }
     
     func bindInputs() {
         appearSubject
-            .compactMap { $0 }
-            .sink(receiveValue: { num in
-                self.requestStudent(number: num)
-            })
+            .flatMap { [mypageInteractor] number in
+                mypageInteractor.mypage(number: number)
+                    .catch { [weak self] error -> Empty<Student, Never> in
+                        if error == GEError.unauthorized {
+                            self?.authDataRepo.refreshToken()
+                            self?.apply(.onAppear)
+                        } else {
+                            print(error)
+                        }
+                        return .init()
+                    }
+            }.share()
+            .subscribe(studentSubject)
             .store(in: &bag)
         
         addSubject
-            .compactMap { $0 }
-            .sink(receiveValue: { num in
-                self.addStudent(number: num)
-            })
-            .store(in: &bag)
+            .flatMap { [mypageInteractor] number in
+                mypageInteractor.addStudent(number: number)
+                    .map { [weak self] _ in
+                        self?.studentCodeAlert = false
+                        self?.passCodeModel.selectedCellIndex = 0
+                        self?.authDataRepo.getStudent()
+                        self?.studentsArray = UDManager.shared.studentsArray!
+                    }
+                    .catch { [weak self] error -> Empty<Void, Never> in
+                        if error == GEError.unauthorized {
+                            self?.authDataRepo.refreshToken()
+                            self?.apply(.addStudent)
+                        } else {
+                            withAnimation(.default) {
+                                self?.attempts += 1
+                            }
+                        }
+                        return .init()
+                    }
+            }
         
-        passwordSubject
-            .compactMap { $0 }
-            .sink(receiveValue: { _ in
-                self.changePassword(password: self.newPassword, prePassword: self.nowPassword)
-            })
+        changePasswordSubject
+            .flatMap { [mypageInteractor] _ in
+                mypageInteractor.changePassword(password: self.newPassword, prePassword: self.nowPassword)
+                    .map { _ in true }
+                    .catch { [weak self] error -> Empty<Bool, Never> in
+                        if error == GEError.unauthorized {
+                            self?.authDataRepo.refreshToken()
+                            self?.apply(.changePassword)
+                        } else {
+                            self?.passwordErrorSubject.send(true)
+                        }
+                        return .init()
+                    }
+            }.share()
+            .subscribe(passwordResponseSubject)
             .store(in: &bag)
         
         confirmPasswordValidPublisher
             .dropFirst()
-            .sink { (_confirmPasswordValidator) in
+            .sink { _confirmPasswordValidator in
                 self.confirmError = _confirmPasswordValidator.confirmPasswordErrorMessage != nil
-        }
-        .store(in: &bag)
-        
-        nameSubject
-            .compactMap { $0 }
-            .sink(receiveValue: { _ in
-                self.changeNickname(name: self.newNickname)
-            })
+            }
             .store(in: &bag)
         
-        pointSubject
-            .compactMap { $0 }
-            .sink(receiveValue: { num in
-                self.getPointList(number: num)
-            })
+        changeNameSubject
+            .flatMap { [mypageInteractor] _ in
+                mypageInteractor.changeNickname(name: self.newNickname)
+                    .map { _ in
+                        UDManager.shared.name = self.newNickname
+                        self.nickname = self.newNickname
+                        return true }
+                    .catch { [weak self] error -> Empty<Bool, Never> in
+                        if error == GEError.unauthorized {
+                            self?.authDataRepo.refreshToken()
+                            self?.apply(.changeName)
+                        } else {
+                            self?.nameErrorSubject.send(true)
+                        }
+                        return .init()
+                    }
+            }.share()
+            .subscribe(nameResponseSubject)
             .store(in: &bag)
         
-        outsideSubject
-            .compactMap { $0 }
-            .sink(receiveValue: { num in
-                self.getOutingList(number: num)
-            })
+        getPointSubject
+            .flatMap { [mypageInteractor] number in
+                mypageInteractor.getPointList(number: number)
+                    .catch { [weak self] error -> Empty<PointList, Never> in
+                        if error == GEError.unauthorized {
+                            self?.authDataRepo.refreshToken()
+                            self?.apply(.getPoint)
+                        } else {
+                            print(error)
+                        }
+                        return .init()
+                    }
+            }.share()
+            .subscribe(PointSubject)
+            .store(in: &bag)
+        
+        getOutsideSubject
+            .flatMap { [mypageInteractor] number in
+                mypageInteractor.getOutingList(number: number)
+                    .catch { [weak self] error -> Empty<OutsideList, Never> in
+                        if error == GEError.unauthorized {
+                            self?.authDataRepo.refreshToken()
+                            self?.apply(.getOutside)
+                        } else {
+                            print(error)
+                        }
+                        return .init()
+                    }
+            }.share()
+            .subscribe(OutsideSubject)
             .store(in: &bag)
     }
-}
-
-extension MypageViewModel {
-    func requestStudent(number: Int) {
-        mypageInteractor.mypage(number: number) { [weak self] result in
-            switch result {
-            case let .success(student):
+    
+    func bindOutputs() {
+        studentSubject
+            .sink { [weak self] student in
                 self?.plusScore = student.plus
                 self?.minusScore = student.minus
                 self?.minusStatus(num: student.minus)
                 self?.weekStatus = self?.convertStatus(num: student.status) ?? "오류가 났어요"
                 self?.isMeal = student.isMeal
-            case let .failure(error):
-                if error == .unauthorized {
-                    self?.authDataRepo.refreshToken()
-                    self?.requestStudent(number: number)
-                } else if error == .notFound {
-                    let arr = UDManager.shared.studentsArray
-                    UDManager.shared.currentStudent = arr?.first
-                }
-            }
-        }
+            }.store(in: &bag)
+        
+        passwordErrorSubject
+            .assign(to: \.passwordAlert, on: self)
+            .store(in: &bag)
+        
+        nameResponseSubject
+            .map { !$0 }
+            .assign(to: \.nicknameAlert, on: self)
+            .store(in: &bag)
+        
+        PointSubject
+            .assign(to: \.points, on: self)
+            .store(in: &bag)
+        
+        OutsideSubject
+            .assign(to: \.outings, on: self)
+            .store(in: &bag)
     }
-    
-    func changeNickname(name: String) {
-        mypageInteractor.changeNickname(name: name) { [weak self] result in
-            switch result {
-            case .success:
-                UDManager.shared.name = name
-                self?.nickname = name
-            case let .failure(error):
-                if error == .unauthorized {
-                    self?.authDataRepo.refreshToken()
-                    self?.changeNickname(name: name)
-                }
-            }
-        }
-    }
-    
-    func changePassword(password: String, prePassword: String) {
-        mypageInteractor.changePassword(password: password, prePassword: prePassword) { [weak self] result in
-            switch result {
-            case .success:
-                UDManager.shared.password = password
-                self?.passwordSuccessAlert.toggle()
-            case let .failure(error):
-                if error == .unauthorized {
-                    self?.authDataRepo.refreshToken()
-                    self?.changePassword(password: password, prePassword: prePassword)
-                }
-                self?.passwordAlert.toggle()
-            }
-        }
-    }
-    
-    func addStudent(number: Int) {
-        mypageInteractor.addStudent(number: number) { [weak self] result in
-            switch result {
-            case .success:
-                self?.studentCodeAlert = false
-                self?.passCodeModel.selectedCellIndex = 0
-                self?.authDataRepo.getStudent()
-                self?.studentsArray = UDManager.shared.studentsArray!
-                // currentStudent 바꾸고 음.. 학생 목록 업데이트해야됨
-            case let .failure(error):
-                if error == .unauthorized {
-                    self?.authDataRepo.getStudent()
-                    self?.addStudent(number: number)
-                } else if error == .notFound {
-                    withAnimation(.default) {
-                        self?.attempts += 1
-                    }
-                }
-                self?.passwordAlert.toggle()
-            }
-        }
-    }
-    
-    func getPointList(number: Int) {
-        mypageInteractor.getPointList(number: number) { [weak self] result in
-            switch result {
-            case let .success(pointList):
-                self?.points = pointList
-            case let .failure(error):
-                if error == .unauthorized {
-                    self?.authDataRepo.refreshToken()
-                    self?.getPointList(number: number)
-                } else if error == .notFound {
-                    print("그런 학생은 없습니다.")
-                }
-            }
-        }
-    }
-    
-    func getOutingList(number: Int) {
-        mypageInteractor.getOutingList(number: number) { [weak self] result in
-            switch result {
-            case let .success(outingList):
-                self?.outings = outingList
-            case let .failure(error):
-                if error == .unauthorized {
-                    self?.authDataRepo.refreshToken()
-                    self?.getPointList(number: number)
-                } else if error == .notFound {
-                    print("그런 학생은 없습니다.")
-                }
-            }
-        }
-    }
-    
+}
+
+extension MypageViewModel {
     func convertStatus(num: Int) -> String {
         if num == 1 {
             return "금요귀가"

@@ -32,6 +32,7 @@ public class MealViewModel: ObservableObject {
         self.mealInteractor = mealInteractor
         self.authDataRepo = authDataRepo
         bindInputs()
+        bindOutputs()
     }
     
     deinit {
@@ -44,24 +45,67 @@ public class MealViewModel: ObservableObject {
         case getMeal
     }
     
-    private let mealSubject = PassthroughSubject<Int, Never>()
+    private let getMealSubject = PassthroughSubject<Int, Never>()
+    private let mealSubject = PassthroughSubject<Meal, Never>()
+    private let mealPictureSubject = PassthroughSubject<MealPicture, Never>()
+    private let errorSubject = PassthroughSubject<GEError, Never>()
     
     func apply(_ input: Input) {
         switch input {
         case .getMeal:
             self.setDate()
-            mealSubject.send(Int(self.getDate)!)
+            getMealSubject.send(Int(self.getDate)!)
         }
     }
     
     func bindInputs() {
+        getMealSubject
+            .flatMap { [mealInteractor] date in
+                mealInteractor.getMeal(date: date)
+                    .catch { [weak self] error -> Empty<Meal, Never> in
+                        self?.errorSubject.send(error)
+                        return .init()
+                    }
+            }.share()
+            .subscribe(mealSubject)
+            .store(in: &bag)
+            
+        getMealSubject
+            .flatMap { [mealInteractor] date in
+                mealInteractor.getMealPicture(date: date)
+                    .catch { [weak self] error -> Empty<MealPicture, Never> in
+                        self?.errorSubject.send(error)
+                        return .init()
+                    }
+            }.share()
+            .subscribe(mealPictureSubject)
+            .store(in: &bag)
+    }
+    
+    func bindOutputs() {
         mealSubject
-            .compactMap { $0 }
-            .sink(receiveValue: { date in
-                self.requestMeal(date: date)
-                self.requestMealPicture(date: date)
+            .sink(receiveValue: {[weak self] meal in
+                self?.meals[0] = meal.breakfast.joined(separator: "\n")
+                self?.meals[1] = meal.lunch.joined(separator: "\n")
+                self?.meals[2] = meal.dinner.joined(separator: "\n")
             })
             .store(in: &bag)
+        
+        mealPictureSubject
+            .sink(receiveValue: {[weak self] meal in
+                self?.pictures[0] = meal.breakfast
+                self?.pictures[1] = meal.lunch
+                self?.pictures[2] = meal.dinner
+            })
+            .store(in: &bag)
+        
+        errorSubject
+            .sink(receiveValue: { [weak self] error in
+                if error == .unauthorized {
+                    self?.authDataRepo.refreshToken()
+                    self?.apply(.getMeal)
+                }
+            })
     }
     
     func setDate() {
@@ -88,36 +132,6 @@ public class MealViewModel: ObservableObject {
             self.changeDate -= 1
             setDate()
             apply(.getMeal)
-        }
-    }
-}
-
-extension MealViewModel {
-    func requestMeal(date: Int) {
-        mealInteractor.getMeal(date: date) { [weak self] result in
-            switch result {
-            case let .success(meal):
-                self?.meals[0] = meal.breakfast.joined(separator: "\n")
-                self?.meals[1] = meal.lunch.joined(separator: "\n")
-                self?.meals[2] = meal.dinner.joined(separator: "\n")
-            case .failure:
-                self?.authDataRepo.refreshToken()
-                self?.requestMeal(date: date)
-            }
-        }
-    }
-    
-    func requestMealPicture(date: Int) {
-        mealInteractor.getMealPicture(date: date) { [weak self] result in
-            switch result {
-            case let .success(meal):
-                self?.pictures[0] = meal.breakfast
-                self?.pictures[1] = meal.lunch
-                self?.pictures[2] = meal.dinner
-            case .failure:
-                self?.authDataRepo.refreshToken()
-                self?.requestMeal(date: date)
-            }
         }
     }
 }

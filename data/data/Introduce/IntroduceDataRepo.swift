@@ -7,6 +7,7 @@
 
 import Foundation
 import domain
+import Combine
 
 public class IntroduceDataRepo: IntroduceDomainRepoInterface {
     let introduceRemoteDataSource: IntroduceRemoteDataSourceInterface
@@ -15,26 +16,10 @@ public class IntroduceDataRepo: IntroduceDomainRepoInterface {
         self.introduceRemoteDataSource = introduceRemoteDataSource
         
     }
-    
-    public func getClublist(completion: @escaping (Result<ClubList, GEError>) -> Void) {
-        introduceRemoteDataSource.getClublist { result in
-            switch result {
-            case let .success(success):
-                return completion(.success(success))
-            case let .failure(error):
-                return completion(.failure(error))
-            }
-        }
+    public func getClublist() -> AnyPublisher<ClubList, GEError> {
+        return introduceRemoteDataSource.getClublist()
     }
-    
-    public func getClub(name: String, completion: @escaping (Result<Club, GEError>) -> Void) {
-        introduceRemoteDataSource.getClub(name: name) { result in
-            switch result {
-            case let .success(success):
-                return completion(.success(success))
-            case let .failure(error):
-                return completion(.failure(error))
-            }
-        }
+    public func getClub(name: String) -> AnyPublisher<Club, GEError> {
+        return introduceRemoteDataSource.getClub(name: name)
     }
 }

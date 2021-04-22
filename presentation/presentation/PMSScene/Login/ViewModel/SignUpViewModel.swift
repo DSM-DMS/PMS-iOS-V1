@@ -56,21 +56,42 @@ public class SignupViewModel: ObservableObject {
         case registerTapped
     }
     
-    private let registerSubject = CurrentValueSubject<Auth?, Never>(nil)
+    private let registerSubject = PassthroughSubject<Void, Never>()
+    private let responseSubject = PassthroughSubject<Bool, Never>()
+    private let errorSubject = PassthroughSubject<GEError, Never>()
     
     func bindInputs() {
         registerSubject
-            .compactMap { $0 }
-            .sink(receiveValue: { [weak self] user in
-                self?.requestRegister(email: user.email, password: user.password, name: user.name!)
-            })
+            .flatMap { [loginInteractor] _ in
+                loginInteractor.register(email: self.id, password: self.password, name: self.nickname)
+                    .map { [weak self] _ in
+                        UDManager.shared.email = self?.id
+                        UDManager.shared.password = self?.password
+                        return true }
+                    .catch { [weak self] error -> Empty<Bool, Never> in
+                        self?.errorSubject.send(error)
+                        return .init()
+                    }
+                    .flatMap { [loginInteractor] _ in
+                        loginInteractor.login(email: self.id, password: self.password)
+                            .map { [weak self] token in
+                                UDManager.shared.token = token.accessToken
+                                self?.authDataRepo.getStudent()
+                                return true }
+                            .catch { [weak self] error -> Empty<Bool, Never> in
+                                self?.errorSubject.send(error)
+                                return .init()
+                            }
+                    }
+            }.share()
+            .subscribe(responseSubject)
             .store(in: &bag)
     }
     
     func apply(_ input: Input) {
         switch input {
         case .registerTapped:
-            registerSubject.send(Auth(email: self.id, password: self.password, name: self.nickname))
+            registerSubject.send(())
             UDManager.shared.email = self.id
             UDManager.shared.password = self.password
         }
@@ -137,43 +158,52 @@ public class SignupViewModel: ObservableObject {
                 self.confirmIsError = _confirmPasswordValidator.confirmPasswordErrorMessage != nil
             }
             .store(in: &bag)
+        
+        responseSubject
+            .assign(to: \.isSuccessAlert, on: self)
+            .store(in: &bag)
+        
+        errorSubject
+            .map { _ in true }
+            .assign(to: \.isErrorAlert, on: self)
+            .store(in: &bag)
     }
     
 }
 
-extension SignupViewModel {
-    func requestRegister(email: String, password: String, name: String) {
-        loginInteractor.register(email: email, password: password, name: name) { [weak self] result in
-            switch result {
-            case .success:
-                withAnimation {
-                    self?.isSuccessAlert.toggle()
-                }
-                self?.requestLogin(email: email, password: password)
-            case let .failure(error):
-                if error == .unauthorized {
-                    self?.isErrorAlert.toggle()
-                }
-            }
-        }
-    }
-    
-    func requestLogin(email: String, password: String) {
-        loginInteractor.login(email: email, password: password) { [weak self] result in
-            switch result {
-            case let .success(token):
-                UDManager.shared.token = token.accessToken
-                self?.authDataRepo.getStudent()
-            case let .failure(error):
-                if error == .unauthorized {
-                    self?.isErrorAlert.toggle()
-                } else if error == .noInternet {
-                    self?.isNotInternet.toggle()
-                }
-            }
-        }
-    }
-}
+// extension SignupViewModel {
+//    func requestRegister(email: String, password: String, name: String) {
+//        loginInteractor.register(email: email, password: password, name: name) { [weak self] result in
+//            switch result {
+//            case .success:
+//                withAnimation {
+//                    self?.isSuccessAlert.toggle()
+//                }
+//                self?.requestLogin(email: email, password: password)
+//            case let .failure(error):
+//                if error == .unauthorized {
+//                    self?.isErrorAlert.toggle()
+//                }
+//            }
+//        }
+//    }
+//
+//    func requestLogin(email: String, password: String) {
+//        loginInteractor.login(email: email, password: password) { [weak self] result in
+//            switch result {
+//            case let .success(token):
+//                UDManager.shared.token = token.accessToken
+//                self?.authDataRepo.getStudent()
+//            case let .failure(error):
+//                if error == .unauthorized {
+//                    self?.isErrorAlert.toggle()
+//                } else if error == .noInternet {
+//                    self?.isNotInternet.toggle()
+//                }
+//            }
+//        }
+//    }
+// }
 
 extension String {
     func isValidPassword(pattern: String = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$") -> Bool {

@@ -28,6 +28,7 @@ public class LoginViewModel: ObservableObject {
         self.loginInteractor = loginInteractor
         self.authDataRepo = authDataRepo
         bindInputs()
+        bindOutputs()
     }
     
     deinit {
@@ -39,13 +40,15 @@ public class LoginViewModel: ObservableObject {
         case anonymous
     }
     
-    private let loginSubject = CurrentValueSubject<Auth?, Never>(nil)
-    private let anonymousSubject = CurrentValueSubject<Void, Never>(())
+    private let loginSubject = PassthroughSubject<Void, Never>()
+    private let anonymousSubject = PassthroughSubject<Void, Never>()
+    private let responseSubject = PassthroughSubject<Bool, Never>()
+    private let errorSubject = PassthroughSubject<GEError, Never>()
     
     func apply(_ input: Input) {
         switch input {
         case .loginTapped:
-            loginSubject.send(Auth(email: self.id, password: self.password))
+            loginSubject.send(())
         case .anonymous:
             anonymousSubject.send(())
         }
@@ -53,35 +56,46 @@ public class LoginViewModel: ObservableObject {
     
     func bindInputs() {
         loginSubject
-            .compactMap { $0 }
-            .sink(receiveValue: { [weak self] user in
-                self?.requestLogin(email: user.email, password: user.password)
-                UDManager.shared.email = user.email
-                UDManager.shared.password = user.password
-            })
+            .flatMap { [loginInteractor] _ in
+                loginInteractor.login(email: self.id, password: self.password)
+                    .map { [weak self] token in
+                        UDManager.shared.email = self?.id
+                        UDManager.shared.password = self?.password
+                        UDManager.shared.token = token.accessToken
+                        self?.authDataRepo.getStudent()
+                        return true }
+                    .catch { [weak self] error -> Empty<Bool, Never> in
+                        self?.errorSubject.send(error)
+                        return .init()
+                    }
+            }.share()
+            .subscribe(responseSubject)
             .store(in: &bag)
+        
         anonymousSubject
-            .compactMap { $0 }
-            .sink(receiveValue: { [weak self] _ in
-                self?.requestLogin(email: "test@test.com", password: "testpass")
-            })
+            .flatMap { [loginInteractor] token in
+                loginInteractor.login(email: "test@test.com", password: "testpass")
+                    .map { token in
+                        UDManager.shared.token = token.accessToken
+                        return true }
+                    .catch { [weak self] error -> Empty<Bool, Never> in
+                        self?.errorSubject.send(error)
+                        return .init()
+                    }
+            }.share()
+            .subscribe(responseSubject)
             .store(in: &bag)
+        
     }
     
-    func requestLogin(email: String, password: String) {
-        loginInteractor.login(email: email, password: password) { [weak self] result in
-            switch result {
-            case let .success(token):
-                self?.isSuccessAlert.toggle()
-                UDManager.shared.token = token.accessToken
-                self?.authDataRepo.getStudent()
-            case let .failure(error):
-                if error == .unauthorized {
-                    self?.isNotMatchError.toggle()
-                } else if error == .noInternet {
-                    self?.isNotInternet.toggle()
-                }
-            }
-        }
+    func bindOutputs() {
+        responseSubject
+            .assign(to: \.isSuccessAlert, on: self)
+            .store(in: &bag)
+        
+        errorSubject
+            .map { _ in true }
+            .assign(to: \.isNotMatchError, on: self)
+            .store(in: &bag)
     }
 }

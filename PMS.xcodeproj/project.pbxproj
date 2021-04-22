@@ -18,11 +18,11 @@
 		D94AC7932524D2D3002CCB3A /* PMSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94AC7922524D2D3002CCB3A /* PMSTests.swift */; };
 		D94AC79E2524D2D3002CCB3A /* PMSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94AC79D2524D2D3002CCB3A /* PMSUITests.swift */; };
 		D9721F6A25F8BA4B00EB92E8 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9721F6925F8BA4B00EB92E8 /* SnapshotHelper.swift */; };
+		D97B763E2631370300C911A1 /* data.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D97B763D2631370300C911A1 /* data.framework */; };
+		D97B76402631370300C911A1 /* domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D97B763F2631370300C911A1 /* domain.framework */; };
+		D97B76422631370300C911A1 /* Pods_PMS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D97B76412631370300C911A1 /* Pods_PMS.framework */; };
+		D97B76442631370300C911A1 /* presentation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D97B76432631370300C911A1 /* presentation.framework */; };
 		D9BD706E2532A02100186C12 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BD706D2532A02100186C12 /* ContentView.swift */; };
-		D9BE8CCA2630F727002664E1 /* Pods_PMS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9BE8CC92630F727002664E1 /* Pods_PMS.framework */; };
-		D9BE8CD92630F77F002664E1 /* presentation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9BE8CD82630F77F002664E1 /* presentation.framework */; };
-		D9BE8CDB2630F786002664E1 /* domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9BE8CC72630F727002664E1 /* domain.framework */; };
-		D9BE8CDD2630F788002664E1 /* data.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9BE8CC52630F727002664E1 /* data.framework */; };
 		D9CEEBFE262C5BF1002F9566 /* AppDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CEEBFD262C5BF1002F9566 /* AppDI.swift */; };
 		D9CEEC09262C5C5C002F9566 /* MypageDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CEEC08262C5C5C002F9566 /* MypageDI.swift */; };
 		D9CF9185262D1FC1000A37C9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CF9184262D1FC1000A37C9 /* AppDelegate.swift */; };
@@ -84,6 +84,10 @@
 		D94AC79F2524D2D3002CCB3A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D95CDFA725F90FEE00BEC04A /* PMS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PMS.entitlements; sourceTree = "<group>"; };
 		D9721F6925F8BA4B00EB92E8 /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SnapshotHelper.swift; path = fastlane/SnapshotHelper.swift; sourceTree = SOURCE_ROOT; };
+		D97B763D2631370300C911A1 /* data.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = data.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D97B763F2631370300C911A1 /* domain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = domain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D97B76412631370300C911A1 /* Pods_PMS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_PMS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D97B76432631370300C911A1 /* presentation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = presentation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9BD706D2532A02100186C12 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		D9BE8CC52630F727002664E1 /* data.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = data.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9BE8CC72630F727002664E1 /* domain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = domain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -105,10 +109,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D9BE8CDD2630F788002664E1 /* data.framework in Frameworks */,
-				D9BE8CDB2630F786002664E1 /* domain.framework in Frameworks */,
-				D9BE8CD92630F77F002664E1 /* presentation.framework in Frameworks */,
-				D9BE8CCA2630F727002664E1 /* Pods_PMS.framework in Frameworks */,
+				D97B763E2631370300C911A1 /* data.framework in Frameworks */,
+				D97B76402631370300C911A1 /* domain.framework in Frameworks */,
+				D97B76422631370300C911A1 /* Pods_PMS.framework in Frameworks */,
+				D97B76442631370300C911A1 /* presentation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -134,6 +138,10 @@
 		323172AE16E9E0DFEE4B4C06 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D97B763D2631370300C911A1 /* data.framework */,
+				D97B763F2631370300C911A1 /* domain.framework */,
+				D97B76412631370300C911A1 /* Pods_PMS.framework */,
+				D97B76432631370300C911A1 /* presentation.framework */,
 				D9BE8CD82630F77F002664E1 /* presentation.framework */,
 				D9BE8CC52630F727002664E1 /* data.framework */,
 				D9BE8CC72630F727002664E1 /* domain.framework */,
@@ -698,7 +706,7 @@
 				CODE_SIGN_ENTITLEMENTS = PMS/Resource/PMS.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 14;
+				CURRENT_PROJECT_VERSION = 15;
 				DEVELOPMENT_ASSET_PATHS = "\"PMS/Resource/Preview Content\"";
 				DEVELOPMENT_TEAM = Z25H7B85Z8;
 				ENABLE_PREVIEWS = YES;
@@ -725,7 +733,7 @@
 				CODE_SIGN_ENTITLEMENTS = PMS/Resource/PMS.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 14;
+				CURRENT_PROJECT_VERSION = 15;
 				DEVELOPMENT_ASSET_PATHS = "\"PMS/Resource/Preview Content\"";
 				DEVELOPMENT_TEAM = Z25H7B85Z8;
 				ENABLE_PREVIEWS = YES;

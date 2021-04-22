@@ -8,9 +8,10 @@
 
 import Foundation
 import domain
+import Combine
 
 public protocol MypageLocalDataSourceInterface {
-    func getCachedStudent(completion: @escaping (Result<Student, GEError>) -> Void)
+    func getCachedStudent() -> AnyPublisher<Student, GEError>
 }
 
 public class MypageLocalDataSource: MypageLocalDataSourceInterface {
@@ -19,8 +20,11 @@ public class MypageLocalDataSource: MypageLocalDataSourceInterface {
         
     }
     
-    public func getCachedStudent(completion: @escaping (Result<Student, GEError>) -> Void) {
+    public func getCachedStudent() -> AnyPublisher<Student, GEError> {
         // Coredata
         // Realm
+        return Just(Student(plus: 0, minus: 0, status: 0, isMeal: true))
+            .setFailureType(to: GEError.self)
+            .eraseToAnyPublisher()
     }
 }

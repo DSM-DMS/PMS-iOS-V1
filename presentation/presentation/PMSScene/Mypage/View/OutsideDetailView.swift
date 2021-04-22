@@ -15,13 +15,13 @@ struct OutsideDetailView: View {
     @State var offset = CGSize.zero
     var body: some View {
         ScrollView {
-            if self.mypageVM.outings == nil || ((self.mypageVM.outings?.outings.isEmpty) == true) {
+            if self.mypageVM.outings.outings.isEmpty == true {
                 Spacer()
                 Text("아직 외출 이력이 없습니다.")
                     .foregroundColor(.gray)
                     .font(.headline)
             } else {
-                ForEach(self.mypageVM.outings!.outings, id: \.self) { outing in
+                ForEach(self.mypageVM.outings.outings, id: \.self) { outing in
                     OutsideRow(date: outing.date, reason: outing.reason, place: outing.place, type: outing.type)
                 }.padding([.top, .bottom], 10)
             }

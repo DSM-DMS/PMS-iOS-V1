@@ -6,10 +6,11 @@
 //
 
 import Foundation
+import Combine
 
 public protocol MealInteractorInterface {
-    func getMeal(date: Int, completion : @escaping (Result<Meal, GEError>) -> Void)
-    func getMealPicture(date: Int, completion: @escaping (Result<MealPicture, GEError>) -> Void)
+    func getMeal(date: Int) -> AnyPublisher<Meal, GEError>
+    func getMealPicture(date: Int) -> AnyPublisher<MealPicture, GEError>
 }
 
 public class MealInteractor: MealInteractorInterface {
@@ -19,25 +20,11 @@ public class MealInteractor: MealInteractorInterface {
         self.mealDomainRepo = mealDomainRepo
     }
     
-    public func getMeal(date: Int, completion: @escaping (Result<Meal, GEError>) -> Void) {
-        mealDomainRepo.getMeal(date: date) { result in
-            switch result {
-            case let .success(success):
-                return completion(.success(success))
-            case let .failure(error):
-                return completion(.failure(error))
-            }
-        }
+    public func getMeal(date: Int) -> AnyPublisher<Meal, GEError> {
+        return mealDomainRepo.getMeal(date: date)
     }
     
-    public func getMealPicture(date: Int, completion: @escaping (Result<MealPicture, GEError>) -> Void) {
-        mealDomainRepo.getMealPicture(date: date) { result in
-            switch result {
-            case let .success(success):
-                return completion(.success(success))
-            case let .failure(error):
-                return completion(.failure(error))
-            }
-        }
+    public func getMealPicture(date: Int) -> AnyPublisher<MealPicture, GEError> {
+        return mealDomainRepo.getMealPicture(date: date)
     }
 }

@@ -12,7 +12,6 @@ import domain
 
 public class IntroduceViewModel: ObservableObject {
     // MARK: Output
-    
     @Published var clubList: ClubList = ClubList(clubs: [ClubDetail(name: "", imageUrl: "")])
     @Published var clubDetail: Club = Club(title: "", description: "", imageUrl: "", member: [""])
     
@@ -29,6 +28,7 @@ public class IntroduceViewModel: ObservableObject {
         self.introduceInteractor = introduceInteractor
         self.authDataRepo = authDataRepo
         bindInputs()
+        bindOutputs()
     }
     
     deinit {
@@ -42,67 +42,68 @@ public class IntroduceViewModel: ObservableObject {
         case getClubDetail(name: String)
     }
     
-    private let clubListSubject = PassthroughSubject<Void, Never>()
-    private let clubDetailSubject = PassthroughSubject<String, Never>()
+    private let getClubListSubject = PassthroughSubject<Void, Never>()
+    private let getClubDetailSubject = PassthroughSubject<String, Never>()
+    private let clubListSubject = PassthroughSubject<ClubList, Never>()
+    private let clubDetailSubject = PassthroughSubject<Club, Never>()
+    private let errorSubject = PassthroughSubject<GEError, Never>()
     
     func apply(_ input: Input) {
         switch input {
         case .getClubList:
-            clubListSubject.send()
+            getClubListSubject.send()
         case .getClubDetail(let name):
-            clubDetailSubject.send(name)
+            getClubDetailSubject.send(name)
         }
     }
     
     func bindInputs() {
+        getClubListSubject
+            .flatMap { [introduceInteractor] _ in
+                introduceInteractor.getClublist()
+                    .catch { [weak self] error -> Empty<ClubList, Never> in
+                        self?.errorSubject.send(error)
+                        return .init()
+                    }
+            }
+            .share()
+            .subscribe(clubListSubject)
+            .store(in: &bag)
+        
+        getClubDetailSubject
+            .flatMap { [introduceInteractor] name in
+                introduceInteractor.getClub(name: name)
+                    .catch { [weak self] error -> Empty<Club, Never> in
+                        self?.errorSubject.send(error)
+                        return .init()
+                    }
+            }
+            .share()
+            .subscribe(clubDetailSubject)
+            .store(in: &bag)
+    }
+    
+    func bindOutputs() {
         clubListSubject
-            .compactMap { $0 }
-            .sink(receiveValue: { _ in
-                self.requestClubList()
-            })
+            .assign(to: \.clubList, on: self)
             .store(in: &bag)
+        
         clubDetailSubject
-            .compactMap { $0 }
-            .sink(receiveValue: { name in
-                self.requestClubDetail(name: name)
-            })
+            .assign(to: \.clubDetail, on: self)
             .store(in: &bag)
+        
+        errorSubject
+            .sink(receiveValue: { [weak self] error in
+                if error == .unauthorized {
+                    self?.authDataRepo.refreshToken()
+                    self?.apply(.getClubList)
+                }
+            })
     }
     
     func openCompanySite() {
         guard let url = URL(string: self.companySite),
-        UIApplication.shared.canOpenURL(url) else { return }
+              UIApplication.shared.canOpenURL(url) else { return }
         UIApplication.shared.open(url, options: [:], completionHandler: nil)
-    }
-    
-}
-
-extension IntroduceViewModel {
-    func requestClubList() {
-        introduceInteractor.getClublist { [weak self] result in
-            switch result {
-            case let .success(clubList):
-                self?.clubList = clubList
-            case let .failure(error):
-                if error == .unauthorized {
-                    self?.authDataRepo.refreshToken()
-                    self?.requestClubList()
-                }
-            }
-        }
-    }
-    
-    func requestClubDetail(name: String) {
-        introduceInteractor.getClub(name: name) { [weak self] result in
-            switch result {
-            case let .success(club):
-                self?.clubDetail = club
-            case let .failure(error):
-                if error == .unauthorized {
-                    self?.authDataRepo.refreshToken()
-                    self?.requestClubDetail(name: name)
-                }
-            }
-        }
     }
 }

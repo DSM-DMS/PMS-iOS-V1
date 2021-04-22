@@ -12,6 +12,11 @@
 		D91F337E262DB4DA00E87F47 /* MealDataRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91F337D262DB4DA00E87F47 /* MealDataRepo.swift */; };
 		D91F3389262DBC0900E87F47 /* IntroduceRemoteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91F3388262DBC0900E87F47 /* IntroduceRemoteDataSource.swift */; };
 		D91F338B262DBC1200E87F47 /* IntroduceDataRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91F338A262DBC1200E87F47 /* IntroduceDataRepo.swift */; };
+		D97B76202631101000C911A1 /* AnyPublisher+Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97B761F2631101000C911A1 /* AnyPublisher+Response.swift */; };
+		D97B76222631102300C911A1 /* MoyaProvider+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97B76212631102300C911A1 /* MoyaProvider+Combine.swift */; };
+		D97B76242631103A00C911A1 /* MoyaPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97B76232631103A00C911A1 /* MoyaPublisher.swift */; };
+		D97B76312631140B00C911A1 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = D97B76302631140B00C911A1 /* Moya */; };
+		D97B764A263137B100C911A1 /* mapGEEror.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97B7649263137B100C911A1 /* mapGEEror.swift */; };
 		D9CEEC1F262C6054002F9566 /* data.h in Headers */ = {isa = PBXBuildFile; fileRef = D9CEEC1D262C6054002F9566 /* data.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D9CEEC5C262C6113002F9566 /* domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9CEEC5B262C6113002F9566 /* domain.framework */; };
 		D9CEEC5D262C6113002F9566 /* domain.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D9CEEC5B262C6113002F9566 /* domain.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -21,7 +26,6 @@
 		D9CF9163262D13A7000A37C9 /* PMSApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CF915E262D13A6000A37C9 /* PMSApi.swift */; };
 		D9CF9165262D13A7000A37C9 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CF9160262D13A7000A37C9 /* APIManager.swift */; };
 		D9CF9166262D13A7000A37C9 /* AuthApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CF9161262D13A7000A37C9 /* AuthApi.swift */; };
-		D9CF916B262D13BE000A37C9 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = D9CF916A262D13BE000A37C9 /* Moya */; };
 		D9CF91B0262D4844000A37C9 /* LoginRemoteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CF91AF262D4844000A37C9 /* LoginRemoteDataSource.swift */; };
 		D9CF91B2262D4A03000A37C9 /* LoginDataRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CF91B1262D4A03000A37C9 /* LoginDataRepo.swift */; };
 /* End PBXBuildFile section */
@@ -46,6 +50,10 @@
 		D91F337D262DB4DA00E87F47 /* MealDataRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealDataRepo.swift; sourceTree = "<group>"; };
 		D91F3388262DBC0900E87F47 /* IntroduceRemoteDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroduceRemoteDataSource.swift; sourceTree = "<group>"; };
 		D91F338A262DBC1200E87F47 /* IntroduceDataRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroduceDataRepo.swift; sourceTree = "<group>"; };
+		D97B761F2631101000C911A1 /* AnyPublisher+Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AnyPublisher+Response.swift"; sourceTree = "<group>"; };
+		D97B76212631102300C911A1 /* MoyaProvider+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MoyaProvider+Combine.swift"; sourceTree = "<group>"; };
+		D97B76232631103A00C911A1 /* MoyaPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaPublisher.swift; sourceTree = "<group>"; };
+		D97B7649263137B100C911A1 /* mapGEEror.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mapGEEror.swift; sourceTree = "<group>"; };
 		D9CEEC1A262C6054002F9566 /* data.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = data.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9CEEC1D262C6054002F9566 /* data.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = data.h; sourceTree = "<group>"; };
 		D9CEEC1E262C6054002F9566 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -65,7 +73,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D9CF916B262D13BE000A37C9 /* Moya in Frameworks */,
+				D97B76312631140B00C911A1 /* Moya in Frameworks */,
 				D9CEEC5C262C6113002F9566 /* domain.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -80,6 +88,17 @@
 				D91F338A262DBC1200E87F47 /* IntroduceDataRepo.swift */,
 			);
 			path = Introduce;
+			sourceTree = "<group>";
+		};
+		D97B761E2631100200C911A1 /* CombineMoya */ = {
+			isa = PBXGroup;
+			children = (
+				D97B761F2631101000C911A1 /* AnyPublisher+Response.swift */,
+				D97B76212631102300C911A1 /* MoyaProvider+Combine.swift */,
+				D97B76232631103A00C911A1 /* MoyaPublisher.swift */,
+				D97B7649263137B100C911A1 /* mapGEEror.swift */,
+			);
+			path = CombineMoya;
 			sourceTree = "<group>";
 		};
 		D9CEEC10262C6054002F9566 = {
@@ -102,6 +121,7 @@
 		D9CEEC1C262C6054002F9566 /* data */ = {
 			isa = PBXGroup;
 			children = (
+				D97B761E2631100200C911A1 /* CombineMoya */,
 				D91F3387262DBBFD00E87F47 /* Introduce */,
 				D9CF9194262D4076000A37C9 /* Login */,
 				D9CF915C262D139A000A37C9 /* Network */,
@@ -190,7 +210,7 @@
 			);
 			name = data;
 			packageProductDependencies = (
-				D9CF916A262D13BE000A37C9 /* Moya */,
+				D97B76302631140B00C911A1 /* Moya */,
 			);
 			productName = data;
 			productReference = D9CEEC1A262C6054002F9566 /* data.framework */;
@@ -245,6 +265,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D97B76222631102300C911A1 /* MoyaProvider+Combine.swift in Sources */,
+				D97B764A263137B100C911A1 /* mapGEEror.swift in Sources */,
+				D97B76202631101000C911A1 /* AnyPublisher+Response.swift in Sources */,
+				D97B76242631103A00C911A1 /* MoyaPublisher.swift in Sources */,
 				D9CF9163262D13A7000A37C9 /* PMSApi.swift in Sources */,
 				D9CEEE75262D015E002F9566 /* MypageRemoteDataSource.swift in Sources */,
 				D91F3389262DBC0900E87F47 /* IntroduceRemoteDataSource.swift in Sources */,
@@ -473,13 +497,13 @@
 			repositoryURL = "https://github.com/Moya/Moya";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 14.0.1;
+				minimumVersion = 14.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		D9CF916A262D13BE000A37C9 /* Moya */ = {
+		D97B76302631140B00C911A1 /* Moya */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D9CF9169262D13BE000A37C9 /* XCRemoteSwiftPackageReference "Moya" */;
 			productName = Moya;

@@ -15,14 +15,14 @@ struct ScoreDetailView: View {
     @State var offset = CGSize.zero
     var body: some View {
         ScrollView {
-            if self.mypageVM.points == nil || ((self.mypageVM.points?.points.isEmpty) == true) {
+            if self.mypageVM.points.points.isEmpty == true {
                 Spacer()
                 Text("아직 상벌점 이력이 없습니다.")
                     .foregroundColor(.gray)
                     .font(.headline)
             } else {
                 Spacer(minLength: 10.0)
-                ForEach(self.mypageVM.points!.points, id: \.self) { point in
+                ForEach(self.mypageVM.points.points, id: \.self) { point in
                     ScoreRow(text: point.reason, date: point.date, status: point.type ? "+" + String(point.point) : "-" +  String(point.point), isMinus: !point.type)
                 }.padding(.bottom, 5)
             }

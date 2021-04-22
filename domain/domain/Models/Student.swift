@@ -78,6 +78,10 @@ public struct Outside: Codable, Hashable {
 
 public struct PointList: Codable {
     public var points: [Point]
+    
+    public init(points: [Point]) {
+        self.points = points
+    }
 }
 
 public struct Point: Codable, Hashable {

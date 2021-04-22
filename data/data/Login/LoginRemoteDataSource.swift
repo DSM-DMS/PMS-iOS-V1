@@ -6,12 +6,13 @@
 //
 
 import Foundation
+import Combine
 import domain
 import Moya
 
 public protocol LoginRemoteDataSourceInterface {
-    func login(email: String, password: String, completion: @escaping (Result<accessToken, GEError>) -> Void)
-    func register(email: String, password: String, name: String, completion: @escaping (Result<Void, GEError>) -> Void)
+    func login(email: String, password: String) -> AnyPublisher<accessToken, GEError>
+    func register(email: String, password: String, name: String) -> AnyPublisher<Void, GEError>
 }
 
 public class LoginRemoteDataSource: LoginRemoteDataSourceInterface {
@@ -21,47 +22,18 @@ public class LoginRemoteDataSource: LoginRemoteDataSourceInterface {
         self.provider = provider
     }
     
-    public func login(email: String, password: String, completion: @escaping (Result<accessToken, GEError>) -> Void) {
-        provider.request(.login(email: email, password: password)) { result in
-            switch result {
-            case let .success(success):
-                let responseData = success.data
-                do {
-                    let token = try JSONDecoder().decode(accessToken.self, from: responseData)
-                    return completion(.success(token))
-                } catch {
-                    return completion(.failure(GEError.mappingError))
-                }
-            case let .failure(error):
-                print(error)
-                if error.asAFError?.responseCode == 401 {
-                    return completion(.failure(GEError.unauthorized))
-                }
-                if error.errorCode == 6 {
-                    return completion(.failure(GEError.noInternet))
-                }
-                return completion(.failure(GEError.error))
-            }
-        }
+    public func login(email: String, password: String) -> AnyPublisher<accessToken, GEError> {
+        provider.requestPublisher(.login(email: email, password: password))
+            .map(accessToken.self)
+            .mapError { error -> GEError in
+                mapGEEror(error)
+            }.eraseToAnyPublisher()
     }
     
-    public func register(email: String, password: String, name: String, completion: @escaping (Result<Void, GEError>) -> Void) {
-        provider.request(.register(email: email, password: password, name: name)) { result in
-            switch result {
-            case .success:
-                return completion(.success(()))
-            case let .failure(error):
-                print(error)
-                if error.asAFError?.responseCode == 401 {
-                    return completion(.failure(GEError.unauthorized))
-                }
-                if error.errorCode == 6 {
-                    return completion(.failure(GEError.noInternet))
-                }
-                return completion(.failure(GEError.error))
-            }
-        }
-
+    public func register(email: String, password: String, name: String) -> AnyPublisher<Void, GEError> {
+        provider.requestVoidPublisher(.register(email: email, password: password, name: name))
+            .mapError { error -> GEError in
+                mapGEEror(error)
+            }.eraseToAnyPublisher()
     }
-    
 }
