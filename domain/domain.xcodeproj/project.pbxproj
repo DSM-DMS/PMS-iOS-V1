@@ -12,6 +12,9 @@
 		D91F3376262DB35D00E87F47 /* MealInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91F3375262DB35D00E87F47 /* MealInteractor.swift */; };
 		D91F3381262DBBAD00E87F47 /* IntroduceDomainRepoInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91F3380262DBBAD00E87F47 /* IntroduceDomainRepoInterface.swift */; };
 		D91F3385262DBBB800E87F47 /* IntroduceInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91F3384262DBBB800E87F47 /* IntroduceInteractor.swift */; };
+		D97B76592631603400C911A1 /* Notice.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97B76582631603400C911A1 /* Notice.swift */; };
+		D97B765D2631624100C911A1 /* NoticeDomainRepoInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97B765C2631624100C911A1 /* NoticeDomainRepoInterface.swift */; };
+		D97B76602631624800C911A1 /* NoticeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97B765F2631624800C911A1 /* NoticeInteractor.swift */; };
 		D9CEEC38262C60E4002F9566 /* domain.h in Headers */ = {isa = PBXBuildFile; fileRef = D9CEEC36262C60E4002F9566 /* domain.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D9CEEE66262CFB15002F9566 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CEEE43262CF79B002F9566 /* Auth.swift */; };
 		D9CEEE68262CFB18002F9566 /* Student.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CEEE44262CF79B002F9566 /* Student.swift */; };
@@ -32,6 +35,9 @@
 		D91F3375262DB35D00E87F47 /* MealInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealInteractor.swift; sourceTree = "<group>"; };
 		D91F3380262DBBAD00E87F47 /* IntroduceDomainRepoInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroduceDomainRepoInterface.swift; sourceTree = "<group>"; };
 		D91F3384262DBBB800E87F47 /* IntroduceInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroduceInteractor.swift; sourceTree = "<group>"; };
+		D97B76582631603400C911A1 /* Notice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notice.swift; sourceTree = "<group>"; };
+		D97B765C2631624100C911A1 /* NoticeDomainRepoInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeDomainRepoInterface.swift; sourceTree = "<group>"; };
+		D97B765F2631624800C911A1 /* NoticeInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeInteractor.swift; sourceTree = "<group>"; };
 		D9CEEC33262C60E4002F9566 /* domain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = domain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9CEEC36262C60E4002F9566 /* domain.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = domain.h; sourceTree = "<group>"; };
 		D9CEEC37262C60E4002F9566 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -77,6 +83,15 @@
 			path = Introduce;
 			sourceTree = "<group>";
 		};
+		D97B765726315F8C00C911A1 /* Notice */ = {
+			isa = PBXGroup;
+			children = (
+				D97B765C2631624100C911A1 /* NoticeDomainRepoInterface.swift */,
+				D97B765F2631624800C911A1 /* NoticeInteractor.swift */,
+			);
+			path = Notice;
+			sourceTree = "<group>";
+		};
 		D9CEEC29262C60E4002F9566 = {
 			isa = PBXGroup;
 			children = (
@@ -96,6 +111,7 @@
 		D9CEEC35262C60E4002F9566 /* domain */ = {
 			isa = PBXGroup;
 			children = (
+				D97B765726315F8C00C911A1 /* Notice */,
 				D91F337F262DBB9B00E87F47 /* Introduce */,
 				D91F3370262DB34B00E87F47 /* Meal */,
 				D9CF91B3262D4A22000A37C9 /* Login */,
@@ -125,6 +141,7 @@
 				D9CEEE45262CF79B002F9566 /* Meal.swift */,
 				D9CEEE46262CF79B002F9566 /* Introduce.swift */,
 				D9CF91AC262D4387000A37C9 /* GEError.swift */,
+				D97B76582631603400C911A1 /* Notice.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -245,6 +262,9 @@
 				D91F3385262DBBB800E87F47 /* IntroduceInteractor.swift in Sources */,
 				D9CEEE6C262CFB1D002F9566 /* Introduce.swift in Sources */,
 				D91F3381262DBBAD00E87F47 /* IntroduceDomainRepoInterface.swift in Sources */,
+				D97B76602631624800C911A1 /* NoticeInteractor.swift in Sources */,
+				D97B765D2631624100C911A1 /* NoticeDomainRepoInterface.swift in Sources */,
+				D97B76592631603400C911A1 /* Notice.swift in Sources */,
 				D9CF91A2262D41E2000A37C9 /* AuthManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

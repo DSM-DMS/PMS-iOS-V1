@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D97B766E2631908700C911A1 /* assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D97B766D2631908700C911A1 /* assets.xcassets */; };
 		D9BE8C99262FE240002664E1 /* domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9CEEDF4262C7D01002F9566 /* domain.framework */; };
 		D9BE8C9A262FE240002664E1 /* domain.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D9CEEDF4262C7D01002F9566 /* domain.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D9CEED77262C7CCE002F9566 /* presentation.h in Headers */ = {isa = PBXBuildFile; fileRef = D9CEED75262C7CCE002F9566 /* presentation.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -29,7 +30,6 @@
 		D9CEEDD5262C7CE5002F9566 /* IntroduceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CEED99262C7CE5002F9566 /* IntroduceView.swift */; };
 		D9CEEDD6262C7CE5002F9566 /* ClubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CEED9A262C7CE5002F9566 /* ClubView.swift */; };
 		D9CEEDD7262C7CE5002F9566 /* NoticeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CEED9D262C7CE5002F9566 /* NoticeViewModel.swift */; };
-		D9CEEDD8262C7CE5002F9566 /* NoticeDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CEED9E262C7CE5002F9566 /* NoticeDetailViewModel.swift */; };
 		D9CEEDD9262C7CE5002F9566 /* PDFKitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CEEDA0262C7CE5002F9566 /* PDFKitView.swift */; };
 		D9CEEDDA262C7CE5002F9566 /* testPdf.pdf in Resources */ = {isa = PBXBuildFile; fileRef = D9CEEDA1262C7CE5002F9566 /* testPdf.pdf */; };
 		D9CEEDDB262C7CE5002F9566 /* NoticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CEEDA2262C7CE5002F9566 /* NoticeView.swift */; };
@@ -77,6 +77,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		D97B766D2631908700C911A1 /* assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = assets.xcassets; sourceTree = "<group>"; };
 		D9CEED72262C7CCE002F9566 /* presentation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = presentation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9CEED75262C7CCE002F9566 /* presentation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = presentation.h; sourceTree = "<group>"; };
 		D9CEED76262C7CCE002F9566 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -100,7 +101,6 @@
 		D9CEED99262C7CE5002F9566 /* IntroduceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntroduceView.swift; sourceTree = "<group>"; };
 		D9CEED9A262C7CE5002F9566 /* ClubView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClubView.swift; sourceTree = "<group>"; };
 		D9CEED9D262C7CE5002F9566 /* NoticeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoticeViewModel.swift; sourceTree = "<group>"; };
-		D9CEED9E262C7CE5002F9566 /* NoticeDetailViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoticeDetailViewModel.swift; sourceTree = "<group>"; };
 		D9CEEDA0262C7CE5002F9566 /* PDFKitView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFKitView.swift; sourceTree = "<group>"; };
 		D9CEEDA1262C7CE5002F9566 /* testPdf.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = testPdf.pdf; sourceTree = "<group>"; };
 		D9CEEDA2262C7CE5002F9566 /* NoticeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoticeView.swift; sourceTree = "<group>"; };
@@ -187,6 +187,7 @@
 				D9CEED87262C7CE5002F9566 /* PMSScene */,
 				D9CEED75262C7CCE002F9566 /* presentation.h */,
 				D9CEED76262C7CCE002F9566 /* Info.plist */,
+				D97B766D2631908700C911A1 /* assets.xcassets */,
 			);
 			path = presentation;
 			sourceTree = "<group>";
@@ -292,7 +293,6 @@
 			isa = PBXGroup;
 			children = (
 				D9CEED9D262C7CE5002F9566 /* NoticeViewModel.swift */,
-				D9CEED9E262C7CE5002F9566 /* NoticeDetailViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -484,6 +484,7 @@
 			files = (
 				D9CF91D5262D805A000A37C9 /* Main.storyboard in Resources */,
 				D9CEEDDA262C7CE5002F9566 /* testPdf.pdf in Resources */,
+				D97B766E2631908700C911A1 /* assets.xcassets in Resources */,
 				D9CF91D6262D8065000A37C9 /* success.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -500,7 +501,6 @@
 				D9CEEDE6262C7CE6002F9566 /* MealViewModel.swift in Sources */,
 				D9CEEDDF262C7CE5002F9566 /* OutsideDetailView.swift in Sources */,
 				D9CEEDCF262C7CE5002F9566 /* IntroduceViewModel.swift in Sources */,
-				D9CEEDD8262C7CE5002F9566 /* NoticeDetailViewModel.swift in Sources */,
 				D9CEEDC2262C7CE5002F9566 /* PinchToZoom.swift in Sources */,
 				D9CEEDCB262C7CE5002F9566 /* StoryboardtoUI.swift in Sources */,
 				D9CEEDD2262C7CE5002F9566 /* ClubDetailView.swift in Sources */,

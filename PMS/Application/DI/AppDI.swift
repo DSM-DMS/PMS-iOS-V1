@@ -45,6 +45,12 @@ class AppDI: AppDIInterface {
         return introduceVM
     }
     
+    func noticeDependencies() -> NoticeViewModel {
+        let noticeDI = NoticeDI()
+        let noticeVM = noticeDI.noticeDependencies()
+        return noticeVM
+    }
+    
     func authDataRepo() -> AuthDomainRepoInterface {
         AuthDataRepo()
     }

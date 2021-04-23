@@ -8,10 +8,17 @@
 
 import SwiftUI
 
-struct NoticeView: View {
-    @ObservedObject var noticeVM = NoticeViewModel()
+public struct NoticeView: View {
     @State private var numbers = ["가정통신문", "공지사항"]
-    var body: some View {
+    var appDI: AppDIInterface
+    @ObservedObject var noticeVM: NoticeViewModel
+    
+    public init(appDI: AppDIInterface, noticeVM: NoticeViewModel) {
+        self.appDI = appDI
+        self.noticeVM = noticeVM
+    }
+    
+    public var body: some View {
         NavigationView {
             GeometryReader { _ in
                 VStack(spacing: 15) {
@@ -29,15 +36,15 @@ struct NoticeView: View {
                     VStack(spacing: UIFrame.UIWidth / 15) {
                         ScrollView {
                             if self.noticeVM.selectedIndex == 1 {
-                                ForEach(1...6, id: \.self) { _ in
-                                    NavigationLink(destination: NoticeDetailView()) {
-                                        NoticeRectangle(isRed: true, title: "공지 제목", date: ("2020/09/10"))
+                                ForEach(self.noticeVM.notices, id: \.self) { notice in
+                                    NavigationLink(destination: NoticeDetailView(noticeVM: appDI.noticeDependencies(), id: notice.id)) {
+                                        NoticeRectangle(isRed: true, title: notice.title, date: notice.date)
                                     }
                                 }
                             } else {
-                                ForEach(1...6, id: \.self) { _ in
-                                    NavigationLink(destination: NoticeDetailView()) {
-                                        NoticeRectangle(isRed: false, title: "공지 제목", date: ("2020/09/10"))
+                                ForEach(self.noticeVM.notices, id: \.self) { notice in
+                                    NavigationLink(destination: NoticeDetailView(noticeVM: appDI.noticeDependencies(), id: notice.id)) {
+                                        NoticeRectangle(isRed: false, title: notice.title, date: notice.date)
                                     }
                                 }
                             }
@@ -53,23 +60,24 @@ struct NoticeView: View {
                 VStack {
                     Text("")
                 }
-            }.edgesIgnoringSafeArea(.top)
+            }.onAppear { self.noticeVM.apply(.getNotice) }
+            .edgesIgnoringSafeArea(.top)
         }.accentColor(GEColor.black)
     }
 }
 
-struct NoticeView_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
-            NoticeView()
-                .previewDevice(PreviewDevice(rawValue: "iPhone XS Max"))
-                .previewDisplayName("iPhone XS Max")
-            NoticeView()
-                .previewDevice(PreviewDevice(rawValue: "iPhone 8"))
-                .previewDisplayName("iPhone 8")
-        }
-    }
-}
+// struct NoticeView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        Group {
+//            NoticeView()
+//                .previewDevice(PreviewDevice(rawValue: "iPhone XS Max"))
+//                .previewDisplayName("iPhone XS Max")
+//            NoticeView()
+//                .previewDevice(PreviewDevice(rawValue: "iPhone 8"))
+//                .previewDisplayName("iPhone 8")
+//        }
+//    }
+// }
 
 struct SearchBar: View {
     var body: some View {
@@ -97,7 +105,7 @@ struct NoticeRectangle: View {
                     } else {
                         BlueTabView()
                     }
-                    Text("공지 제목")
+                    Text(title)
                         .foregroundColor(GEColor.black)
                 }
                 Text(date)

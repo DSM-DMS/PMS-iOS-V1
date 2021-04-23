@@ -17,6 +17,8 @@
 		D97B76242631103A00C911A1 /* MoyaPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97B76232631103A00C911A1 /* MoyaPublisher.swift */; };
 		D97B76312631140B00C911A1 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = D97B76302631140B00C911A1 /* Moya */; };
 		D97B764A263137B100C911A1 /* mapGEEror.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97B7649263137B100C911A1 /* mapGEEror.swift */; };
+		D97B765426315F7D00C911A1 /* NoticeRemoteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97B765326315F7D00C911A1 /* NoticeRemoteDataSource.swift */; };
+		D97B765626315F8700C911A1 /* NoticeDataRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97B765526315F8700C911A1 /* NoticeDataRepo.swift */; };
 		D9CEEC1F262C6054002F9566 /* data.h in Headers */ = {isa = PBXBuildFile; fileRef = D9CEEC1D262C6054002F9566 /* data.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D9CEEC5C262C6113002F9566 /* domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9CEEC5B262C6113002F9566 /* domain.framework */; };
 		D9CEEC5D262C6113002F9566 /* domain.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D9CEEC5B262C6113002F9566 /* domain.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -24,7 +26,6 @@
 		D9CEEE76262D0161002F9566 /* MypageLocalDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CEEC66262C6137002F9566 /* MypageLocalDataSource.swift */; };
 		D9CEEE77262D0164002F9566 /* MypageDataRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CEEC67262C6137002F9566 /* MypageDataRepo.swift */; };
 		D9CF9163262D13A7000A37C9 /* PMSApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CF915E262D13A6000A37C9 /* PMSApi.swift */; };
-		D9CF9165262D13A7000A37C9 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CF9160262D13A7000A37C9 /* APIManager.swift */; };
 		D9CF9166262D13A7000A37C9 /* AuthApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CF9161262D13A7000A37C9 /* AuthApi.swift */; };
 		D9CF91B0262D4844000A37C9 /* LoginRemoteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CF91AF262D4844000A37C9 /* LoginRemoteDataSource.swift */; };
 		D9CF91B2262D4A03000A37C9 /* LoginDataRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CF91B1262D4A03000A37C9 /* LoginDataRepo.swift */; };
@@ -54,6 +55,8 @@
 		D97B76212631102300C911A1 /* MoyaProvider+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MoyaProvider+Combine.swift"; sourceTree = "<group>"; };
 		D97B76232631103A00C911A1 /* MoyaPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaPublisher.swift; sourceTree = "<group>"; };
 		D97B7649263137B100C911A1 /* mapGEEror.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mapGEEror.swift; sourceTree = "<group>"; };
+		D97B765326315F7D00C911A1 /* NoticeRemoteDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeRemoteDataSource.swift; sourceTree = "<group>"; };
+		D97B765526315F8700C911A1 /* NoticeDataRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeDataRepo.swift; sourceTree = "<group>"; };
 		D9CEEC1A262C6054002F9566 /* data.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = data.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9CEEC1D262C6054002F9566 /* data.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = data.h; sourceTree = "<group>"; };
 		D9CEEC1E262C6054002F9566 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -62,7 +65,6 @@
 		D9CEEC66262C6137002F9566 /* MypageLocalDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageLocalDataSource.swift; sourceTree = "<group>"; };
 		D9CEEC67262C6137002F9566 /* MypageDataRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageDataRepo.swift; sourceTree = "<group>"; };
 		D9CF915E262D13A6000A37C9 /* PMSApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PMSApi.swift; sourceTree = "<group>"; };
-		D9CF9160262D13A7000A37C9 /* APIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		D9CF9161262D13A7000A37C9 /* AuthApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthApi.swift; sourceTree = "<group>"; };
 		D9CF91AF262D4844000A37C9 /* LoginRemoteDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRemoteDataSource.swift; sourceTree = "<group>"; };
 		D9CF91B1262D4A03000A37C9 /* LoginDataRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginDataRepo.swift; sourceTree = "<group>"; };
@@ -101,6 +103,15 @@
 			path = CombineMoya;
 			sourceTree = "<group>";
 		};
+		D97B765226315F6C00C911A1 /* Notice */ = {
+			isa = PBXGroup;
+			children = (
+				D97B765326315F7D00C911A1 /* NoticeRemoteDataSource.swift */,
+				D97B765526315F8700C911A1 /* NoticeDataRepo.swift */,
+			);
+			path = Notice;
+			sourceTree = "<group>";
+		};
 		D9CEEC10262C6054002F9566 = {
 			isa = PBXGroup;
 			children = (
@@ -121,6 +132,7 @@
 		D9CEEC1C262C6054002F9566 /* data */ = {
 			isa = PBXGroup;
 			children = (
+				D97B765226315F6C00C911A1 /* Notice */,
 				D97B761E2631100200C911A1 /* CombineMoya */,
 				D91F3387262DBBFD00E87F47 /* Introduce */,
 				D9CF9194262D4076000A37C9 /* Login */,
@@ -165,7 +177,6 @@
 			children = (
 				D9CF915E262D13A6000A37C9 /* PMSApi.swift */,
 				D9CF9161262D13A7000A37C9 /* AuthApi.swift */,
-				D9CF9160262D13A7000A37C9 /* APIManager.swift */,
 				D91F335F262D868300E87F47 /* AuthDataRepo.swift */,
 			);
 			path = Network;
@@ -266,6 +277,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D97B76222631102300C911A1 /* MoyaProvider+Combine.swift in Sources */,
+				D97B765626315F8700C911A1 /* NoticeDataRepo.swift in Sources */,
 				D97B764A263137B100C911A1 /* mapGEEror.swift in Sources */,
 				D97B76202631101000C911A1 /* AnyPublisher+Response.swift in Sources */,
 				D97B76242631103A00C911A1 /* MoyaPublisher.swift in Sources */,
@@ -273,12 +285,12 @@
 				D9CEEE75262D015E002F9566 /* MypageRemoteDataSource.swift in Sources */,
 				D91F3389262DBC0900E87F47 /* IntroduceRemoteDataSource.swift in Sources */,
 				D9CF91B0262D4844000A37C9 /* LoginRemoteDataSource.swift in Sources */,
+				D97B765426315F7D00C911A1 /* NoticeRemoteDataSource.swift in Sources */,
 				D9CF9166262D13A7000A37C9 /* AuthApi.swift in Sources */,
 				D9CEEE77262D0164002F9566 /* MypageDataRepo.swift in Sources */,
 				D91F337C262DB42600E87F47 /* MealRemoteDataSource.swift in Sources */,
 				D9CEEE76262D0161002F9566 /* MypageLocalDataSource.swift in Sources */,
 				D91F337E262DB4DA00E87F47 /* MealDataRepo.swift in Sources */,
-				D9CF9165262D13A7000A37C9 /* APIManager.swift in Sources */,
 				D91F3360262D868300E87F47 /* AuthDataRepo.swift in Sources */,
 				D9CF91B2262D4A03000A37C9 /* LoginDataRepo.swift in Sources */,
 				D91F338B262DBC1200E87F47 /* IntroduceDataRepo.swift in Sources */,

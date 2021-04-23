@@ -8,33 +8,37 @@
 
 import SwiftUI
 import Combine
+import domain
 
 struct NoticeDetailView: View {
     @EnvironmentObject var settings: NavSettings
-    @ObservedObject var NoticeDetailVM = NoticeDetailViewModel()
+    @ObservedObject var noticeVM: NoticeViewModel
     @Environment(\.presentationMode) var mode
     @State var offset = CGSize.zero
+    var id: Int
+    
+    init(noticeVM: NoticeViewModel, id: Int) {
+        self.noticeVM = noticeVM
+        self.id = id
+    }
     
     var body: some View {
         ZStack(alignment: .bottom) {
             VStack {
                 ScrollView {
-                    NoticeDetailTopView(isAlert: self.$NoticeDetailVM.pdfAlert)
+                    NoticeDetailTopView(title: self.noticeVM.noticeDetail.title, date: self.noticeVM.noticeDetail.date, isAlert: self.$noticeVM.pdfAlert )
                     Divider()
                     ScrollView {
-                        Text(self.NoticeDetailVM.noticeDesc)
+                        Text(self.noticeVM.noticeDetail.body)
                     }.padding([.top, .bottom], 10)
                     .frame(height: UIFrame.UIHeight / 4)
                     CustomDivider()
-                    VStack {
-                        NoticeCommentView()
-                        NoticeCommentView()
-                        NoticeCommentView()
+                    ForEach(self.noticeVM.noticeDetail.comment, id: \.self) { comt in
+                        NoticeCommentView(name: comt.user.name, desc: comt.body, reComment: comt.comment)
                     }
-                    
                 }
             }.padding([.leading, .trailing], 20)
-            .navigationBarTitle("공지 제목", displayMode: .inline)
+            .navigationBarTitle("공지사항", displayMode: .inline)
             .navigationBarBackButtonHidden(true)
             .navigationBarItems(leading: Button(action: {
                 self.mode.wrappedValue.dismiss()
@@ -44,37 +48,39 @@ struct NoticeDetailView: View {
             })
             .modifier(backDrag(offset: self.$offset))
             VStack(spacing: -10) {
-                if self.NoticeDetailVM.comment.contains("@") {
+                if self.noticeVM.myComment.last == "@" {
                     ScrollView {
                         ForEach(1...4, id: \.self) { i in
                             ReferView(name: String(i))
                                 .onTapGesture {
-                                    self.NoticeDetailVM.comment += String(i) + " "
+                                    self.noticeVM.myComment += String(i) + " "
                                 }
                         }.padding(.top, 10)
                     }.frame(width: UIFrame.UIWidth, height: UIFrame.UIHeight / 4.5)
                     .background(Rectangle().foregroundColor(.white).shadow(radius: 3))
                 }
-                CustomCommentView(text: self.$NoticeDetailVM.comment)
+                CustomCommentView(text: self.$noticeVM.myComment)
             }
             
-            if self.NoticeDetailVM.pdfAlert {
+            if self.noticeVM.pdfAlert {
                 ZStack {
                     Color(.black).opacity(0.3)
                         .onTapGesture {
-                                self.NoticeDetailVM.pdfAlert = false
+                            self.noticeVM.pdfAlert = false
                         }
                     HStack(spacing: 20) {
                         GEImage.download
+                            .resizable()
+                            .frame(width: 20, height: 20)
                             .onTapGesture {
-                                self.NoticeDetailVM.downloadFile(fileName: self.NoticeDetailVM.pdfTitle)
+                                self.noticeVM.downloadFile(fileName: self.noticeVM.pdfTitle)
                             }
-                        Text(self.NoticeDetailVM.pdfTitle)
+                        Text(self.noticeVM.pdfTitle)
                         Spacer()
                         ZStack {
-//                            NavigationLink(destination: PDFKitView(url: self.NoticeDetailVM.pdfUrl)) {
-//                                PreviewTextView()
-//                            }
+                            //                            NavigationLink(destination: PDFKitView(url: self.NoticeDetailVM.pdfUrl)) {
+                            //                                PreviewTextView()
+                            //                            }
                         }
                     }
                     .padding(.all, 20)
@@ -88,33 +94,36 @@ struct NoticeDetailView: View {
         .edgesIgnoringSafeArea(.bottom)
         .onAppear {
             self.settings.isNav = true
+            self.noticeVM.apply(.getNoticeDetail(id: id))
         }
     }
 }
 
-struct NoticeDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
-            NoticeDetailView()
-                .previewDevice(PreviewDevice(rawValue: "iPhone XS Max"))
-                .previewDisplayName("iPhone XS Max")
-            NoticeDetailView()
-                .previewDevice(PreviewDevice(rawValue: "iPhone 8"))
-                .previewDisplayName("iPhone 8")
-        }
-    }
-}
+// struct NoticeDetailView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        Group {
+//            NoticeDetailView()
+//                .previewDevice(PreviewDevice(rawValue: "iPhone XS Max"))
+//                .previewDisplayName("iPhone XS Max")
+//            NoticeDetailView()
+//                .previewDevice(PreviewDevice(rawValue: "iPhone 8"))
+//                .previewDisplayName("iPhone 8")
+//        }
+//    }
+// }
 
 struct NoticeDetailTopView: View {
+    var title: String
+    var date: String
     @Binding var isAlert: Bool
     var body: some View {
         HStack {
             VStack(alignment: .leading, spacing: 7) {
-                Text("공지 제목")
+                Text(title)
                     .padding(.top, 10)
                 HStack {
                     HStack {
-                        Text("2020.08.19")
+                        Text(date)
                         Text("AM 02:13")
                         Text("| 조회수")
                     }.foregroundColor(.gray)
@@ -136,16 +145,28 @@ struct NoticeDetailTopView: View {
 }
 
 struct NoticeCommentView: View {
+    var name: String
+    var desc: String
+    var reComment: [Comment]
     var body: some View {
         VStack {
             ZStack(alignment: .leading) {
                 RoundedRectangle(cornerRadius: 10).foregroundColor(GEColor.gray).shadow(radius: 5).frame(height: UIFrame.UIHeight / 15)
                 VStack(alignment: .leading) {
-                    Text("댓글 내용")
-                    Text("단 사람")
+                    Text(desc)
+                        .multilineTextAlignment(.leading)
+                    Text(name)
                         .font(.callout)
                         .foregroundColor(Color.gray)
                 }.padding()
+            }
+            if reComment != [] {
+                ForEach(reComment, id: \.self) { comt in
+                    HStack {
+                        GEImage.reComment
+                        NoticeCommentView(name: comt.user.name, desc: comt.body, reComment: comt.comment)
+                    }
+                }.padding(.leading, 15)
             }
         }.padding([.leading, .trailing], 5)
     }

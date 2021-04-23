@@ -15,6 +15,7 @@ public protocol AppDIInterface {
     func signupDependencies() -> SignupViewModel
     func mealDependencies() -> MealViewModel
     func introduceDependencies() -> IntroduceViewModel
+    func noticeDependencies() -> NoticeViewModel
     
     func authDataRepo() -> AuthDomainRepoInterface
 }

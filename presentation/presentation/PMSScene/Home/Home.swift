@@ -23,11 +23,13 @@ public struct Home: View {
     @State var selectedStudent: String = ""
     
     var appDI: AppDIInterface
-    var mealVM: MealViewModel
+    @ObservedObject var mealVM: MealViewModel
+    @ObservedObject var noticeVM: NoticeViewModel
     
     public init(appDI: AppDIInterface) {
         self.appDI = appDI
         self.mealVM = appDI.mealDependencies()
+        self.noticeVM = appDI.noticeDependencies()
     }
     
     public var body: some View {
@@ -40,7 +42,7 @@ public struct Home: View {
                     MealView(mealVM: mealVM) // mealVM의 생성이 느린 것 같아 init시에 VM을 만들어 주입하였음.
                         .frame(width: g.size.width)
                     
-                    NoticeView()
+                    NoticeView(appDI: appDI, noticeVM: noticeVM)
                         .frame(width: g.size.width)
                     
                     IntroduceView(appDI: appDI)
