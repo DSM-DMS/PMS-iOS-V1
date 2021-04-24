@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D97B766E2631908700C911A1 /* assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D97B766D2631908700C911A1 /* assets.xcassets */; };
+		D9A6F8AA2632987E00F1E61D /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A6F8A92632987E00F1E61D /* CalendarViewModel.swift */; };
 		D9BE8C99262FE240002664E1 /* domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9CEEDF4262C7D01002F9566 /* domain.framework */; };
 		D9BE8C9A262FE240002664E1 /* domain.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D9CEEDF4262C7D01002F9566 /* domain.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D9CEED77262C7CCE002F9566 /* presentation.h in Headers */ = {isa = PBXBuildFile; fileRef = D9CEED75262C7CCE002F9566 /* presentation.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -78,6 +79,7 @@
 
 /* Begin PBXFileReference section */
 		D97B766D2631908700C911A1 /* assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = assets.xcassets; sourceTree = "<group>"; };
+		D9A6F8A92632987E00F1E61D /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
 		D9CEED72262C7CCE002F9566 /* presentation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = presentation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9CEED75262C7CCE002F9566 /* presentation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = presentation.h; sourceTree = "<group>"; };
 		D9CEED76262C7CCE002F9566 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -236,6 +238,7 @@
 			children = (
 				D9CEED8B262C7CE5002F9566 /* UIKit */,
 				D9CEED8F262C7CE5002F9566 /* CalendarView.swift */,
+				D9A6F8A92632987E00F1E61D /* CalendarViewModel.swift */,
 			);
 			path = Calendar;
 			sourceTree = "<group>";
@@ -524,6 +527,7 @@
 				D9CEEDCA262C7CE5002F9566 /* Home.swift in Sources */,
 				D9CEEDDE262C7CE5002F9566 /* MypageViewModel.swift in Sources */,
 				D9CEEDEA262C7CE6002F9566 /* SignUpViewModel.swift in Sources */,
+				D9A6F8AA2632987E00F1E61D /* CalendarViewModel.swift in Sources */,
 				D9CEEDE3262C7CE6002F9566 /* ChangePWView.swift in Sources */,
 				D9CEEDE0262C7CE5002F9566 /* ScoreDetailView.swift in Sources */,
 				D9CEEDDC262C7CE5002F9566 /* NoticeDetailView.swift in Sources */,
@@ -692,24 +696,17 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = (
-					$,
-					"{TARGET_BUILD_DIR}",
-					/presentation.framework,
-				);
+				FRAMEWORK_SEARCH_PATHS = "";
 				INFOPLIST_FILE = presentation/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jeonggo.presentation;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -727,24 +724,17 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = (
-					$,
-					"{TARGET_BUILD_DIR}",
-					/presentation.framework,
-				);
+				FRAMEWORK_SEARCH_PATHS = "";
 				INFOPLIST_FILE = presentation/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jeonggo.presentation;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

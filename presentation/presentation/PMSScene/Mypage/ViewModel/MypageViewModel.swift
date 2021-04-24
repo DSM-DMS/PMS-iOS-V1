@@ -24,6 +24,7 @@ public class MypageViewModel: ObservableObject {
     @Published var weekStatus = "잔류"
     @Published var isMeal = false
     @Published var newNickname = ""
+    @Published var selectedStudent = ""
     
     // Alert
     @Published var nicknameAlert = false
@@ -74,6 +75,7 @@ public class MypageViewModel: ObservableObject {
     enum Input {
         case onAppear
         case addStudent
+        case deleteStudent
         case changePassword
         case changeName
         case getPoint
@@ -82,6 +84,7 @@ public class MypageViewModel: ObservableObject {
     
     private let appearSubject = PassthroughSubject<Int, Never>()
     private let addSubject = PassthroughSubject<Int, Never>()
+    private let deleteSubject = PassthroughSubject<Int, Never>()
     private let changePasswordSubject = PassthroughSubject<Void, Never>()
     private let changeNameSubject = PassthroughSubject<Void, Never>()
     private let getPointSubject = PassthroughSubject<Int, Never>()
@@ -136,6 +139,9 @@ public class MypageViewModel: ObservableObject {
             }
         case .addStudent:
             addSubject.send(Int(self.passCodeModel.passCodeString)!)
+        case .deleteStudent:
+            let arr =  selectedStudent.components(separatedBy: " ")
+            deleteSubject.send(Int(arr.first!)!)
         case .changePassword:
             changePasswordSubject.send()
         case .getPoint:
@@ -185,6 +191,38 @@ public class MypageViewModel: ObservableObject {
                             withAnimation(.default) {
                                 self?.attempts += 1
                             }
+                        }
+                        return .init()
+                    }
+            }
+        
+        deleteSubject
+            .flatMap { [mypageInteractor] number in
+                mypageInteractor.deleteStudent(number: number)
+                    .map { [weak self] _ in
+                        var deletedArray = self?.studentsArray
+                        deletedArray = deletedArray!.filter { $0 != self?.selectedStudent }
+                        self?.studentsArray = deletedArray!
+                        if deletedArray == [] {
+                            UDManager.shared.studentsArray = nil
+                        } else {
+                            UDManager.shared.studentsArray = deletedArray
+                        }
+                        
+                        if self?.selectedStudent == self?.currentStudent {
+                            if UDManager.shared.studentsArray != nil {
+                                self?.authDataRepo.getStudent()
+                            } else {
+                                self?.currentStudent = ""
+                                UDManager.shared.currentStudent = nil
+                            }
+                            
+                        }
+                    }
+                    .catch { [weak self] error -> Empty<Void, Never> in
+                        if error == GEError.unauthorized {
+                            self?.authDataRepo.refreshToken()
+                            self?.apply(.addStudent)
                         }
                         return .init()
                     }

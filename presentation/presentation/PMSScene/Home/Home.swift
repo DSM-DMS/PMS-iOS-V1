@@ -20,23 +20,24 @@ public struct Home: View {
     var edges = UIApplication.shared.windows.first?.safeAreaInsets
     
     @EnvironmentObject var mypageVM: MypageViewModel
-    @State var selectedStudent: String = ""
     
     var appDI: AppDIInterface
     @ObservedObject var mealVM: MealViewModel
     @ObservedObject var noticeVM: NoticeViewModel
+    @ObservedObject var calendarVM: CalendarViewModel
     
     public init(appDI: AppDIInterface) {
         self.appDI = appDI
         self.mealVM = appDI.mealDependencies()
         self.noticeVM = appDI.noticeDependencies()
+        self.calendarVM = appDI.calendarDependencies()
     }
     
     public var body: some View {
         ZStack {
             GeometryReader { g in
                 HStack(spacing: 0) {
-                    CalendarView()
+                    CalendarView(viewModel: calendarVM)
                         .frame(width: g.size.width)
                     
                     MealView(mealVM: mealVM) // mealVM의 생성이 느린 것 같아 init시에 VM을 만들어 주입하였음.
@@ -166,14 +167,14 @@ public struct Home: View {
                                             Text(user)
                                                 .foregroundColor(GEColor.black)
                                                 .onTapGesture {
-                                                    selectedStudent = user
-                                                    UDManager.shared.currentStudent = selectedStudent
+                                                    mypageVM.selectedStudent = user
+                                                    UDManager.shared.currentStudent = user
                                                     mypageVM.apply(.onAppear)
                                                 }
                                             Spacer()
                                             GEImage.minus
                                                 .onTapGesture {
-                                                    selectedStudent = user
+                                                    mypageVM.selectedStudent = user
                                                     withAnimation {
                                                         self.mypageVM.deleteAlert = true
                                                     }
@@ -250,7 +251,7 @@ public struct Home: View {
                     Color(.black).opacity(0.3)
                     VStack(spacing: 20) {
                         VStack {
-                            Text("'\(selectedStudent)'")
+                            Text("'\(mypageVM.selectedStudent)'")
                             Text("목록에서 삭제하시겠습니까?")
                         }.padding(.top, 10)
                         
@@ -266,6 +267,7 @@ public struct Home: View {
                             Text("확인")
                                 .foregroundColor(.blue)
                                 .onTapGesture {
+                                    self.mypageVM.apply(.deleteStudent)
                                     self.mypageVM.deleteAlert = false
                                 }
                             Spacer()

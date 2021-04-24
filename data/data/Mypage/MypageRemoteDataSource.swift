@@ -19,6 +19,7 @@ public protocol MypageRemoteDataSourceInterface {
     func addStudent(number: Int) -> AnyPublisher<Void, GEError>
     func getPointList(number: Int) -> AnyPublisher<PointList, GEError>
     func getOutingList(number: Int) -> AnyPublisher<OutsideList, GEError>
+    func deleteStudent(number: Int) -> AnyPublisher<Void, GEError>
 }
 
 public class MypageRemoteDataSource: MypageRemoteDataSourceInterface {
@@ -73,4 +74,11 @@ public class MypageRemoteDataSource: MypageRemoteDataSourceInterface {
             .mapError { error in mapGEEror(error)}
             .eraseToAnyPublisher()
     }
+    
+    public func deleteStudent(number: Int) -> AnyPublisher<Void, GEError> {
+        provider.requestVoidPublisher(.deleteStudent(number: number))
+            .mapError { error in mapGEEror(error)}
+            .eraseToAnyPublisher()
+    }
+    
 }

@@ -16,6 +16,7 @@ public protocol AppDIInterface {
     func mealDependencies() -> MealViewModel
     func introduceDependencies() -> IntroduceViewModel
     func noticeDependencies() -> NoticeViewModel
+    func calendarDependencies() -> CalendarViewModel
     
     func authDataRepo() -> AuthDomainRepoInterface
 }

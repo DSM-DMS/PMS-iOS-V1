@@ -15,10 +15,11 @@
 		D97B76202631101000C911A1 /* AnyPublisher+Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97B761F2631101000C911A1 /* AnyPublisher+Response.swift */; };
 		D97B76222631102300C911A1 /* MoyaProvider+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97B76212631102300C911A1 /* MoyaProvider+Combine.swift */; };
 		D97B76242631103A00C911A1 /* MoyaPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97B76232631103A00C911A1 /* MoyaPublisher.swift */; };
-		D97B76312631140B00C911A1 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = D97B76302631140B00C911A1 /* Moya */; };
 		D97B764A263137B100C911A1 /* mapGEEror.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97B7649263137B100C911A1 /* mapGEEror.swift */; };
 		D97B765426315F7D00C911A1 /* NoticeRemoteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97B765326315F7D00C911A1 /* NoticeRemoteDataSource.swift */; };
 		D97B765626315F8700C911A1 /* NoticeDataRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97B765526315F8700C911A1 /* NoticeDataRepo.swift */; };
+		D97B76EB2631BD6E00C911A1 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = D97B76EA2631BD6E00C911A1 /* Moya */; };
+		D9A6F8B026329B6600F1E61D /* CalendarDataRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A6F8AF26329B6600F1E61D /* CalendarDataRepo.swift */; };
 		D9CEEC1F262C6054002F9566 /* data.h in Headers */ = {isa = PBXBuildFile; fileRef = D9CEEC1D262C6054002F9566 /* data.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D9CEEC5C262C6113002F9566 /* domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9CEEC5B262C6113002F9566 /* domain.framework */; };
 		D9CEEC5D262C6113002F9566 /* domain.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D9CEEC5B262C6113002F9566 /* domain.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -57,6 +58,7 @@
 		D97B7649263137B100C911A1 /* mapGEEror.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mapGEEror.swift; sourceTree = "<group>"; };
 		D97B765326315F7D00C911A1 /* NoticeRemoteDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeRemoteDataSource.swift; sourceTree = "<group>"; };
 		D97B765526315F8700C911A1 /* NoticeDataRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeDataRepo.swift; sourceTree = "<group>"; };
+		D9A6F8AF26329B6600F1E61D /* CalendarDataRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDataRepo.swift; sourceTree = "<group>"; };
 		D9CEEC1A262C6054002F9566 /* data.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = data.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9CEEC1D262C6054002F9566 /* data.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = data.h; sourceTree = "<group>"; };
 		D9CEEC1E262C6054002F9566 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -75,7 +77,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D97B76312631140B00C911A1 /* Moya in Frameworks */,
+				D97B76EB2631BD6E00C911A1 /* Moya in Frameworks */,
 				D9CEEC5C262C6113002F9566 /* domain.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -112,6 +114,14 @@
 			path = Notice;
 			sourceTree = "<group>";
 		};
+		D988F2BE26329492002DB228 /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				D9A6F8AF26329B6600F1E61D /* CalendarDataRepo.swift */,
+			);
+			path = Calendar;
+			sourceTree = "<group>";
+		};
 		D9CEEC10262C6054002F9566 = {
 			isa = PBXGroup;
 			children = (
@@ -132,6 +142,7 @@
 		D9CEEC1C262C6054002F9566 /* data */ = {
 			isa = PBXGroup;
 			children = (
+				D988F2BE26329492002DB228 /* Calendar */,
 				D97B765226315F6C00C911A1 /* Notice */,
 				D97B761E2631100200C911A1 /* CombineMoya */,
 				D91F3387262DBBFD00E87F47 /* Introduce */,
@@ -221,7 +232,7 @@
 			);
 			name = data;
 			packageProductDependencies = (
-				D97B76302631140B00C911A1 /* Moya */,
+				D97B76EA2631BD6E00C911A1 /* Moya */,
 			);
 			productName = data;
 			productReference = D9CEEC1A262C6054002F9566 /* data.framework */;
@@ -250,7 +261,7 @@
 			);
 			mainGroup = D9CEEC10262C6054002F9566;
 			packageReferences = (
-				D9CF9169262D13BE000A37C9 /* XCRemoteSwiftPackageReference "Moya" */,
+				D97B76E92631BD6E00C911A1 /* XCRemoteSwiftPackageReference "Moya" */,
 			);
 			productRefGroup = D9CEEC1B262C6054002F9566 /* Products */;
 			projectDirPath = "";
@@ -278,6 +289,7 @@
 			files = (
 				D97B76222631102300C911A1 /* MoyaProvider+Combine.swift in Sources */,
 				D97B765626315F8700C911A1 /* NoticeDataRepo.swift in Sources */,
+				D9A6F8B026329B6600F1E61D /* CalendarDataRepo.swift in Sources */,
 				D97B764A263137B100C911A1 /* mapGEEror.swift in Sources */,
 				D97B76202631101000C911A1 /* AnyPublisher+Response.swift in Sources */,
 				D97B76242631103A00C911A1 /* MoyaPublisher.swift in Sources */,
@@ -504,20 +516,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		D9CF9169262D13BE000A37C9 /* XCRemoteSwiftPackageReference "Moya" */ = {
+		D97B76E92631BD6E00C911A1 /* XCRemoteSwiftPackageReference "Moya" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Moya/Moya";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 14.0.0;
+				minimumVersion = 14.0.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		D97B76302631140B00C911A1 /* Moya */ = {
+		D97B76EA2631BD6E00C911A1 /* Moya */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = D9CF9169262D13BE000A37C9 /* XCRemoteSwiftPackageReference "Moya" */;
+			package = D97B76E92631BD6E00C911A1 /* XCRemoteSwiftPackageReference "Moya" */;
 			productName = Moya;
 		};
 /* End XCSwiftPackageProductDependency section */

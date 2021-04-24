@@ -17,6 +17,7 @@ public protocol MypageInteractorInterface {
     func addStudent(number: Int) -> AnyPublisher<Void, GEError>
     func getPointList(number: Int) -> AnyPublisher<PointList, GEError>
     func getOutingList(number: Int) -> AnyPublisher<OutsideList, GEError>
+    func deleteStudent(number: Int) -> AnyPublisher<Void, GEError>
 }
 
 public class MypageInteractor: MypageInteractorInterface {
@@ -52,5 +53,9 @@ public class MypageInteractor: MypageInteractorInterface {
     
     public func getOutingList(number: Int) -> AnyPublisher<OutsideList, GEError> {
         mypageDomainRepo.getOutingList(number: number)
+    }
+    
+    public func deleteStudent(number: Int) -> AnyPublisher<Void, GEError> {
+        mypageDomainRepo.deleteStudent(number: number)
     }
 }

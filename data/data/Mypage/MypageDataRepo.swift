@@ -47,4 +47,7 @@ public class MypageDataRepo: MypageDomainRepoInterface {
     public func getOutingList(number: Int) -> AnyPublisher<OutsideList, GEError> {
         mypageRemoteDataSource.getOutingList(number: number)
     }
+    public func deleteStudent(number: Int) -> AnyPublisher<Void, GEError> {
+        mypageRemoteDataSource.deleteStudent(number: number)
+    }
 }

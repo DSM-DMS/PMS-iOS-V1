@@ -15,6 +15,8 @@
 		D97B76592631603400C911A1 /* Notice.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97B76582631603400C911A1 /* Notice.swift */; };
 		D97B765D2631624100C911A1 /* NoticeDomainRepoInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97B765C2631624100C911A1 /* NoticeDomainRepoInterface.swift */; };
 		D97B76602631624800C911A1 /* NoticeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97B765F2631624800C911A1 /* NoticeInteractor.swift */; };
+		D988F2AA2632914D002DB228 /* PMSCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D988F2A92632914D002DB228 /* PMSCalendar.swift */; };
+		D9A6F8AD26329B4900F1E61D /* CalendarInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A6F8AC26329B4900F1E61D /* CalendarInteractor.swift */; };
 		D9CEEC38262C60E4002F9566 /* domain.h in Headers */ = {isa = PBXBuildFile; fileRef = D9CEEC36262C60E4002F9566 /* domain.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D9CEEE66262CFB15002F9566 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CEEE43262CF79B002F9566 /* Auth.swift */; };
 		D9CEEE68262CFB18002F9566 /* Student.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CEEE44262CF79B002F9566 /* Student.swift */; };
@@ -38,6 +40,8 @@
 		D97B76582631603400C911A1 /* Notice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notice.swift; sourceTree = "<group>"; };
 		D97B765C2631624100C911A1 /* NoticeDomainRepoInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeDomainRepoInterface.swift; sourceTree = "<group>"; };
 		D97B765F2631624800C911A1 /* NoticeInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeInteractor.swift; sourceTree = "<group>"; };
+		D988F2A92632914D002DB228 /* PMSCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PMSCalendar.swift; sourceTree = "<group>"; };
+		D9A6F8AC26329B4900F1E61D /* CalendarInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarInteractor.swift; sourceTree = "<group>"; };
 		D9CEEC33262C60E4002F9566 /* domain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = domain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9CEEC36262C60E4002F9566 /* domain.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = domain.h; sourceTree = "<group>"; };
 		D9CEEC37262C60E4002F9566 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -92,6 +96,14 @@
 			path = Notice;
 			sourceTree = "<group>";
 		};
+		D988F2B726329478002DB228 /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				D9A6F8AC26329B4900F1E61D /* CalendarInteractor.swift */,
+			);
+			path = Calendar;
+			sourceTree = "<group>";
+		};
 		D9CEEC29262C60E4002F9566 = {
 			isa = PBXGroup;
 			children = (
@@ -111,6 +123,7 @@
 		D9CEEC35262C60E4002F9566 /* domain */ = {
 			isa = PBXGroup;
 			children = (
+				D988F2B726329478002DB228 /* Calendar */,
 				D97B765726315F8C00C911A1 /* Notice */,
 				D91F337F262DBB9B00E87F47 /* Introduce */,
 				D91F3370262DB34B00E87F47 /* Meal */,
@@ -142,6 +155,7 @@
 				D9CEEE46262CF79B002F9566 /* Introduce.swift */,
 				D9CF91AC262D4387000A37C9 /* GEError.swift */,
 				D97B76582631603400C911A1 /* Notice.swift */,
+				D988F2A92632914D002DB228 /* PMSCalendar.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -249,6 +263,7 @@
 			files = (
 				D9CF9175262D14A9000A37C9 /* UDManager.swift in Sources */,
 				D91F3376262DB35D00E87F47 /* MealInteractor.swift in Sources */,
+				D9A6F8AD26329B4900F1E61D /* CalendarInteractor.swift in Sources */,
 				D9CF91B9262D4AA1000A37C9 /* LoginInteractor.swift in Sources */,
 				D9CEEE66262CFB15002F9566 /* Auth.swift in Sources */,
 				D9CEEE6A262CFB1A002F9566 /* Meal.swift in Sources */,
@@ -257,6 +272,7 @@
 				D9CEEE68262CFB18002F9566 /* Student.swift in Sources */,
 				D9CEEE70262D0038002F9566 /* MypageInteractor.swift in Sources */,
 				D9CEEE6E262D0036002F9566 /* MypageDomainRepoInterface.swift in Sources */,
+				D988F2AA2632914D002DB228 /* PMSCalendar.swift in Sources */,
 				D9CF91AD262D4387000A37C9 /* GEError.swift in Sources */,
 				D91F3362262D86F400E87F47 /* AuthDomainRepoInterface.swift in Sources */,
 				D91F3385262DBBB800E87F47 /* IntroduceInteractor.swift in Sources */,

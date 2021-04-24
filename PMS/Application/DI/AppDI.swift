@@ -12,7 +12,6 @@ import data
 import domain
 
 class AppDI: AppDIInterface {
-    
     static let shared = AppDI()
     
     func mypageDependencies() -> MypageViewModel {
@@ -49,6 +48,12 @@ class AppDI: AppDIInterface {
         let noticeDI = NoticeDI()
         let noticeVM = noticeDI.noticeDependencies()
         return noticeVM
+    }
+    
+    func calendarDependencies() -> CalendarViewModel {
+        let calendarDI = CalendarDI()
+        let calendarVM = calendarDI.calendarDependencies()
+        return calendarVM
     }
     
     func authDataRepo() -> AuthDomainRepoInterface {

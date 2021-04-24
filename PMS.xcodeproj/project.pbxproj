@@ -23,6 +23,7 @@
 		D97B76422631370300C911A1 /* Pods_PMS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D97B76412631370300C911A1 /* Pods_PMS.framework */; };
 		D97B76442631370300C911A1 /* presentation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D97B76432631370300C911A1 /* presentation.framework */; };
 		D97B766A26316ABB00C911A1 /* NoticeDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97B766926316ABB00C911A1 /* NoticeDI.swift */; };
+		D9A6F8B226329D0D00F1E61D /* CalendarDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A6F8B126329D0D00F1E61D /* CalendarDI.swift */; };
 		D9BD706E2532A02100186C12 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BD706D2532A02100186C12 /* ContentView.swift */; };
 		D9CEEBFE262C5BF1002F9566 /* AppDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CEEBFD262C5BF1002F9566 /* AppDI.swift */; };
 		D9CEEC09262C5C5C002F9566 /* MypageDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CEEC08262C5C5C002F9566 /* MypageDI.swift */; };
@@ -90,6 +91,7 @@
 		D97B76412631370300C911A1 /* Pods_PMS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_PMS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D97B76432631370300C911A1 /* presentation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = presentation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D97B766926316ABB00C911A1 /* NoticeDI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeDI.swift; sourceTree = "<group>"; };
+		D9A6F8B126329D0D00F1E61D /* CalendarDI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDI.swift; sourceTree = "<group>"; };
 		D9BD706D2532A02100186C12 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		D9BE8CC52630F727002664E1 /* data.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = data.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9BE8CC72630F727002664E1 /* domain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = domain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -261,6 +263,7 @@
 				D91F336B262DB32F00E87F47 /* MealDI.swift */,
 				D91F338C262DC04800E87F47 /* IntroduceDI.swift */,
 				D97B766926316ABB00C911A1 /* NoticeDI.swift */,
+				D9A6F8B126329D0D00F1E61D /* CalendarDI.swift */,
 			);
 			path = DI;
 			sourceTree = "<group>";
@@ -532,6 +535,7 @@
 				D9BD706E2532A02100186C12 /* ContentView.swift in Sources */,
 				D97B766A26316ABB00C911A1 /* NoticeDI.swift in Sources */,
 				D91F338D262DC04800E87F47 /* IntroduceDI.swift in Sources */,
+				D9A6F8B226329D0D00F1E61D /* CalendarDI.swift in Sources */,
 				D91F336C262DB32F00E87F47 /* MealDI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

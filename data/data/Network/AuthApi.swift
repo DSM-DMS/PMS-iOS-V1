@@ -20,6 +20,7 @@ public enum AuthApi {
     case changeNickname(name: String)
     case addStudent(number: Int)
     case getStudents
+    case deleteStudent(number: Int)
     case outside(number: Int)
     case changePassword(password: String, prePassword: String)
     case pointList(number: Int)
@@ -53,6 +54,8 @@ extension AuthApi: TargetType {
             return "/auth/password"
         case .pointList(number: let number):
             return "/user/student/point/\(number)"
+        case .deleteStudent:
+            return "/user/student"
         }
     }
     
@@ -62,6 +65,8 @@ extension AuthApi: TargetType {
             return .post
         case .changePassword, .changeNickname:
             return .put
+        case .deleteStudent:
+            return .delete
         default:
             return .get
         }

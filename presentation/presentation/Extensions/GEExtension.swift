@@ -16,16 +16,14 @@ struct GEColor {
     static let green = Color("Green")
     static let red = Color("Red")
     static let blue = Color("Blue")
-    static let UIblue = UIColor(rgb: <#T##Int#>)
+    static let UIblue = UIColor(rgb: 0x4C75B2)
     static let UIred = UIColor(rgb: 0xD37C7C)
+    static let UIgreen = UIColor(rgb: 0x56AD77)
 }
 
 enum GEEColor: String {
     case blue = "Blue"
     case red = "Red"
-    case blueHex = "0x4C75B2"
-    case redHex = "0xD37C7C"
-    case greenHex = "0x56AD77"
 }
 
 struct GEImage {

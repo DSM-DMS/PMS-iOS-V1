@@ -16,4 +16,5 @@ public protocol MypageDomainRepoInterface {
     func addStudent(number: Int) -> AnyPublisher<Void, GEError>
     func getPointList(number: Int) -> AnyPublisher<PointList, GEError>
     func getOutingList(number: Int) -> AnyPublisher<OutsideList, GEError>
+    func deleteStudent(number: Int) -> AnyPublisher<Void, GEError>
 }
