@@ -28,7 +28,7 @@ struct MypageView: View {
                         VStack(spacing: 20) {
                             MypageTopView(nickname: self.mypageVM.nickname, student: self.$mypageVM.currentStudent, nicknameAlert: self.$nicknameAlert, studentAlert: self.$studentsAlert)
                             
-                            if !UDManager.shared.isLogin {
+                            if !UDManager.shared.isLogin || (UDManager.shared.currentStudent == nil) {
                                 TwoScoreView(plus: self.$mypageVM.plusScore, minus: self.$mypageVM.minusScore)
                             } else {
                                 NavigationLink(destination: ScoreDetailView()) {
@@ -190,7 +190,7 @@ struct MypageTopView: View {
                 }
             }, label: {
                 HStack {
-                    Text(self.student)
+                    Text(!UDManager.shared.isLogin ? "학생추가" : self.student)
                         .font(.headline)
                         .foregroundColor(.white)
                     GEImage.bottomArrow

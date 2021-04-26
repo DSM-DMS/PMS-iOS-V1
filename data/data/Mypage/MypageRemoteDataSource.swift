@@ -44,19 +44,22 @@ public class MypageRemoteDataSource: MypageRemoteDataSourceInterface {
     }
     
     public func changeNickname(name: String) -> AnyPublisher<Void, GEError> {
-        provider.requestVoidPublisher(.changeNickname(name: name))
+        provider.requestPublisher(.changeNickname(name: name))
+            .map { _ in () }
             .mapError { error in mapGEEror(error)}
             .eraseToAnyPublisher()
     }
     
     public func changePassword(password: String, prePassword: String) -> AnyPublisher<Void, GEError> {
-        provider.requestVoidPublisher(.changePassword(password: password, prePassword: prePassword))
+        provider.requestPublisher(.changePassword(password: password, prePassword: prePassword))
+            .map { _ in () }
             .mapError { error in mapGEEror(error)}
             .eraseToAnyPublisher()
     }
     
     public func addStudent(number: Int) -> AnyPublisher<Void, GEError> {
-        provider.requestVoidPublisher(.addStudent(number: number))
+        provider.requestPublisher(.addStudent(number: number))
+            .map { _ in () }
             .mapError { error in mapGEEror(error)}
             .eraseToAnyPublisher()
     }
@@ -76,8 +79,11 @@ public class MypageRemoteDataSource: MypageRemoteDataSourceInterface {
     }
     
     public func deleteStudent(number: Int) -> AnyPublisher<Void, GEError> {
-        provider.requestVoidPublisher(.deleteStudent(number: number))
-            .mapError { error in mapGEEror(error)}
+        provider.requestPublisher(.deleteStudent(number: number))
+            .map { _ in () }
+            .mapError { error in
+                print(error)
+                return mapGEEror(error)}
             .eraseToAnyPublisher()
     }
     

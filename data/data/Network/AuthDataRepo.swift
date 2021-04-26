@@ -60,16 +60,57 @@ public class AuthDataRepo: AuthDomainRepoInterface {
             case let .success(success):
                 let responseData = success.data
                 do {
-                    let user = try JSONDecoder().decode(User.self, from: responseData)
+                    var user = try JSONDecoder().decode(User.self, from: responseData)
                     UDManager.shared.name = user.name
                     if !user.students.isEmpty {
-                        let firstuser: String = String(user.students.first!.number) + " " + user.students.first!.name
-                        UDManager.shared.currentStudent = firstuser
-                        print(firstuser)
+                        user.students.sort { $0.number < $1.number }
+                        if UDManager.shared.currentStudent == nil {
+                            let firstuser: String = String(user.students.first!.number) + " " + user.students.first!.name
+                            UDManager.shared.currentStudent = firstuser
+                        }
                         var studentsArray = [String]()
                         for i in 0...user.students.count - 1 {
                             studentsArray.append(String((user.students[i].number)) + " " + (user.students[i].name))
                         }
+                        if !studentsArray.isEmpty {
+                            print(studentsArray)
+                            UDManager.shared.studentsArray = studentsArray
+                        }
+                    } else {
+                        UDManager.shared.currentStudent = nil
+                        UDManager.shared.studentsArray = nil
+                    }
+                } catch {
+                    print("map error")
+                }
+            case let .failure(error):
+                if error.response?.statusCode == 401 {
+                    self.refreshToken()
+                } else if error.errorCode == 6 {
+                    print("you're not in internet")
+                }
+                print(error)
+            }
+        }
+    }
+    
+    public func resetStudent() {
+        provider.request(.getStudents) { result in
+            switch result {
+            case let .success(success):
+                let responseData = success.data
+                do {
+                    var user = try JSONDecoder().decode(User.self, from: responseData)
+                    UDManager.shared.name = user.name
+                    if !user.students.isEmpty {
+                        user.students.sort { $0.number < $1.number }
+                        let firstuser: String = String(user.students.first!.number) + " " + user.students.first!.name
+                        UDManager.shared.currentStudent = firstuser
+                        var studentsArray = [String]()
+                        for i in 0...user.students.count - 1 {
+                            studentsArray.append(String((user.students[i].number)) + " " + (user.students[i].name))
+                        }
+                        studentsArray.sort { String($0.prefix(4)) < String($1.prefix(4)) }
                         if !studentsArray.isEmpty {
                             print(studentsArray)
                             UDManager.shared.studentsArray = studentsArray

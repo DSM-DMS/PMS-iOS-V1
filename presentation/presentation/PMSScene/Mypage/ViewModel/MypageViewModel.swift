@@ -117,30 +117,21 @@ public class MypageViewModel: ObservableObject {
         switch input {
         case .onAppear:
             if checkDateForReset() == "03-01" {
-                authDataRepo.getStudent()
-                // 로직 더 추가해야됨... 학번 리셋 코드
+                authDataRepo.resetStudent()
+                self.currentStudent = UDManager.shared.currentStudent ?? ""
             }
-            if UDManager.shared.currentStudent == nil {
                 authDataRepo.getStudent()
                 if UDManager.shared.currentStudent != nil {
+                    self.studentsArray = UDManager.shared.studentsArray ?? []
+                    self.currentStudent = UDManager.shared.currentStudent ?? ""
                     let str = UDManager.shared.currentStudent
-                    self.currentStudent = UDManager.shared.currentStudent!
                     let arr =  str!.components(separatedBy: " ")
                     appearSubject.send(Int(arr.first!)!)
                 }
-            } else {
-                if studentsArray.isEmpty {
-                    studentsArray = UDManager.shared.studentsArray!
-                }
-                let str = UDManager.shared.currentStudent
-                self.currentStudent = UDManager.shared.currentStudent!
-                let arr =  str!.components(separatedBy: " ")
-                appearSubject.send(Int(arr.first!)!)
-            }
         case .addStudent:
             addSubject.send(Int(self.passCodeModel.passCodeString)!)
         case .deleteStudent:
-            let arr =  selectedStudent.components(separatedBy: " ")
+            let arr =  self.selectedStudent.components(separatedBy: " ")
             deleteSubject.send(Int(arr.first!)!)
         case .changePassword:
             changePasswordSubject.send()
@@ -335,6 +326,20 @@ public class MypageViewModel: ObservableObject {
 }
 
 extension MypageViewModel {
+    
+    func logout() {
+        UDManager.shared.isLogin = false
+        UDManager.shared.email = "test@test.com"
+        UDManager.shared.password = "testpass"
+        UDManager.shared.currentStudent = nil
+        UDManager.shared.studentsArray = nil
+        self.plusScore = 0
+        self.minusScore = 0
+        self.currentStudent = ""
+        self.status = "-"
+        authDataRepo.refreshToken()
+    }
+    
     func convertStatus(num: Int) -> String {
         if num == 1 {
             return "금요귀가"
@@ -350,7 +355,9 @@ extension MypageViewModel {
     }
     
     func minusStatus(num: Int) {
-        if num < 5 {
+        if !UDManager.shared.isLogin {
+            self.status = "-"
+        } else if num < 5 {
             self.status = "아직 3월달인가요?"
         } else if num >= 5 && num < 10 {
             self.status = "꽤 모범적이네요!"

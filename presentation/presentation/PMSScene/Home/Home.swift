@@ -86,7 +86,7 @@ public struct Home: View {
                                 .onTapGesture {
                                     self.mypageVM.logoutAlert = false
                                     self.mypageVM.showLoginModal = true
-                                    UDManager.shared.isLogin = false
+                                    self.mypageVM.logout()
                                 }
                             Spacer()
                         }

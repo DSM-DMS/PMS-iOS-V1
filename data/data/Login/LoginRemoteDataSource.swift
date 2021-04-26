@@ -31,7 +31,8 @@ public class LoginRemoteDataSource: LoginRemoteDataSourceInterface {
     }
     
     public func register(email: String, password: String, name: String) -> AnyPublisher<Void, GEError> {
-        provider.requestVoidPublisher(.register(email: email, password: password, name: name))
+        provider.requestPublisher(.register(email: email, password: password, name: name))
+            .map { _ in () }
             .mapError { error -> GEError in
                 mapGEEror(error)
             }.eraseToAnyPublisher()
