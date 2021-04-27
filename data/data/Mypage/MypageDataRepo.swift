@@ -21,12 +21,12 @@ public class MypageDataRepo: MypageDomainRepoInterface {
     }
     public func mypage(number: Int) -> AnyPublisher<Student, GEError> {
         mypageRemoteDataSource.mypage(number: number)
-            .catch { [weak self] _ in
-                return (self?.mypageLocalDataSource.getCachedStudent()) ??
-                    Just(Student(plus: 0, minus: 0, status: 0, isMeal: true))
-                    .setFailureType(to: GEError.self)
-                    .eraseToAnyPublisher()
-            }
+//            .catch { [weak self] _ in
+//                return (self?.mypageLocalDataSource.getCachedStudent()) ??
+//                    Just(Student(plus: 0, minus: 0, status: 0, isMeal: true))
+//                    .setFailureType(to: GEError.self)
+//                    .eraseToAnyPublisher()
+//            }
             .eraseToAnyPublisher()
     }
     public func getStudent() -> AnyPublisher<User, GEError> {

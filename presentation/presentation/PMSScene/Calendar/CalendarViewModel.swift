@@ -55,6 +55,7 @@ public class CalendarViewModel: ObservableObject {
     private let calendarSubject = PassthroughSubject<[String: [String: [String]]], Never>()
     private let dateHomeSubject = PassthroughSubject<[String], Never>()
     private let detailCalendarSubject = PassthroughSubject<String, Never>()
+    private let errorSubject = PassthroughSubject<GEError, Never>()
 
     func apply(_ input: Input) {
         switch input {
@@ -69,11 +70,7 @@ public class CalendarViewModel: ObservableObject {
             .flatMap { [calendarInteractor] _ in
                 calendarInteractor.getCalendar()
                     .catch { [weak self] error -> Empty<PMSCalendar, Never> in
-                        print(error)
-                        if error == GEError.unauthorized {
-                            self?.authDataRepo.refreshToken()
-                            self?.apply(.onAppear)
-                        }
+                        self?.errorSubject.send(error)
                         return .init()
                     }
             }
@@ -123,6 +120,15 @@ public class CalendarViewModel: ObservableObject {
             .sink(receiveValue: { calendar in
                 self.calendar = calendar
                 self.monthSubject.send(self.month)
+            })
+            .store(in: &bag)
+        
+        errorSubject
+            .sink(receiveValue: { error in
+                if error == .unauthorized {
+                    self.authDataRepo.refreshToken()
+                    self.apply(.onAppear)
+                }
             })
             .store(in: &bag)
     }

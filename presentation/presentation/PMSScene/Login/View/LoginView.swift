@@ -11,7 +11,7 @@ import domain
 
 struct LoginView: View {
     @EnvironmentObject var settings: LoginSettings
-//    @EnvironmentObject var loginVM = LoginViewModel()
+    //    @EnvironmentObject var loginVM = LoginViewModel()
     @Environment(\.presentationMode) var mode
     @State var offset = CGSize.zero
     
@@ -32,7 +32,7 @@ struct LoginView: View {
                     
                     VStack(alignment: .leading) {
                         VStack(spacing: 30) {
-                            CustomTextField(isLogin: true, text: self.$loginVM.id, placeholder: "아이디를 입력해주세요", image: GEImage.person)
+                            CustomTextField(isLogin: true, text: self.$loginVM.id, placeholder: "이메일을 입력해주세요", image: GEImage.person, errorMsg: self.$loginVM.errorMsg)
                             PasswordTextField(isLogin: true, errorMsg: .constant(""), text: self.$loginVM.password, isHidden: self.$loginVM.isHidden)
                         }.padding(.bottom, 10)
                     }
@@ -40,8 +40,11 @@ struct LoginView: View {
                     VStack {
                         OAuthView()
                         ButtonView(text: "로그인", color: GEEColor.blue.rawValue)
+                            .overlay(Color.white.opacity(loginVM.isEnable ? 0.0 : 0.5))
                             .onTapGesture {
-                                self.loginVM.apply(.loginTapped)
+                                if loginVM.isEnable {
+                                    self.loginVM.apply(.loginTapped)
+                                }
                             }
                     }
                 }.padding([.leading, .trailing], 30)
@@ -56,10 +59,10 @@ struct LoginView: View {
                 Text("")
             }
             if self.loginVM.isNotMatchError == true {
-                checkErrorView(text: "아이디 또는 비밀번호가 일치하지 않습니다", isAlert: self.$loginVM.isNotMatchError)
+                checkErrorView(text: "아이디 또는 비밀번호가 \n 일치하지 않습니다", isAlert: self.$loginVM.isNotMatchError)
             }
             if self.loginVM.isNotInternet == true {
-                checkErrorView(text: "인터넷 연결이 되지 않았습니다.", isAlert: self.$loginVM.isNotInternet)
+                checkErrorView(text: "인터넷 연결이 되지 \n 않았습니다.", isAlert: self.$loginVM.isNotInternet)
             }
             if self.loginVM.isSuccessAlert {
                 SuccessView(text: "로그인이 완료되었습니다.")
@@ -83,6 +86,7 @@ struct CustomTextField: View {
     @Binding var text: String
     var placeholder: String
     var image: String
+    @Binding var errorMsg: String
     
     var body: some View {
         VStack(spacing: 10) {
@@ -108,6 +112,13 @@ struct CustomTextField: View {
                     .frame(height: CGFloat(4) / UIScreen.main.scale)
             } else {
                 CustomDivider()
+            }
+            
+            if errorMsg != "" {
+                HStack {
+                    Spacer()
+                    Text(errorMsg).foregroundColor(.red)
+                }
             }
         }
     }
@@ -214,7 +225,7 @@ struct checkErrorView: View {
             VStack(spacing: 20) {
                 Text(text)
                     .multilineTextAlignment(.center)
-                    .frame(width: UIFrame.UIWidth / 2.5)
+                    .padding([.leading, .trailing], 20)
                     .padding(.top, 20)
                 CustomDivider()
                 Text("확인")

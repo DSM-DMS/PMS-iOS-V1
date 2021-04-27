@@ -26,7 +26,7 @@ public class LoginRemoteDataSource: LoginRemoteDataSourceInterface {
         provider.requestPublisher(.login(email: email, password: password))
             .map(accessToken.self)
             .mapError { error -> GEError in
-                mapGEEror(error)
+                return mapGEEror(error)
             }.eraseToAnyPublisher()
     }
     

@@ -18,6 +18,7 @@ public class IntroduceViewModel: ObservableObject {
     @Published var companyDesc: String = "멋진 마이다스아이티입니다"
     @Published var companySite: String = "https://www.naver.com"
     @Published var companyAddress: String = "대전 유성구 장동 가정북로 76"
+    @Published var isNotInternet = false
     
     private var bag = Set<AnyCancellable>()
     
@@ -99,6 +100,13 @@ public class IntroduceViewModel: ObservableObject {
                     self?.apply(.getClubList)
                 }
             })
+        
+        errorSubject
+            .map { error in
+                if error == .noInternet { return true } else { return false }
+            }
+            .assign(to: \.isNotInternet, on: self)
+            .store(in: &bag)
     }
     
     func openCompanySite() {

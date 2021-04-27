@@ -36,7 +36,6 @@ struct CalendarView: View {
                             
                         }
                     }
-                    
                 }
             }
             VStack {

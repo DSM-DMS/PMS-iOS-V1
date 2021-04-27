@@ -24,19 +24,26 @@ public struct DeveloperView: View {
     }
     
     public var body: some View {
-        ScrollView {
-            WaterfallGrid(0...6, id: \.self) { index in
-                DeveloperRectangle(image: images[index], person: persons[index], field: fields[index])
-                    .padding(.top)
+        ZStack {
+            ScrollView {
+                WaterfallGrid(0...6, id: \.self) { index in
+                    DeveloperRectangle(image: images[index], person: persons[index], field: fields[index])
+                        .padding(.top)
+                }
+                .gridStyle(
+                    columnsInPortrait: 2,
+                    columnsInLandscape: 3,
+                    spacing: 8,
+                    animation: .easeInOut(duration: 0.5)
+                ).padding([.leading, .trailing])
+                .padding([.top, .bottom], 10)
             }
-            .gridStyle(
-                columnsInPortrait: 2,
-                columnsInLandscape: 3,
-                spacing: 8,
-                animation: .easeInOut(duration: 0.5)
-            ).padding([.leading, .trailing])
-            .padding([.top, .bottom], 10)
-        }.onAppear {
+            
+            if self.introduceVM.isNotInternet {
+                checkErrorView(text: "인터넷 연결이 되지 \n 않았습니다.", isAlert: self.$introduceVM.isNotInternet)
+            }
+        }
+        .onAppear {
             self.settings.isNav = true
         }
         .navigationBarTitle("개발자 소개", displayMode: .inline)

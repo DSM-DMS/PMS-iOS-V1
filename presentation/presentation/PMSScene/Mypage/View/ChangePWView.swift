@@ -135,7 +135,7 @@ struct ChangePWTextField: View {
     }
 }
 
-struct ChangePWView_Previews: PreviewProvider {
+ struct ChangePWView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ChangePWView()
@@ -146,4 +146,4 @@ struct ChangePWView_Previews: PreviewProvider {
                 .previewDisplayName("iPhone 8")
         }
     }
-}
+ }

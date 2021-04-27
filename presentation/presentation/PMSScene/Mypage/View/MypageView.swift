@@ -94,9 +94,8 @@ struct MypageView: View {
                         Spacer()
                     }
                 }
-            }.onAppear {
-                self.mypageVM.apply(.onAppear)
             }
+            .onAppear { self.mypageVM.apply(.onAppear) }
             .sheet(isPresented: self.$mypageVM.showLoginModal) {
                 PMSView(appDI: appDI, loginVM: appDI.loginDependencies())
                     .onDisappear {

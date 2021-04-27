@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D97B766E2631908700C911A1 /* assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D97B766D2631908700C911A1 /* assets.xcassets */; };
+		D9802FDC2637D6EC001EAFF8 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9802FDB2637D6EC001EAFF8 /* Validation.swift */; };
 		D9A6F8AA2632987E00F1E61D /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A6F8A92632987E00F1E61D /* CalendarViewModel.swift */; };
 		D9BE8C99262FE240002664E1 /* domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9CEEDF4262C7D01002F9566 /* domain.framework */; };
 		D9BE8C9A262FE240002664E1 /* domain.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D9CEEDF4262C7D01002F9566 /* domain.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -17,7 +18,6 @@
 		D9CEEDC4262C7CE5002F9566 /* ExViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CEED81262C7CE5002F9566 /* ExViews.swift */; };
 		D9CEEDC5262C7CE5002F9566 /* UIColorRgb.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CEED82262C7CE5002F9566 /* UIColorRgb.swift */; };
 		D9CEEDC7262C7CE5002F9566 /* UIFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CEED84262C7CE5002F9566 /* UIFrame.swift */; };
-		D9CEEDC8262C7CE5002F9566 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CEED85262C7CE5002F9566 /* Validation.swift */; };
 		D9CEEDC9262C7CE5002F9566 /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CEED86262C7CE5002F9566 /* Keyboard.swift */; };
 		D9CEEDCA262C7CE5002F9566 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CEED89262C7CE5002F9566 /* Home.swift */; };
 		D9CEEDCB262C7CE5002F9566 /* StoryboardtoUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CEED8C262C7CE5002F9566 /* StoryboardtoUI.swift */; };
@@ -79,6 +79,7 @@
 
 /* Begin PBXFileReference section */
 		D97B766D2631908700C911A1 /* assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = assets.xcassets; sourceTree = "<group>"; };
+		D9802FDB2637D6EC001EAFF8 /* Validation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
 		D9A6F8A92632987E00F1E61D /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
 		D9CEED72262C7CCE002F9566 /* presentation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = presentation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9CEED75262C7CCE002F9566 /* presentation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = presentation.h; sourceTree = "<group>"; };
@@ -88,7 +89,6 @@
 		D9CEED81262C7CE5002F9566 /* ExViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExViews.swift; sourceTree = "<group>"; };
 		D9CEED82262C7CE5002F9566 /* UIColorRgb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorRgb.swift; sourceTree = "<group>"; };
 		D9CEED84262C7CE5002F9566 /* UIFrame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIFrame.swift; sourceTree = "<group>"; };
-		D9CEED85262C7CE5002F9566 /* Validation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
 		D9CEED86262C7CE5002F9566 /* Keyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keyboard.swift; sourceTree = "<group>"; };
 		D9CEED89262C7CE5002F9566 /* Home.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		D9CEED8C262C7CE5002F9566 /* StoryboardtoUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryboardtoUI.swift; sourceTree = "<group>"; };
@@ -202,8 +202,8 @@
 				D9CEED81262C7CE5002F9566 /* ExViews.swift */,
 				D9CEED82262C7CE5002F9566 /* UIColorRgb.swift */,
 				D9CEED84262C7CE5002F9566 /* UIFrame.swift */,
-				D9CEED85262C7CE5002F9566 /* Validation.swift */,
 				D9CEED86262C7CE5002F9566 /* Keyboard.swift */,
+				D9802FDB2637D6EC001EAFF8 /* Validation.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -511,6 +511,7 @@
 				D9CEEE58262CF818002F9566 /* LoginSettings.swift in Sources */,
 				D9CEEDD7262C7CE5002F9566 /* NoticeViewModel.swift in Sources */,
 				D9CEEDCE262C7CE5002F9566 /* CalendarView.swift in Sources */,
+				D9802FDC2637D6EC001EAFF8 /* Validation.swift in Sources */,
 				D9CEEDE2262C7CE5002F9566 /* MypageView.swift in Sources */,
 				D9CEEDE8262C7CE6002F9566 /* LottieView.swift in Sources */,
 				D9CEEDC7262C7CE5002F9566 /* UIFrame.swift in Sources */,
@@ -540,7 +541,6 @@
 				D9CEEDC5262C7CE5002F9566 /* UIColorRgb.swift in Sources */,
 				D9CEEDF1262C7CE6002F9566 /* AppDIInterface.swift in Sources */,
 				D9CEEDD5262C7CE5002F9566 /* IntroduceView.swift in Sources */,
-				D9CEEDC8262C7CE5002F9566 /* Validation.swift in Sources */,
 				D9CEEDEC262C7CE6002F9566 /* LoginView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

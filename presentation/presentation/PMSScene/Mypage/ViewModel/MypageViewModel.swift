@@ -33,6 +33,7 @@ public class MypageViewModel: ObservableObject {
     @Published var deleteAlert = false
     @Published var logoutAlert = false
     @Published var showLoginModal = false
+    @Published var isNotInternet = false
     
     // Password
     @Published var nowPassword = ""
@@ -90,9 +91,9 @@ public class MypageViewModel: ObservableObject {
     private let getPointSubject = PassthroughSubject<Int, Never>()
     private let getOutsideSubject = PassthroughSubject<Int, Never>()
     private let studentSubject = PassthroughSubject<Student, Never>()
-    private let errorSubject = PassthroughSubject<GEError, Never>()
     private let passwordErrorSubject = PassthroughSubject<Bool, Never>()
     private let passwordResponseSubject = PassthroughSubject<Bool, Never>()
+    private let errorSubject = PassthroughSubject<GEError, Never>()
     private let nameErrorSubject = PassthroughSubject<Bool, Never>()
     private let nameResponseSubject = PassthroughSubject<Bool, Never>()
     private let PointSubject = PassthroughSubject<PointList, Never>()
@@ -153,12 +154,8 @@ public class MypageViewModel: ObservableObject {
             .flatMap { [mypageInteractor] number in
                 mypageInteractor.mypage(number: number)
                     .catch { [weak self] error -> Empty<Student, Never> in
-                        if error == GEError.unauthorized {
-                            self?.authDataRepo.refreshToken()
-                            self?.apply(.onAppear)
-                        } else {
-                            print(error)
-                        }
+                        print(error)
+                        self?.errorSubject.send(error)
                         return .init()
                     }
             }.share()
@@ -175,10 +172,8 @@ public class MypageViewModel: ObservableObject {
                         self?.studentsArray = UDManager.shared.studentsArray!
                     }
                     .catch { [weak self] error -> Empty<Void, Never> in
-                        if error == GEError.unauthorized {
-                            self?.authDataRepo.refreshToken()
-                            self?.apply(.addStudent)
-                        } else {
+                        self?.errorSubject.send(error)
+                        if error != GEError.unauthorized {
                             withAnimation(.default) {
                                 self?.attempts += 1
                             }
@@ -211,10 +206,7 @@ public class MypageViewModel: ObservableObject {
                         }
                     }
                     .catch { [weak self] error -> Empty<Void, Never> in
-                        if error == GEError.unauthorized {
-                            self?.authDataRepo.refreshToken()
-                            self?.apply(.addStudent)
-                        }
+                        self?.errorSubject.send(error)
                         return .init()
                     }
             }
@@ -224,9 +216,8 @@ public class MypageViewModel: ObservableObject {
                 mypageInteractor.changePassword(password: self.newPassword, prePassword: self.nowPassword)
                     .map { _ in true }
                     .catch { [weak self] error -> Empty<Bool, Never> in
-                        if error == GEError.unauthorized {
-                            self?.authDataRepo.refreshToken()
-                            self?.apply(.changePassword)
+                        if error != GEError.unauthorized || error == GEError.noInternet {
+                            self?.errorSubject.send(error)
                         } else {
                             self?.passwordErrorSubject.send(true)
                         }
@@ -251,9 +242,8 @@ public class MypageViewModel: ObservableObject {
                         self.nickname = self.newNickname
                         return true }
                     .catch { [weak self] error -> Empty<Bool, Never> in
-                        if error == GEError.unauthorized {
-                            self?.authDataRepo.refreshToken()
-                            self?.apply(.changeName)
+                        if error == GEError.unauthorized || error == GEError.noInternet {
+                            self?.errorSubject.send(error)
                         } else {
                             self?.nameErrorSubject.send(true)
                         }
@@ -267,12 +257,7 @@ public class MypageViewModel: ObservableObject {
             .flatMap { [mypageInteractor] number in
                 mypageInteractor.getPointList(number: number)
                     .catch { [weak self] error -> Empty<PointList, Never> in
-                        if error == GEError.unauthorized {
-                            self?.authDataRepo.refreshToken()
-                            self?.apply(.getPoint)
-                        } else {
-                            print(error)
-                        }
+                        self?.errorSubject.send(error)
                         return .init()
                     }
             }.share()
@@ -283,12 +268,7 @@ public class MypageViewModel: ObservableObject {
             .flatMap { [mypageInteractor] number in
                 mypageInteractor.getOutingList(number: number)
                     .catch { [weak self] error -> Empty<OutsideList, Never> in
-                        if error == GEError.unauthorized {
-                            self?.authDataRepo.refreshToken()
-                            self?.apply(.getOutside)
-                        } else {
-                            print(error)
-                        }
+                        self?.errorSubject.send(error)
                         return .init()
                     }
             }.share()
@@ -321,6 +301,23 @@ public class MypageViewModel: ObservableObject {
         
         OutsideSubject
             .assign(to: \.outings, on: self)
+            .store(in: &bag)
+        
+        errorSubject
+            .sink(receiveValue: { error in
+                if error == .unauthorized {
+                    self.authDataRepo.refreshToken()
+                    self.apply(.getPoint)
+                }
+            })
+            .store(in: &bag)
+        
+        errorSubject
+            .debounce(for: 0.5, scheduler: DispatchQueue.main)
+            .map { error in
+                if error == .noInternet { print("NOO"); return true } else { return false }
+            }
+            .assign(to: \.isNotInternet, on: self)
             .store(in: &bag)
     }
 }

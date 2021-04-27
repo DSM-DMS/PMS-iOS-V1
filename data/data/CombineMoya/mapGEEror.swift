@@ -15,5 +15,7 @@ func mapGEEror(_ error: MoyaError) -> GEError {
         return GEError.notFound
     } else if error.response?.statusCode == 403 {
         return GEError.forbidden
+    } else if (error.errorDescription?.contains("인터넷 연결이 오프라인 상태입니다.")) != nil {
+        return GEError.noInternet
     } else { return GEError.error }
 }
