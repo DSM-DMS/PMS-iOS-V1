@@ -79,7 +79,7 @@ public class LoginViewModel: ObservableObject {
                         UDManager.shared.email = self?.id
                         UDManager.shared.password = self?.password
                         UDManager.shared.token = token.accessToken
-                        self?.authDataRepo.getStudent()
+                        self?.authDataRepo.resetStudent()
                         return true }
                     .catch { [weak self] error -> Empty<Bool, Never> in
                         self?.errorSubject.send(error)

@@ -30,7 +30,7 @@ struct ChangePWView: View {
                 }
                 ButtonView(text: "확인", color: GEEColor.blue.rawValue)
                     .onTapGesture {
-                        self.mypageVM.apply(.changePassword)
+                        self.mypageVM.confirmAlert = true
                     }
             }
             .padding([.leading, .trailing], 30)

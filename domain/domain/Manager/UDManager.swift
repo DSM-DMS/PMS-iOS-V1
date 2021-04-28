@@ -74,12 +74,4 @@ public class UDManager {
             UD.set(value, forKey: "currentStudent")
         }
     }
-    
-    public var studentsArray: [String]? {
-        get {
-            UD.stringArray(forKey: "studentsArray")
-        } set(value) {
-            UD.set(value, forKey: "studentsArray")
-        }
-    }
 }

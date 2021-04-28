@@ -14,7 +14,7 @@ public struct Home: View {
     @EnvironmentObject var login: LoginSettings
     
     @State var index = 1
-    @State var offset: CGFloat = UIScreen.main.bounds.width
+    @State var offset: CGFloat = UIFrame.UIWidth
     
     var width = UIScreen.main.bounds.width
     var edges = UIApplication.shared.windows.first?.safeAreaInsets
@@ -208,9 +208,9 @@ public struct Home: View {
                                 Rectangle().foregroundColor(GEColor.white).frame(height: 10)
                             })
                     }
-                    
                 }.edgesIgnoringSafeArea([.top, .bottom])
             }
+            
             if self.mypageVM.studentCodeAlert {
                 ZStack {
                     Color(.black).opacity(0.3)

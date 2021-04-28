@@ -6,9 +6,10 @@
 //
 
 import Foundation
+import Combine
 
 public protocol AuthDomainRepoInterface {
     func refreshToken()
-    func getStudent()
+    func getStudent() -> AnyPublisher<User, GEError>
     func resetStudent()
 }

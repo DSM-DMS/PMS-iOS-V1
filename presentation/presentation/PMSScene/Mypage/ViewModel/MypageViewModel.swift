@@ -83,7 +83,9 @@ public class MypageViewModel: ObservableObject {
         case getOutside
     }
     
+    private let toGetStudentSubject = PassthroughSubject<Void, Never>()
     private let appearSubject = PassthroughSubject<Int, Never>()
+    private let getStudentSubject = PassthroughSubject<User, Never>()
     private let addSubject = PassthroughSubject<Int, Never>()
     private let deleteSubject = PassthroughSubject<Int, Never>()
     private let changePasswordSubject = PassthroughSubject<Void, Never>()
@@ -91,11 +93,13 @@ public class MypageViewModel: ObservableObject {
     private let getPointSubject = PassthroughSubject<Int, Never>()
     private let getOutsideSubject = PassthroughSubject<Int, Never>()
     private let studentSubject = PassthroughSubject<Student, Never>()
+    private let addeddStudentSubject = PassthroughSubject<Void, Never>()
+    private let deletedStudentSubject = PassthroughSubject<Void, Never>()
     private let passwordErrorSubject = PassthroughSubject<Bool, Never>()
-    private let passwordResponseSubject = PassthroughSubject<Bool, Never>()
+    private let passwordResponseSubject = PassthroughSubject<Void, Never>()
     private let errorSubject = PassthroughSubject<GEError, Never>()
     private let nameErrorSubject = PassthroughSubject<Bool, Never>()
-    private let nameResponseSubject = PassthroughSubject<Bool, Never>()
+    private let nameResponseSubject = PassthroughSubject<Void, Never>()
     private let PointSubject = PassthroughSubject<PointList, Never>()
     private let OutsideSubject = PassthroughSubject<OutsideList, Never>()
     
@@ -117,18 +121,17 @@ public class MypageViewModel: ObservableObject {
     func apply(_ input: Input) {
         switch input {
         case .onAppear:
+            toGetStudentSubject.send(())
             if checkDateForReset() == "03-01" {
                 authDataRepo.resetStudent()
                 self.currentStudent = UDManager.shared.currentStudent ?? ""
             }
-                authDataRepo.getStudent()
-                if UDManager.shared.currentStudent != nil {
-                    self.studentsArray = UDManager.shared.studentsArray ?? []
-                    self.currentStudent = UDManager.shared.currentStudent ?? ""
-                    let str = UDManager.shared.currentStudent
-                    let arr =  str!.components(separatedBy: " ")
-                    appearSubject.send(Int(arr.first!)!)
-                }
+            if UDManager.shared.currentStudent != nil {
+                self.currentStudent = UDManager.shared.currentStudent ?? ""
+                let str = UDManager.shared.currentStudent
+                let arr =  str!.components(separatedBy: " ")
+                appearSubject.send(Int(arr.first!)!)
+            }
         case .addStudent:
             addSubject.send(Int(self.passCodeModel.passCodeString)!)
         case .deleteStudent:
@@ -150,6 +153,18 @@ public class MypageViewModel: ObservableObject {
     }
     
     func bindInputs() {
+        toGetStudentSubject
+            .flatMap { [authDataRepo] _ in
+                authDataRepo.getStudent()
+                    .catch { [weak self] error -> Empty<User, Never> in
+                        print(error)
+                        self?.errorSubject.send(error)
+                        return .init()
+                    }
+            }.share()
+            .subscribe(getStudentSubject)
+            .store(in: &bag)
+        
         appearSubject
             .flatMap { [mypageInteractor] number in
                 mypageInteractor.mypage(number: number)
@@ -165,12 +180,6 @@ public class MypageViewModel: ObservableObject {
         addSubject
             .flatMap { [mypageInteractor] number in
                 mypageInteractor.addStudent(number: number)
-                    .map { [weak self] _ in
-                        self?.studentCodeAlert = false
-                        self?.passCodeModel.selectedCellIndex = 0
-                        self?.authDataRepo.getStudent()
-                        self?.studentsArray = UDManager.shared.studentsArray!
-                    }
                     .catch { [weak self] error -> Empty<Void, Never> in
                         self?.errorSubject.send(error)
                         if error != GEError.unauthorized {
@@ -180,43 +189,26 @@ public class MypageViewModel: ObservableObject {
                         }
                         return .init()
                     }
-            }
+            }.share()
+            .subscribe(addeddStudentSubject)
+            .store(in: &bag)
         
         deleteSubject
             .flatMap { [mypageInteractor] number in
                 mypageInteractor.deleteStudent(number: number)
-                    .map { [weak self] _ in
-                        var deletedArray = self?.studentsArray
-                        deletedArray = deletedArray!.filter { $0 != self?.selectedStudent }
-                        self?.studentsArray = deletedArray!
-                        if deletedArray == [] {
-                            UDManager.shared.studentsArray = nil
-                        } else {
-                            UDManager.shared.studentsArray = deletedArray
-                        }
-                        
-                        if self?.selectedStudent == self?.currentStudent {
-                            if UDManager.shared.studentsArray != nil {
-                                self?.authDataRepo.getStudent()
-                            } else {
-                                self?.currentStudent = ""
-                                UDManager.shared.currentStudent = nil
-                            }
-                            
-                        }
-                    }
                     .catch { [weak self] error -> Empty<Void, Never> in
                         self?.errorSubject.send(error)
                         return .init()
                     }
-            }
+            }.share()
+            .subscribe(deletedStudentSubject)
+            .store(in: &bag)
         
         changePasswordSubject
             .flatMap { [mypageInteractor] _ in
                 mypageInteractor.changePassword(password: self.newPassword, prePassword: self.nowPassword)
-                    .map { _ in true }
-                    .catch { [weak self] error -> Empty<Bool, Never> in
-                        if error != GEError.unauthorized || error == GEError.noInternet {
+                    .catch { [weak self] error -> Empty<Void, Never> in
+                        if error == GEError.unauthorized || error == GEError.noInternet {
                             self?.errorSubject.send(error)
                         } else {
                             self?.passwordErrorSubject.send(true)
@@ -237,11 +229,7 @@ public class MypageViewModel: ObservableObject {
         changeNameSubject
             .flatMap { [mypageInteractor] _ in
                 mypageInteractor.changeNickname(name: self.newNickname)
-                    .map { _ in
-                        UDManager.shared.name = self.newNickname
-                        self.nickname = self.newNickname
-                        return true }
-                    .catch { [weak self] error -> Empty<Bool, Never> in
+                    .catch { [weak self] error -> Empty<Void, Never> in
                         if error == GEError.unauthorized || error == GEError.noInternet {
                             self?.errorSubject.send(error)
                         } else {
@@ -277,6 +265,22 @@ public class MypageViewModel: ObservableObject {
     }
     
     func bindOutputs() {
+        getStudentSubject
+            .sink { [weak self] result in
+                var user = result
+                user.students.sort { $0.number < $1.number }
+                if UDManager.shared.currentStudent == nil && !user.students.isEmpty {
+                    let firstuser: String = String(user.students.first!.number) + " " + user.students.first!.name
+                    UDManager.shared.currentStudent = firstuser
+                }
+                var array = [String]()
+                for student in user.students {
+                    array.append(String((student.number)) + " " + (student.name))
+                }
+                self?.studentsArray = array
+                print(array)
+            }.store(in: &bag)
+        
         studentSubject
             .sink { [weak self] student in
                 self?.plusScore = student.plus
@@ -286,14 +290,46 @@ public class MypageViewModel: ObservableObject {
                 self?.isMeal = student.isMeal
             }.store(in: &bag)
         
+        addeddStudentSubject
+            .sink { [weak self] _ in
+                self?.studentCodeAlert = false
+                self?.passCodeModel.selectedCellIndex = 0
+                self?.apply(.onAppear)
+            }.store(in: &bag)
+        
+        deletedStudentSubject
+            .sink { [weak self] _ in
+                var deletedArray = self?.studentsArray
+                deletedArray = deletedArray!.filter { $0 != self?.selectedStudent }
+                self?.studentsArray = deletedArray!
+                
+                if self?.selectedStudent == self?.currentStudent {
+                    if !deletedArray!.isEmpty {
+                        UDManager.shared.currentStudent = nil
+                    } else {
+                        self?.resetView()
+                        UDManager.shared.currentStudent = nil
+                    }
+                    
+                }
+                self?.apply(.onAppear)
+            }.store(in: &bag)
+        
         passwordErrorSubject
             .assign(to: \.passwordAlert, on: self)
             .store(in: &bag)
         
         nameResponseSubject
-            .map { !$0 }
-            .assign(to: \.nicknameAlert, on: self)
-            .store(in: &bag)
+            .sink { _ in
+                UDManager.shared.name = self.newNickname
+                self.nickname = self.newNickname
+                self.nicknameAlert = false
+            }.store(in: &bag)
+        
+        passwordResponseSubject
+            .sink { _ in
+                self.passwordSuccessAlert = true
+            }.store(in: &bag)
         
         PointSubject
             .assign(to: \.points, on: self)
@@ -323,17 +359,20 @@ public class MypageViewModel: ObservableObject {
 }
 
 extension MypageViewModel {
+
+    func resetView() {
+        self.plusScore = 0
+        self.minusScore = 0
+        self.currentStudent = ""
+        self.status = "-"
+    }
     
     func logout() {
         UDManager.shared.isLogin = false
         UDManager.shared.email = "test@test.com"
         UDManager.shared.password = "testpass"
         UDManager.shared.currentStudent = nil
-        UDManager.shared.studentsArray = nil
-        self.plusScore = 0
-        self.minusScore = 0
-        self.currentStudent = ""
-        self.status = "-"
+        resetView()
         authDataRepo.refreshToken()
     }
     

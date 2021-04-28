@@ -183,7 +183,7 @@ struct MypageTopView: View {
             Spacer()
             Button(action: {
                 if UDManager.shared.isLogin {
-                    withAnimation(.easeIn(duration: 0.1)) {
+                    withAnimation(.interactiveSpring()) {
                         self.studentAlert.toggle()
                     }
                 }

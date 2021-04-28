@@ -77,7 +77,7 @@ public class SignupViewModel: ObservableObject {
                         loginInteractor.login(email: self.id, password: self.password)
                             .map { [weak self] token in
                                 UDManager.shared.token = token.accessToken
-                                self?.authDataRepo.getStudent()
+                                self?.authDataRepo.resetStudent()
                                 return true }
                             .catch { [weak self] error -> Empty<Bool, Never> in
                                 self?.errorSubject.send(error)
