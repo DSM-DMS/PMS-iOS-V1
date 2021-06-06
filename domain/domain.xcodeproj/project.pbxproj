@@ -25,7 +25,6 @@
 		D9CEEE6E262D0036002F9566 /* MypageDomainRepoInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CEEC6C262C6140002F9566 /* MypageDomainRepoInterface.swift */; };
 		D9CEEE70262D0038002F9566 /* MypageInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CEEC6D262C6140002F9566 /* MypageInteractor.swift */; };
 		D9CF9175262D14A9000A37C9 /* UDManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CF9174262D14A9000A37C9 /* UDManager.swift */; };
-		D9CF91A2262D41E2000A37C9 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CF91A1262D41E2000A37C9 /* AuthManager.swift */; };
 		D9CF91AD262D4387000A37C9 /* GEError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CF91AC262D4387000A37C9 /* GEError.swift */; };
 		D9CF91B5262D4A2E000A37C9 /* LoginDomainRepoInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CF91B4262D4A2E000A37C9 /* LoginDomainRepoInterface.swift */; };
 		D9CF91B9262D4AA1000A37C9 /* LoginInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CF91B8262D4AA1000A37C9 /* LoginInteractor.swift */; };
@@ -52,7 +51,6 @@
 		D9CEEE45262CF79B002F9566 /* Meal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Meal.swift; sourceTree = "<group>"; };
 		D9CEEE46262CF79B002F9566 /* Introduce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Introduce.swift; sourceTree = "<group>"; };
 		D9CF9174262D14A9000A37C9 /* UDManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UDManager.swift; sourceTree = "<group>"; };
-		D9CF91A1262D41E2000A37C9 /* AuthManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		D9CF91AC262D4387000A37C9 /* GEError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GEError.swift; sourceTree = "<group>"; };
 		D9CF91B4262D4A2E000A37C9 /* LoginDomainRepoInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginDomainRepoInterface.swift; sourceTree = "<group>"; };
 		D9CF91B8262D4AA1000A37C9 /* LoginInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInteractor.swift; sourceTree = "<group>"; };
@@ -164,7 +162,6 @@
 			isa = PBXGroup;
 			children = (
 				D9CF9174262D14A9000A37C9 /* UDManager.swift */,
-				D9CF91A1262D41E2000A37C9 /* AuthManager.swift */,
 				D91F3361262D86F400E87F47 /* AuthDomainRepoInterface.swift */,
 			);
 			path = Manager;
@@ -281,7 +278,6 @@
 				D97B76602631624800C911A1 /* NoticeInteractor.swift in Sources */,
 				D97B765D2631624100C911A1 /* NoticeDomainRepoInterface.swift in Sources */,
 				D97B76592631603400C911A1 /* Notice.swift in Sources */,
-				D9CF91A2262D41E2000A37C9 /* AuthManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

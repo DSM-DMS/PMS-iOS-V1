@@ -31,6 +31,7 @@ public class SignupViewModel: ObservableObject {
     @Published var isErrorAlert: Bool = false
     @Published var isNotInternet: Bool = false
     @Published var isSuccessAlert: Bool = false
+    @Published var emailErrorMsg: String = ""
     @Published var passwordErrorMsg: String = ""
     @Published var confirmIsError: Bool = false
     @Published var confirmErrorMsg: String = ""
@@ -76,7 +77,7 @@ public class SignupViewModel: ObservableObject {
                         loginInteractor.login(email: self.id, password: self.password)
                             .map { [weak self] token in
                                 UDManager.shared.token = token.accessToken
-                                self?.authDataRepo.getStudent()
+                                self?.authDataRepo.resetStudent()
                                 return true }
                             .catch { [weak self] error -> Empty<Bool, Never> in
                                 self?.errorSubject.send(error)
@@ -95,6 +96,22 @@ public class SignupViewModel: ObservableObject {
             UDManager.shared.email = self.id
             UDManager.shared.password = self.password
         }
+    }
+    
+    private var emailValidPublisher: AnyPublisher<EmailValidation, Never> {
+        $id
+            .removeDuplicates()
+            .debounce(for: 0.5, scheduler: RunLoop.main)
+            .map { email in
+                if email.isEmpty {
+                    return .emptyEmail
+                } else if !email.isValidEmail() {
+                    return .inValidEmail
+                } else {
+                    return .validEmail
+                }
+        }
+        .eraseToAnyPublisher()
     }
     
     private var passwordValidPublisher: AnyPublisher<PasswordValidation, Never> {
@@ -127,16 +144,26 @@ public class SignupViewModel: ObservableObject {
     }
     
     func bindOutputs() {
-        Publishers.CombineLatest(self.passwordValidPublisher,
+        Publishers.CombineLatest3(self.emailValidPublisher,
+                                  self.passwordValidPublisher,
                                  self.confirmPasswordValidPublisher)
             .dropFirst()
-            .sink {_passwordValidator, _confirmPasswordValidator in
+            .sink {_emailError, _passwordValidator, _confirmPasswordValidator in
                 
                 self.enableSignUp =
+                    _emailError.errorMessage == nil &&
                     _passwordValidator.errorMessage == nil &&
                     _confirmPasswordValidator.confirmPasswordErrorMessage == nil
             }
             .store(in: &bag)
+        
+        emailValidPublisher
+            .receive(on: RunLoop.main)
+            .dropFirst()
+            .sink { (_emailError) in
+                self.emailErrorMsg = _emailError.errorMessage ?? ""
+        }
+        .store(in: &bag)
         
         passwordValidPublisher
             .dropFirst()
@@ -164,48 +191,31 @@ public class SignupViewModel: ObservableObject {
             .store(in: &bag)
         
         errorSubject
-            .map { _ in true }
+            .map { error  in
+                if error != GEError.noInternet {
+                    return true
+                } else { return false }}
             .assign(to: \.isErrorAlert, on: self)
             .store(in: &bag)
+        
+        errorSubject
+            .map { error in
+                if error == GEError.noInternet {
+                    return true
+                } else { return false } }
+            .assign(to: \.isNotInternet, on: self)
+            .store(in: &bag)
     }
-    
 }
 
-// extension SignupViewModel {
-//    func requestRegister(email: String, password: String, name: String) {
-//        loginInteractor.register(email: email, password: password, name: name) { [weak self] result in
-//            switch result {
-//            case .success:
-//                withAnimation {
-//                    self?.isSuccessAlert.toggle()
-//                }
-//                self?.requestLogin(email: email, password: password)
-//            case let .failure(error):
-//                if error == .unauthorized {
-//                    self?.isErrorAlert.toggle()
-//                }
-//            }
-//        }
-//    }
-//
-//    func requestLogin(email: String, password: String) {
-//        loginInteractor.login(email: email, password: password) { [weak self] result in
-//            switch result {
-//            case let .success(token):
-//                UDManager.shared.token = token.accessToken
-//                self?.authDataRepo.getStudent()
-//            case let .failure(error):
-//                if error == .unauthorized {
-//                    self?.isErrorAlert.toggle()
-//                } else if error == .noInternet {
-//                    self?.isNotInternet.toggle()
-//                }
-//            }
-//        }
-//    }
-// }
-
 extension String {
+    func isValidEmail() -> Bool {
+        let emailRegEx = "[A-Z0-9a-z._%+_]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        let emailPred = NSPredicate(format: "SELF MATCHES %@", emailRegEx)
+
+        return emailPred.evaluate(with: self)
+    }
+    
     func isValidPassword(pattern: String = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$") -> Bool {
         let passwordRegex = pattern
         return NSPredicate(format: "SELF MATCHES %@", passwordRegex).evaluate(with: self)

@@ -1,9 +1,8 @@
 //
 //  Validation.swift
-//  PMS
+//  presentation
 //
-//  Created by jge on 2020/10/05.
-//  Copyright © 2020 jge. All rights reserved.
+//  Created by GoEun Jeong on 2021/04/27.
 //
 
 import Foundation
@@ -54,6 +53,22 @@ public enum PasswordValidation {
         case .notMatch:
             return "비밀번호가 일치하지 않습니다."
         default:
+            return nil
+        }
+    }
+}
+
+public enum EmailValidation {
+    case emptyEmail
+    case inValidEmail
+    case validEmail
+    var errorMessage: String? {
+        switch self {
+        case .emptyEmail:
+            return "이메일을 입력해주세요."
+        case .inValidEmail:
+            return "이메일 형식이 아닙니다."
+        case .validEmail:
             return nil
         }
     }

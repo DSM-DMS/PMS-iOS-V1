@@ -20,19 +20,26 @@ public struct CompanyView: View {
     }
     
     public var body: some View {
-        ScrollView {            
-            ForEach(1...10, id: \.self) { _ in
-                HStack(spacing: 20) {
-                    NavigationLink(destination: CompanyDetailView()) {
-                        IntroduceRectangle(image: "DMS", text: "마이다스아이티")
-                    }
-                    NavigationLink(destination: CompanyDetailView()) {
-                        IntroduceRectangle(image: "DMS", text: "마이다스아이티")
-                    }
-                }.padding(.bottom)
-            }.padding([.leading, .trailing], 30)
-            .padding([.top, .bottom], 10)
-        }.onAppear {
+        ZStack {
+            ScrollView {
+                ForEach(1...10, id: \.self) { _ in
+                    HStack(spacing: 20) {
+                        NavigationLink(destination: CompanyDetailView()) {
+                            IntroduceRectangle(image: "DMS", text: "마이다스아이티")
+                        }
+                        NavigationLink(destination: CompanyDetailView()) {
+                            IntroduceRectangle(image: "DMS", text: "마이다스아이티")
+                        }
+                    }.padding(.bottom)
+                }.padding([.leading, .trailing], 30)
+                .padding([.top, .bottom], 10)
+            }
+            if self.introduceVM.isNotInternet {
+                checkErrorView(text: "인터넷 연결이 되지 \n 않았습니다.", isAlert: self.$introduceVM.isNotInternet)
+            }
+        }
+        
+        .onAppear {
             self.settings.isNav = true
         }
         .navigationBarTitle("취업처 소개", displayMode: .inline)

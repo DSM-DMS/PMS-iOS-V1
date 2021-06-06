@@ -26,6 +26,7 @@ struct OutsideDetailView: View {
                 }.padding([.top, .bottom], 10)
             }
         }.onAppear {
+            self.mypageVM.apply(.getOutside)
             self.settings.isNav = true
         }
         .navigationBarTitle("외출 내역", displayMode: .inline)
@@ -41,7 +42,7 @@ struct OutsideDetailView: View {
     }
 }
 
-struct OutsideDetailView_Previews: PreviewProvider {
+ struct OutsideDetailView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             OutsideDetailView()
@@ -52,7 +53,7 @@ struct OutsideDetailView_Previews: PreviewProvider {
                 .previewDisplayName("iPhone 8")
         }
     }
-}
+ }
 
 struct OutsideRow: View {
     var date: String

@@ -30,8 +30,8 @@ struct SignupView: View {
                     TitleTextView(text: "회원가입")
                         .padding(.bottom, self.edges!.bottom == 0 ? 15 : 50)
                     VStack(spacing: 30) {
-                        CustomTextField(isLogin: false, text: self.$signupVM.nickname, placeholder: "닉네임을 입력해주세요", image: GEImage.nicknamePencil)
-                        CustomTextField(isLogin: false, text: self.$signupVM.id, placeholder: "이메일을 입력해주세요", image: GEImage.person)
+                        CustomTextField(isLogin: false, text: self.$signupVM.nickname, placeholder: "닉네임을 입력해주세요", image: GEImage.nicknamePencil, errorMsg: .constant(""))
+                        CustomTextField(isLogin: false, text: self.$signupVM.id, placeholder: "이메일을 입력해주세요", image: GEImage.person, errorMsg: self.$signupVM.emailErrorMsg)
                         PasswordTextField(isLogin: false, errorMsg: self.$signupVM.passwordErrorMsg, text: self.$signupVM.password, isHidden: self.$signupVM.isHidden)
                         CheckTextField(text: self.$signupVM.confirmPassword, isError: self.$signupVM.confirmIsError, placeholder: "비밀번호를 한번 더 입력해주세요", isChange: false, errorMsg: self.$signupVM.confirmErrorMsg)
                     }
@@ -57,6 +57,9 @@ struct SignupView: View {
             }
             if self.signupVM.isErrorAlert {
                 checkErrorView(text: "이메일 중복! 다른 이메일로 시도해주세요", isAlert: self.$signupVM.isErrorAlert)
+            }
+            if self.signupVM.isNotInternet == true {
+                checkErrorView(text: "인터넷 연결이 되지 \n 않았습니다.", isAlert: self.$signupVM.isNotInternet)
             }
             
             if self.signupVM.isSuccessAlert {
@@ -117,7 +120,7 @@ struct CheckTextField: View {
                 Spacer()
                 VStack {
                     if text != "" {
-                        GEImage.search
+                        GEImage.checkmark
                             .resizable()
                             .frame(width: 17, height: 20)
                             .foregroundColor(isError ? .red : .green)

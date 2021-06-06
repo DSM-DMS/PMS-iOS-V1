@@ -26,12 +26,13 @@ public class LoginRemoteDataSource: LoginRemoteDataSourceInterface {
         provider.requestPublisher(.login(email: email, password: password))
             .map(accessToken.self)
             .mapError { error -> GEError in
-                mapGEEror(error)
+                return mapGEEror(error)
             }.eraseToAnyPublisher()
     }
     
     public func register(email: String, password: String, name: String) -> AnyPublisher<Void, GEError> {
-        provider.requestVoidPublisher(.register(email: email, password: password, name: name))
+        provider.requestPublisher(.register(email: email, password: password, name: name))
+            .map { _ in () }
             .mapError { error -> GEError in
                 mapGEEror(error)
             }.eraseToAnyPublisher()

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 import domain
 import Moya
 
@@ -54,26 +55,26 @@ public class AuthDataRepo: AuthDomainRepoInterface {
         
     }
     
-    public func getStudent() {
+    public func getStudent() -> AnyPublisher<User, GEError> {
+        provider.requestPublisher(.getStudents)
+            .map(User.self)
+            .mapError { error in
+                return mapGEEror(error)
+            }.eraseToAnyPublisher()
+    }
+    
+    public func resetStudent() {
         provider.request(.getStudents) { result in
             switch result {
             case let .success(success):
                 let responseData = success.data
                 do {
-                    let user = try JSONDecoder().decode(User.self, from: responseData)
+                    var user = try JSONDecoder().decode(User.self, from: responseData)
                     UDManager.shared.name = user.name
                     if !user.students.isEmpty {
+                        user.students.sort { $0.number < $1.number }
                         let firstuser: String = String(user.students.first!.number) + " " + user.students.first!.name
                         UDManager.shared.currentStudent = firstuser
-                        print(firstuser)
-                        var studentsArray = [String]()
-                        for i in 0...user.students.count - 1 {
-                            studentsArray.append(String((user.students[i].number)) + " " + (user.students[i].name))
-                        }
-                        if !studentsArray.isEmpty {
-                            print(studentsArray)
-                            UDManager.shared.studentsArray = studentsArray
-                        }
                     }
                 } catch {
                     print("map error")

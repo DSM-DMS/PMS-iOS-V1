@@ -14,14 +14,14 @@ public struct Home: View {
     @EnvironmentObject var login: LoginSettings
     
     @State var index = 1
-    @State var offset: CGFloat = UIScreen.main.bounds.width
+    @State var offset: CGFloat = UIFrame.UIWidth
     
     var width = UIScreen.main.bounds.width
     var edges = UIApplication.shared.windows.first?.safeAreaInsets
     
-    @EnvironmentObject var mypageVM: MypageViewModel
-    
     var appDI: AppDIInterface
+    
+    @EnvironmentObject var mypageVM: MypageViewModel
     @ObservedObject var mealVM: MealViewModel
     @ObservedObject var noticeVM: NoticeViewModel
     @ObservedObject var calendarVM: CalendarViewModel
@@ -86,7 +86,7 @@ public struct Home: View {
                                 .onTapGesture {
                                     self.mypageVM.logoutAlert = false
                                     self.mypageVM.showLoginModal = true
-                                    UDManager.shared.isLogin = false
+                                    self.mypageVM.logout()
                                 }
                             Spacer()
                         }
@@ -97,6 +97,7 @@ public struct Home: View {
                     .modifier(alertBGModifier())
                 }.edgesIgnoringSafeArea([.top, .bottom])
             }
+            
             if self.mypageVM.nicknameAlert {
                 ZStack {
                     Color(.black).opacity(0.3)
@@ -207,9 +208,9 @@ public struct Home: View {
                                 Rectangle().foregroundColor(GEColor.white).frame(height: 10)
                             })
                     }
-                    
                 }.edgesIgnoringSafeArea([.top, .bottom])
             }
+            
             if self.mypageVM.studentCodeAlert {
                 ZStack {
                     Color(.black).opacity(0.3)
@@ -277,6 +278,9 @@ public struct Home: View {
                     .frame(width: UIFrame.UIWidth - 80)
                     .modifier(alertBGModifier())
                 }.edgesIgnoringSafeArea([.top, .bottom])
+            }
+            if self.mypageVM.isNotInternet {
+                checkErrorView(text: "인터넷 연결이 되지 \n 않았습니다.", isAlert: self.$mypageVM.isNotInternet)
             }
         }.onAppear {
             if #available(iOS 14, *) {

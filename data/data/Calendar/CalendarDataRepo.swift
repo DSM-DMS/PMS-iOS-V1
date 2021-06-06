@@ -17,9 +17,10 @@ public class CalendarDataRepo: CalendarInteractorInterface {
             .map(PMSCalendar.self)
             .mapError { error in
                 mapGEEror(error)
-            }.catch { _ in
-                return self.getLocalCalendar()
             }
+//            .catch { _ in
+//                return self.getLocalCalendar()
+//            }
             .eraseToAnyPublisher()
     }
     

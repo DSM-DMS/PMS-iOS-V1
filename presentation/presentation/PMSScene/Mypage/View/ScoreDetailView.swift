@@ -44,7 +44,7 @@ struct ScoreDetailView: View {
     }
 }
 
-struct ScoreDetailView_Previews: PreviewProvider {
+ struct ScoreDetailView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ScoreDetailView()
@@ -55,7 +55,7 @@ struct ScoreDetailView_Previews: PreviewProvider {
                 .previewDisplayName("iPhone 8")
         }
     }
-}
+ }
 
 struct ScoreRow: View {
     var text: String

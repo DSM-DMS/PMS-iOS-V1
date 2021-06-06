@@ -30,7 +30,7 @@ struct ChangePWView: View {
                 }
                 ButtonView(text: "확인", color: GEEColor.blue.rawValue)
                     .onTapGesture {
-                        self.mypageVM.apply(.changePassword)
+                        self.mypageVM.confirmAlert = true
                     }
             }
             .padding([.leading, .trailing], 30)
@@ -135,7 +135,7 @@ struct ChangePWTextField: View {
     }
 }
 
-struct ChangePWView_Previews: PreviewProvider {
+ struct ChangePWView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ChangePWView()
@@ -146,4 +146,4 @@ struct ChangePWView_Previews: PreviewProvider {
                 .previewDisplayName("iPhone 8")
         }
     }
-}
+ }

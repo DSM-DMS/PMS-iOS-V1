@@ -22,38 +22,44 @@ struct ClubView: View {
     }
     
     var body: some View {
-        ScrollView {
-            VStack {
-                HStack {
-                    VStack(alignment: .leading) {
-                        Text("자녀의 동아리")
-                            .foregroundColor(Color.gray)
-                        NavigationLink(destination: ClubDetailView(name: "DMS").environmentObject(introduceVM)) {
-                            IntroduceRectangle(image: "DMS", text: "DMS")
+        ZStack {
+            ScrollView {
+                VStack {
+                    HStack {
+                        VStack(alignment: .leading) {
+                            Text("자녀의 동아리")
+                                .foregroundColor(Color.gray)
+                            NavigationLink(destination: ClubDetailView(name: "DMS").environmentObject(introduceVM)) {
+                                IntroduceRectangle(image: "DMS", text: "DMS")
+                            }
                         }
+                        Spacer()
                     }
-                    Spacer()
-                }
+                    
+                    Divider()
+                        .padding([.top, .bottom], 10)
+                }.padding([.leading, .trailing], 30)
+                .padding(.top, 10)
                 
-                Divider()
-                    .padding([.top, .bottom], 10)
-            }.padding([.leading, .trailing], 30)
-            .padding(.top, 10)
-            
-            WaterfallGrid(introduceVM.clubList.clubs, id: \.self) { club in
-                NavigationLink(destination: ClubDetailView(name: club.name) .environmentObject(introduceVM)) {
-                    IntroduceRectangle(image: club.imageUrl, text: club.name)
-                        .padding(.bottom)
+                WaterfallGrid(introduceVM.clubList.clubs, id: \.self) { club in
+                    NavigationLink(destination: ClubDetailView(name: club.name) .environmentObject(introduceVM)) {
+                        IntroduceRectangle(image: club.imageUrl, text: club.name)
+                            .padding(.bottom)
+                    }
                 }
+                .gridStyle(
+                    columnsInPortrait: 2,
+                    columnsInLandscape: 3,
+                    spacing: 8,
+                    animation: .easeInOut(duration: 0.5)
+                )
+                .padding([.leading, .trailing])
             }
-            .gridStyle(
-                columnsInPortrait: 2,
-                columnsInLandscape: 3,
-                spacing: 8,
-                animation: .easeInOut(duration: 0.5)
-            )
-            .padding([.leading, .trailing])
-        }.onAppear {
+            if self.introduceVM.isNotInternet {
+                checkErrorView(text: "인터넷 연결이 되지 \n 않았습니다.", isAlert: self.$introduceVM.isNotInternet)
+            }
+        }
+        .onAppear {
             self.settings.isNav = true
             self.introduceVM.apply(.getClubList)
         }

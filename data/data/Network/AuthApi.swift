@@ -89,6 +89,8 @@ extension AuthApi: TargetType {
             return .requestParameters(parameters: ["number": number], encoding: JSONEncoding.default)
         case let .changeNickname(name):
             return .requestParameters(parameters: ["name": name], encoding: JSONEncoding.default)
+        case let.deleteStudent(number):
+            return .requestParameters(parameters: ["number": number], encoding: JSONEncoding.default)
         default:
             return .requestPlain
         }

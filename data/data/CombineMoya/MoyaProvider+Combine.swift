@@ -32,20 +32,6 @@ public extension MoyaProvider {
             }
             .eraseToAnyPublisher()
     }
-    
-    func requestVoidPublisher(_ target: Target, callbackQueue: DispatchQueue? = nil) -> AnyPublisher<Void, MoyaError> {
-        return MoyaPublisher { [weak self] subscriber in
-                return self?.request(target, callbackQueue: callbackQueue, progress: nil) { result in
-                    switch result {
-                    case .success:
-                        subscriber.receive(completion: .finished)
-                    case let .failure(error):
-                        subscriber.receive(completion: .failure(error))
-                    }
-                }
-            }
-            .eraseToAnyPublisher()
-    }
 
     /// Designated request-making method with progress.
     func requestWithProgressPublisher(_ target: Target, callbackQueue: DispatchQueue? = nil) -> AnyPublisher<ProgressResponse, MoyaError> {

@@ -11,5 +11,6 @@ public enum GEError: Error {
     case unauthorized
     case forbidden
     case notFound
+    case noInternet
     case error
 }

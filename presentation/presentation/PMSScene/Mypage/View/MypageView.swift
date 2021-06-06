@@ -28,7 +28,7 @@ struct MypageView: View {
                         VStack(spacing: 20) {
                             MypageTopView(nickname: self.mypageVM.nickname, student: self.$mypageVM.currentStudent, nicknameAlert: self.$nicknameAlert, studentAlert: self.$studentsAlert)
                             
-                            if !UDManager.shared.isLogin {
+                            if !UDManager.shared.isLogin || (UDManager.shared.currentStudent == nil) {
                                 TwoScoreView(plus: self.$mypageVM.plusScore, minus: self.$mypageVM.minusScore)
                             } else {
                                 NavigationLink(destination: ScoreDetailView()) {
@@ -94,9 +94,8 @@ struct MypageView: View {
                         Spacer()
                     }
                 }
-            }.onAppear {
-                self.mypageVM.apply(.onAppear)
             }
+            .onAppear { self.mypageVM.apply(.onAppear) }
             .sheet(isPresented: self.$mypageVM.showLoginModal) {
                 PMSView(appDI: appDI, loginVM: appDI.loginDependencies())
                     .onDisappear {
@@ -184,13 +183,13 @@ struct MypageTopView: View {
             Spacer()
             Button(action: {
                 if UDManager.shared.isLogin {
-                    withAnimation(.easeIn(duration: 0.1)) {
+                    withAnimation(.interactiveSpring()) {
                         self.studentAlert.toggle()
                     }
                 }
             }, label: {
                 HStack {
-                    Text(self.student)
+                    Text(!UDManager.shared.isLogin ? "학생추가" : self.student)
                         .font(.headline)
                         .foregroundColor(.white)
                     GEImage.bottomArrow
