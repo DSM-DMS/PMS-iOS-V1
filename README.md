@@ -1,8 +1,15 @@
 # PMS ![master](https://github.com/DSM-DMS/PMS-iOS-V1/actions/workflows/main.yml/badge.svg?branch=master)
 
-- SwiftUI
-- MVVM + Combine
-- Moya
-- Fastlane + Github Actions
+> PMS의 V1 버전입니다. 현재 PMS V2가 사용중입니다.
 
-📌 코드 무단 복사를 금지합니다. Don't copy my codes except for MIT License.
+## Technologies
+
+- [x] SwiftUI
+- [x] MVVM + Combine
+- [x] Fastlane + Github Actions
+
+## Requirements
+
+- iOS 13+
+- Swift 5
+- CocoaPods
